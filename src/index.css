@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  @apply font-poppins;
+}
+
+h1 {
+  @apply font-semibold text-6xl;
+}
+h2 {
+  @apply font-semibold text-45/sp;
+}
+h3 {
+  @apply font-semibold text-3xl;
+}
+
+/* utilities */
+.transition-200 {
+  @apply transition duration-200 ease-in-out;
+}
+
+.transition-all-200 {
+  @apply transition-all duration-200 ease-in-out;
+}
+
+/* button */
+.button-fill {
+  @apply text-lg font-semibold px-30/sp py-[16.5px] rounded-2xl bg-primary-900 hover:bg-primary-600 shadow-[0_4px_20px_0_#C9111B33];
+}
+
+.button-gradient {
+  @apply text-lg font-semibold px-30/sp py-[16.5px] rounded-2xl bg-gradient-to-bl from-orange-900 to-primary-900 hover:from-primary-900 hover:to-orange-900 shadow-[0_4px_20px_0_#C9111B33];
+}

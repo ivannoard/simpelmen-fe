@@ -2,6 +2,17 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    screens: {
+      xs: "480px",
+      "2xsm": "576px",
+      sm: "640px",
+      md: "768px",
+      xmd: "840px",
+      "2md": "960px",
+      lg: "1024px",
+      xl: "1216px",
+      "2xl": "1440px",
+    },
     extend: {
       colors: {
         success: "#21B630",
@@ -20,7 +31,8 @@ module.exports = {
         },
         orange: {
           900: "#ED7801",
-          600: "#F8CCA0",
+          600: "#F19A40",
+          400: "#F8CCA0",
         },
       },
       fontFamily: {
@@ -28,9 +40,11 @@ module.exports = {
       },
       spacing: {
         "30/sp": "1.875rem",
+        "100/sp": "100px",
       },
       fontSize: {
         "45/sp": "45px",
+        "15/sp": "15px",
       },
     },
   },

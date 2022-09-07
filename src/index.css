@@ -16,6 +16,10 @@ h3 {
   @apply font-semibold text-3xl;
 }
 
+.containers {
+  @apply container mx-auto max-w-screen-xl px-5 py-100/sp;
+}
+
 /* utilities */
 .transition-200 {
   @apply transition duration-200 ease-in-out;
@@ -27,9 +31,21 @@ h3 {
 
 /* button */
 .button-fill {
-  @apply text-lg font-semibold px-30/sp py-[16.5px] rounded-2xl bg-primary-900 hover:bg-primary-600 shadow-[0_4px_20px_0_#C9111B33];
+  @apply text-lg text-white font-semibold px-30/sp py-[16.5px] rounded-2xl bg-primary-900 hover:bg-primary-600 shadow-[0_4px_20px_0_#C9111B33];
 }
 
 .button-gradient {
-  @apply text-lg font-semibold px-30/sp py-[16.5px] rounded-2xl bg-gradient-to-bl from-orange-900 to-primary-900 hover:from-primary-900 hover:to-orange-900 shadow-[0_4px_20px_0_#C9111B33];
+  @apply text-lg text-white font-semibold px-30/sp py-[16.5px] rounded-2xl bg-gradient-to-bl from-orange-900 to-primary-900 hover:from-primary-900 hover:to-orange-900 shadow-[0_4px_20px_0_#C9111B33];
+}
+
+.button-white {
+  @apply text-lg text-dark font-semibold px-30/sp py-[16.5px] rounded-2xl bg-white hover:text-primary-900 shadow-[0_4px_20px_0_#C9111B33];
+}
+
+.button-fill-sm {
+  @apply text-15/sp text-white font-semibold px-5 py-[8.5px] rounded-2xl bg-primary-900 hover:bg-primary-600 shadow-[0_4px_20px_0_#C9111B33];
+}
+
+.btn-white-sm {
+  @apply text-15/sp text-dark font-semibold px-30/sp py-[8.5px] rounded-2xl bg-white hover:text-primary-900 shadow-[0_4px_20px_0_#C9111B33];
 }

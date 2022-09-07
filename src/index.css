@@ -3,17 +3,21 @@
 @tailwind utilities;
 
 * {
-  @apply font-poppins;
+  @apply font-poppins text-dark;
+}
+
+body {
+  @apply bg-white;
 }
 
 h1 {
-  @apply font-semibold text-6xl;
+  @apply font-bold text-6xl;
 }
 h2 {
-  @apply font-semibold text-45/sp;
+  @apply font-bold text-45/sp;
 }
 h3 {
-  @apply font-semibold text-3xl;
+  @apply font-bold text-3xl;
 }
 
 .containers {
@@ -48,4 +52,13 @@ h3 {
 
 .btn-white-sm {
   @apply text-15/sp text-dark font-semibold px-30/sp py-[8.5px] rounded-2xl bg-white hover:text-primary-900 shadow-[0_4px_20px_0_#C9111B33];
+}
+
+/* form */
+.input-field {
+  @apply w-full py-[.625rem] pr-[.625rem] pl-[3.75rem] rounded-2xl border-secondary-800 border-[.0313rem] leading-10 focus:outline-none focus:border-orange-900;
+}
+
+.input-password-field {
+  @apply w-full py-[.625rem] px-[3.75rem] rounded-2xl border-secondary-800 border-[.0313rem] leading-10 focus:outline-none focus:border-orange-900;
 }

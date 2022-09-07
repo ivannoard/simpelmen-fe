@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import AuthLayout from "./AuthLayout";
 
+import svg from "../../assets/svg";
 import { MdEmail, MdLock } from "react-icons/md";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 
@@ -9,7 +10,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   return (
     <>
-      <AuthLayout>
+      <AuthLayout images={svg.loginPage} altImages='woman-and-password-laptop'>
         <div className='w-full p-6 xs:p-12 2md:p-0 rounded-2xl shadow-[0_4px_20px_0_#00000029] 2md:shadow-none'>
           <h3 className='mb-2'>Selamat Datang Kembali!</h3>
           <p className='mb-7'>Silahkan masuk untuk mengakses akun Anda</p>
@@ -49,7 +50,7 @@ const Login = () => {
             </div>
             <p className='mb-8'>
               Lupa kata sandi?{" "}
-              <Link to='/' className='font-bold'>
+              <Link to='/forgot-password' className='font-bold'>
                 Klik disini
               </Link>
             </p>

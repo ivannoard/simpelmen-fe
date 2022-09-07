@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
-import svg from "../../assets/svg";
 import { HiOutlineArrowSmLeft } from "react-icons/hi";
 
-const AuthLayout = ({ children }) => {
+const AuthLayout = ({ children, images, altImages }) => {
   return (
     <>
       <main className='containers min-h-screen flex justify-center items-center'>
@@ -14,7 +13,7 @@ const AuthLayout = ({ children }) => {
               <HiOutlineArrowSmLeft className='text-2xl mr-3' />
               <span className='leading-10'>Kembali</span>
             </Link>
-            <img src={svg.loginPage} alt='woman-and-password-laptop' />
+            <img src={images} alt={altImages} />
           </div>
 
           <div className='2xsm:col-start-2 2md:col-start-8 col-span-4 2xsm:col-span-6 2md:col-span-5'>

@@ -39,12 +39,18 @@ module.exports = {
         poppins: ["Poppins", "sans-serif"],
       },
       spacing: {
-        "30/sp": "1.875rem",
+        "17/sp": "17px",
+        "18/sp": "18px",
+        "30/sp": "30px",
+        "60/sp": "60px",
         "100/sp": "100px",
       },
       fontSize: {
         "45/sp": "45px",
         "15/sp": "15px",
+      },
+      borderWidth: {
+        "0.5/sp": "0.5px",
       },
     },
   },

@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Auth/Login";
 import Dashboard from "./pages/Dashboard";
@@ -7,21 +7,67 @@ import WithoutFrame from "./components/global/WithoutFrame";
 import WithFrame from "./components/global/WithFrame";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import NewPassword from "./pages/Auth/NewPassword";
+import { useEffect } from "react";
+
+const ProtectingRoute = (props) => {
+  const navigate = useNavigate();
+  const user = localStorage.getItem("user");
+
+  useEffect(() => {
+    user ? navigate("/") : navigate("/login");
+  }, [user]);
+
+  return props.children;
+};
+
+const AuthenticatedRoute = (props) => {
+  const navigate = useNavigate();
+  const user = localStorage.getItem("user");
+
+  useEffect(() => {
+    !user ? navigate("/login") : navigate("/");
+  }, [user]);
+
+  return props.children;
+};
 
 function App() {
-  const user = true;
-  const RequireAuth = ({ children }) => {
-    return user ? children : <Navigate to="/login" />;
-  };
-
   return (
     <div className="App">
       <Routes>
         <Route element={<WithoutFrame />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/new-password" element={<NewPassword />} />
+          <Route
+            path="/login"
+            element={
+              <AuthenticatedRoute>
+                <Login />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <AuthenticatedRoute>
+                <Register />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/forgot-password"
+            element={
+              <AuthenticatedRoute>
+                <ForgotPassword />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/new-password"
+            element={
+              <AuthenticatedRoute>
+                <NewPassword />
+              </AuthenticatedRoute>
+            }
+          />
           <Route path="*" element="404 Not Found" />
         </Route>
         <Route element={<WithFrame />}>
@@ -29,9 +75,9 @@ function App() {
           <Route
             path="/dashboard"
             element={
-              <RequireAuth>
+              <ProtectingRoute>
                 <Dashboard />
-              </RequireAuth>
+              </ProtectingRoute>
             }
           />
         </Route>

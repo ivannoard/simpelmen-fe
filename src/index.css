@@ -2,50 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
+/* global */
 * {
-  @apply font-poppins;
+  @apply font-poppins text-dark;
+}
+
+body {
+  @apply bg-white;
 }
 
 h1 {
-  @apply font-semibold text-6xl;
+  @apply font-bold text-6xl leading-normal;
 }
 h2 {
-  @apply font-semibold text-45/sp;
+  @apply font-bold text-45/sp leading-normal;
 }
 h3 {
-  @apply font-semibold text-3xl;
+  @apply font-bold text-3xl leading-normal;
+}
+h4 {
+  @apply font-bold text-2xl leading-normal;
+}
+h5 {
+  @apply font-bold text-xl leading-normal;
+}
+h6 {
+  @apply font-bold text-lg leading-normal;
+}
+p {
+  @apply text-base leading-normal;
 }
 
+/* container */
 .containers {
-  @apply container mx-auto max-w-screen-xl px-5 py-100/sp;
+  @apply container mx-auto max-w-screen-xl px-18/sp xs:px-12 py-100/sp;
+}
+
+/* button */
+.button-fill {
+  @apply text-lg text-white font-semibold px-30/sp py-4 rounded-2xl bg-primary-900 hover:bg-primary-600 shadow-[0_4px_20px_0_#C9111B33];
+}
+.button-gradient {
+  @apply text-lg text-white font-semibold px-30/sp py-4 rounded-2xl bg-gradient-to-bl from-orange-900 to-primary-900 hover:from-primary-900 hover:to-orange-900 shadow-[0_4px_20px_0_#C9111B33];
+}
+.button-white {
+  @apply text-lg text-dark font-semibold px-30/sp py-4 rounded-2xl bg-white hover:text-primary-900 shadow-[0_4px_20px_0_#C9111B33];
+}
+
+.button-fill-sm {
+  @apply text-15/sp text-white font-semibold px-5 py-2 rounded-2xl bg-primary-900 hover:bg-primary-600 shadow-[0_4px_20px_0_#C9111B33];
+}
+.btn-white-sm {
+  @apply text-15/sp text-dark font-semibold px-30/sp py-2 rounded-2xl bg-white hover:text-primary-900 shadow-[0_4px_20px_0_#C9111B33];
+}
+
+/* form */
+.input-field {
+  @apply w-full py-4 pr-6 pl-14 rounded-2xl border-secondary-800 border-0.5/sp focus:outline-none focus:border-orange-900;
+}
+.input-password-field {
+  @apply w-full py-4 px-14 rounded-2xl border-secondary-800 border-0.5/sp focus:outline-none focus:border-orange-900;
 }
 
 /* utilities */
 .transition-200 {
   @apply transition duration-200 ease-in-out;
 }
-
 .transition-all-200 {
   @apply transition-all duration-200 ease-in-out;
-}
-
-/* button */
-.button-fill {
-  @apply text-lg text-white font-semibold px-30/sp py-[16.5px] rounded-2xl bg-primary-900 hover:bg-primary-600 shadow-[0_4px_20px_0_#C9111B33];
-}
-
-.button-gradient {
-  @apply text-lg text-white font-semibold px-30/sp py-[16.5px] rounded-2xl bg-gradient-to-bl from-orange-900 to-primary-900 hover:from-primary-900 hover:to-orange-900 shadow-[0_4px_20px_0_#C9111B33];
-}
-
-.button-white {
-  @apply text-lg text-dark font-semibold px-30/sp py-[16.5px] rounded-2xl bg-white hover:text-primary-900 shadow-[0_4px_20px_0_#C9111B33];
-}
-
-.button-fill-sm {
-  @apply text-15/sp text-white font-semibold px-5 py-[8.5px] rounded-2xl bg-primary-900 hover:bg-primary-600 shadow-[0_4px_20px_0_#C9111B33];
-}
-
-.btn-white-sm {
-  @apply text-15/sp text-dark font-semibold px-30/sp py-[8.5px] rounded-2xl bg-white hover:text-primary-900 shadow-[0_4px_20px_0_#C9111B33];
 }

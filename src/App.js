@@ -5,23 +5,34 @@ import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Auth/Register";
 import WithoutFrame from "./components/global/WithoutFrame";
 import WithFrame from "./components/global/WithFrame";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import NewPassword from "./pages/Auth/NewPassword";
 
 function App() {
-  const user = localStorage.getItem('user')
+  const user = localStorage.getItem("user");
   const RequireAuth = ({ children }) => {
-    return user !== null ? children : <Navigate to='/login' />
-  }
+    return user !== null ? children : <Navigate to='/login' />;
+  };
   return (
     <div className='App'>
       <Routes>
         <Route element={<WithoutFrame />}>
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/new-password' element={<NewPassword />} />
           <Route path='*' element='404 Not Found' />
         </Route>
         <Route element={<WithFrame />}>
           <Route path='/' element={<Home />} />
-          <Route path='/dashboard' element={<RequireAuth><Dashboard /></RequireAuth>} />
+          <Route
+            path='/dashboard'
+            element={
+              <RequireAuth>
+                <Dashboard />
+              </RequireAuth>
+            }
+          />
         </Route>
       </Routes>
     </div>

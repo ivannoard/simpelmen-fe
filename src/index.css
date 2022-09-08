@@ -58,10 +58,10 @@ p {
 
 /* form */
 .input-field {
-  @apply w-full py-4 pr-6 pl-14 rounded-2xl border-secondary-800 border-0.5/sp focus:outline-none focus:border-orange-900;
+  @apply w-full bg-white py-4 pr-6 pl-14 rounded-2xl border-secondary-800 border focus:outline-none focus:border-orange-900;
 }
 .input-password-field {
-  @apply w-full py-4 px-14 rounded-2xl border-secondary-800 border-0.5/sp focus:outline-none focus:border-orange-900;
+  @apply w-full bg-white py-4 px-14 rounded-2xl border-secondary-800 border focus:outline-none focus:border-orange-900;
 }
 
 /* utilities */

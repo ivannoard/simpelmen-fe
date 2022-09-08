@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AuthLayout from "./AuthLayout";
+import AuthLayout from "./components/AuthLayout";
 
 import svg from "../../assets/svg";
 import { MdLock } from "react-icons/md";

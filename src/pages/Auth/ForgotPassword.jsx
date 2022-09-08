@@ -1,5 +1,5 @@
 import React from "react";
-import AuthLayout from "./AuthLayout";
+import AuthLayout from "./components/AuthLayout";
 
 import svg from "../../assets/svg";
 import { MdEmail } from "react-icons/md";

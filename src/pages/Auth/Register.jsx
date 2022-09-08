@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import Alerts from "../../components/Alerts";
+import AuthLayout from "./components/AuthLayout";
+
 import svg from "../../assets/svg";
 import { MdEmail, MdLock } from "react-icons/md";
 import { BsFillPersonFill } from "react-icons/bs";
 import { AiFillPhone } from "react-icons/ai";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
-import { HiArrowLeft } from "react-icons/hi";
-import axios from "axios";
-import Alerts from "../../components/Alerts";
-import AuthLayout from "./AuthLayout";
 
 const Register = () => {
   const [togglePassword, setTogglePassword] = useState(false);
@@ -57,131 +57,116 @@ const Register = () => {
 
   return (
     <>
-      <AuthLayout images={svg.registerPage} altImages="woman-and-handphone">
+      <AuthLayout images={svg.registerPage} altImages='woman-and-handphone'>
         {alerts && (
           <Alerts
-            path="/login"
-            background="bg-green-100"
-            textColor="text-green-600"
-            textContent="Berhasil Daftar"
-            closeButton="true"
+            path='/login'
+            background='bg-green-100'
+            textColor='text-green-600'
+            textContent='Berhasil Daftar'
+            closeButton='true'
           />
         )}
-        <div className="form-content w-full p-6 xs:p-12 2md:p-0 rounded-2xl shadow-[0_4px_20px_0_#00000029] 2md:shadow-none">
-          <h2 className="text-[30px]">Daftar Akun</h2>
-          <p className="text-[15px]">Silahkan daftar akun agar dapat masuk</p>
-          <form className="flex flex-col gap-4 mt-7" onSubmit={handleSubmit}>
-            <div className="register-input relative">
+        <div className='form-content w-full p-6 xs:p-12 2md:p-0 rounded-2xl shadow-[0_4px_20px_0_#00000029] 2md:shadow-none'>
+          <h3 className='mb-1'>Daftar Akun</h3>
+          <p className='mb-7'>Silahkan daftar akun agar dapat masuk</p>
+          <form className='flex flex-col gap-4 mb-8' onSubmit={handleSubmit}>
+            <div className='relative'>
               <input
-                type="text"
-                name="username"
+                type='text'
+                name='username'
                 onChange={handleChange}
                 required
-                autoComplete="off"
-                placeholder="Nama Lengkap"
-                className="rounded-2xl border leading-10 bg-white w-full py-[10px] pl-[60px] outline-none focus:border-orange-900"
+                autoComplete='off'
+                placeholder='Nama Lengkap'
+                className='input-field'
               />
-              <BsFillPersonFill className="absolute top-5 left-5 text-2xl text-secondary-800" />
+              <BsFillPersonFill className='absolute text-2xl top-17/sp left-5 fill-secondary-800' />
             </div>
-            <div className="register-input relative">
+            <div className='relative'>
               <input
-                type="email"
-                name="email"
+                type='email'
+                name='email'
                 required
-                autoComplete="off"
+                autoComplete='off'
                 onChange={handleChange}
-                placeholder="Email"
-                className="rounded-2xl border leading-10 bg-white w-full py-[10px] pl-[60px] outline-none focus:border-orange-900"
+                placeholder='Email'
+                className='input-field'
               />
-              <MdEmail className="absolute top-5 left-5 text-2xl text-secondary-800" />
+              <MdEmail className='absolute text-2xl top-17/sp left-5 fill-secondary-800' />
             </div>
-            <div className="register-input relative">
+            <div className='relative'>
               <input
-                type="telp"
-                name="telp"
+                type='telp'
+                name='telp'
                 required
-                autoComplete="off"
+                autoComplete='off'
                 onChange={handleChange}
-                placeholder="No. Handphone"
-                className="rounded-2xl border leading-10 bg-white w-full py-[10px] pl-[60px] outline-none focus:border-orange-900"
+                placeholder='No. Handphone'
+                className='input-field'
               />
-              <AiFillPhone className="absolute top-5 left-5 text-2xl text-secondary-800" />
+              <AiFillPhone className='absolute text-2xl top-17/sp left-5 fill-secondary-800' />
             </div>
-            <div className="register-input relative">
+            <div className='relative'>
               <input
                 type={!togglePassword ? "password" : "text"}
-                name="password"
+                name='password'
                 onChange={handleChange}
                 required
-                autoComplete="off"
-                placeholder="Kata Sandi"
-                className="rounded-2xl border leading-10 bg-white w-full py-[10px] pl-[60px] outline-none focus:border-orange-900"
+                autoComplete='off'
+                placeholder='Kata Sandi'
+                className='input-password-field'
               />
-              <MdLock className="absolute top-5 left-5 text-2xl text-secondary-800" />
+              <MdLock className='absolute text-2xl top-17/sp left-5 fill-secondary-800' />
               {!togglePassword ? (
                 <VscEye
                   onClick={() => setTogglePassword(!togglePassword)}
-                  className="absolute top-5 right-5 text-2xl text-secondary-800 cursor-pointer"
+                  className='absolute text-2xl top-17/sp right-5 fill-secondary-800 cursor-pointer'
                 />
               ) : (
                 <VscEyeClosed
                   onClick={() => setTogglePassword(!togglePassword)}
-                  className="absolute top-5 right-5 text-2xl text-secondary-800 cursor-pointer"
+                  className='absolute text-2xl top-17/sp right-5 fill-secondary-800 cursor-pointer'
                 />
               )}
             </div>
-            <div className="register-input relative">
+            <div className='relative'>
               <input
                 type={!toggleConfirmPassword ? "password" : "text"}
-                name="confirmPassword"
+                name='confirmPassword'
                 onChange={handleChange}
                 required
-                autoComplete="off"
-                placeholder="Konfirmasi Kata Sandi"
-                className="rounded-2xl border leading-10 bg-white w-full py-[10px] pl-[60px] outline-none focus:border-orange-900"
+                autoComplete='off'
+                placeholder='Konfirmasi Kata Sandi'
+                className='input-password-field'
               />
-              <MdLock className="absolute top-5 left-5 text-2xl text-secondary-800" />
+              <MdLock className='absolute text-2xl top-17/sp left-5 fill-secondary-800' />
               {!toggleConfirmPassword ? (
                 <VscEye
                   onClick={() =>
                     setToggleConfirmPassword(!toggleConfirmPassword)
                   }
-                  className="absolute top-5 right-5 text-2xl text-secondary-800 cursor-pointer"
+                  className='absolute text-2xl top-17/sp right-5 fill-secondary-800 cursor-pointer'
                 />
               ) : (
                 <VscEyeClosed
                   onClick={() =>
                     setToggleConfirmPassword(!toggleConfirmPassword)
                   }
-                  className="absolute top-5 right-5 text-2xl text-secondary-800 cursor-pointer"
+                  className='absolute text-2xl top-17/sp right-5 fill-secondary-800 cursor-pointer'
                 />
               )}
             </div>
-            <button className="button-fill w-full mt-8">Daftar</button>
+            <button className='button-fill transition-200 mt-4'>Daftar</button>
           </form>
-          <p className="text-center mt-8">
+          <p className='text-center'>
             Sudah mempunyai akun?{" "}
-            <Link to="/login">
+            <Link to='/login'>
               <strong>Masuk</strong>
             </Link>
           </p>
         </div>
       </AuthLayout>
-      {/* <main className="containers">
-
-        <div className="w-full grid grid-cols-12 gap-x-8">
-          <div className="col-span-6">
-            <Link to="/">
-              <div className="flex items-center gap-6 mb-4">
-                <HiArrowLeft />
-                <p>Kembali</p>
-              </div>
-            </Link>
-            <img src={svg.registerPage} alt="woman-and-handphone" />
-          </div>
-          
-        </div>
-      </main> */}
     </>
   );
 };

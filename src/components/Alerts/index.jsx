@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineClose } from "react-icons/md";
 
-const Alerts = ({ path, background, textColor, textContent }) => {
+const Alerts = ({ path, background, textColor, textContent, closeButton }) => {
   const [close, setClose] = useState(true);
   const navigate = useNavigate();
   const handleClose = (e) => {
@@ -20,9 +20,11 @@ const Alerts = ({ path, background, textColor, textContent }) => {
       role="alert"
     >
       <span className="font-medium">{textContent}</span>
-      <button onClick={(e) => handleClose(e)}>
-        <MdOutlineClose size={20} />
-      </button>
+      {closeButton && (
+        <button onClick={(e) => handleClose(e)}>
+          <MdOutlineClose size={20} />
+        </button>
+      )}
     </div>
   );
 };

@@ -9,24 +9,25 @@ import ForgotPassword from "./pages/Auth/ForgotPassword";
 import NewPassword from "./pages/Auth/NewPassword";
 
 function App() {
-  const user = localStorage.getItem("user");
+  const user = true;
   const RequireAuth = ({ children }) => {
-    return user !== null ? children : <Navigate to='/login' />;
+    return user ? children : <Navigate to="/login" />;
   };
+
   return (
-    <div className='App'>
+    <div className="App">
       <Routes>
         <Route element={<WithoutFrame />}>
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/forgot-password' element={<ForgotPassword />} />
-          <Route path='/new-password' element={<NewPassword />} />
-          <Route path='*' element='404 Not Found' />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/new-password" element={<NewPassword />} />
+          <Route path="*" element="404 Not Found" />
         </Route>
         <Route element={<WithFrame />}>
-          <Route path='/' element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route
-            path='/dashboard'
+            path="/dashboard"
             element={
               <RequireAuth>
                 <Dashboard />

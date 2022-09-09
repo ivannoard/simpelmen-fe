@@ -13,8 +13,8 @@ const Navbar = () => {
     navigate("/");
   };
   return (
-    <div className="Navbar w-full shadow-md">
-      <div className="containers items-center justify-between bg-white !py-[10px] md:!py-[20px] grid grid-cols-12">
+    <div className="Navbar w-full shadow-md bg-white">
+      <div className="containers items-center justify-between  !py-[10px] md:!py-[20px] grid grid-cols-12">
         <div
           className="col-span-6 2xsm:col-span-8 lg:max-w-[4.5rem] md:col-span-1 cursor-pointer"
           onClick={() => navigate("/")}

@@ -1,7 +1,7 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import Footer from '../Footer'
-import Navbar from '../Navbar'
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Footer from "../Footer";
+import Navbar from "../Navbar";
 
 const WithFrame = () => {
   return (
@@ -10,7 +10,7 @@ const WithFrame = () => {
       <Outlet />
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default WithFrame
+export default WithFrame;

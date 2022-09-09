@@ -14,7 +14,7 @@ const ProtectingRoute = (props) => {
   const user = localStorage.getItem("user");
 
   useEffect(() => {
-    user ? navigate("/") : navigate("/login");
+    user ? navigate("/dashboard") : navigate("/login");
   }, [user]);
 
   return props.children;

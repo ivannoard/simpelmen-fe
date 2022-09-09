@@ -7,10 +7,18 @@ import { Link, useNavigate } from "react-router-dom";
 const Navbar = () => {
   const user = localStorage.getItem("user");
   const navigate = useNavigate();
+
+  const handleLogout = (e) => {
+    localStorage.removeItem("user");
+    navigate("/");
+  };
   return (
     <div className="Navbar w-full shadow-md">
-      <div className="containers items-center justify-between bg-white !py-[20px] grid grid-cols-12">
-        <div className="col-span-6 2xsm:col-span-8 lg:max-w-[4.5rem] md:col-span-1">
+      <div className="containers items-center justify-between bg-white !py-[10px] md:!py-[20px] grid grid-cols-12">
+        <div
+          className="col-span-6 2xsm:col-span-8 lg:max-w-[4.5rem] md:col-span-1 cursor-pointer"
+          onClick={() => navigate("/")}
+        >
           <img
             src={svg.logoSimpelmen}
             alt="simplemen-brand-logo"
@@ -70,8 +78,22 @@ const Navbar = () => {
                     as="div"
                     className="absolute flex flex-col gap-y-3 shadow-md top-14 p-3 border right-0 bg-white rounded-md w-[250px]"
                   >
-                    <Menu.Item as="div">Dashboard</Menu.Item>
-                    <Menu.Item as="div">Logout</Menu.Item>
+                    <Menu.Item as="div">
+                      <p
+                        onClick={() => navigate("/dashboard")}
+                        className="cursor-pointer hover:text-primary-900"
+                      >
+                        Dashboard
+                      </p>
+                    </Menu.Item>
+                    <Menu.Item as="div">
+                      <p
+                        onClick={(e) => handleLogout(e)}
+                        className="cursor-pointer hover:text-primary-900"
+                      >
+                        Logout
+                      </p>
+                    </Menu.Item>
                   </Menu.Items>
                 </Transition>
               </Menu>
@@ -119,7 +141,7 @@ const Navbar = () => {
                 <Menu.Item as="div">
                   {!user && (
                     <Link to="/login">
-                      <button className="button-fill w-full !py-[0.5px]">
+                      <button className="bg-primary-900 text-white rounded-md !py-[0.5px] w-1/2 ">
                         Masuk
                       </button>
                     </Link>

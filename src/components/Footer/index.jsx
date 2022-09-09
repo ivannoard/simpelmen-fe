@@ -23,9 +23,9 @@ const Footer = () => {
   ];
   return (
     <>
-      <footer className='w-full bg-secondary-600'>
+      <footer className='w-full bg-warning'>
         <section className='containers !pt-20 !pb-8'>
-          <div className='w-full grid grid-cols-4 2xsm:grid-cols-8 lg:flex lg:justify-between gap-x-4 2xsm:gap-x-12 lg:gap-x-16 gap-y-4 2xsm:gap-y-6 mb-8'>
+          <div className='w-full grid grid-cols-4 2xsm:grid-cols-8 lg:flex lg:justify-between gap-x-4 2xsm:gap-x-12 lg:gap-x-16 gap-y-4 2xsm:gap-y-6 mb-8 pt-8 border-t border-t-orange-900'>
             <div className='col-span-4 2xsm:col-span-8 lg:max-w-[4.5rem]'>
               <img
                 src={svg.logoSimpelmen}
@@ -67,7 +67,7 @@ const Footer = () => {
               </a>
             ))}
           </div>
-          <p className='text-center text-sm'>
+          <p className='text-center text-xs xs:text-sm'>
             &copy; 2022 BIKDK Provinsi Jawa Tengah. All Rights Reserved.
           </p>
         </section>

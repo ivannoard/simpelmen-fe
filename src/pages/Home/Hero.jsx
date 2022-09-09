@@ -10,8 +10,8 @@ const Hero = () => {
           alt=""
           className="absolute top-0 -z-10 left-0 right-0 mx-auto"
         />
-        <div className="containers !py-8 md:!py-100/sp md:px-18/sp flex flex-wrap flex-col-reverse md:grid md:grid-cols-12">
-          <div className="w-full self-center md:col-span-7">
+        <div className="containers flex flex-wrap flex-col-reverse md:grid md:grid-cols-12">
+          <div className="w-full self-center md:col-span-6">
             <h1 className="!text-3xl md:!text-6xl md:mb-4">Simpelmenoke</h1>
             <p className="!text-lg md:!text-[30px]">
               Sistem Informasi Pelayanan Manajemen Order Kemasan
@@ -20,7 +20,7 @@ const Hero = () => {
               Pesan Sekarang
             </button>
           </div>
-          <div className="w-full md:col-span-5">
+          <div className="w-full md:col-span-6">
             <img
               src={svg.heroImage}
               alt="woman-with-creditcard"

@@ -25,7 +25,7 @@ const OurProduct = () => {
                 <p>Karton</p>
                 <h3 className="!text-lg md:!text-3xl md:mb-3">Box A1 Pound</h3>
                 <Link to={`/detail-produk/${item}`}>
-                  <button className="button-fill-sm !px-4 !py-2 !text-[10px] md:!px-30/sp md:!py-4 md:!text-lg">
+                  <button className="button-fill-sm !px-4 !py-1 !text-[10px] md:!px-30/sp md:!py-4 md:!text-lg">
                     Lihat Produk
                   </button>
                 </Link>

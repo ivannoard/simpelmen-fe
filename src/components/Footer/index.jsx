@@ -29,12 +29,12 @@ const Footer = () => {
             <div className='col-span-4 2xsm:col-span-8 lg:max-w-[4.5rem]'>
               <img
                 src={svg.logoSimpelmen}
-                alt='simplemen-brand-logo'
-                className='block lg:w-full h-[3rem] lg:h-auto'
+                alt="simplemen-brand-logo"
+                className="block lg:w-full h-[3rem] lg:h-auto"
               />
             </div>
-            <div className='col-span-4'>
-              <p className='font-bold mb-1 xs:mb-2'>
+            <div className="col-span-4">
+              <p className="font-bold mb-1 xs:mb-2">
                 Balai Industri Kreatif Digital dan Kemasan
               </p>
               <p>
@@ -42,28 +42,28 @@ const Footer = () => {
                 Kota Semarang, Jawa Tengah 50241
               </p>
             </div>
-            <div className='col-span-4'>
-              <p className='font-bold mb-1 xs:mb-2'>Kontak</p>
+            <div className="col-span-4">
+              <p className="font-bold mb-1 xs:mb-2">Kontak</p>
               <p>(024) 845-1775</p>
               <p>bikdkprovjateng@gmail.com</p>
             </div>
-            <div className='lg:min-w-[300px] col-span-4'>
-              <p className='font-bold mb-1 xs:mb-2'>Jam Kerja</p>
+            <div className="lg:min-w-[300px] col-span-4">
+              <p className="font-bold mb-1 xs:mb-2">Jam Kerja</p>
               <p>Senin &#8211; Kamis : 07.00 &#8211; 15.30</p>
               <p>Jum&apos;at : 07.00 &#8211; 14.00</p>
               <p>Sabtu, Minggu, Hari Besar : Tutup</p>
             </div>
           </div>
-          <div className='mb-8 flex items-center justify-center gap-x-5'>
+          <div className="mb-8 flex items-center justify-center gap-x-5">
             {iconLink.map((item, index) => (
               <a
                 href={item.link}
-                target='_blank'
-                rel='noreferrer'
+                target="_blank"
+                rel="noreferrer"
                 key={index}
-                className='w-8 h-8 flex items-center justify-center'
+                className="w-8 h-8 flex items-center justify-center"
               >
-                <img src={item.icon} alt='social-media-icon' />
+                <img src={item.icon} alt="social-media-icon" />
               </a>
             ))}
           </div>

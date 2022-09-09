@@ -1,16 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import FlowOrder from "./FlowOrder";
+import Hero from "./Hero";
+import OurProduct from "./OurProduct";
+import PAD from "./PAD";
+import WhyUs from "./WhyUs";
 
 const Home = () => {
   return (
     <>
       <main>
-        <section className='containers'>
-          <h1>Welcome From Home</h1>
-          <Link to='/login' className='button-fill'>
-            Login
-          </Link>
-        </section>
+        <Hero />
+        <WhyUs />
+        <FlowOrder />
+        <OurProduct />
+        <PAD />
       </main>
     </>
   );

@@ -2,6 +2,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Auth/Login";
 import Dashboard from "./pages/Dashboard";
+import DetailProduct from "./pages/DetailProduct/DetailProduct";
 import Register from "./pages/Auth/Register";
 import WithoutFrame from "./components/global/WithoutFrame";
 import WithFrame from "./components/global/WithFrame";
@@ -72,6 +73,7 @@ function App() {
         </Route>
         <Route element={<WithFrame />}>
           <Route path="/" element={<Home />} />
+          <Route path="/detail-produk/:productId" element={<DetailProduct />} />
           <Route
             path="/dashboard"
             element={

@@ -4,7 +4,7 @@ import svg from "../../assets/svg";
 const WhyUs = () => {
   return (
     <>
-      <section className="containers grid grid-cols-3 gap-8">
+      <section className="containers !py-8 grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="card bg-white rounded-2xl p-8 text-center shadow-[0_4px_20px_0_#C9111B33]">
           <img
             src={svg.savingMoney}

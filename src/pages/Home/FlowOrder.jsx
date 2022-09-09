@@ -8,7 +8,7 @@ const FlowOrder = () => {
         <p className="text-3xl text-orange-900 font-bold text-center">
           Alur Pemesanan
         </p>
-        <div className="grid grid-cols-4 my-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 my-10">
           <div className="card text-center">
             <div className="relative">
               <img
@@ -16,8 +16,8 @@ const FlowOrder = () => {
                 alt="pilih-produk"
                 className="w-[205px] h-[211px] mx-auto"
               />
-              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[100px] h-[100px] bg-orange-400 rounded-full">
-                <h1>1</h1>
+              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[50px] h-[50px] md:w-[100px] md:h-[100px] bg-orange-400 rounded-full">
+                <h1 className="!text-[25px] md:!text-6xl">1</h1>
               </div>
             </div>
             <h6 className="mt-5">Pilih Produk</h6>
@@ -29,8 +29,8 @@ const FlowOrder = () => {
                 alt="pilih-produk"
                 className="w-[205px] h-[211px] mx-auto"
               />
-              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[100px] h-[100px] bg-orange-400 rounded-full">
-                <h1>2</h1>
+              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[50px] h-[50px] md:w-[100px] md:h-[100px] bg-orange-400 rounded-full">
+                <h1 className="!text-[25px] md:!text-6xl">2</h1>
               </div>
             </div>
             <h6 className="mt-5">Pilih Spesifikasi Produk</h6>
@@ -42,8 +42,8 @@ const FlowOrder = () => {
                 alt="pilih-produk"
                 className="w-[205px] h-[211px] mx-auto"
               />
-              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[100px] h-[100px] bg-orange-400 rounded-full">
-                <h1>3</h1>
+              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[50px] h-[50px] md:w-[100px] md:h-[100px] bg-orange-400 rounded-full">
+                <h1 className="!text-[25px] md:!text-6xl">3</h1>
               </div>
             </div>
             <h6 className="mt-5">Masukkan Keranjang</h6>
@@ -55,8 +55,8 @@ const FlowOrder = () => {
                 alt="pilih-produk"
                 className="w-[205px] h-[211px] mx-auto"
               />
-              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[100px] h-[100px] bg-orange-400 rounded-full">
-                <h1>4</h1>
+              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[50px] h-[50px] md:w-[100px] md:h-[100px] bg-orange-400 rounded-full">
+                <h1 className="!text-[25px] md:!text-6xl">4</h1>
               </div>
             </div>
             <h6 className="mt-5">Pesan</h6>
@@ -68,8 +68,8 @@ const FlowOrder = () => {
                 alt="pilih-produk"
                 className="w-[205px] h-[211px] mx-auto"
               />
-              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[100px] h-[100px] bg-orange-400 rounded-full">
-                <h1>5</h1>
+              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[50px] h-[50px] md:w-[100px] md:h-[100px] bg-orange-400 rounded-full">
+                <h1 className="!text-[25px] md:!text-6xl">5</h1>
               </div>
             </div>
             <h6 className="mt-5">Persetujuan Pesanan</h6>
@@ -81,8 +81,8 @@ const FlowOrder = () => {
                 alt="pilih-produk"
                 className="w-[205px] h-[211px] mx-auto"
               />
-              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[100px] h-[100px] bg-orange-400 rounded-full">
-                <h1>6</h1>
+              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[50px] h-[50px] md:w-[100px] md:h-[100px] bg-orange-400 rounded-full">
+                <h1 className="!text-[25px] md:!text-6xl">6</h1>
               </div>
             </div>
             <h6 className="mt-5">Desain</h6>
@@ -94,8 +94,8 @@ const FlowOrder = () => {
                 alt="pilih-produk"
                 className="w-[205px] h-[211px] mx-auto"
               />
-              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[100px] h-[100px] bg-orange-400 rounded-full">
-                <h1>7</h1>
+              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[50px] h-[50px] md:w-[100px] md:h-[100px] bg-orange-400 rounded-full">
+                <h1 className="!text-[25px] md:!text-6xl">7</h1>
               </div>
             </div>
             <h6 className="mt-5">Produksi</h6>
@@ -107,8 +107,8 @@ const FlowOrder = () => {
                 alt="pilih-produk"
                 className="w-[205px] h-[211px] mx-auto"
               />
-              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[100px] h-[100px] bg-orange-400 rounded-full">
-                <h1>8</h1>
+              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[50px] h-[50px] md:w-[100px] md:h-[100px] bg-orange-400 rounded-full">
+                <h1 className="!text-[25px] md:!text-6xl">8</h1>
               </div>
             </div>
             <h6 className="mt-5">Pengiriman</h6>

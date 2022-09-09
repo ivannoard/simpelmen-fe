@@ -50,10 +50,10 @@ p {
 }
 
 .button-fill-sm {
-  @apply text-15/sp text-white font-semibold px-5 py-2 rounded-2xl bg-primary-900 hover:bg-primary-600 shadow-[0_4px_20px_0_#C9111B33];
+  @apply text-base text-white font-semibold px-5 py-2 rounded-2xl bg-primary-900 hover:bg-primary-600 shadow-[0_4px_20px_0_#C9111B33];
 }
 .btn-white-sm {
-  @apply text-15/sp text-dark font-semibold px-30/sp py-2 rounded-2xl bg-white hover:text-primary-900 shadow-[0_4px_20px_0_#C9111B33];
+  @apply text-base text-dark font-semibold px-30/sp py-2 rounded-2xl bg-white hover:text-primary-900 shadow-[0_4px_20px_0_#C9111B33];
 }
 
 /* form */

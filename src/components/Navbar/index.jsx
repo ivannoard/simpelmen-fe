@@ -1,8 +1,11 @@
 import React, { Fragment } from "react";
-import svg from "../../assets/svg";
-import { FiMenu } from "react-icons/fi";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
-import { Link, useNavigate } from "react-router-dom";
+
+import svg from "../../assets/svg";
+import "./styles.css";
+import { HiChevronDown } from "react-icons/hi";
+import NavbarMobile from "./components/NavbarMobile";
 
 const Navbar = () => {
   const user = localStorage.getItem("user");
@@ -13,83 +16,70 @@ const Navbar = () => {
     navigate("/");
   };
   return (
-    <div className="Navbar w-full shadow-md">
-      <div className="containers items-center justify-between bg-white !py-[10px] md:!py-[20px] grid grid-cols-12">
-        <div
-          className="col-span-6 2xsm:col-span-8 lg:max-w-[4.5rem] md:col-span-1 cursor-pointer"
-          onClick={() => navigate("/")}
-        >
+    <nav className='w-full shadow-md fixed z-10'>
+      <div className='containers flex items-center justify-between bg-white !py-3 xmd:!py-6'>
+        <div className='cursor-pointer' onClick={() => navigate("/")}>
           <img
             src={svg.logoSimpelmen}
-            alt="simplemen-brand-logo"
-            className="block lg:w-full h-[3rem] lg:h-auto"
+            alt='simplemen-brand-logo'
+            className='block h-10'
           />
         </div>
-        <div className="col-span-11 hidden md:block">
-          <div className="flex justify-end gap-8 items-center">
-            <p
-              onClick={() => navigate("/")}
-              className="text-[15px] hover:text-primary-900 transition cursor-pointer"
-            >
+        <div className='hidden xmd:block'>
+          <div className='flex justify-end gap-8 items-center'>
+            <NavLink to='/' className='navlinks transition-200'>
               Beranda
-            </p>
-            <p
-              onClick={() => navigate("/produk-kemasan")}
-              className="text-[15px] hover:text-primary-900 transition cursor-pointer"
-            >
+            </NavLink>
+            <NavLink to='/produk-kemasan' className='navlinks transition-200'>
               Produk Kemasan
-            </p>
-            <p
-              onClick={() => navigate("/laporan")}
-              className="text-[15px] hover:text-primary-900 transition cursor-pointer"
-            >
+            </NavLink>
+            <NavLink to='/laporan' className='navlinks transition-200'>
               Laporan PAD
-            </p>
-            <p
-              onClick={() => navigate("/keranjang")}
-              className="text-[15px] hover:text-primary-900 transition cursor-pointer"
-            >
+            </NavLink>
+            <NavLink to='/keranjang' className='navlinks transition-200'>
               Keranjang
-            </p>
-            <Link to="/login">
-              <button
-                className={`button-fill ${
-                  user ? "hidden" : ""
-                } !py-[8px] !px-5 text-[15px]`}
-              >
-                Masuk
-              </button>
+            </NavLink>
+            <Link to='/login' className={`ml-4 ${user && "hidden"}`}>
+              <button className='button-fill-sm'>Masuk</button>
             </Link>
-            {user ? (
-              <Menu as="div" className="relative">
+            {user && (
+              <Menu as='div' className='relative'>
                 <Menu.Button>
-                  <h4>Username</h4>
+                  <div className='flex items-center ml-4'>
+                    <p className='text-15/sp font-semibold mr-2 max-w-[5.625rem] lg:max-w-none truncate'>
+                      Username
+                    </p>
+                    <HiChevronDown className='text-2xl' />
+                  </div>
                 </Menu.Button>
                 <Transition
                   as={Fragment}
-                  enter="transition ease-out duration-100"
-                  enterFrom="transform opacity-0 scale-95"
-                  enterTo="transform opacity-100 scale-100"
-                  leave="transition ease-in duration-75"
-                  leaveFrom="transform opacity-100 scale-100"
-                  leaveTo="transform opacity-0 scale-95"
+                  enter='transition ease-out duration-100'
+                  enterFrom='transform opacity-0 scale-95'
+                  enterTo='transform opacity-100 scale-100'
+                  leave='transition ease-in duration-75'
+                  leaveFrom='transform opacity-100 scale-100'
+                  leaveTo='transform opacity-0 scale-95'
                 >
                   <Menu.Items
-                    as="div"
-                    className="absolute flex flex-col gap-y-3 shadow-md top-14 p-3 border right-0 bg-white rounded-md w-[250px]"
+                    as='div'
+                    className='absolute flex flex-col shadow-md top-10 right-0 bg-white rounded-xl border w-40 overflow-hidden'
                   >
-                    <Menu.Item as="div">
+                    <Menu.Item as='div'>
                       <p
                         onClick={() => navigate("/dashboard")}
-                        className="cursor-pointer hover:text-primary-900"
+                        className='text-15/sp font-semibold px-30/sp py-3 cursor-pointer bg-white hover:bg-orange-400/60 transition-200'
+                        aria-label='button'
                       >
                         Dashboard
                       </p>
                     </Menu.Item>
-                    <Menu.Item as="div">
+                    <hr />
+                    <Menu.Item as='div'>
                       <p
                         onClick={(e) => handleLogout(e)}
-                        className="cursor-pointer hover:text-primary-900"
+                        className='text-15/sp font-semibold px-30/sp py-3 cursor-pointer bg-white hover:bg-orange-400/60 transition-200'
+                        aria-label='button'
                       >
                         Logout
                       </p>
@@ -97,72 +87,13 @@ const Navbar = () => {
                   </Menu.Items>
                 </Transition>
               </Menu>
-            ) : (
-              ""
             )}
           </div>
         </div>
-        <div className="col-span-6 2xsm:col-span-4 md:hidden ml-auto">
-          <Menu as="div" className="relative">
-            <Menu.Button>
-              <FiMenu size={25} className="cursor-pointer" />
-            </Menu.Button>
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
-            >
-              <Menu.Items
-                as="div"
-                className="absolute flex flex-col gap-y-3 shadow-md top-14 p-3 border right-0 bg-white rounded-md w-[250px]"
-              >
-                <Menu.Item as="div">
-                  <button onClick={() => navigate("/")}>Beranda</button>
-                </Menu.Item>
-                <Menu.Item as="div">
-                  <button onClick={() => navigate("/produk-kemasan")}>
-                    Produk Kemasan
-                  </button>
-                </Menu.Item>
-                <Menu.Item as="div">
-                  <button onClick={() => navigate("/laporan")}>
-                    Laporan PAD
-                  </button>
-                </Menu.Item>
-                <Menu.Item as="div">
-                  <button onClick={() => navigate("/keranjang")}>
-                    Keranjang
-                  </button>
-                </Menu.Item>
-                <Menu.Item as="div">
-                  {!user && (
-                    <Link to="/login">
-                      <button className="bg-primary-900 text-white rounded-md !py-[0.5px] w-1/2 ">
-                        Masuk
-                      </button>
-                    </Link>
-                  )}
-                  {user && (
-                    <div className="flex flex-col gap-2 pt-3 border-t-2">
-                      <Link to="/dashboard">
-                        <button>Dashboard</button>
-                      </Link>
-                      <Link to="/">
-                        <button>Logout</button>
-                      </Link>
-                    </div>
-                  )}
-                </Menu.Item>
-              </Menu.Items>
-            </Transition>
-          </Menu>
-        </div>
+
+        <NavbarMobile userLog={user} handleLogout={(e) => handleLogout(e)} />
       </div>
-    </div>
+    </nav>
   );
 };
 

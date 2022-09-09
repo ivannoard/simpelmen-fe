@@ -62,23 +62,19 @@ const Navbar = () => {
                   leaveTo='transform opacity-0 scale-95'
                 >
                   <Menu.Items
-                    as='div'
+                    as='nav'
                     className='absolute flex flex-col shadow-md top-10 right-0 bg-white rounded-xl border w-40 overflow-hidden'
                   >
                     <Menu.Item as='div'>
-                      <p
-                        onClick={() => navigate("/dashboard")}
-                        className='text-15/sp font-semibold px-30/sp py-3 cursor-pointer bg-white hover:bg-orange-400/60 transition-200'
-                        aria-label='button'
-                      >
+                      <NavLink to='/dashboard' className='navlink-mobile'>
                         Dashboard
-                      </p>
+                      </NavLink>
                     </Menu.Item>
                     <hr />
                     <Menu.Item as='div'>
                       <p
                         onClick={(e) => handleLogout(e)}
-                        className='text-15/sp font-semibold px-30/sp py-3 cursor-pointer bg-white hover:bg-orange-400/60 transition-200'
+                        className='navlink-mobile'
                         aria-label='button'
                       >
                         Logout

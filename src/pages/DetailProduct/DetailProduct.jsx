@@ -4,14 +4,18 @@ import { HiOutlineArrowSmLeft } from "react-icons/hi";
 import svg from "../../assets/svg";
 import FormKarton from "./components/FormKarton";
 import Alerts from "../../components/Alerts";
+import FormDus from "./components/FormDus";
+import FormSablon from "./components/FormSablon";
+import FormSticker from "./components/FormSticker";
+import FormStandingPouch from "./components/FormStandingPouch";
 
 const DetailProduct = () => {
   const { productId } = useParams();
-  const [product, setProduct] = useState(1);
+  const [product, setProduct] = useState(parseInt(productId));
   const [form, setForm] = useState();
   const [alertSuccess, setAlertSuccess] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
-  console.log(alertFail);
+  console.log(typeof product);
 
   // Use Custom Hook
   // useEffect(()=>{
@@ -24,13 +28,40 @@ const DetailProduct = () => {
   useEffect(() => {
     switch (product) {
       case 1:
-        setForm(
+        return setForm(
           <FormKarton
             setAlertSuccess={setAlertSuccess}
             setAlertFail={setAlertFail}
           />
         );
-        break;
+      case 2:
+        return setForm(
+          <FormDus
+            setAlertSuccess={setAlertSuccess}
+            setAlertFail={setAlertFail}
+          />
+        );
+      case 3:
+        return setForm(
+          <FormSablon
+            setAlertSuccess={setAlertSuccess}
+            setAlertFail={setAlertFail}
+          />
+        );
+      case 4:
+        return setForm(
+          <FormSticker
+            setAlertSuccess={setAlertSuccess}
+            setAlertFail={setAlertFail}
+          />
+        );
+      case 5:
+        return setForm(
+          <FormStandingPouch
+            setAlertSuccess={setAlertSuccess}
+            setAlertFail={setAlertFail}
+          />
+        );
       default:
         break;
     }

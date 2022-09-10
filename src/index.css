@@ -40,23 +40,22 @@ p {
 
 /* button */
 .button-fill {
-  @apply text-lg text-white font-semibold px-30/sp py-4 rounded-2xl bg-primary-900 hover:bg-primary-600 shadow-[0_4px_20px_0_#C9111B33];
+  @apply text-lg text-white font-semibold px-30/sp py-4 rounded-2xl bg-primary-900 hover:bg-primary-600 shadow-red;
 }
 .button-gradient {
-  @apply text-lg text-white font-semibold px-30/sp py-4 rounded-2xl bg-gradient-to-bl from-orange-900 to-primary-900 hover:from-primary-900 hover:to-orange-900 shadow-[0_4px_20px_0_#C9111B33];
-}
-.button-gradient-sm {
-  @apply text-base text-white font-semibold px-5 py-2 rounded-2xl bg-gradient-to-bl from-orange-900 to-primary-900 hover:from-primary-900 hover:to-orange-900 shadow-[0_4px_20px_0_#C9111B33];
+  @apply text-lg text-white font-semibold px-30/sp py-4 rounded-2xl bg-gradient-to-bl from-orange-900 to-primary-900 hover:from-primary-900 hover:to-orange-900 shadow-red;
 }
 .button-white {
-  @apply text-lg text-dark font-semibold px-30/sp py-4 rounded-2xl bg-white hover:text-primary-900 shadow-[0_4px_20px_0_#C9111B33];
+  @apply text-lg text-dark font-semibold px-30/sp py-4 rounded-2xl bg-white hover:text-primary-900 shadow-red;
 }
-
+.button-gradient-sm {
+  @apply text-base text-white font-semibold px-5 py-2 rounded-2xl bg-gradient-to-bl from-orange-900 to-primary-900 hover:from-primary-900 hover:to-orange-900 shadow-red;
+}
 .button-fill-sm {
-  @apply text-base text-white font-semibold px-5 py-2 rounded-2xl bg-primary-900 hover:bg-primary-600 shadow-[0_4px_20px_0_#C9111B33];
+  @apply text-base text-white font-semibold px-5 py-2 rounded-2xl bg-primary-900 hover:bg-primary-600 shadow-red;
 }
-.btn-white-sm {
-  @apply text-base text-dark font-semibold px-30/sp py-2 rounded-2xl bg-white hover:text-primary-900 shadow-[0_4px_20px_0_#C9111B33];
+.button-white-sm {
+  @apply text-base text-dark font-semibold px-30/sp py-2 rounded-2xl bg-white hover:text-primary-900 shadow-red;
 }
 
 /* form */

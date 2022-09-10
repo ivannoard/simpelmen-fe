@@ -25,6 +25,12 @@ const Kemasan = () => {
       kategori: "Dus Offset",
       jenis: "Top Bottom",
     },
+    {
+      produkImg: dummyImg.bentukSegitiga,
+      altImg: "Bentuk Segitiga",
+      kategori: "Dus Offset",
+      jenis: "Bentuk Segitiga",
+    },
   ];
   return (
     <>
@@ -48,7 +54,7 @@ const Kemasan = () => {
           </div>
         </section>
         <section id='kemasan' className='mb-11'>
-          <div className='w-full grid grid-cols-12 gap-x-8'>
+          <div className='w-full grid grid-cols-12 gap-x-8 gap-y-10'>
             {dummyData.map((item, index) => {
               return (
                 <div className='col-span-4' key={index}>

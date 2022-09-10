@@ -3,7 +3,7 @@ import React from "react";
 const CardProduct = ({ produkImg, altImg, kategori, jenis }) => {
   return (
     <>
-      <div className='w-full p-5 rounded-2xl shadow-gray flex flex-col items-center bg-white'>
+      <div className='w-full py-6 px-5 rounded-2xl shadow-gray flex flex-col items-center bg-white'>
         <div className='mb-3'>
           <img src={produkImg} alt={altImg} className='w-full' />
         </div>

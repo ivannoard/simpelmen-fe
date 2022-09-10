@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Auth/Login";
@@ -8,7 +9,7 @@ import WithoutFrame from "./components/global/WithoutFrame";
 import WithFrame from "./components/global/WithFrame";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import NewPassword from "./pages/Auth/NewPassword";
-import { useEffect } from "react";
+import Kemasan from "./pages/Kemasan";
 
 const ProtectingRoute = (props) => {
   const navigate = useNavigate();
@@ -34,11 +35,11 @@ const AuthenticatedRoute = (props) => {
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <Routes>
         <Route element={<WithoutFrame />}>
           <Route
-            path="/login"
+            path='/login'
             element={
               <AuthenticatedRoute>
                 <Login />
@@ -46,7 +47,7 @@ function App() {
             }
           />
           <Route
-            path="/register"
+            path='/register'
             element={
               <AuthenticatedRoute>
                 <Register />
@@ -54,7 +55,7 @@ function App() {
             }
           />
           <Route
-            path="/forgot-password"
+            path='/forgot-password'
             element={
               <AuthenticatedRoute>
                 <ForgotPassword />
@@ -62,20 +63,21 @@ function App() {
             }
           />
           <Route
-            path="/new-password"
+            path='/new-password'
             element={
               <AuthenticatedRoute>
                 <NewPassword />
               </AuthenticatedRoute>
             }
           />
-          <Route path="*" element="404 Not Found" />
+          <Route path='*' element='404 Not Found' />
         </Route>
         <Route element={<WithFrame />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/detail-produk/:productId" element={<DetailProduct />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/detail-produk/:productId' element={<DetailProduct />} />
+          <Route path='/produk-kemasan' element={<Kemasan />} />
           <Route
-            path="/dashboard"
+            path='/dashboard'
             element={
               <ProtectingRoute>
                 <Dashboard />

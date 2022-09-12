@@ -48,7 +48,7 @@ const Kemasan = () => {
     <>
       <main className='containers'>
         <section id='categoryKemasan' className='mt-7 mb-12 2xsm:mb-60/sp'>
-          <div className='mb-5'>
+          <div className='mb-5 flex'>
             <Link to='/' className='flex items-center mb-3'>
               <HiOutlineArrowSmLeft className='text-2xl mr-3' />
               <span className='leading-10'>Kembali</span>

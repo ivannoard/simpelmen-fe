@@ -10,6 +10,7 @@ import WithFrame from "./components/global/WithFrame";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import NewPassword from "./pages/Auth/NewPassword";
 import Kemasan from "./pages/Kemasan";
+import Keranjang from "./pages/Keranjang";
 
 const ProtectingRoute = (props) => {
   const navigate = useNavigate();
@@ -76,6 +77,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/detail-produk/:productId' element={<DetailProduct />} />
           <Route path='/produk-kemasan' element={<Kemasan />} />
+          <Route path='/keranjang' element={<Keranjang />} />
           <Route
             path='/dashboard'
             element={

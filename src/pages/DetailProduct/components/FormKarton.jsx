@@ -37,33 +37,48 @@ const FormKarton = ({ setAlertSuccess, setAlertFail }) => {
           Ukuran
         </label>
         <div className="grid grid-cols-3 gap-[10px]">
-          <input
-            type="number"
-            id="ukuran"
-            name="panjang"
-            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
-            placeholder="Panjang"
-            required
-            onChange={(e) => handleChange(e)}
-          />
-          <input
-            type="number"
-            id="ukuran"
-            name="lebar"
-            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
-            placeholder="Lebar"
-            required
-            onChange={(e) => handleChange(e)}
-          />
-          <input
-            type="number"
-            id="ukuran"
-            name="tinggi"
-            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
-            placeholder="Tinggi"
-            required
-            onChange={(e) => handleChange(e)}
-          />
+          <div className="relative">
+            <input
+              type="text"
+              id="ukuran"
+              name="panjang"
+              className="bg-white border pr-14 border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
+              placeholder="Panjang"
+              required
+              onChange={(e) => handleChange(e)}
+            />
+            <span className="text-gray-400 absolute right-3 top-[10px]">
+              cm
+            </span>
+          </div>
+          <div className="relative">
+            <input
+              type="text"
+              id="ukuran"
+              name="lebar"
+              className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
+              placeholder="Lebar"
+              required
+              onChange={(e) => handleChange(e)}
+            />
+            <span className="text-gray-400 absolute right-3 top-[10px]">
+              cm
+            </span>
+          </div>
+          <div className="relative">
+            <input
+              type="text"
+              id="ukuran"
+              name="tinggi"
+              className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
+              placeholder="Tinggi"
+              required
+              onChange={(e) => handleChange(e)}
+            />
+            <span className="text-gray-400 absolute right-3 top-[10px]">
+              cm
+            </span>
+          </div>
         </div>
       </div>
       <div className="mt-3">
@@ -109,15 +124,18 @@ const FormKarton = ({ setAlertSuccess, setAlertFail }) => {
         >
           Jumlah Pesanan
         </label>
-        <input
-          type="number"
-          id="jumlah"
-          name="jumlah"
-          className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
-          placeholder="Masukkan Jumlah Pesanan"
-          required
-          onChange={(e) => handleChange(e)}
-        />
+        <div className="relative">
+          <input
+            type="text"
+            id="jumlah"
+            name="jumlah"
+            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
+            placeholder="Masukkan Jumlah Pesanan"
+            required
+            onChange={(e) => handleChange(e)}
+          />
+          <span className="text-gray-400 absolute right-3 top-[10px]">pcs</span>
+        </div>
       </div>
       <div className="buttons flex justify-end mt-[30px] gap-5">
         <button className="button-fill">Pesan Sekarang</button>

@@ -37,6 +37,7 @@ const DetailProduct = () => {
       case 2:
         return setForm(
           <FormDus
+            categoryName="Slobokan"
             setAlertSuccess={setAlertSuccess}
             setAlertFail={setAlertFail}
           />

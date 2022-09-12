@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const userLogin = axios.create({
-  baseURL: "https://hookb.in/",
+export const userAuth = axios.create({
+  baseURL: "http://localhost:8080/api/auth",
   headers: {
     "Content-Type": "application/json",
   },

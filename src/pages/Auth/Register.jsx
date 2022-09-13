@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Link } from "react-router-dom";
 import Alerts from "../../components/Alerts";
 import AuthLayout from "./components/AuthLayout";
 
@@ -17,7 +16,6 @@ const Register = () => {
   const [alerts, setAlerts] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
   const [failMessage, setFailMessage] = useState("");
-  const navigate = useNavigate();
 
   const [fields, setFields] = useState({
     username: "",

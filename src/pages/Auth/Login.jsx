@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import AuthLayout from "./components/AuthLayout";
 import Alerts from "../../components/Alerts";
 
 import svg from "../../assets/svg";
 import { MdEmail, MdLock } from "react-icons/md";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
-import { userLogin } from "../../services/api";
+import { userAuth } from "../../services/api";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,10 +27,14 @@ const Login = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const login = await userLogin
-      .post("/Xk17j2l08BHDkmwD3lgW")
+    const login = await userAuth
+      .post("/signin", fields, {
+        headers: {
+          "content-type": "application/json",
+        },
+      })
       .then((response) => {
-        localStorage.setItem("user", "login");
+        localStorage.setItem("user", JSON.stringify(response.data));
         setTimeout(() => {
           if (localStorage.getItem("user")) navigate("/dashboard");
           // window.location.replace("https://www.google.com");

@@ -27,7 +27,7 @@ const Login = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const login = await userAuth
+    await userAuth
       .post("/signin", fields, {
         headers: {
           "content-type": "application/json",

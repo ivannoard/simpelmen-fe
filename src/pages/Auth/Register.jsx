@@ -41,7 +41,7 @@ const Register = () => {
   */
   async function handleSubmit(e) {
     e.preventDefault();
-    const register = await userAuth
+    await userAuth
       .post("/signup", fields, {
         headers: {
           "Content-Type": "application/json",

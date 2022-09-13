@@ -16,7 +16,7 @@ const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
   async function handleSubmit(e) {
     e.preventDefault();
     if (user) {
-      const postData = await postProduct
+      await postProduct
         .post("/Xk17j2l08BHDkmwD3lgW")
         .then((response) => console.log(response));
       setAlertSuccess(true);

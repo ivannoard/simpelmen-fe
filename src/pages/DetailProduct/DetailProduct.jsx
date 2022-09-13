@@ -11,7 +11,7 @@ import FormStandingPouch from "./components/FormStandingPouch";
 
 const DetailProduct = () => {
   const { productId } = useParams();
-  const [product, setProduct] = useState(parseInt(productId));
+  const product = parseInt(productId);
   const [form, setForm] = useState();
   const [alertSuccess, setAlertSuccess] = useState(false);
   const [alertFail, setAlertFail] = useState(false);

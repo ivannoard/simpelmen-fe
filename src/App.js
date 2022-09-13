@@ -17,7 +17,7 @@ const ProtectingRoute = (props) => {
 
   useEffect(() => {
     user ? navigate("/dashboard") : navigate("/login");
-  }, [user]);
+  }, [navigate, user]);
 
   return props.children;
 };
@@ -28,7 +28,7 @@ const AuthenticatedRoute = (props) => {
 
   useEffect(() => {
     !user ? navigate("/login") : navigate("/");
-  }, [user]);
+  }, [navigate, user]);
 
   return props.children;
 };

@@ -12,6 +12,7 @@ import NewPassword from "./pages/Auth/NewPassword";
 import { useEffect } from "react";
 import PAD from "./pages/PAD";
 import Kemasan from "./pages/Kemasan";
+import Keranjang from "./pages/Keranjang";
 
 const ProtectingRoute = (props) => {
   const navigate = useNavigate();
@@ -79,6 +80,7 @@ function App() {
           <Route path="/detail-produk/:productId" element={<DetailProduct />} />
           <Route path="/laporan" element={<PAD />} />
           <Route path='/produk-kemasan' element={<Kemasan />} />
+          <Route path='/keranjang' element={<Keranjang />} />
           <Route
             path='/dashboard'
             element={

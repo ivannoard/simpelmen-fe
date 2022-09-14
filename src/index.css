@@ -65,6 +65,9 @@ p {
 .input-password-field {
   @apply w-full bg-white py-4 px-14 rounded-2xl border-secondary-800 border focus:outline-none focus:border-orange-900;
 }
+.input-field-sm {
+  @apply w-full bg-white py-4 pl-6 pr-16 rounded-2xl border-secondary-800 border focus:outline-none focus:border-orange-900;
+}
 
 /* utilities */
 .transition-200 {

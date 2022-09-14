@@ -48,14 +48,7 @@ function App() {
               </AuthenticatedRoute>
             }
           />
-          <Route
-            path="/register"
-            element={
-              <AuthenticatedRoute>
-                <Register />
-              </AuthenticatedRoute>
-            }
-          />
+          <Route path="/register" element={<Register />} />
           <Route
             path="/forgot-password"
             element={
@@ -72,14 +65,6 @@ function App() {
               </AuthenticatedRoute>
             }
           />
-          <Route path="*" element="404 Not Found" />
-        </Route>
-        <Route element={<WithFrame />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/detail-produk/:productId" element={<DetailProduct />} />
-          <Route path="/laporan" element={<PAD />} />
-          <Route path="/produk-kemasan" element={<Kemasan />} />
-          <Route path="/keranjang" element={<Keranjang />} />
           <Route
             path="/dashboard"
             element={
@@ -88,6 +73,14 @@ function App() {
               </ProtectingRoute>
             }
           />
+          <Route path="*" element="404 Not Found" />
+        </Route>
+        <Route element={<WithFrame />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/detail-produk/:productId" element={<DetailProduct />} />
+          <Route path="/laporan" element={<PAD />} />
+          <Route path="/produk-kemasan" element={<Kemasan />} />
+          <Route path="/keranjang" element={<Keranjang />} />
         </Route>
       </Routes>
     </div>

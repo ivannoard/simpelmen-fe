@@ -52,7 +52,11 @@ module.exports = {
       borderWidth: {
         "0.5/sp": "0.5px",
       },
+      boxShadow: {
+        gray: "0px .25rem 1.25rem 0px #E2DCDC",
+        red: "0px .25rem 1.25rem 0px #C9111B33",
+      },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/line-clamp")],
 };

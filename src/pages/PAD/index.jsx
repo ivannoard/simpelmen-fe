@@ -92,84 +92,82 @@ const PAD = () => {
             </div>
           </div>
         </section>
-        <section className="containers !-mt-12 !py-5 mx-auto overflow-x-auto">
-          <table
-            border="1"
-            className="table-auto w-full text-center rounded-lg"
-          >
-            <thead>
-              <tr>
-                <th
-                  colspan="21"
-                  className="col-span-5 mx-auto bg-orange-400 py-2"
-                >
-                  Jasa Pelayanan
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="bg-orange-400">
-                <td>No</td>
-                <td>No Pesanan</td>
-                <td>Nama IKM</td>
-                <td colspan="2">Karton Box</td>
-                <td colspan="2">Sablon</td>
-                <td colspan="2">Pond</td>
-                <td>Laminasi</td>
-                <td colspan="2">Desain</td>
-                <td>Sewa Ruang</td>
-                <td>Jasa Pembuatan Stiker</td>
-                <td>Jumlah Total Retribusi (Rp)</td>
-              </tr>
-              <tr className="bg-orange-400">
-                <td colspan="3"></td>
-                <td>Jumlah Barang</td>
-                <td>Retribusi </td>
-                <td>Jumlah Barang</td>
-                <td>Retribusi </td>
-                <td>Jumlah Barang</td>
-                <td>Retribusi </td>
-                <td>Retribusi</td>
-                <td>File</td>
-                <td>Retribusi</td>
-                <td colspan="3"></td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>001/BIKDK/O/VII/2022</td>
-                <td>Ikha Katering</td>
-                <td>200</td>
-                <td>60000</td>
-                <td>200</td>
-                <td>60000</td>
-                <td>200</td>
-                <td>60000</td>
-                <td>60000</td>
-                <td>1</td>
-                <td>60000</td>
-                <td>60000</td>
-                <td>60000</td>
-                <td>420.000</td>
-              </tr>
-              <tr>
-                <td colspan="3">Total</td>
-                {/* <td>001/BIKDK/O/VII/2022</td>
-                <td>Ikha Katering</td> */}
-                <td>200</td>
-                <td>60000</td>
-                <td>200</td>
-                <td>60000</td>
-                <td>200</td>
-                <td>60000</td>
-                <td>60000</td>
-                <td>1</td>
-                <td>60000</td>
-                <td>60000</td>
-                <td>60000</td>
-                <td>420.000</td>
-              </tr>
-            </tbody>
-          </table>
+        <section className="containers !-mt-12 !py-5">
+          <div className="overflow-x-auto">
+            <table className="table-auto text-center w-[1440px]">
+              <thead>
+                <tr>
+                  <th colspan="21" className="bg-[#F29A41] py-2">
+                    Jasa Pelayanan
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="bg-[#F29A41]">
+                  <td>No</td>
+                  <td colspan="3">No Pesanan</td>
+                  <td colspan="3">Nama IKM</td>
+                  <td colspan="2">Karton Box</td>
+                  <td colspan="2">Sablon</td>
+                  <td colspan="2">Pond</td>
+                  <td>Laminasi</td>
+                  <td colspan="2">Desain</td>
+                  <td>Sewa Ruang</td>
+                  <td>Jasa Pembuatan Stiker</td>
+                  <td>Jumlah Total Retribusi (Rp)</td>
+                </tr>
+                <tr className="bg-[#F29A41]">
+                  <td colspan="7"></td>
+                  <td>Jumlah Barang</td>
+                  <td>Retribusi </td>
+                  <td>Jumlah Barang</td>
+                  <td>Retribusi </td>
+                  <td>Jumlah Barang</td>
+                  <td>Retribusi </td>
+                  <td>Retribusi</td>
+                  <td>File</td>
+                  <td>Retribusi</td>
+                  <td colspan="3"></td>
+                </tr>
+                {[1, 2, 3, 4, 5, 6].map((item, index) => (
+                  <tr key={index} className="border-b">
+                    <td>{item}</td>
+                    <td colspan="3">001/BIKDK/O/VII/2022</td>
+                    <td colspan="3">Ikha Katering</td>
+                    <td>200</td>
+                    <td>60000</td>
+                    <td>200</td>
+                    <td>60000</td>
+                    <td>200</td>
+                    <td>60000</td>
+                    <td>60000</td>
+                    <td>1</td>
+                    <td>60000</td>
+                    <td>60000</td>
+                    <td>60000</td>
+                    <td>420.000</td>
+                  </tr>
+                ))}
+                <tr className="bg-slate-300">
+                  <td colspan="7">Total</td>
+                  {/* <td >001/BIKDK/O/VII/2022</td>
+                <td >Ikha Katering</td> */}
+                  <td>200</td>
+                  <td>60000</td>
+                  <td>200</td>
+                  <td>60000</td>
+                  <td>200</td>
+                  <td>60000</td>
+                  <td>60000</td>
+                  <td>1</td>
+                  <td>60000</td>
+                  <td>60000</td>
+                  <td>60000</td>
+                  <td>420.000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </section>
       </main>
     </>

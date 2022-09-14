@@ -72,7 +72,7 @@ const FlowOrder = () => {
                 <h1 className="!text-[25px] md:!text-6xl">5</h1>
               </div>
             </div>
-            <h6 className="mt-5">Persetujuan Pesanan</h6>
+            <h6 className="mt-5">Pembayaran</h6>
           </div>
           <div className="card text-center">
             <div className="relative">

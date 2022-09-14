@@ -11,6 +11,7 @@ import { userAuth } from "../../services/api";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [alerts, setAlerts] = useState(false);
+  const [alertFail, setAlertFail] = useState(false);
   const navigate = useNavigate();
   const [fields, setFields] = useState({
     email: "",
@@ -41,7 +42,7 @@ const Login = () => {
         }, 1000);
         setAlerts(true);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => setAlertFail(true));
   }
 
   return (
@@ -52,6 +53,14 @@ const Login = () => {
             background="bg-green-100"
             textColor="text-green-600"
             textContent="Login Berhasil"
+          />
+        )}
+        {alertFail && (
+          <Alerts
+            background="bg-red-100"
+            textColor="text-red-600"
+            textContent="Ups, sepertinya ada yang salah"
+            closeButton="true"
           />
         )}
         <div className="w-full p-6 xs:p-12 2md:p-0 rounded-2xl shadow-[0_4px_20px_0_#00000029] 2md:shadow-none">

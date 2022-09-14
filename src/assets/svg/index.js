@@ -20,6 +20,7 @@ import flowOrder7 from "./flow-order-7.svg";
 import flowOrder8 from "./flow-order-8.svg";
 import bgOurProduct from "./bg-our-product.svg";
 import karton from "./karton.svg";
+import LogoDashboardUser from "./dashboard-user-logo.svg";
 
 const svg = {
   loginPage,
@@ -44,6 +45,7 @@ const svg = {
   flowOrder8,
   bgOurProduct,
   karton,
+  LogoDashboardUser,
 };
 
 export default svg;

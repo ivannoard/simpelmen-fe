@@ -9,6 +9,8 @@ import WithoutFrame from "./components/global/WithoutFrame";
 import WithFrame from "./components/global/WithFrame";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import NewPassword from "./pages/Auth/NewPassword";
+import { useEffect } from "react";
+import PAD from "./pages/PAD";
 import Kemasan from "./pages/Kemasan";
 
 const ProtectingRoute = (props) => {
@@ -17,7 +19,7 @@ const ProtectingRoute = (props) => {
 
   useEffect(() => {
     user ? navigate("/dashboard") : navigate("/login");
-  }, [user]);
+  }, [navigate, user]);
 
   return props.children;
 };
@@ -28,7 +30,7 @@ const AuthenticatedRoute = (props) => {
 
   useEffect(() => {
     !user ? navigate("/login") : navigate("/");
-  }, [user]);
+  }, [navigate, user]);
 
   return props.children;
 };
@@ -73,8 +75,9 @@ function App() {
           <Route path='*' element='404 Not Found' />
         </Route>
         <Route element={<WithFrame />}>
-          <Route path='/' element={<Home />} />
-          <Route path='/detail-produk/:productId' element={<DetailProduct />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/detail-produk/:productId" element={<DetailProduct />} />
+          <Route path="/laporan" element={<PAD />} />
           <Route path='/produk-kemasan' element={<Kemasan />} />
           <Route
             path='/dashboard'

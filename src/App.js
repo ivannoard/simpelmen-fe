@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Auth/Login";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/User";
 import DetailProduct from "./pages/DetailProduct/DetailProduct";
 import Register from "./pages/Auth/Register";
 import WithoutFrame from "./components/global/WithoutFrame";
@@ -16,11 +16,9 @@ import Keranjang from "./pages/Keranjang";
 const ProtectingRoute = (props) => {
   const navigate = useNavigate();
   const user = localStorage.getItem("user");
-
   useEffect(() => {
-    user ? navigate("/dashboard") : navigate("/login");
-  }, [navigate, user]);
-
+    if (!user) navigate("/");
+  }, [navigate, props.children, user]);
   return props.children;
 };
 
@@ -66,7 +64,31 @@ function App() {
             }
           />
           <Route
-            path="/dashboard"
+            path="/dashboard/pesanan"
+            element={
+              <ProtectingRoute>
+                <Dashboard />
+              </ProtectingRoute>
+            }
+          />
+          <Route
+            path="/dashboard/pembayaran"
+            element={
+              <ProtectingRoute>
+                <Dashboard />
+              </ProtectingRoute>
+            }
+          />
+          <Route
+            path="/dashboard/lacak-pesanan"
+            element={
+              <ProtectingRoute>
+                <Dashboard />
+              </ProtectingRoute>
+            }
+          />
+          <Route
+            path="/dashboard/profil"
             element={
               <ProtectingRoute>
                 <Dashboard />

@@ -1,10 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import svg from "../../assets/svg";
 import Navbar from "./components/Navbar";
-import Sidebar from "./components/user/Sidebar";
+import Sidebar from "./components/Sidebar";
+import LacakPesanan from "./LacakPesanan";
+import Pembayaran from "./Pembayaran";
+import Pesanan from "./Pesanan";
+import Profile from "./Profile";
 
 const Dashboard = () => {
   const [toggle, setToggle] = useState(true);
+  const { pathname } = useLocation();
+  const [content, setContent] = useState();
+
+  useEffect(() => {
+    switch (pathname.split("/")[2]) {
+      case "pesanan":
+        return setContent(<Pesanan />);
+      case "pembayaran":
+        return setContent(<Pembayaran />);
+      case "lacak-pesanan":
+        return setContent(<LacakPesanan />);
+      case "profil":
+        return setContent(<Profile />);
+      default:
+        break;
+    }
+  }, [pathname]);
 
   return (
     <>
@@ -42,9 +64,7 @@ const Dashboard = () => {
           {/* Navbar Top */}
           <Navbar />
           {/* Main Content */}
-          <main className="mt-10">
-            <section>asd</section>
-          </main>
+          <main className="mt-10">{content}</main>
         </div>
       </div>
     </>

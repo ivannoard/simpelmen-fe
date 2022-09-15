@@ -66,7 +66,10 @@ const Navbar = () => {
                     className="absolute flex flex-col shadow-md top-10 right-0 bg-white rounded-xl border w-40 overflow-hidden"
                   >
                     <Menu.Item as="div">
-                      <NavLink to="/dashboard" className="navlink-mobile">
+                      <NavLink
+                        to="/dashboard/pesanan"
+                        className="navlink-mobile"
+                      >
                         Dashboard
                       </NavLink>
                     </Menu.Item>

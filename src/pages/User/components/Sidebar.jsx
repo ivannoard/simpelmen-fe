@@ -9,28 +9,28 @@ const Sidebar = (props) => {
     <>
       <nav className=" mt-8 flex flex-col gap-5 px-8">
         <NavLink
-          to="/"
+          to="/dashboard/pesanan"
           className="navlinks py-[14px] flex items-center gap-[27px] duration-500 transition-200"
         >
           <GiBookshelf size={18} fill="#A69798" />
           {props.toggle ? "Pesanan" : ""}
         </NavLink>
         <NavLink
-          to="/"
+          to="/dashboard/pembayaran"
           className="navlinks py-[14px] flex items-center gap-[27px] duration-500 transition-200"
         >
           <IoIosWallet size={18} fill="#A69798" />
           {props.toggle ? "Pembayaran" : ""}
         </NavLink>
         <NavLink
-          to="/"
+          to="/dashboard/lacak-pesanan"
           className="navlinks py-[14px] flex items-center gap-[27px] duration-500 transition-200"
         >
           <MdLocalShipping size={18} fill="#A69798" />
           {props.toggle ? "Lacak Pesanan" : ""}
         </NavLink>
         <NavLink
-          to="/"
+          to="/dashboard/profil"
           className="navlinks py-[14px] flex items-center gap-[27px] duration-500 transition-200"
         >
           <BsFillPersonFill size={18} fill="#A69798" />

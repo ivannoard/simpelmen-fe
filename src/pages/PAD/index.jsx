@@ -93,7 +93,7 @@ const PAD = () => {
           </div>
         </section>
         <section className="containers !-mt-12 !py-5">
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto no-scrollbar">
             <table className="table-auto text-center w-[1440px]">
               <thead>
                 <tr>

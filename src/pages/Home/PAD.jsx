@@ -5,7 +5,7 @@ const PAD = () => {
     <>
       <section className="containers !py-8 mb-52">
         <h3 className="text-center">Laporan Pendapatan Asli Daerah</h3>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto no-scrollbar">
           <table className="table-auto bg-white w-[1440px] text-center mt-10">
             <thead className="bg-[#F29A41]">
               <tr>

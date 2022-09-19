@@ -7,6 +7,7 @@ import LacakPesanan from "./LacakPesanan";
 import Pembayaran from "./Pembayaran";
 import Pesanan from "./Pesanan";
 import Profile from "./Profile";
+import { BiChevronsRight, BiChevronsLeft } from "react-icons/bi";
 
 const Dashboard = () => {
   const [toggle, setToggle] = useState(true);
@@ -30,7 +31,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="flex overflow-x-auto">
+      <div className="flex overflow-x-auto no-scrollbar">
         <div
           className={`fixed bg-white rounded-tr-2xl rounded-br-2xl shadow-red z-10 ${
             toggle ? "w-72" : "w-20"
@@ -47,17 +48,17 @@ const Dashboard = () => {
               className="mx-auto px-2"
             />
             <div
-              className="bg-white absolute w-[30px] h-[30px] top-9 -right-3 rounded-full"
+              className="bg-white shadow-red flex justify-center items-center absolute w-[20px] h-[20px] top-16 -right-3 rounded-full"
               onClick={() => setToggle(!toggle)}
             >
-              A
+              {toggle ? <BiChevronsLeft /> : <BiChevronsRight />}
             </div>
             {/* Sidebar */}
             <Sidebar toggle={toggle} />
           </div>
         </div>
         <div
-          className={`flex-1 h-[2000px] ${
+          className={`flex-1 py-10 ${
             toggle ? "ml-72" : "ml-20"
           } duration-500 px-8 pt-6 ${toggle ? "md:pt-[53px]" : "md:pt-6"}`}
         >

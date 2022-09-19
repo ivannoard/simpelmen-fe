@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { HiOutlineArrowSmLeft } from "react-icons/hi";
 import { useNavigate, useParams } from "react-router-dom";
 import svg from "../../assets/svg";
+import ModalConfirm from "./components/ModalConfirm";
+import ModalDelete from "./components/ModalDelete";
 
 const DetailPesanan = () => {
   const { pesananId } = useParams();
+  const [toggleConfirm, setToggleConfirm] = useState(false);
+  const [toggleDelete, setToggleDelete] = useState(false);
 
   const navigate = useNavigate();
   function printInvoice(e) {
@@ -12,6 +16,8 @@ const DetailPesanan = () => {
   }
   return (
     <>
+      {toggleConfirm && <ModalConfirm setToggleConfirm={setToggleConfirm} />}
+      {toggleDelete && <ModalDelete setToggleDelete={setToggleDelete} />}
       <section className="overflow-x-auto w-[1440px] lg:w-full">
         <div className="mb-5">
           <div className="flex items-center mb-3">
@@ -25,7 +31,7 @@ const DetailPesanan = () => {
           </div>
           {/* content detail pesanan */}
           <div className="flex mt-4">
-            <div className="w-1/3 bg-red-500">
+            <div className="w-1/3">
               <h6>Detail Pesanan</h6>
               <img src={svg.karton} alt="ini-gambar" className="my-5" />
               <div className="product-title mb-5">
@@ -34,21 +40,23 @@ const DetailPesanan = () => {
               </div>
               <div className="product-order-number mb-5">
                 <p>No. Pesanan</p>
-                <p className="font-semibold">001/BIKDK/O/VII/2022</p>
+                <p className="font-semibold border-b w-1/2">
+                  001/BIKDK/O/VII/2022
+                </p>
               </div>
               <div className="product-order mb-5">
                 <p>Tanggal Pesan</p>
-                <p className="font-semibold">1 Januari 2022</p>
+                <p className="font-semibold border-b w-1/2">1 Januari 2022</p>
               </div>
               <button
                 onClick={(e) => printInvoice(e)}
-                className="button-fill !w-[178px] !h-[40px] !rounded-2xl !px-[20px] !py-[8px] !text-sm "
+                className="button-fill !w-[178px] !h-[40px] !rounded-2xl !px-[20px] !py-[8px] !text-sm"
               >
                 Cetak Formulir PO
               </button>
             </div>
-            <div className="w-2/3 bg-blue-500">
-              <h6>Spesifikasi Produk</h6>
+            <div className="w-2/3">
+              <h6 className="border-b">Spesifikasi Produk</h6>
               {/* <table className="w-full mt-5 mb-3">
                 <tr>
                   <td className="py-[10px]">Ukuran</td>
@@ -101,8 +109,8 @@ const DetailPesanan = () => {
                   <div className="w-1/2">Rp.125.000</div>
                 </div>
               </div>
-              <h6>Pengiriman</h6>
-              <div className="shipping mb-5">
+              <h6 className="border-b">Pengiriman</h6>
+              <div className="shipping mb-5 mt-5">
                 <div className="flex mb-5">
                   <div className="w-1/2">Nama</div>
                   <div className="w-1/2">Roikhatul Miskiyah</div>
@@ -127,11 +135,23 @@ const DetailPesanan = () => {
                   <div className="w-1/2">Dikirim</div>
                 </div>
               </div>
-              <h6>Desain</h6>
-              <div className="buttons">
-                <button className="button-fill">Konfirmasi Desain</button>
-                <button className="button-white">Hapus Desain</button>
-                <button className="button-white">Ganti Desain</button>
+              <h6 className="border-b">Desain</h6>
+              <div className="buttons flex gap-5 mt-5">
+                <button
+                  onClick={() => setToggleConfirm(true)}
+                  className="button-fill !w-[178px] !h-[40px] !rounded-2xl !px-[20px] !py-[8px] !text-sm"
+                >
+                  Konfirmasi Desain
+                </button>
+                <button
+                  onClick={() => setToggleDelete(true)}
+                  className="button-white !w-[178px] !h-[40px] !rounded-2xl !px-[20px] !py-[8px] !text-sm"
+                >
+                  Hapus Desain
+                </button>
+                <button className="button-white !w-[178px] !h-[40px] !rounded-2xl !px-[20px] !py-[8px] !text-sm">
+                  Ganti Desain
+                </button>
               </div>
             </div>
           </div>

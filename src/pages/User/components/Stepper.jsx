@@ -73,7 +73,7 @@ const Stepper = ({ trackingOrder }) => {
                 <AiOutlineCheck size={20} fill="#FFFF" />
               )}
               <div
-                className={`absolute -z-10 -bottom-8 left-0 right-0 mx-auto w-[5px] h-[60px] ${
+                className={`absolute -z-10 -bottom-16 lg:-bottom-8 left-0 right-0 mx-auto w-[5px] h-[80px] lg:h-[60px] ${
                   tracking.confirmation
                     ? "bg-primary-600"
                     : "bg-secondary-800 border"
@@ -105,7 +105,7 @@ const Stepper = ({ trackingOrder }) => {
                 <AiOutlineCheck size={20} fill="#FFFF" />
               )}
               <div
-                className={`absolute -z-10 -bottom-8 left-0 right-0 mx-auto w-[5px] h-[60px] ${
+                className={`absolute -z-10 -bottom-16 lg:-bottom-8 left-0 right-0 mx-auto w-[5px] h-[80px] lg:h-[60px] ${
                   tracking.CSConfirmation
                     ? "bg-primary-600"
                     : "bg-secondary-800 border"
@@ -137,7 +137,7 @@ const Stepper = ({ trackingOrder }) => {
                 <AiOutlineCheck size={20} fill="#FFFF" />
               )}
               <div
-                className={`absolute -z-10 -bottom-8 left-0 right-0 mx-auto w-[5px] h-[60px] ${
+                className={`absolute -z-10 -bottom-16 lg:-bottom-8 left-0 right-0 mx-auto w-[5px] h-[80px] lg:h-[60px] ${
                   tracking.paymentCheck
                     ? "bg-primary-600"
                     : "bg-secondary-800 border"
@@ -169,7 +169,7 @@ const Stepper = ({ trackingOrder }) => {
                 <AiOutlineCheck size={20} fill="#FFFF" />
               )}
               <div
-                className={`absolute -z-10 -bottom-8 left-0 right-0 mx-auto w-[5px] h-[60px] ${
+                className={`absolute -z-10 -bottom-16 lg:-bottom-8 left-0 right-0 mx-auto w-[5px] h-[80px] lg:h-[60px] ${
                   tracking.paymentConfirmed
                     ? "bg-primary-600"
                     : "bg-secondary-800 border"
@@ -203,7 +203,7 @@ const Stepper = ({ trackingOrder }) => {
                 <AiOutlineCheck size={20} fill="#FFFF" />
               )}
               <div
-                className={`absolute -z-10 -bottom-8 left-0 right-0 mx-auto w-[5px] h-[60px] ${
+                className={`absolute -z-10 -bottom-16 lg:-bottom-8 left-0 right-0 mx-auto w-[5px] h-[80px] lg:h-[60px] ${
                   tracking.orderConfirmed
                     ? "bg-primary-600"
                     : "bg-secondary-800 border"
@@ -235,7 +235,7 @@ const Stepper = ({ trackingOrder }) => {
                 <AiOutlineCheck size={20} fill="#FFFF" />
               )}
               <div
-                className={`absolute -z-10 -bottom-8 left-0 right-0 mx-auto w-[5px] h-[60px] ${
+                className={`absolute -z-10 -bottom-16 lg:-bottom-8 left-0 right-0 mx-auto w-[5px] h-[80px] lg:h-[60px] ${
                   tracking.orderDesignProcess
                     ? "bg-primary-600"
                     : "bg-secondary-800 border"
@@ -269,7 +269,7 @@ const Stepper = ({ trackingOrder }) => {
             >
               {tracking.designDone && <AiOutlineCheck size={20} fill="#FFFF" />}
               <div
-                className={`absolute -z-10 -bottom-8 left-0 right-0 mx-auto w-[5px] h-[60px] ${
+                className={`absolute -z-10 -bottom-16 lg:-bottom-8 left-0 right-0 mx-auto w-[5px] h-[80px] lg:h-[60px] ${
                   tracking.designDone
                     ? "bg-primary-600"
                     : "bg-secondary-800 border"
@@ -301,7 +301,7 @@ const Stepper = ({ trackingOrder }) => {
                 <AiOutlineCheck size={20} fill="#FFFF" />
               )}
               <div
-                className={`absolute -z-10 -bottom-8 left-0 right-0 mx-auto w-[5px] h-[60px] ${
+                className={`absolute -z-10 -bottom-16 lg:-bottom-8 left-0 right-0 mx-auto w-[5px] h-[80px] lg:h-[60px] ${
                   tracking.orderProduction
                     ? "bg-primary-600"
                     : "bg-secondary-800 border"
@@ -333,7 +333,7 @@ const Stepper = ({ trackingOrder }) => {
                 <AiOutlineCheck size={20} fill="#FFFF" />
               )}
               <div
-                className={`absolute -z-10 -bottom-8 left-0 right-0 mx-auto w-[5px] h-[60px] ${
+                className={`absolute -z-10 -bottom-16 lg:-bottom-8 left-0 right-0 mx-auto w-[5px] h-[80px] lg:h-[60px] ${
                   tracking.orderProductionDone
                     ? "bg-primary-600"
                     : "bg-secondary-800 border"
@@ -369,7 +369,7 @@ const Stepper = ({ trackingOrder }) => {
                 <AiOutlineCheck size={20} fill="#FFFF" />
               )}
               <div
-                className={`absolute -z-10 -bottom-8 left-0 right-0 mx-auto w-[5px] h-[60px] ${
+                className={`absolute -z-10 -bottom-16 lg:-bottom-8 left-0 right-0 mx-auto w-[5px] h-[80px] lg:h-[60px] ${
                   tracking.orderWarehouse
                     ? "bg-primary-600"
                     : "bg-secondary-800 border"
@@ -399,7 +399,7 @@ const Stepper = ({ trackingOrder }) => {
             >
               {tracking.orderSend && <AiOutlineCheck size={20} fill="#FFFF" />}
               <div
-                className={`absolute -z-10 -bottom-8 left-0 right-0 mx-auto w-[5px] h-[60px] ${
+                className={`absolute -z-10 -bottom-16 lg:-bottom-8 left-0 right-0 mx-auto w-[5px] h-[80px] lg:h-[60px] ${
                   tracking.orderSend
                     ? "bg-primary-600"
                     : "bg-secondary-800 border"

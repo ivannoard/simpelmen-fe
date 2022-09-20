@@ -28,7 +28,7 @@ const LacakPesanan = () => {
     <>
       <section>
         <div className="grid grid-cols-10 gap-3">
-          <div className="col-span-6">
+          <div className="col-span-10 lg:col-span-6">
             <img
               src={svg.shippingVehicle}
               alt="shipping-vehicle"
@@ -47,7 +47,7 @@ const LacakPesanan = () => {
               </select>
             </div>
             <div className="mt-[10px]">
-              <table className="text-center w-[1440px] lg:w-full">
+              <table className="text-center w-full">
                 <thead>
                   <tr>
                     <th className="bg-[#F29A41] text-white">No. Pesanan</th>
@@ -94,7 +94,7 @@ const LacakPesanan = () => {
               </nav>
             </div>
           </div>
-          <div className="col-span-4 border-l px-6">
+          <div className="col-span-10 lg:col-span-4 lg:border-l px-6">
             {toggleTracking && <EmptyState />}
             {!toggleTracking && <Stepper trackingOrder={trackingOrder} />}
           </div>

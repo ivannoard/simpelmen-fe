@@ -51,7 +51,7 @@ p {
 
 /* button */
 .button-fill {
-  @apply text-lg text-white font-semibold px-30/sp py-4 rounded-2xl bg-primary-900 hover:bg-primary-600 shadow-red;
+  @apply text-base text-white font-semibold px-6 py-3 rounded-lg bg-primary-900 hover:bg-primary-600 shadow-red;
 }
 .button-gradient {
   @apply text-lg text-white font-semibold px-30/sp py-4 rounded-2xl bg-gradient-to-bl from-orange-900 to-primary-900 hover:from-primary-900 hover:to-orange-900 shadow-red;
@@ -74,10 +74,10 @@ p {
 
 /* form */
 .input-field {
-  @apply w-full bg-white py-4 pr-6 pl-14 rounded-2xl border-secondary-800 border focus:outline-none focus:border-orange-900;
+  @apply w-full bg-white py-3 pr-5 pl-12 rounded-lg border-secondary-800 border focus:outline-none focus:border-orange-900;
 }
 .input-password-field {
-  @apply w-full bg-white py-4 px-14 rounded-2xl border-secondary-800 border focus:outline-none focus:border-orange-900;
+  @apply w-full bg-white py-3 px-12 rounded-lg border-secondary-800 border focus:outline-none focus:border-orange-900;
 }
 .input-field-sm {
   @apply w-full bg-white py-4 pl-6 pr-16 rounded-2xl border-secondary-800 border focus:outline-none focus:border-orange-900;

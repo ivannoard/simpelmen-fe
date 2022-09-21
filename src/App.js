@@ -18,13 +18,21 @@ import ForgotPasswordAdmin from "./pages/Admin/auth/ForgotPasswordAdmin";
 import NewPasswordAdmin from "./pages/Admin/auth/NewPasswordAdmin";
 import ActivateAccountAdmin from "./pages/Admin/auth/ActivateAccountAdmin";
 import ActivateAccountSuccessAdmin from "./pages/Admin/auth/ActivateAccountSuccessAdmin";
+import Admin from "./pages/Admin";
+import AdminCS from "./pages/Admin/AdminCS";
+import AdminDesain from "./pages/Admin/AdminDesain";
+import AdminTU from "./pages/Admin/AdminTU";
+import AdminSuper from "./pages/Admin/AdminSuper";
+import AdminProduksi from "./pages/Admin/AdminProduksi";
+import AdminKasir from "./pages/Admin/AdminKasir";
+import AdminGudang from "./pages/Admin/AdminGudang";
 
 const ProtectingRoute = (props) => {
   const navigate = useNavigate();
   const user = localStorage.getItem("user");
   useEffect(() => {
     if (!user) navigate("/");
-  }, [navigate, props.children, user]);
+  }, [navigate, user]);
   return props.children;
 };
 
@@ -44,7 +52,7 @@ const AuthenticatedAdminRoute = (props) => {
   const admin = localStorage.getItem("admin");
 
   useEffect(() => {
-    !admin ? navigate("/admin/login") : navigate("/");
+    !admin ? navigate("/admin/login") : navigate("/admin");
   }, [navigate, admin]);
 
   return props.children;
@@ -133,6 +141,72 @@ function App() {
             element={<ActivateAccountSuccessAdmin />}
           />
           {/* End of Admin Authentication */}
+          {/* Dashboard Admin */}
+          <Route path="/admin" element={<Admin />} />
+          {/* Dashboard Admin CS */}
+          <Route path="/admin/cs/dashboard" element={<AdminCS />} />
+          {/* End of AdminCS */}
+          {/* Dashboard Admin Desain */}
+          <Route
+            path="/admin/desain/dashboard"
+            element={
+              <AuthenticatedAdminRoute>
+                <AdminDesain />
+              </AuthenticatedAdminRoute>
+            }
+          />
+          {/* End of Admin Desain */}
+          {/* Dashboard Admin Gudang */}
+          <Route
+            path="/admin/gudang/dashboard"
+            element={
+              <AuthenticatedAdminRoute>
+                <AdminGudang />
+              </AuthenticatedAdminRoute>
+            }
+          />
+          {/* End of Admin Gudang */}
+          {/* Dashboard Admin Kasir */}
+          <Route
+            path="/admin/kasir/dashboard"
+            element={
+              <AuthenticatedAdminRoute>
+                <AdminKasir />
+              </AuthenticatedAdminRoute>
+            }
+          />
+          {/* End of Admin Kasir */}
+          {/* Dashboard Admin Produksi */}
+          <Route
+            path="/admin/produksi/dashboard"
+            element={
+              <AuthenticatedAdminRoute>
+                <AdminProduksi />
+              </AuthenticatedAdminRoute>
+            }
+          />
+          {/* End of Admin Produksi */}
+          {/* Dashboard Admin Super */}
+          <Route
+            path="/admin/super/dashboard"
+            element={
+              <AuthenticatedAdminRoute>
+                <AdminSuper />
+              </AuthenticatedAdminRoute>
+            }
+          />
+          {/* End of Admin Super */}
+          {/* Dashboard Admin TU */}
+          <Route
+            path="/admin/tu/dashboard"
+            element={
+              <AuthenticatedAdminRoute>
+                <AdminTU />
+              </AuthenticatedAdminRoute>
+            }
+          />
+          {/* End of Admin TU */}
+          {/* End of Admin Dashboard */}
           <Route path="*" element="404 Not Found" />
         </Route>
         <Route element={<WithFrame />}>

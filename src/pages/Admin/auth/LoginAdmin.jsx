@@ -6,7 +6,7 @@ import Alerts from "../../../components/Alerts";
 import svg from "../../../assets/svg";
 import { MdEmail, MdLock } from "react-icons/md";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
-import { userAuth } from "../../../services/api";
+import { adminAuth, userAuth } from "../../../services/api";
 
 const LoginAdmin = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,16 +28,16 @@ const LoginAdmin = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await userAuth
-      .post("/signin", fields, {
+    await adminAuth
+      .post("/jeNGzxdJpYF9n2Q93eBj", fields, {
         headers: {
           "content-type": "application/json",
         },
       })
       .then((response) => {
-        localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem("admin", JSON.stringify(1));
         setTimeout(() => {
-          if (localStorage.getItem("user")) navigate("/dashboard");
+          if (localStorage.getItem("admin")) navigate("/admin");
           // window.location.replace("https://www.google.com");
         }, 1000);
         setAlerts(true);

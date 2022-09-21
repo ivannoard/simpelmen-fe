@@ -7,6 +7,13 @@ export const userAuth = axios.create({
   },
 });
 
+export const adminAuth = axios.create({
+  baseURL: "https://hookb.in/",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 export const postProduct = axios.create({
   baseURL: "https://hookb.in/",
   headers: {

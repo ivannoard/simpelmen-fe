@@ -12,6 +12,12 @@ import NewPassword from "./pages/Auth/NewPassword";
 import PAD from "./pages/PAD";
 import Kemasan from "./pages/Kemasan";
 import Keranjang from "./pages/Keranjang";
+import LoginAdmin from "./pages/Admin/auth/LoginAdmin";
+import RegisterAdmin from "./pages/Admin/auth/RegisterAdmin";
+import ForgotPasswordAdmin from "./pages/Admin/auth/ForgotPasswordAdmin";
+import NewPasswordAdmin from "./pages/Admin/auth/NewPasswordAdmin";
+import ActivateAccountAdmin from "./pages/Admin/auth/ActivateAccountAdmin";
+import ActivateAccountSuccessAdmin from "./pages/Admin/auth/ActivateAccountSuccessAdmin";
 
 const ProtectingRoute = (props) => {
   const navigate = useNavigate();
@@ -33,11 +39,23 @@ const AuthenticatedRoute = (props) => {
   return props.children;
 };
 
+const AuthenticatedAdminRoute = (props) => {
+  const navigate = useNavigate();
+  const admin = localStorage.getItem("admin");
+
+  useEffect(() => {
+    !admin ? navigate("/admin/login") : navigate("/");
+  }, [navigate, admin]);
+
+  return props.children;
+};
+
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route element={<WithoutFrame />}>
+          {/* User Authentication */}
           <Route
             path="/login"
             element={
@@ -47,14 +65,7 @@ function App() {
             }
           />
           <Route path="/register" element={<Register />} />
-          <Route
-            path="/forgot-password"
-            element={
-              <AuthenticatedRoute>
-                <ForgotPassword />
-              </AuthenticatedRoute>
-            }
-          />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route
             path="/new-password"
             element={
@@ -63,6 +74,8 @@ function App() {
               </AuthenticatedRoute>
             }
           />
+          {/* End of User Authentication */}
+          {/* Dashboard User */}
           <Route
             path="/dashboard/pesanan"
             element={
@@ -95,6 +108,31 @@ function App() {
               </ProtectingRoute>
             }
           />
+          {/* End of Dashboard User */}
+          {/* Admin Authentication */}
+          <Route
+            path="/admin/login"
+            element={
+              <AuthenticatedAdminRoute>
+                <LoginAdmin />
+              </AuthenticatedAdminRoute>
+            }
+          />
+          <Route path="/admin/register" element={<RegisterAdmin />} />
+          <Route
+            path="/admin/forgot-password"
+            element={<ForgotPasswordAdmin />}
+          />
+          <Route path="/admin/new-password" element={<NewPasswordAdmin />} />
+          <Route
+            path="/admin/activate-account"
+            element={<ActivateAccountAdmin />}
+          />
+          <Route
+            path="/admin/activate-account-success"
+            element={<ActivateAccountSuccessAdmin />}
+          />
+          {/* End of Admin Authentication */}
           <Route path="*" element="404 Not Found" />
         </Route>
         <Route element={<WithFrame />}>

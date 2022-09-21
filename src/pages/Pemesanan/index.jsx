@@ -1,20 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { HiOutlineArrowSmLeft } from 'react-icons/hi';
-import { Link } from 'react-router-dom';
-import svg from '../../assets/svg';
 import './styles.css';
+import { HiOutlineArrowSmLeft } from 'react-icons/hi';
+import { Link, useNavigate } from 'react-router-dom';
+import svg from '../../assets/svg';
+import { dummyImg } from '../../assets/image';
+import CardCartCheckout from '../../components/Card/CardCartCheckout';
 
 const dummy = true;
 const check = true;
+const dummyData = [
+  {
+    id: 1,
+    produkImg: dummyImg.kotakBerdiri,
+    altImg: 'Kotak Berdiri',
+    kategori: 'Dus Offset',
+    jenis: 'Kotak Berdiri',
+  },
+  {
+    id: 2,
+    produkImg: dummyImg.boxTentengan,
+    altImg: 'Box Tentengan',
+    kategori: 'Karton',
+    jenis: 'Box Tentengan',
+  },
+  {
+    id: 3,
+    produkImg: dummyImg.topBottom,
+    altImg: 'Top Bottom',
+    kategori: 'Dus Offset',
+    jenis: 'Top Bottom',
+  },
+];
 
 const Pemesanan = () => {
+  const navigate = useNavigate();
   return (
     <>
       <main className="containers">
         <div className="mb-5 flex">
           <Link
-            to="/"
+            to="/keranjang"
             className="flex items-center mb-3"
           >
             <HiOutlineArrowSmLeft className="text-2xl mr-3" />
@@ -23,8 +49,17 @@ const Pemesanan = () => {
         </div>
         {dummy ? (
           <>
-            <section id="pesanan"></section>
-            <hr className="my-10" />
+            <section id="pesanan">
+              {dummyData.map((item, index) => {
+                return (
+                  <CardCartCheckout
+                    key={index}
+                    {...item}
+                  />
+                );
+              })}
+            </section>
+            <hr className="my-10 border-primary-400/50" />
             <section id="alamat">
               <form className="w-full grid grid-cols-4 2xsm:grid-cols-8 2md:grid-cols-12 gap-x-8">
                 <div className="col-span-4 2md:col-span-6">
@@ -92,7 +127,7 @@ const Pemesanan = () => {
                     <input
                       type="checkbox"
                       name="matchProfile"
-                      className="w-4 h-4 mr-2"
+                      className="w-4 h-4 mr-2 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500"
                     />
                     <label
                       htmlFor="matchProfile"
@@ -205,7 +240,7 @@ const Pemesanan = () => {
                     <input
                       type="checkbox"
                       name="matchProfile"
-                      className="w-4 h-4 mr-2"
+                      className="w-4 h-4 mr-2 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500"
                     />
                     <label
                       htmlFor="matchProfile"
@@ -286,7 +321,11 @@ const Pemesanan = () => {
                 Berhasil melakukan permintaan pesanan.
               </h3>
               <div className="flex justify-center">
-                <button className="text-base 2xsm:text-lg text-white font-semibold px-5 2xsm:px-30/sp py-3 2xsm:py-4 rounded-lg 2xsm:rounded-2xl bg-gradient-to-bl from-orange-900 to-primary-900 hover:from-primary-900 hover:to-orange-900 shadow-red">
+                <button
+                  className="text-base 2xsm:text-lg text-white font-semibold px-5 2xsm:px-30/sp py-3 2xsm:py-4 rounded-lg 2xsm:rounded-2xl bg-gradient-to-bl from-orange-900 to-primary-900 hover:from-primary-900 hover:to-orange-900 shadow-red"
+                  type="button"
+                  onClick={() => navigate('/dashboard/pesanan')}
+                >
                   Lihat Detail Pesanan
                 </button>
               </div>

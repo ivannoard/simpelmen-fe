@@ -59,7 +59,7 @@ const Keranjang = () => {
       <main className="containers">
         <div className="mb-5 flex">
           <Link
-            to="/"
+            to="/produk-kemasan"
             className="flex items-center mb-3"
           >
             <HiOutlineArrowSmLeft className="text-2xl mr-3" />
@@ -88,7 +88,7 @@ const Keranjang = () => {
             <div className="flex justify-center mb-9">
               <button
                 className="button-fill"
-                onClick={() => navigate('/pesanan')}
+                onClick={() => navigate('/pemesanan')}
               >
                 Lanjutkan Pesanan
               </button>
@@ -108,7 +108,11 @@ const Keranjang = () => {
                 Keranjang Anda masih kosong!
               </h3>
               <div className="flex justify-center">
-                <button className="text-base 2xsm:text-lg text-white font-semibold px-5 2xsm:px-30/sp py-2 2xsm:py-4 rounded-2xl bg-gradient-to-bl from-orange-900 to-primary-900 hover:from-primary-900 hover:to-orange-900 shadow-red">
+                <button
+                  className="text-base 2xsm:text-lg text-white font-semibold px-5 2xsm:px-30/sp py-2 2xsm:py-4 rounded-2xl bg-gradient-to-bl from-orange-900 to-primary-900 hover:from-primary-900 hover:to-orange-900 shadow-red"
+                  type="button"
+                  onClick={() => navigate('/produk-kemasan')}
+                >
                   Pesan Sekarang
                 </button>
               </div>

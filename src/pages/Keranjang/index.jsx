@@ -53,7 +53,7 @@ const Keranjang = () => {
       jenis: 'Box Model Pizza',
     },
   ];
-  const dummy = false;
+  const dummy = true;
   return (
     <>
       <main className="containers">
@@ -88,7 +88,7 @@ const Keranjang = () => {
             <div className="flex justify-center mb-9">
               <button
                 className="button-fill"
-                onClick={() => navigate('/')}
+                onClick={() => navigate('/pesanan')}
               >
                 Lanjutkan Pesanan
               </button>
@@ -99,7 +99,7 @@ const Keranjang = () => {
             <div className="w-4/5 md:w-[33.75rem] mx-auto">
               <div className="w-full px-9">
                 <img
-                  src={svg.EmptyKeranjang}
+                  src={svg.emptyKeranjang}
                   alt="empty-keranjang"
                   className="w-full mb-10"
                 />
@@ -108,7 +108,7 @@ const Keranjang = () => {
                 Keranjang Anda masih kosong!
               </h3>
               <div className="flex justify-center">
-                <button className="button-gradient-sm 2xsm:button-gradient">
+                <button className="text-base 2xsm:text-lg text-white font-semibold px-5 2xsm:px-30/sp py-2 2xsm:py-4 rounded-2xl bg-gradient-to-bl from-orange-900 to-primary-900 hover:from-primary-900 hover:to-orange-900 shadow-red">
                   Pesan Sekarang
                 </button>
               </div>

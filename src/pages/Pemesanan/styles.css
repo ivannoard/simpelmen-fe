@@ -1,0 +1,9 @@
+input:checked ~ .radio-button-white {
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(201, 17, 27, 1);
+  border-color: transparent;
+}
+
+input:checked ~ .radio-button-white:hover {
+  background-color: rgba(214, 77, 84, 1);
+}

@@ -1,33 +1,34 @@
-import { useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import Home from "./pages/Home";
-import Login from "./pages/Auth/Login";
-import Dashboard from "./pages/User";
-import DetailProduct from "./pages/DetailProduct/DetailProduct";
-import Register from "./pages/Auth/Register";
-import WithoutFrame from "./components/global/WithoutFrame";
-import WithFrame from "./components/global/WithFrame";
-import ForgotPassword from "./pages/Auth/ForgotPassword";
-import NewPassword from "./pages/Auth/NewPassword";
-import PAD from "./pages/PAD";
-import Kemasan from "./pages/Kemasan";
-import Keranjang from "./pages/Keranjang";
+import { useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './pages/Auth/Login';
+import Dashboard from './pages/User';
+import DetailProduct from './pages/DetailProduct/DetailProduct';
+import Register from './pages/Auth/Register';
+import WithoutFrame from './components/global/WithoutFrame';
+import WithFrame from './components/global/WithFrame';
+import ForgotPassword from './pages/Auth/ForgotPassword';
+import NewPassword from './pages/Auth/NewPassword';
+import PAD from './pages/PAD';
+import Kemasan from './pages/Kemasan';
+import Keranjang from './pages/Keranjang';
+import Pemesanan from './pages/Pemesanan';
 
 const ProtectingRoute = (props) => {
   const navigate = useNavigate();
-  const user = localStorage.getItem("user");
+  const user = localStorage.getItem('user');
   useEffect(() => {
-    if (!user) navigate("/");
+    if (!user) navigate('/');
   }, [navigate, props.children, user]);
   return props.children;
 };
 
 const AuthenticatedRoute = (props) => {
   const navigate = useNavigate();
-  const user = localStorage.getItem("user");
+  const user = localStorage.getItem('user');
 
   useEffect(() => {
-    !user ? navigate("/login") : navigate("/");
+    !user ? navigate('/login') : navigate('/');
   }, [navigate, user]);
 
   return props.children;
@@ -46,7 +47,10 @@ function App() {
               </AuthenticatedRoute>
             }
           />
-          <Route path="/register" element={<Register />} />
+          <Route
+            path="/register"
+            element={<Register />}
+          />
           <Route
             path="/forgot-password"
             element={
@@ -95,14 +99,36 @@ function App() {
               </ProtectingRoute>
             }
           />
-          <Route path="*" element="404 Not Found" />
+          <Route
+            path="*"
+            element="404 Not Found"
+          />
         </Route>
         <Route element={<WithFrame />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/detail-produk/:productId" element={<DetailProduct />} />
-          <Route path="/laporan" element={<PAD />} />
-          <Route path="/produk-kemasan" element={<Kemasan />} />
-          <Route path="/keranjang" element={<Keranjang />} />
+          <Route
+            path="/"
+            element={<Home />}
+          />
+          <Route
+            path="/detail-produk/:productId"
+            element={<DetailProduct />}
+          />
+          <Route
+            path="/laporan"
+            element={<PAD />}
+          />
+          <Route
+            path="/produk-kemasan"
+            element={<Kemasan />}
+          />
+          <Route
+            path="/keranjang"
+            element={<Keranjang />}
+          />
+          <Route
+            path="/pemesanan"
+            element={<Pemesanan />}
+          />
         </Route>
       </Routes>
     </div>

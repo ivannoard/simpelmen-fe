@@ -21,7 +21,8 @@ import flowOrder8 from './flow-order-8.svg';
 import bgOurProduct from './bg-our-product.svg';
 import karton from './karton.svg';
 import LogoDashboardUser from './dashboard-user-logo.svg';
-import EmptyKeranjang from './empty-keranjang.svg';
+import emptyKeranjang from './empty-keranjang.svg';
+import successPO from './success-po.svg';
 
 const svg = {
   loginPage,
@@ -47,7 +48,8 @@ const svg = {
   bgOurProduct,
   karton,
   LogoDashboardUser,
-  EmptyKeranjang,
+  emptyKeranjang,
+  successPO,
 };
 
 export default svg;

@@ -10,6 +10,7 @@ import Status from "./Status";
 import Rekap from "./Rekap";
 import PAD from "./PAD";
 import Profil from "./Profil";
+import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 
 const AdminCS = () => {
   const [toggle, setToggle] = useState(true);
@@ -56,12 +57,12 @@ const AdminCS = () => {
             } duration-500`}
           >
             <img
-              src={svg.LogoDashboardUser}
+              src={svg.adminLogo}
               alt="simpelmenok"
               className="mx-auto px-2"
             />
             <div
-              className="bg-orange-900 border-white border-2 flex justify-center items-center absolute w-[20px] h-[20px] top-16 -right-3 rounded-full"
+              className="bg-orange-900 cursor-pointer border-white border-2 flex justify-center items-center absolute w-[20px] h-[20px] top-16 -right-3 rounded-full"
               onClick={() => setToggle(!toggle)}
             >
               {toggle ? <BiChevronsLeft /> : <BiChevronsRight />}
@@ -78,8 +79,24 @@ const AdminCS = () => {
           {/* Navbar Top */}
           <Navbar />
           {/* Main Content */}
-          <main className="mt-6">{content}</main>
-          <div className="copyright fixed bottom-5 right-10">asdasd</div>
+          <main className="mt-6 min-h-screen">{content}</main>
+          <div className="copyright mt-10 flex items-center justify-end gap-4">
+            <p>&copy; 2022 BIKDK Provinsi Jawa Tengah. All Rights Reserved.</p>
+            <div className="icons flex gap-2">
+              <div className="facebook bg-[#1877F2] p-2 rounded-full">
+                <FaFacebook fill="#FFFFFF" />
+              </div>
+              <div className="facebook bg-[#1DA1F2] p-2 rounded-full">
+                <FaTwitter fill="#FFFFFF" />
+              </div>
+              <div className="facebook bg-[#F00073] p-2 rounded-full">
+                <FaInstagram fill="#FFFFFF" />
+              </div>
+              <div className="facebook bg-[#C9111B] p-2 rounded-full">
+                <FaYoutube fill="#FFFFFF" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

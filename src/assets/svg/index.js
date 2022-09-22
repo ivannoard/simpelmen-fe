@@ -25,6 +25,7 @@ import Logo from "./logo.svg";
 import adminActivate from "./admin-activate.svg";
 import adminForgotPassword from "./admin-forgotpassword.svg";
 import adminLogin from "./admin-login.svg";
+import adminLogo from "./admin-logo.svg";
 
 const svg = {
   loginPage,
@@ -54,6 +55,7 @@ const svg = {
   adminActivate,
   adminForgotPassword,
   adminLogin,
+  adminLogo,
 };
 
 export default svg;

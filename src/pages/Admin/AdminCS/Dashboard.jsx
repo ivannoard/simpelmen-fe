@@ -1,4 +1,5 @@
 import React from "react";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 
 const Dashboard = () => {
   return (
@@ -33,8 +34,26 @@ const Dashboard = () => {
           ))}
         </tbody>
       </table>
+      <nav
+        className="flex justify-end items-center gap-x-[.375rem] py-2 mt-5"
+        aria-label="pagination"
+      >
+        <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
+          <HiChevronLeft className="!text-base xs:!text-xl" />
+        </button>
+        <button className="button-gradient-sm !text-xs xs:!text-base">1</button>
+        <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
+          2
+        </button>
+        <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
+          3
+        </button>
+        <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
+          <HiChevronRight className="!text-base xs:!text-xl" />
+        </button>
+      </nav>
       {/*  */}
-      <h6 className="mt-10 mb-4">Tabel Status PO Pelanggan</h6>
+      <h6 className="mt-5 mb-4">Tabel Status PO Pelanggan</h6>
       <table className="table-auto mt-4 w-[1440px] lg:w-full">
         <thead>
           <tr className="bg-orange-900">
@@ -59,8 +78,26 @@ const Dashboard = () => {
           ))}
         </tbody>
       </table>
+      <nav
+        className="flex justify-end items-center gap-x-[.375rem] py-2 mt-5"
+        aria-label="pagination"
+      >
+        <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
+          <HiChevronLeft className="!text-base xs:!text-xl" />
+        </button>
+        <button className="button-gradient-sm !text-xs xs:!text-base">1</button>
+        <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
+          2
+        </button>
+        <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
+          3
+        </button>
+        <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
+          <HiChevronRight className="!text-base xs:!text-xl" />
+        </button>
+      </nav>
       {/*  */}
-      <h6 className="mt-10 mb-4">Tabel Rekap Pesanan</h6>
+      <h6 className="mt-5 mb-4">Tabel Rekap Pesanan</h6>
       <table className="table-auto mt-4 w-[1440px] lg:w-full">
         <thead>
           <tr className="bg-orange-900">
@@ -83,6 +120,24 @@ const Dashboard = () => {
           ))}
         </tbody>
       </table>
+      <nav
+        className="flex justify-end items-center gap-x-[.375rem] py-2 mt-5"
+        aria-label="pagination"
+      >
+        <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
+          <HiChevronLeft className="!text-base xs:!text-xl" />
+        </button>
+        <button className="button-gradient-sm !text-xs xs:!text-base">1</button>
+        <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
+          2
+        </button>
+        <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
+          3
+        </button>
+        <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
+          <HiChevronRight className="!text-base xs:!text-xl" />
+        </button>
+      </nav>
     </section>
   );
 };

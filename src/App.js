@@ -145,66 +145,35 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           {/* Dashboard Admin CS */}
           <Route path="/admin/cs/dashboard" element={<AdminCS />} />
+          <Route
+            path="/admin/cs/dashboard/retribusi-pelanggan"
+            element={<AdminCS />}
+          />
+          <Route path="/admin/cs/dashboard/status-po" element={<AdminCS />} />
+          <Route
+            path="/admin/cs/dashboard/rekap-pesanan"
+            element={<AdminCS />}
+          />
+          <Route path="/admin/cs/dashboard/pad" element={<AdminCS />} />
+          <Route path="/admin/cs/dashboard/profil" element={<AdminCS />} />
           {/* End of AdminCS */}
           {/* Dashboard Admin Desain */}
-          <Route
-            path="/admin/desain/dashboard"
-            element={
-              <AuthenticatedAdminRoute>
-                <AdminDesain />
-              </AuthenticatedAdminRoute>
-            }
-          />
+          <Route path="/admin/desain/dashboard" element={<AdminDesain />} />
           {/* End of Admin Desain */}
           {/* Dashboard Admin Gudang */}
-          <Route
-            path="/admin/gudang/dashboard"
-            element={
-              <AuthenticatedAdminRoute>
-                <AdminGudang />
-              </AuthenticatedAdminRoute>
-            }
-          />
+          <Route path="/admin/gudang/dashboard" element={<AdminGudang />} />
           {/* End of Admin Gudang */}
           {/* Dashboard Admin Kasir */}
-          <Route
-            path="/admin/kasir/dashboard"
-            element={
-              <AuthenticatedAdminRoute>
-                <AdminKasir />
-              </AuthenticatedAdminRoute>
-            }
-          />
+          <Route path="/admin/kasir/dashboard" element={<AdminKasir />} />
           {/* End of Admin Kasir */}
           {/* Dashboard Admin Produksi */}
-          <Route
-            path="/admin/produksi/dashboard"
-            element={
-              <AuthenticatedAdminRoute>
-                <AdminProduksi />
-              </AuthenticatedAdminRoute>
-            }
-          />
+          <Route path="/admin/produksi/dashboard" element={<AdminProduksi />} />
           {/* End of Admin Produksi */}
           {/* Dashboard Admin Super */}
-          <Route
-            path="/admin/super/dashboard"
-            element={
-              <AuthenticatedAdminRoute>
-                <AdminSuper />
-              </AuthenticatedAdminRoute>
-            }
-          />
+          <Route path="/admin/super/dashboard" element={<AdminSuper />} />
           {/* End of Admin Super */}
           {/* Dashboard Admin TU */}
-          <Route
-            path="/admin/tu/dashboard"
-            element={
-              <AuthenticatedAdminRoute>
-                <AdminTU />
-              </AuthenticatedAdminRoute>
-            }
-          />
+          <Route path="/admin/tu/dashboard" element={<AdminTU />} />
           {/* End of Admin TU */}
           {/* End of Admin Dashboard */}
           <Route path="*" element="404 Not Found" />

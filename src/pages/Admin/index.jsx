@@ -9,19 +9,19 @@ const Admin = () => {
     if (!admin) navigate("/admin/login");
     switch (parseInt(admin)) {
       case 1:
-        return navigate("/admin/cs/dashboard");
+        return navigate("/admin/cs/dashboard/");
       case 2:
-        return navigate("/admin/desain/dashboard");
+        return navigate("/admin/desain/dashboard/");
       case 3:
-        return navigate("/admin/gudang/dashboard");
+        return navigate("/admin/gudang/dashboard/");
       case 4:
-        return navigate("/admin/kasir/dashboard");
+        return navigate("/admin/kasir/dashboard/");
       case 5:
-        return navigate("/admin/produksi/dashboard");
+        return navigate("/admin/produksi/dashboard/");
       case 6:
-        return navigate("/admin/super/dashboard");
+        return navigate("/admin/super/dashboard/");
       case 7:
-        return navigate("/admin/tu/dashboard");
+        return navigate("/admin/tu/dashboard/");
       default:
         break;
     }

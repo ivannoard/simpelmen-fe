@@ -39,14 +39,14 @@ const Navbar = () => {
                   Beranda
                 </NavLink>
               </Menu.Item>
-              <Menu.Item as="div">
+              {/* <Menu.Item as="div">
                 <NavLink
                   to="/admin/cs/dashboard/profil"
                   className="navlink-mobile"
                 >
                   Profil
                 </NavLink>
-              </Menu.Item>
+              </Menu.Item> */}
               <hr />
               <Menu.Item as="div">
                 <p

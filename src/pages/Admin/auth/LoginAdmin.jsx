@@ -6,7 +6,7 @@ import Alerts from "../../../components/Alerts";
 import svg from "../../../assets/svg";
 import { MdEmail, MdLock } from "react-icons/md";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
-import { adminAuth, userAuth } from "../../../services/api";
+import { adminAuth } from "../../../services/api";
 
 const LoginAdmin = () => {
   const [showPassword, setShowPassword] = useState(false);

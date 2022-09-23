@@ -1,6 +1,6 @@
 import React from "react";
 import { HiOutlineArrowSmLeft } from "react-icons/hi";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import svg from "../../../../assets/svg";
 
 const AuthLayout = ({ images, altImages, children }) => {

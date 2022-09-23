@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { FaTrash } from "react-icons/fa";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 const Status = () => {
   const [barang, setBarang] = useState([

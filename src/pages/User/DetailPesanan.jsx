@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { HiOutlineArrowSmLeft } from "react-icons/hi";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import svg from "../../assets/svg";
 import ModalConfirm from "./components/ModalConfirm";
 import ModalDelete from "./components/ModalDelete";
 
 const DetailPesanan = () => {
-  const { pesananId } = useParams();
   const [toggleConfirm, setToggleConfirm] = useState(false);
   const [toggleDelete, setToggleDelete] = useState(false);
 

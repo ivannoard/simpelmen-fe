@@ -21,6 +21,8 @@ import flowOrder8 from "./flow-order-8.svg";
 import bgOurProduct from "./bg-our-product.svg";
 import karton from "./karton.svg";
 import LogoDashboardUser from "./dashboard-user-logo.svg";
+import shippingVehicle from "./shipping.svg";
+import windTurbine from "./wind-turbine.svg";
 
 const svg = {
   loginPage,
@@ -46,6 +48,8 @@ const svg = {
   bgOurProduct,
   karton,
   LogoDashboardUser,
+  shippingVehicle,
+  windTurbine,
 };
 
 export default svg;

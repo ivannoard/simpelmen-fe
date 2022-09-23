@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import svg from "../../assets/svg";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
@@ -8,16 +8,20 @@ import Pembayaran from "./Pembayaran";
 import Pesanan from "./Pesanan";
 import Profile from "./Profile";
 import { BiChevronsRight, BiChevronsLeft } from "react-icons/bi";
+import DetailPesanan from "./DetailPesanan";
 
 const Dashboard = () => {
   const [toggle, setToggle] = useState(true);
   const { pathname } = useLocation();
   const [content, setContent] = useState();
+  const { pesananId } = useParams();
 
   useEffect(() => {
     switch (pathname.split("/")[2]) {
       case "pesanan":
         return setContent(<Pesanan />);
+      case "detail":
+        return setContent(<DetailPesanan />);
       case "pembayaran":
         return setContent(<Pembayaran />);
       case "lacak-pesanan":
@@ -27,7 +31,7 @@ const Dashboard = () => {
       default:
         break;
     }
-  }, [pathname]);
+  }, [pathname, pesananId]);
 
   return (
     <>

@@ -93,6 +93,14 @@ function App() {
             }
           />
           <Route
+            path="/dashboard/detail/:pesananId"
+            element={
+              <ProtectingRoute>
+                <Dashboard />
+              </ProtectingRoute>
+            }
+          />
+          <Route
             path="/dashboard/pembayaran"
             element={
               <ProtectingRoute>

@@ -23,6 +23,11 @@ import karton from "./karton.svg";
 import LogoDashboardUser from "./dashboard-user-logo.svg";
 import shippingVehicle from "./shipping.svg";
 import windTurbine from "./wind-turbine.svg";
+import Logo from "./logo.svg";
+import adminActivate from "./admin-activate.svg";
+import adminForgotPassword from "./admin-forgotpassword.svg";
+import adminLogin from "./admin-login.svg";
+import adminLogo from "./admin-logo.svg";
 
 const svg = {
   loginPage,
@@ -50,6 +55,11 @@ const svg = {
   LogoDashboardUser,
   shippingVehicle,
   windTurbine,
+  Logo,
+  adminActivate,
+  adminForgotPassword,
+  adminLogin,
+  adminLogo,
 };
 
 export default svg;

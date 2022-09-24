@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import Modal from "./components/Modal";
 
 const Dashboard = () => {
@@ -148,6 +149,26 @@ const Dashboard = () => {
             ))}
           </tbody>
         </table>
+        <nav
+          className="flex justify-end items-center gap-x-[.375rem] py-2 mt-5"
+          aria-label="pagination"
+        >
+          <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
+            <HiChevronLeft className="!text-base xs:!text-xl" />
+          </button>
+          <button className="button-gradient-sm !text-xs xs:!text-base">
+            1
+          </button>
+          <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
+            2
+          </button>
+          <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
+            3
+          </button>
+          <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
+            <HiChevronRight className="!text-base xs:!text-xl" />
+          </button>
+        </nav>
       </section>
     </>
   );

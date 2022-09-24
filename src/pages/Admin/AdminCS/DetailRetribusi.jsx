@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 const DetailRetribusi = () => {
   const { retribusiId } = useParams();
   const [fields, setFields] = useState({});
+  const [disable, setDisable] = useState(true);
 
   function handleChange(e) {
     e.preventDefault();
@@ -30,12 +31,14 @@ const DetailRetribusi = () => {
                 type="text"
                 id="ukuran"
                 name="panjang"
-                className="bg-white pr-14 border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
-                placeholder="Panjang"
+                className={`${
+                  disable ? "bg-secondary-600" : "bg-white"
+                } h-[60px] pr-14 border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none`}
                 required
+                disabled={disable}
                 onChange={(e) => handleChange(e)}
               />
-              <span className="text-gray-400 absolute right-3 top-[10px]">
+              <span className="text-gray-400 absolute right-3 top-[18px]">
                 cm
               </span>
             </div>
@@ -44,12 +47,14 @@ const DetailRetribusi = () => {
                 type="text"
                 id="ukuran"
                 name="lebar"
-                className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
-                placeholder="Lebar"
+                className={`${
+                  disable ? "bg-secondary-600" : "bg-white"
+                } h-[60px] border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none`}
                 required
+                disabled={disable}
                 onChange={(e) => handleChange(e)}
               />
-              <span className="text-gray-400 absolute right-3 top-[10px]">
+              <span className="text-gray-400 absolute right-3 top-[18px]">
                 cm
               </span>
             </div>
@@ -58,12 +63,14 @@ const DetailRetribusi = () => {
                 type="text"
                 id="ukuran"
                 name="tinggi"
-                className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
-                placeholder="Tinggi"
+                className={`${
+                  disable ? "bg-secondary-600" : "bg-white"
+                } h-[60px] border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none`}
                 required
+                disabled={disable}
                 onChange={(e) => handleChange(e)}
               />
-              <span className="text-gray-400 absolute right-3 top-[10px]">
+              <span className="text-gray-400 absolute right-3 top-[18px]">
                 cm
               </span>
             </div>
@@ -72,92 +79,88 @@ const DetailRetribusi = () => {
             <div className="left">
               <div className="mt-3">
                 <label
-                  htmlFor="jumlah"
+                  htmlFor="bentuk"
                   className="block mb-2 text-15/sp font-medium text-dark"
                 >
-                  Jumlah Pesanan
+                  Bentuk Produk
                 </label>
                 <div className="relative">
                   <input
                     type="text"
-                    id="jumlah"
-                    name="jumlah"
-                    className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
-                    placeholder="Masukkan Jumlah Pesanan"
+                    id="bentuk"
+                    name="bentuk"
+                    className={`${
+                      disable ? "bg-secondary-600" : "bg-white"
+                    } h-[60px] border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none`}
                     required
+                    disabled={disable}
                     onChange={(e) => handleChange(e)}
                   />
-                  <span className="text-gray-400 absolute right-3 top-[10px]">
-                    pcs
-                  </span>
                 </div>
               </div>
               <div className="mt-3">
                 <label
-                  htmlFor="jumlah"
+                  htmlFor="finishing"
                   className="block mb-2 text-15/sp font-medium text-dark"
                 >
-                  Jumlah Pesanan
+                  Finishing Produk
                 </label>
                 <div className="relative">
                   <input
                     type="text"
-                    id="jumlah"
-                    name="jumlah"
-                    className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
-                    placeholder="Masukkan Jumlah Pesanan"
+                    id="finishing"
+                    name="finishing"
+                    className={`${
+                      disable ? "bg-secondary-600" : "bg-white"
+                    } h-[60px] border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none`}
                     required
+                    disabled={disable}
                     onChange={(e) => handleChange(e)}
                   />
-                  <span className="text-gray-400 absolute right-3 top-[10px]">
-                    pcs
-                  </span>
                 </div>
               </div>
             </div>
             <div className="right">
               <div className="mt-3">
                 <label
-                  htmlFor="jumlah"
+                  htmlFor="sablon"
                   className="block mb-2 text-15/sp font-medium text-dark"
                 >
-                  Jumlah Pesanan
+                  Sablon
                 </label>
                 <div className="relative">
                   <input
                     type="text"
-                    id="jumlah"
-                    name="jumlah"
-                    className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
-                    placeholder="Masukkan Jumlah Pesanan"
+                    id="sablon"
+                    name="sablon"
+                    className={`${
+                      disable ? "bg-secondary-600" : "bg-white"
+                    } h-[60px] border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none`}
                     required
+                    disabled={disable}
                     onChange={(e) => handleChange(e)}
                   />
-                  <span className="text-gray-400 absolute right-3 top-[10px]">
-                    pcs
-                  </span>
                 </div>
               </div>
               <div className="mt-3">
                 <label
-                  htmlFor="jumlah"
+                  htmlFor="desain"
                   className="block mb-2 text-15/sp font-medium text-dark"
                 >
-                  Jumlah Pesanan
+                  Desain
                 </label>
                 <div className="relative">
                   <input
                     type="text"
-                    id="jumlah"
-                    name="jumlah"
-                    className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
-                    placeholder="Masukkan Jumlah Pesanan"
+                    id="desain"
+                    name="desain"
+                    className={`${
+                      disable ? "bg-secondary-600" : "bg-white"
+                    } h-[60px] border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none`}
                     required
+                    disabled={disable}
                     onChange={(e) => handleChange(e)}
                   />
-                  <span className="text-gray-400 absolute right-3 top-[10px]">
-                    pcs
-                  </span>
                 </div>
               </div>
             </div>
@@ -168,137 +171,117 @@ const DetailRetribusi = () => {
             <div className="left">
               <div className="mt-3">
                 <label
-                  htmlFor="jumlah"
+                  htmlFor="jasapound"
                   className="block mb-2 text-15/sp font-medium text-dark"
                 >
-                  Jumlah Pesanan
+                  Jasa Pound
                 </label>
-                <div className="relative">
+                <div className="flex items-center gap-5">
+                  <h6>Rp</h6>
                   <input
                     type="text"
-                    id="jumlah"
-                    name="jumlah"
-                    className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
-                    placeholder="Masukkan Jumlah Pesanan"
+                    id="jasapound"
+                    name="jasapound"
+                    className="bg-white h-[60px] border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
                     required
                     onChange={(e) => handleChange(e)}
                   />
-                  <span className="text-gray-400 absolute right-3 top-[10px]">
-                    pcs
-                  </span>
                 </div>
               </div>
               <div className="mt-3">
                 <label
-                  htmlFor="jumlah"
+                  htmlFor="jumlahkarton"
                   className="block mb-2 text-15/sp font-medium text-dark"
                 >
-                  Jumlah Pesanan
+                  Jumlah Karton
                 </label>
-                <div className="relative">
+                <div className="flex items-center gap-5">
+                  <h6>Rp</h6>
                   <input
                     type="text"
-                    id="jumlah"
-                    name="jumlah"
-                    className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
-                    placeholder="Masukkan Jumlah Pesanan"
+                    id="jumlahkarton"
+                    name="jumlahkarton"
+                    className="bg-white h-[60px] border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
                     required
                     onChange={(e) => handleChange(e)}
                   />
-                  <span className="text-gray-400 absolute right-3 top-[10px]">
-                    pcs
-                  </span>
                 </div>
               </div>
               <div className="mt-3">
                 <label
-                  htmlFor="jumlah"
+                  htmlFor="jasasablon"
                   className="block mb-2 text-15/sp font-medium text-dark"
                 >
-                  Jumlah Pesanan
+                  Jasa Sablon
                 </label>
-                <div className="relative">
+                <div className="flex items-center gap-5">
+                  <h6>Rp</h6>
                   <input
                     type="text"
-                    id="jumlah"
-                    name="jumlah"
-                    className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
-                    placeholder="Masukkan Jumlah Pesanan"
+                    id="jasasablon"
+                    name="jasasablon"
+                    className="bg-white h-[60px] border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
                     required
                     onChange={(e) => handleChange(e)}
                   />
-                  <span className="text-gray-400 absolute right-3 top-[10px]">
-                    pcs
-                  </span>
                 </div>
               </div>
             </div>
             <div className="right">
               <div className="mt-3">
                 <label
-                  htmlFor="jumlah"
+                  htmlFor="jasadesain"
                   className="block mb-2 text-15/sp font-medium text-dark"
                 >
-                  Jumlah Pesanan
+                  Jasa Desain
                 </label>
-                <div className="relative">
+                <div className="flex items-center gap-5">
+                  <h6>Rp</h6>
                   <input
                     type="text"
-                    id="jumlah"
-                    name="jumlah"
-                    className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
-                    placeholder="Masukkan Jumlah Pesanan"
+                    id="jasadesain"
+                    name="jasadesain"
+                    className="bg-white h-[60px] border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
                     required
                     onChange={(e) => handleChange(e)}
                   />
-                  <span className="text-gray-400 absolute right-3 top-[10px]">
-                    pcs
-                  </span>
                 </div>
               </div>
               <div className="mt-3">
                 <label
-                  htmlFor="jumlah"
+                  htmlFor="jasafinishing"
                   className="block mb-2 text-15/sp font-medium text-dark"
                 >
-                  Jumlah Pesanan
+                  Jasa Finishing
                 </label>
-                <div className="relative">
+                <div className="flex items-center gap-5">
+                  <h6>Rp</h6>
                   <input
                     type="text"
-                    id="jumlah"
-                    name="jumlah"
-                    className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
-                    placeholder="Masukkan Jumlah Pesanan"
+                    id="jasafinishing"
+                    name="jasafinishing"
+                    className="bg-white h-[60px] border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
                     required
                     onChange={(e) => handleChange(e)}
                   />
-                  <span className="text-gray-400 absolute right-3 top-[10px]">
-                    pcs
-                  </span>
                 </div>
               </div>
-              <div className="mt-3">
+              <div className="mt-12 flex items-center justify-end gap-4">
                 <label
-                  htmlFor="jumlah"
+                  htmlFor="jumlahorder"
                   className="block mb-2 text-15/sp font-medium text-dark"
                 >
-                  Jumlah Pesanan
+                  Jumlah Order :
                 </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    id="jumlah"
-                    name="jumlah"
-                    className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
-                    placeholder="Masukkan Jumlah Pesanan"
-                    required
-                    onChange={(e) => handleChange(e)}
-                  />
-                  <span className="text-gray-400 absolute right-3 top-[10px]">
-                    pcs
-                  </span>
-                </div>
+
+                <input
+                  type="text"
+                  id="jumlahorder"
+                  name="jumlahorder"
+                  className="bg-white w-[146px] h-[60px] border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block  p-[10px] outline-none"
+                  required
+                  onChange={(e) => handleChange(e)}
+                />
               </div>
             </div>
           </div>

@@ -179,6 +179,26 @@ function App() {
           {/* End of Admin Produksi */}
           {/* Dashboard Admin Super */}
           <Route path="/admin/super/dashboard" element={<AdminSuper />} />
+          <Route
+            path="/admin/super/dashboard/anggota"
+            element={<AdminSuper />}
+          />
+          <Route
+            path="/admin/super/dashboard/produk"
+            element={<AdminSuper />}
+          />
+          <Route
+            path="/admin/super/dashboard/spesifikasi"
+            element={<AdminSuper />}
+          />
+          <Route
+            path="/admin/super/dashboard/rekap-pesanan"
+            element={<AdminSuper />}
+          />
+          <Route
+            path="/admin/super/dashboard/profil"
+            element={<AdminSuper />}
+          />
           {/* End of Admin Super */}
           {/* Dashboard Admin TU */}
           <Route path="/admin/tu/dashboard" element={<AdminTU />} />

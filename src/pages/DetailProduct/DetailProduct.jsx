@@ -106,7 +106,7 @@ const DetailProduct = () => {
                   alt="kardus"
                   className="w-full"
                 /> */}
-                <div className="w-full overflow-auto flex justify-center items-center">
+                <div className="w-full overflow-auto flex justify-center items-center rounded-xl">
                   <div>
                     <Zoom
                       img={dummyImg.kardus}

@@ -157,14 +157,19 @@ function App() {
             path="/admin/cs/dashboard/retribusi-pelanggan"
             element={<AdminCS />}
           />
+          <Route
+            path="/admin/cs/dashboard/detail-retribusi-pelanggan/:retribusiId"
+            element={<AdminCS />}
+          />
           <Route path="/admin/cs/dashboard/status-po" element={<AdminCS />} />
           <Route
             path="/admin/cs/dashboard/rekap-pesanan"
             element={<AdminCS />}
           />
           <Route path="/admin/cs/dashboard/pad" element={<AdminCS />} />
-          <Route path="/admin/cs/dashboard/profil" element={<AdminCS />} />
+          {/* <Route path="/admin/cs/dashboard/profil" element={<AdminCS />} /> */}
           {/* End of AdminCS */}
+
           {/* Dashboard Admin Desain */}
           <Route path="/admin/desain/dashboard" element={<AdminDesain />} />
           {/* End of Admin Desain */}

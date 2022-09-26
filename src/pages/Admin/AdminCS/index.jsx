@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BiChevronsLeft, BiChevronsRight } from "react-icons/bi";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import svg from "../../../assets/svg";
@@ -11,14 +11,16 @@ import Rekap from "./Rekap";
 import PAD from "./PAD";
 import Profil from "./Profil";
 import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import DetailRetribusi from "./DetailRetribusi";
 
 const AdminCS = () => {
   const [toggle, setToggle] = useState(true);
   const { pathname } = useLocation();
   const [content, setContent] = useState();
+  const { retribusiId } = useParams();
 
   const adminRole = localStorage.getItem("admin");
-  console.log(adminRole);
+  console.log(retribusiId);
   const navigate = useNavigate();
   useEffect(() => {
     if (parseInt(adminRole) !== 1) navigate("/admin/login");
@@ -30,18 +32,20 @@ const AdminCS = () => {
         return setContent(<Dashboard />);
       case "retribusi-pelanggan":
         return setContent(<Retribusi />);
+      case "detail-retribusi-pelanggan":
+        return setContent(<DetailRetribusi />);
       case "status-po":
         return setContent(<Status />);
       case "rekap-pesanan":
         return setContent(<Rekap />);
       case "pad":
         return setContent(<PAD />);
-      case "profil":
-        return setContent(<Profil />);
+      // case "profil":
+      //   return setContent(<Profil />);
       default:
         break;
     }
-  }, [pathname]);
+  }, [pathname, retribusiId]);
 
   return (
     <>

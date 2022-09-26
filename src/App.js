@@ -178,6 +178,11 @@ function App() {
           {/* End of Admin Gudang */}
           {/* Dashboard Admin Kasir */}
           <Route path="/admin/kasir/dashboard" element={<AdminKasir />} />
+          <Route
+            path="/admin/kasir/dashboard/pembayaran"
+            element={<AdminKasir />}
+          />
+          <Route path="/admin/kasir/dashboard/pad" element={<AdminKasir />} />
           {/* End of Admin Kasir */}
           {/* Dashboard Admin Produksi */}
           <Route path="/admin/produksi/dashboard" element={<AdminProduksi />} />

@@ -16,7 +16,6 @@ const DetailProduct = () => {
   const [form, setForm] = useState();
   const [alertSuccess, setAlertSuccess] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
-  console.log(typeof product);
 
   // Use Custom Hook
   // useEffect(()=>{

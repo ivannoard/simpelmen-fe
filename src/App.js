@@ -172,6 +172,14 @@ function App() {
 
           {/* Dashboard Admin Desain */}
           <Route path="/admin/desain/dashboard" element={<AdminDesain />} />
+          <Route
+            path="/admin/desain/dashboard/riwayat-chat"
+            element={<AdminDesain />}
+          />
+          <Route
+            path="/admin/desain/dashboard/konfirmasi-desain"
+            element={<AdminDesain />}
+          />
           {/* End of Admin Desain */}
           {/* Dashboard Admin Gudang */}
           <Route path="/admin/gudang/dashboard" element={<AdminGudang />} />

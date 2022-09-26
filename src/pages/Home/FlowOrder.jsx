@@ -1,118 +1,73 @@
-import React from "react";
-import svg from "../../assets/svg";
+import React from 'react';
+import svg from '../../assets/svg';
+import CardFlow from '../../components/Card/CardFlow';
 
 const FlowOrder = () => {
+  const flowOrderData = [
+    {
+      id: 1,
+      title: 'Pilih Produk dan Spesifikasi',
+      img: svg.flowOrder1,
+      altImg: 'pilih-produk-dan-spesifikasi',
+    },
+    {
+      id: 2,
+      title: 'Masukkan Keranjang',
+      img: svg.flowOrder2,
+      altImg: 'masukkan-keranjang',
+    },
+    {
+      id: 3,
+      title: 'Pesan',
+      img: svg.flowOrder3,
+      altImg: 'pesan',
+    },
+    {
+      id: 4,
+      title: 'Persetujuan Pesanan',
+      img: svg.flowOrder4,
+      altImg: 'persetujuan-pesanan',
+    },
+    {
+      id: 5,
+      title: 'Pembayaran',
+      img: svg.flowOrder5,
+      altImg: 'pembayaran',
+    },
+    {
+      id: 6,
+      title: 'Desain',
+      img: svg.flowOrder6,
+      altImg: 'desain',
+    },
+    {
+      id: 7,
+      title: 'Produksi',
+      img: svg.flowOrder7,
+      altImg: 'produksi',
+    },
+    {
+      id: 8,
+      title: 'Pengiriman',
+      img: svg.flowOrder8,
+      altImg: 'pengiriman',
+    },
+  ];
   return (
     <>
-      <section className="containers">
-        <p className="text-3xl text-orange-900 font-bold text-center">
+      <section className="containers-sm">
+        <p className="text-3xl text-orange-900 font-bold text-center mb-12 md:mb-14">
           Alur Pemesanan
         </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 my-10">
-          <div className="card text-center">
-            <div className="relative">
-              <img
-                src={svg.flowOrder1}
-                alt="pilih-produk"
-                className="w-[205px] h-[211px] mx-auto"
-              />
-              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[50px] h-[50px] md:w-[100px] md:h-[100px] bg-orange-400 rounded-full">
-                <h1 className="!text-[25px] md:!text-6xl">1</h1>
-              </div>
+        <div className="grid grid-systems gap-x-6 xs:gap-x-8 gap-y-6 xs:gap-y-9">
+          {flowOrderData.map((item) => (
+            <div
+              className="col-span-2 2xsm:col-span-4 2md:col-span-3"
+              key={item.id}
+            >
+              <CardFlow {...item} />
             </div>
-            <h6 className="mt-5">Pilih Produk</h6>
-          </div>
-          <div className="card text-center">
-            <div className="relative">
-              <img
-                src={svg.flowOrder2}
-                alt="pilih-produk"
-                className="w-[205px] h-[211px] mx-auto"
-              />
-              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[50px] h-[50px] md:w-[100px] md:h-[100px] bg-orange-400 rounded-full">
-                <h1 className="!text-[25px] md:!text-6xl">2</h1>
-              </div>
-            </div>
-            <h6 className="mt-5">Pilih Spesifikasi Produk</h6>
-          </div>
-          <div className="card text-center">
-            <div className="relative">
-              <img
-                src={svg.flowOrder3}
-                alt="pilih-produk"
-                className="w-[205px] h-[211px] mx-auto"
-              />
-              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[50px] h-[50px] md:w-[100px] md:h-[100px] bg-orange-400 rounded-full">
-                <h1 className="!text-[25px] md:!text-6xl">3</h1>
-              </div>
-            </div>
-            <h6 className="mt-5">Masukkan Keranjang</h6>
-          </div>
-          <div className="card text-center">
-            <div className="relative">
-              <img
-                src={svg.flowOrder4}
-                alt="pilih-produk"
-                className="w-[205px] h-[211px] mx-auto"
-              />
-              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[50px] h-[50px] md:w-[100px] md:h-[100px] bg-orange-400 rounded-full">
-                <h1 className="!text-[25px] md:!text-6xl">4</h1>
-              </div>
-            </div>
-            <h6 className="mt-5">Pesan</h6>
-          </div>
-          <div className="card text-center">
-            <div className="relative">
-              <img
-                src={svg.flowOrder5}
-                alt="pilih-produk"
-                className="w-[205px] h-[211px] mx-auto"
-              />
-              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[50px] h-[50px] md:w-[100px] md:h-[100px] bg-orange-400 rounded-full">
-                <h1 className="!text-[25px] md:!text-6xl">5</h1>
-              </div>
-            </div>
-            <h6 className="mt-5">Pembayaran</h6>
-          </div>
-          <div className="card text-center">
-            <div className="relative">
-              <img
-                src={svg.flowOrder6}
-                alt="pilih-produk"
-                className="w-[205px] h-[211px] mx-auto"
-              />
-              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[50px] h-[50px] md:w-[100px] md:h-[100px] bg-orange-400 rounded-full">
-                <h1 className="!text-[25px] md:!text-6xl">6</h1>
-              </div>
-            </div>
-            <h6 className="mt-5">Desain</h6>
-          </div>
-          <div className="card text-center">
-            <div className="relative">
-              <img
-                src={svg.flowOrder7}
-                alt="pilih-produk"
-                className="w-[205px] h-[211px] mx-auto"
-              />
-              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[50px] h-[50px] md:w-[100px] md:h-[100px] bg-orange-400 rounded-full">
-                <h1 className="!text-[25px] md:!text-6xl">7</h1>
-              </div>
-            </div>
-            <h6 className="mt-5">Produksi</h6>
-          </div>
-          <div className="card text-center">
-            <div className="relative">
-              <img
-                src={svg.flowOrder8}
-                alt="pilih-produk"
-                className="w-[205px] h-[211px] mx-auto"
-              />
-              <div className="absolute -bottom-3 left-5 flex justify-center items-center w-[50px] h-[50px] md:w-[100px] md:h-[100px] bg-orange-400 rounded-full">
-                <h1 className="!text-[25px] md:!text-6xl">8</h1>
-              </div>
-            </div>
-            <h6 className="mt-5">Pengiriman</h6>
-          </div>
+          ))}
         </div>
       </section>
     </>

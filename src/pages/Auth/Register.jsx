@@ -1,35 +1,35 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Alerts from "../../components/Alerts";
-import AuthLayout from "./components/AuthLayout";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Alerts from '../../components/Alerts';
+import AuthLayout from './components/AuthLayout';
 
-import svg from "../../assets/svg";
-import { MdEmail, MdLock } from "react-icons/md";
-import { BsFillPersonFill } from "react-icons/bs";
-import { AiFillPhone } from "react-icons/ai";
-import { VscEye, VscEyeClosed } from "react-icons/vsc";
-import { userAuth } from "../../services/api";
+import svg from '../../assets/svg';
+import { MdEmail, MdLock } from 'react-icons/md';
+import { BsFillPersonFill } from 'react-icons/bs';
+import { AiFillPhone } from 'react-icons/ai';
+import { VscEye, VscEyeClosed } from 'react-icons/vsc';
+import { userAuth } from '../../services/api';
 
 const Register = () => {
   const [togglePassword, setTogglePassword] = useState(false);
   const [toggleConfirmPassword, setToggleConfirmPassword] = useState(false);
   const [alerts, setAlerts] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
-  const [failMessage, setFailMessage] = useState("");
+  const [failMessage, setFailMessage] = useState('');
 
   const [fields, setFields] = useState({
-    username: "",
-    email: "",
-    telp: "",
-    password: "",
-    confirmPassword: "",
+    username: '',
+    email: '',
+    telp: '',
+    password: '',
+    confirmPassword: '',
   });
 
   function handleChange(e) {
     e.preventDefault();
     setFields({
       ...fields,
-      [e.target.getAttribute("name")]: e.target.value,
+      [e.target.getAttribute('name')]: e.target.value,
     });
   }
   /*
@@ -42,9 +42,9 @@ const Register = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     await userAuth
-      .post("/signup", fields, {
+      .post('/signup', fields, {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       })
       .then((response) => {
@@ -58,7 +58,10 @@ const Register = () => {
 
   return (
     <>
-      <AuthLayout images={svg.registerPage} altImages="woman-and-handphone">
+      <AuthLayout
+        images={svg.registerPage}
+        altImages="woman-and-handphone"
+      >
         {alerts && (
           <Alerts
             // path="/login"
@@ -80,7 +83,10 @@ const Register = () => {
         <div className="form-content w-full p-6 xs:p-12 2md:p-0 rounded-2xl shadow-[0_4px_20px_0_#00000029] 2md:shadow-none">
           <h3 className="mb-1">Daftar Akun</h3>
           <p className="mb-7">Silahkan daftar akun agar dapat masuk</p>
-          <form className="flex flex-col gap-4 mb-8" onSubmit={handleSubmit}>
+          <form
+            className="flex flex-col gap-4 mb-8"
+            onSubmit={handleSubmit}
+          >
             <div className="relative">
               <input
                 type="text"
@@ -91,7 +97,7 @@ const Register = () => {
                 placeholder="Nama Lengkap"
                 className="input-field"
               />
-              <BsFillPersonFill className="absolute text-2xl top-17/sp left-5 fill-secondary-800" />
+              <BsFillPersonFill className="absolute text-xl top-4 left-4 fill-secondary-800" />
             </div>
             <div className="relative">
               <input
@@ -103,7 +109,7 @@ const Register = () => {
                 placeholder="Email"
                 className="input-field"
               />
-              <MdEmail className="absolute text-2xl top-17/sp left-5 fill-secondary-800" />
+              <MdEmail className="absolute text-xl top-4 left-4 fill-secondary-800" />
             </div>
             <div className="relative">
               <input
@@ -115,11 +121,11 @@ const Register = () => {
                 placeholder="No. Handphone"
                 className="input-field"
               />
-              <AiFillPhone className="absolute text-2xl top-17/sp left-5 fill-secondary-800" />
+              <AiFillPhone className="absolute text-xl top-4 left-4 fill-secondary-800" />
             </div>
             <div className="relative">
               <input
-                type={!togglePassword ? "password" : "text"}
+                type={!togglePassword ? 'password' : 'text'}
                 name="password"
                 onChange={handleChange}
                 required
@@ -127,22 +133,22 @@ const Register = () => {
                 placeholder="Kata Sandi"
                 className="input-password-field"
               />
-              <MdLock className="absolute text-2xl top-17/sp left-5 fill-secondary-800" />
+              <MdLock className="absolute text-xl top-4 left-4 fill-secondary-800" />
               {!togglePassword ? (
                 <VscEye
                   onClick={() => setTogglePassword(!togglePassword)}
-                  className="absolute text-2xl top-17/sp right-5 fill-secondary-800 cursor-pointer"
+                  className="absolute text-xl top-4 right-5 fill-secondary-800 cursor-pointer"
                 />
               ) : (
                 <VscEyeClosed
                   onClick={() => setTogglePassword(!togglePassword)}
-                  className="absolute text-2xl top-17/sp right-5 fill-secondary-800 cursor-pointer"
+                  className="absolute text-xl top-4 right-5 fill-secondary-800 cursor-pointer"
                 />
               )}
             </div>
             <div className="relative">
               <input
-                type={!toggleConfirmPassword ? "password" : "text"}
+                type={!toggleConfirmPassword ? 'password' : 'text'}
                 name="confirmPassword"
                 onChange={handleChange}
                 required
@@ -150,29 +156,31 @@ const Register = () => {
                 placeholder="Konfirmasi Kata Sandi"
                 className="input-password-field"
               />
-              <MdLock className="absolute text-2xl top-17/sp left-5 fill-secondary-800" />
+              <MdLock className="absolute text-xl top-4 left-4 fill-secondary-800" />
               {!toggleConfirmPassword ? (
                 <VscEye
                   onClick={() =>
                     setToggleConfirmPassword(!toggleConfirmPassword)
                   }
-                  className="absolute text-2xl top-17/sp right-5 fill-secondary-800 cursor-pointer"
+                  className="absolute text-xl top-4 right-5 fill-secondary-800 cursor-pointer"
                 />
               ) : (
                 <VscEyeClosed
                   onClick={() =>
                     setToggleConfirmPassword(!toggleConfirmPassword)
                   }
-                  className="absolute text-2xl top-17/sp right-5 fill-secondary-800 cursor-pointer"
+                  className="absolute text-xl top-4 right-5 fill-secondary-800 cursor-pointer"
                 />
               )}
             </div>
             <button className="button-fill transition-200 mt-4">Daftar</button>
           </form>
           <p className="text-center">
-            Sudah mempunyai akun?{" "}
+            Sudah mempunyai akun?{' '}
             <Link to="/login">
-              <strong>Masuk</strong>
+              <strong className="hover:text-orange-900 transition-200">
+                Masuk
+              </strong>
             </Link>
           </p>
         </div>

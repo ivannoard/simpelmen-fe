@@ -1,26 +1,48 @@
-import React from "react";
-import { HiOutlineArrowSmLeft } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { HiOutlineArrowSmLeft } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
+import { IoIosArrowDown } from 'react-icons/io';
+import Modal from '../../components/Card/Modal';
 
 const PAD = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
   return (
     <>
       <main>
         <section className="containers">
-          <div className="mb-5">
-            <Link to="/" className="flex items-center mb-3">
+          <div className="mt-0 xs:mt-7 mb-5 flex">
+            <Link
+              to="/"
+              className="flex items-center mb-3"
+            >
               <HiOutlineArrowSmLeft className="text-2xl mr-3" />
               <span className="leading-10">Kembali</span>
             </Link>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-x-8">
-            <div>
-              <p>Dari Tanggal</p>
+          <h4 className="text-center mb-8">
+            Laporan Retribusi Pendapatan Asli Daerah
+          </h4>
+          <div className="grid grid-systems gap-x-8 gap-y-6 mb-9">
+            <div className="col-span-4 2md:col-span-3">
+              <label
+                htmlFor="start"
+                className="block mb-2 text-sm font-medium text-gray-700"
+              >
+                Dari Tanggal
+              </label>
               <div className="relative">
                 <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                   <svg
                     aria-hidden="true"
-                    className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                    className="w-5 h-5 fill-secondary-800"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg"
@@ -35,18 +57,23 @@ const PAD = () => {
                 <input
                   name="start"
                   type="date"
-                  className="bg-white border border-gray-300 text-gray-900 sm:text-sm rounded-2xl block w-full pl-10 p-2.5 focus:ring-orange-900 focus:border-orange-900"
+                  className="input-field-icon-xs"
                   placeholder="Select date start"
                 />
               </div>
             </div>
-            <div>
-              <p>Sampai Tanggal</p>
+            <div className="col-span-4 2md:col-span-3">
+              <label
+                htmlFor="end"
+                className="block mb-2 text-sm font-medium text-gray-700"
+              >
+                Sampai Tanggal
+              </label>
               <div className="relative">
                 <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                   <svg
                     aria-hidden="true"
-                    className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                    className="w-5 h-5 fill-secondary-800"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg"
@@ -61,114 +88,283 @@ const PAD = () => {
                 <input
                   name="end"
                   type="date"
-                  className="bg-white border border-gray-300 text-gray-900 sm:text-sm rounded-2xl block w-full pl-10 p-2.5 focus:ring-orange-900 focus:border-orange-900"
+                  className="input-field-icon-xs"
                   placeholder="Select date end"
                 />
               </div>
             </div>
-            <div className="mt-6">
-              <select
-                id="laminasi"
-                name="laminasi"
-                // onChange={(e) => handleChange(e)}
-                className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
-              >
-                <option>Pilih Laminasi</option>
-                <option value="1">Jasa Laminasi</option>
-                <option value="2">Tanpa Laminasi</option>
-              </select>
+            <div className="col-span-4 2md:col-span-3">
+              <div className="relative">
+                <label
+                  htmlFor="laminasi"
+                  className="hidden 2md:block mb-2 text-sm font-medium text-gray-700 opacity-0 overflow-hidden"
+                >
+                  Laminasi
+                </label>
+                <select
+                  id="laminasi"
+                  name="laminasi"
+                  // onChange={(e) => handleChange(e)}
+                  className="input-field-xs appearance-none"
+                >
+                  <option>Pilih Laminasi</option>
+                  <option value="1">Jasa Laminasi</option>
+                  <option value="2">Tanpa Laminasi</option>
+                </select>
+                <IoIosArrowDown className="absolute right-4 top-[15px] 2md:top-[43px] text-lg fill-gray-400" />
+              </div>
             </div>
-            <div className="mt-6">
-              <select
-                id="laminasi"
-                name="laminasi"
-                // onChange={(e) => handleChange(e)}
-                className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
-              >
-                <option>Pilih Laminasi</option>
-                <option value="1">Jasa Laminasi</option>
-                <option value="2">Tanpa Laminasi</option>
-              </select>
+            <div className="col-span-4 2md:col-span-3">
+              <div className="relative">
+                <label
+                  htmlFor="laminasi"
+                  className="hidden 2md:block mb-2 text-sm font-medium text-gray-700 opacity-0 overflow-hidden"
+                >
+                  Laminasi
+                </label>
+                <select
+                  id="laminasi"
+                  name="laminasi"
+                  // onChange={(e) => handleChange(e)}
+                  className="input-field-xs appearance-none"
+                >
+                  <option>Pilih Laminasi</option>
+                  <option value="1">Jasa Laminasi</option>
+                  <option value="2">Tanpa Laminasi</option>
+                </select>
+                <IoIosArrowDown className="absolute right-4 top-[15px] 2md:top-[43px] text-lg fill-gray-400" />
+              </div>
             </div>
           </div>
-        </section>
-        <section className="containers !-mt-12 !py-5">
-          <div className="overflow-x-auto no-scrollbar">
-            <table className="table-auto text-center w-[1440px]">
-              <thead>
-                <tr>
-                  <th colspan="21" className="bg-[#F29A41] py-2">
+          {/* tabel */}
+          <div className="overflow-x-auto">
+            <table className="table-auto w-full border border-orange-900 mb-4">
+              <thead className="border-b border-orange-900 bg-orange-900/30">
+                <tr className="border-b border-orange-900">
+                  <th
+                    colSpan="21"
+                    className="py-2 uppercase text-center text-sm p-3"
+                  >
                     Jasa Pelayanan
                   </th>
                 </tr>
+                <tr className="border-b border-orange-900">
+                  <th
+                    className="border-r border-orange-900 uppercase min-w-[48px] text-center p-3 text-sm"
+                    rowSpan={2}
+                  >
+                    No
+                  </th>
+                  <th
+                    className="border-r border-orange-900 uppercase min-w-[280px] p-3 text-sm"
+                    rowSpan={2}
+                  >
+                    No. Pesanan
+                  </th>
+                  <th
+                    className="border-r border-orange-900 uppercase min-w-[240px] p-3 text-sm"
+                    rowSpan={2}
+                  >
+                    Nama IKM
+                  </th>
+                  <th
+                    className="border-r border-orange-900 uppercase p-3 text-sm"
+                    colSpan={2}
+                  >
+                    Karton Box
+                  </th>
+                  <th
+                    className="border-r border-orange-900 uppercase text-sm p-3"
+                    colSpan={2}
+                  >
+                    Sablon
+                  </th>
+                  <th
+                    className="border-r border-orange-900 uppercase text-sm p-3"
+                    colSpan={2}
+                  >
+                    Pond
+                  </th>
+                  <th className="border-r border-orange-900 uppercase text-sm p-3">
+                    Laminasi
+                  </th>
+                  <th
+                    className="border-r border-orange-900 uppercase text-sm p-3"
+                    colSpan={2}
+                  >
+                    Desain
+                  </th>
+                  <th
+                    className="border-r border-orange-900 uppercase text-sm p-3 min-w-[150px]"
+                    rowSpan={2}
+                  >
+                    Sewa Ruang
+                  </th>
+                  <th
+                    className="border-r border-orange-900 uppercase text-sm p-3 min-w-[150px]"
+                    rowSpan={2}
+                  >
+                    Jasa Pembuatan Stiker
+                  </th>
+                  <th
+                    className="uppercase text-sm p-3 min-w-[150px]"
+                    rowSpan={2}
+                  >
+                    Jumlah Total Retribusi (Rp)
+                  </th>
+                </tr>
+                <tr className="border-b border-orange-900">
+                  <th className="border-r border-orange-900 font-semibold min-w-[120px] text-sm p-3">
+                    Jml. Barang (pcs)
+                  </th>
+                  <th className="border-r border-orange-900 font-semibold min-w-[150px] text-sm p-3">
+                    Retribusi (Rp)
+                  </th>
+                  <th className="border-r border-orange-900 font-semibold min-w-[120px] text-sm p-3">
+                    Jml. Barang (pcs)
+                  </th>
+                  <th className="border-r border-orange-900 font-semibold min-w-[150px] text-sm p-3">
+                    Retribusi (Rp)
+                  </th>
+                  <th className="border-r border-orange-900 font-semibold min-w-[120px] text-sm p-3">
+                    Jml. Barang (pcs)
+                  </th>
+                  <th className="border-r border-orange-900 font-semibold min-w-[150px] text-sm p-3">
+                    Retribusi (Rp)
+                  </th>
+                  <th className="border-r border-orange-900 font-semibold min-w-[150px] text-sm p-3">
+                    Retribusi (Rp)
+                  </th>
+                  <th className="border-r border-orange-900 font-semibold min-w-[56px] text-sm p-3">
+                    File
+                  </th>
+                  <th className="border-r border-orange-900 font-semibold min-w-[150px] text-sm p-3">
+                    Retribusi (Rp)
+                  </th>
+                </tr>
               </thead>
+
               <tbody>
-                <tr className="bg-[#F29A41]">
-                  <td>No</td>
-                  <td colspan="3">No Pesanan</td>
-                  <td colspan="3">Nama IKM</td>
-                  <td colspan="2">Karton Box</td>
-                  <td colspan="2">Sablon</td>
-                  <td colspan="2">Pond</td>
-                  <td>Laminasi</td>
-                  <td colspan="2">Desain</td>
-                  <td>Sewa Ruang</td>
-                  <td>Jasa Pembuatan Stiker</td>
-                  <td>Jumlah Total Retribusi (Rp)</td>
-                </tr>
-                <tr className="bg-[#F29A41]">
-                  <td colspan="7"></td>
-                  <td>Jumlah Barang</td>
-                  <td>Retribusi </td>
-                  <td>Jumlah Barang</td>
-                  <td>Retribusi </td>
-                  <td>Jumlah Barang</td>
-                  <td>Retribusi </td>
-                  <td>Retribusi</td>
-                  <td>File</td>
-                  <td>Retribusi</td>
-                  <td colspan="3"></td>
-                </tr>
                 {[1, 2, 3, 4, 5, 6].map((item, index) => (
-                  <tr key={index} className="border-b">
-                    <td>{item}</td>
-                    <td colspan="3">001/BIKDK/O/VII/2022</td>
-                    <td colspan="3">Ikha Katering</td>
-                    <td>200</td>
-                    <td>60000</td>
-                    <td>200</td>
-                    <td>60000</td>
-                    <td>200</td>
-                    <td>60000</td>
-                    <td>60000</td>
-                    <td>1</td>
-                    <td>60000</td>
-                    <td>60000</td>
-                    <td>60000</td>
-                    <td>420.000</td>
+                  <tr
+                    key={index}
+                    className="border-b border-orange-900 hover:bg-orange-400/30"
+                  >
+                    <td className="border-r border-orange-900 text-center px-3 py-[6px]">
+                      {item}
+                    </td>
+                    <td className="border-r border-orange-900 text-center px-3 py-[6px]">
+                      001/BIKDK/O/VII/2022
+                    </td>
+                    <td className="border-r border-orange-900 px-3 py-[6px]">
+                      Ikha Katering
+                    </td>
+                    <td className="border-r border-orange-900 px-3 py-[6px] text-center">
+                      200
+                    </td>
+                    <td className="border-r border-orange-900 px-3 py-[6px] text-right">
+                      60000
+                    </td>
+                    <td className="border-r border-orange-900 px-3 py-[6px] text-center">
+                      200
+                    </td>
+                    <td className="border-r border-orange-900 px-3 py-[6px] text-right">
+                      60000
+                    </td>
+                    <td className="border-r border-orange-900 px-3 py-[6px] text-center">
+                      200
+                    </td>
+                    <td className="border-r border-orange-900 px-3 py-[6px] text-right">
+                      60000
+                    </td>
+                    <td className="border-r border-orange-900 px-3 py-[6px] text-right">
+                      60000
+                    </td>
+                    <td className="border-r border-orange-900 px-3 py-[6px] text-center">
+                      1
+                    </td>
+                    <td className="border-r border-orange-900 px-3 py-[6px] text-right">
+                      60000
+                    </td>
+                    <td className="border-r border-orange-900 px-3 py-[6px] text-right">
+                      60000
+                    </td>
+                    <td className="border-r border-orange-900 px-3 py-[6px] text-right">
+                      60000
+                    </td>
+                    <td className="px-3 py-[6px] text-right">420.000</td>
                   </tr>
                 ))}
-                <tr className="bg-slate-300">
-                  <td colspan="7">Total</td>
-                  {/* <td >001/BIKDK/O/VII/2022</td>
-                <td >Ikha Katering</td> */}
-                  <td>200</td>
-                  <td>60000</td>
-                  <td>200</td>
-                  <td>60000</td>
-                  <td>200</td>
-                  <td>60000</td>
-                  <td>60000</td>
-                  <td>1</td>
-                  <td>60000</td>
-                  <td>60000</td>
-                  <td>60000</td>
-                  <td>420.000</td>
-                </tr>
               </tbody>
+              <tfoot className="bg-gray-900/10 hover:bg-gray-900/20">
+                <tr className="">
+                  <td
+                    colSpan={3}
+                    className="uppercase font-semibold p-3 border-r border-orange-900 text-sm"
+                  >
+                    Total
+                  </td>
+                  <td className="font-semibold border-r border-orange-900 text-center">
+                    200
+                  </td>
+                  <td className="font-semibold border-r border-orange-900 text-right p-3">
+                    60000
+                  </td>
+                  <td className="font-semibold border-r border-orange-900 text-center">
+                    200
+                  </td>
+                  <td className="font-semibold border-r border-orange-900 text-right p-3">
+                    60000
+                  </td>
+                  <td className="font-semibold border-r border-orange-900 text-center">
+                    200
+                  </td>
+                  <td className="font-semibold border-r border-orange-900 text-right p-3">
+                    60000
+                  </td>
+                  <td className="font-semibold border-r border-orange-900 text-right p-3">
+                    60000
+                  </td>
+                  <td className="font-semibold border-r border-orange-900 text-center">
+                    1
+                  </td>
+                  <td className="font-semibold border-r border-orange-900 text-right p-3">
+                    60000
+                  </td>
+                  <td className="font-semibold border-r border-orange-900 text-right p-3">
+                    60000
+                  </td>
+                  <td className="font-semibold border-r border-orange-900 text-right p-3">
+                    60000
+                  </td>
+                  <td className="font-semibold text-right p-3">420.000</td>
+                </tr>
+              </tfoot>
             </table>
           </div>
         </section>
+
+        {/* check modal error */}
+        <div className="flex justify-center">
+          <button
+            className="button-fill"
+            type="button"
+            onClick={openModal}
+          >
+            Show Error Modal
+          </button>
+        </div>
+
+        {/* modal */}
+        <Modal
+          isOpen={isOpen}
+          closeModal={closeModal}
+          handleAccept={closeModal}
+          titleModal="Error"
+          captionModal="Periode yang dapat dilihat maksimal 30 hari"
+          btnAcceptCaption="Lanjutkan"
+          isErrorModal={true}
+        />
       </main>
     </>
   );

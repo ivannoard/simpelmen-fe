@@ -1,15 +1,17 @@
-import React, { useState } from "react";
-import { BsCartPlus } from "react-icons/bs";
-import { postProduct } from "../../../services/api";
+import React, { useState } from 'react';
+import { BsCartPlus } from 'react-icons/bs';
+import { postProduct } from '../../../services/api';
+import { IoIosArrowDown } from 'react-icons/io';
+
 const FormKarton = ({ setAlertSuccess, setAlertFail }) => {
   const [fields, setFields] = useState({});
-  const user = localStorage.getItem("user");
+  const user = localStorage.getItem('user');
 
   function handleChange(e) {
     e.preventDefault();
     setFields({
       ...fields,
-      [e.target.getAttribute("name")]: e.target.value,
+      [e.target.getAttribute('name')]: e.target.value,
     });
   }
 
@@ -17,13 +19,13 @@ const FormKarton = ({ setAlertSuccess, setAlertFail }) => {
     e.preventDefault();
     if (user) {
       await postProduct
-        .post("/Xk17j2l08BHDkmwD3lgW")
+        .post('/Xk17j2l08BHDkmwD3lgW')
         .then((response) => console.log(response));
       setAlertSuccess(true);
       console.log(fields);
     } else {
       setAlertFail(true);
-      console.log("no user");
+      console.log('no user');
     }
   }
 
@@ -32,59 +34,59 @@ const FormKarton = ({ setAlertSuccess, setAlertFail }) => {
       <div>
         <label
           htmlFor="ukuran"
-          className="block mb-2 text-15/sp font-medium text-dark"
+          className="block mb-2 text-sm font-medium text-gray-700"
         >
           Ukuran
         </label>
-        <div className="grid grid-cols-3 gap-[10px]">
-          <div className="relative">
+        <div className="grid grid-cols-3 gap-x-3 gap-y-4">
+          <div className="relative col-span-3 xs:col-span-1">
             <input
               type="text"
               id="ukuran"
               name="panjang"
-              className="bg-white border pr-14 border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
+              className="input-field-xs"
               placeholder="Panjang"
               required
               onChange={(e) => handleChange(e)}
             />
-            <span className="text-gray-400 absolute right-3 top-[10px]">
+            <span className="text-gray-400 absolute right-3 top-[11px]">
               cm
             </span>
           </div>
-          <div className="relative">
+          <div className="relative col-span-3 xs:col-span-1">
             <input
               type="text"
               id="ukuran"
               name="lebar"
-              className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
+              className="input-field-xs"
               placeholder="Lebar"
               required
               onChange={(e) => handleChange(e)}
             />
-            <span className="text-gray-400 absolute right-3 top-[10px]">
+            <span className="text-gray-400 absolute right-3 top-[11px]">
               cm
             </span>
           </div>
-          <div className="relative">
+          <div className="relative col-span-3 xs:col-span-1">
             <input
               type="text"
               id="ukuran"
               name="tinggi"
-              className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
+              className="input-field-xs"
               placeholder="Tinggi"
               required
               onChange={(e) => handleChange(e)}
             />
-            <span className="text-gray-400 absolute right-3 top-[10px]">
+            <span className="text-gray-400 absolute right-3 top-[11px]">
               cm
             </span>
           </div>
         </div>
       </div>
-      <div className="mt-3">
+      <div className="mt-4 relative">
         <label
           htmlFor="sablon"
-          className="block mb-2 text-15/sp font-medium text-dark"
+          className="block mb-2 text-sm font-medium text-gray-700"
         >
           Sablon
         </label>
@@ -92,17 +94,18 @@ const FormKarton = ({ setAlertSuccess, setAlertFail }) => {
           id="sablon"
           name="sablon"
           onChange={(e) => handleChange(e)}
-          className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
+          className="input-field-xs appearance-none"
         >
           <option>Pilih Sablon</option>
           <option value="1">Jasa Sablon</option>
           <option value="2">Tanpa Sablon</option>
         </select>
+        <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
       </div>
-      <div className="mt-3">
+      <div className="mt-4 relative">
         <label
           htmlFor="desain"
-          className="block mb-2 text-15/sp font-medium text-dark"
+          className="block mb-2 text-sm font-medium text-gray-700"
         >
           Desain
         </label>
@@ -110,17 +113,18 @@ const FormKarton = ({ setAlertSuccess, setAlertFail }) => {
           id="desain"
           name="desain"
           onChange={(e) => handleChange(e)}
-          className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
+          className="input-field-xs appearance-none"
         >
           <option>Pilih Desain</option>
           <option value="1">Jasa Desain</option>
           <option value="2">Tanpa Desain</option>
         </select>
+        <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
       </div>
-      <div className="mt-3">
+      <div className="mt-4">
         <label
           htmlFor="jumlah"
-          className="block mb-2 text-15/sp font-medium text-dark"
+          className="block mb-2 text-sm font-medium text-gray-700"
         >
           Jumlah Pesanan
         </label>
@@ -129,18 +133,21 @@ const FormKarton = ({ setAlertSuccess, setAlertFail }) => {
             type="text"
             id="jumlah"
             name="jumlah"
-            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-full p-[10px] outline-none"
+            className="input-field-xs !pr-12"
             placeholder="Masukkan Jumlah Pesanan"
             required
             onChange={(e) => handleChange(e)}
           />
-          <span className="text-gray-400 absolute right-3 top-[10px]">pcs</span>
+          <span className="text-gray-400 absolute right-3 top-[11px]">pcs</span>
         </div>
       </div>
-      <div className="buttons flex justify-end mt-[30px] gap-5">
-        <button className="button-fill">Pesan Sekarang</button>
-        <button className="button-white !w-[60px] !h-[60px] !p-[20px]">
-          <BsCartPlus size={20} className="mx-auto" />
+      <div className="buttons flex justify-end mt-8 gap-5">
+        <button className="button-fill !py-4">Pesan Sekarang</button>
+        <button className="button-white !p-4">
+          <BsCartPlus
+            size={20}
+            className="mx-auto"
+          />
         </button>
       </div>
     </form>

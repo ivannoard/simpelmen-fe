@@ -1,45 +1,43 @@
-import React from "react";
-import svg from "../../assets/svg";
+import React from 'react';
+import svg from '../../assets/svg';
+import CardWhyUs from '../../components/Card/CardWhyUs';
 
 const WhyUs = () => {
+  const whyUsData = [
+    {
+      id: 1,
+      img: svg.savingMoney,
+      altImg: 'saving-money',
+      title: 'Harga Terjangkau',
+      desc: 'Menghadirkan kualitas terbaik dengan harga terjangkau untuk industri kecil menengah.',
+    },
+    {
+      id: 2,
+      img: svg.quantity,
+      altImg: 'sorting-gift',
+      title: 'Minimal Kuantitas Order Rendah',
+      desc: 'Dengan minimal pembelian 200 pcs, order Anda akan kami proses.',
+    },
+    {
+      id: 3,
+      img: svg.productQuality,
+      altImg: 'good-product-quality',
+      title: 'Material Terbaik',
+      desc: ' Bahan berkualitas, aman untuk digunakan, memberikan proteksi maksimal.',
+    },
+  ];
+
   return (
     <>
-      <section className="containers !py-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div className="card bg-white rounded-2xl p-8 text-center shadow-[0_4px_20px_0_#C9111B33]">
-          <img
-            src={svg.savingMoney}
-            alt="saving-money"
-            className="mx-auto w-[250px] h-[250px]"
-          />
-          <h6 className="mt-8 mb-4">Harga Terjangkau</h6>
-          <p className="text-secondary-900">
-            Menghadirkan kualitas terbaik dengan harga terjangkau untuk industri
-            kecil menengah.
-          </p>
-        </div>
-        <div className="card bg-white rounded-2xl p-8 text-center shadow-[0_4px_20px_0_#C9111B33]">
-          <img
-            src={svg.quantity}
-            alt="saving-money"
-            className="mx-auto w-[250px] h-[250px]"
-          />
-          <h6 className="mt-8 mb-4">Minimal Kuantitas Order Rendah</h6>
-          <p className="text-secondary-900">
-            Dengan minimal pembelian 200 pcs, order Anda akan kami proses.
-          </p>
-        </div>
-        <div className="card bg-white rounded-2xl p-8 text-center shadow-[0_4px_20px_0_#C9111B33]">
-          <img
-            src={svg.productQuality}
-            alt="saving-money"
-            className="mx-auto w-[250px] h-[250px] "
-          />
-          <h6 className="mt-8 mb-4">Material Terbaik</h6>
-          <p className="text-secondary-900">
-            Bahan berkualitas, aman untuk digunakan, memberikan proteksi
-            maksimal.
-          </p>
-        </div>
+      <section className="containers-sm grid grid-systems gap-8">
+        {whyUsData.map((item) => (
+          <article
+            className="col-span-8 2md:col-span-12 lg:col-span-4"
+            key={item.id}
+          >
+            <CardWhyUs {...item} />
+          </article>
+        ))}
       </section>
     </>
   );

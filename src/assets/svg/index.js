@@ -28,6 +28,10 @@ import adminActivate from "./admin-activate.svg";
 import adminForgotPassword from "./admin-forgotpassword.svg";
 import adminLogin from "./admin-login.svg";
 import adminLogo from "./admin-logo.svg";
+import emptyKeranjang from './empty-keranjang.svg';
+import successPO from './success-po.svg';
+import simpelmenLetterLogo from './simpelmen-letter-logo.svg';
+
 
 const svg = {
   loginPage,
@@ -51,7 +55,6 @@ const svg = {
   flowOrder7,
   flowOrder8,
   bgOurProduct,
-  karton,
   LogoDashboardUser,
   shippingVehicle,
   windTurbine,
@@ -60,6 +63,9 @@ const svg = {
   adminForgotPassword,
   adminLogin,
   adminLogo,
+  emptyKeranjang,
+  successPO,
+  simpelmenLetterLogo,
 };
 
 export default svg;

@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { HiOutlineArrowSmLeft } from "react-icons/hi";
-import svg from "../../assets/svg";
-import FormKarton from "./components/FormKarton";
-import Alerts from "../../components/Alerts";
-import FormDus from "./components/FormDus";
-import FormSablon from "./components/FormSablon";
-import FormSticker from "./components/FormSticker";
-import FormStandingPouch from "./components/FormStandingPouch";
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import Zoom from 'react-img-zoom';
+import { HiOutlineArrowSmLeft } from 'react-icons/hi';
+import { dummyImg } from '../../assets/image';
+import FormKarton from './components/FormKarton';
+import Alerts from '../../components/Alerts';
+import FormDus from './components/FormDus';
+import FormSablon from './components/FormSablon';
+import FormSticker from './components/FormSticker';
+import FormStandingPouch from './components/FormStandingPouch';
 
 const DetailProduct = () => {
   const { productId } = useParams();
@@ -87,37 +88,49 @@ const DetailProduct = () => {
           />
         )}
         <section className="containers">
-          <div className="grid grid-cols-12">
-            <div className="col-span-12 md:col-span-6">
-              <div className="mb-5">
-                <Link to="/" className="flex items-center mb-3">
-                  <HiOutlineArrowSmLeft className="text-2xl mr-3" />
-                  <span className="leading-10">Kembali</span>
-                </Link>
+          <div className="mb-5 mt-0 xs:mt-7 flex">
+            <Link
+              to="/produk-kemasan"
+              className="flex items-center mb-3"
+            >
+              <HiOutlineArrowSmLeft className="text-2xl mr-3" />
+              <span className="leading-10">Kembali</span>
+            </Link>
+          </div>
+          <div className="grid grid-systems gap-8 ">
+            <div className="col-span-4 2xsm:col-span-8 2md:col-span-6">
+              <div className="p-6 border rounded-xl mb-5 border-secondary-800/50">
+                {/* <img
+                  src={dummyImg.kardus}
+                  alt="kardus"
+                  className="w-full"
+                /> */}
+                <div className="w-full overflow-auto flex justify-center items-center rounded-xl">
+                  <div>
+                    <Zoom
+                      img={dummyImg.kardus}
+                      zoomScale={2}
+                      height={window.innerWidth < 576 ? 227 : 360}
+                      width={window.innerWidth < 576 ? 340 : 540}
+                    />
+                  </div>
+                </div>
               </div>
-              <img src={svg.karton} alt="karton" className="w-full" />
-              <p className="text-3xl mb-[6px]">Karton</p>
-              <h1 className="!text-[45px] mb-[6px] text-orange-900">
-                Box A1 Pound
-              </h1>
+              <p className="text-3xl">
+                Bahan: <span>Karton</span>
+              </p>
+              <h2 className="text-orange-900 mb-2">Box A1 Pound</h2>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Voluptatem temporibus hic dolorem maiores nostrum a quidem
                 explicabo enim quasi eum, esse nisi rem soluta ipsa doloremque
                 tempore laboriosam asperiores quas vitae sunt aliquam magni et
                 numquam? Explicabo doloremque ea impedit dolore adipisci iste
-                sed, commodi tenetur reiciendis, esse dolorum eius illum veniam
-                praesentium molestiae assumenda. Culpa consequatur, incidunt
-                facere molestiae quae repudiandae quos magni illum facilis
-                assumenda natus pariatur. Numquam accusantium repellat fuga!
-                Nisi excepturi magni similique dolores reiciendis rem? Numquam
-                corrupti alias ipsum fugit laudantium deserunt saepe eaque
-                mollitia aperiam iure explicabo sint ad tempore quas eos,
-                tenetur perferendis.
+                sed, commodi tenetur reiciendis.
               </p>
             </div>
-            <div className="col-span-12 md:col-span-6 pt-14">
-              <div className="form-content md:px-10">{form}</div>
+            <div className="col-span-4 2xsm:col-span-8 2md:col-span-6">
+              <div className="form-content 2md:px-10">{form}</div>
             </div>
           </div>
         </section>

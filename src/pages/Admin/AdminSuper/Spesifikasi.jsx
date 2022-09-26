@@ -1,20 +1,75 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { FaTrash } from "react-icons/fa";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import ModalSpesifikasi from "./components/ModalSpesifikasi";
 
 const Spesifikasi = () => {
+  const [toggle, setToggle] = useState(false);
+  const [modalContent, setModalContent] = useState({
+    type: "",
+    placeholder: "",
+    label: "",
+  });
+  function handleModal(type) {
+    console.log(type);
+    switch (type) {
+      case "kategori":
+        setModalContent({
+          type: "kategori",
+          label: "Kategori",
+          placeholder: "Masukkan Kategori Produk",
+        });
+        break;
+      case "bahan":
+        setModalContent({
+          type: "bahan",
+          label: "Bahan",
+          placeholder: "Masukkan Bahan Produk",
+        });
+        break;
+      case "bentuk":
+        setModalContent({
+          type: "bentuk",
+          label: "Bentuk",
+          placeholder: "Masukkan Bentuk Produk",
+        });
+        break;
+      case "ukuran":
+        setModalContent({
+          type: "ukuran",
+          label: "Deskripsi",
+          placeholder: "Masukkan Deskripsi Produk",
+        });
+        break;
+      case "finishing":
+        setModalContent({
+          type: "finishing",
+          label: "Finishing",
+          placeholder: "Masukkan Finishing Produk",
+        });
+        break;
+      default:
+        break;
+    }
+    setToggle(true);
+  }
   return (
     <>
       <section>
+        {toggle && (
+          <ModalSpesifikasi content={modalContent} setToggle={setToggle} />
+        )}
         <div className=" border-b border-orange-900">
           <h3 className="font-semibold">Spesifikasi</h3>
         </div>
         <h6 className="mt-6">Kategori Produk</h6>
-        <button className="bg-primary-900 text-white font-semibold my-4 py-4 px-3 rounded-2xl w-[280px]">
+        <button
+          onClick={() => handleModal("kategori")}
+          className="bg-primary-900 text-white font-semibold my-4 py-4 px-3 rounded-2xl w-[280px]"
+        >
           Tambah Kategori
         </button>
-        {/*  */}
         <div className="flex items-center justify-between">
           <div className="flex gap-2 items-center">
             <label htmlFor="sorting">Menampilkan</label>
@@ -41,7 +96,6 @@ const Spesifikasi = () => {
             <BsSearch className="absolute text-2xl top-[10px] left-5 fill-secondary-800" />
           </div>
         </div>
-        {/*  */}
         <table className="table-auto mt-4 w-[1440px] lg:w-full">
           <thead>
             <tr className="bg-orange-900">
@@ -91,10 +145,12 @@ const Spesifikasi = () => {
         </nav>
         {/*  */}
         <h6 className="mt-6">Bahan Produk</h6>
-        <button className="bg-primary-900 text-white font-semibold my-4 py-4 px-3 rounded-2xl w-[280px]">
+        <button
+          onClick={() => handleModal("bahan")}
+          className="bg-primary-900 text-white font-semibold my-4 py-4 px-3 rounded-2xl w-[280px]"
+        >
           Tambah Bahan
         </button>
-        {/*  */}
         <div className="flex items-center justify-between">
           <div className="flex gap-2 items-center">
             <label htmlFor="sorting">Menampilkan</label>
@@ -121,7 +177,6 @@ const Spesifikasi = () => {
             <BsSearch className="absolute text-2xl top-[10px] left-5 fill-secondary-800" />
           </div>
         </div>
-        {/*  */}
         <table className="table-auto mt-4 w-[1440px] lg:w-full">
           <thead>
             <tr className="bg-orange-900">
@@ -169,11 +224,14 @@ const Spesifikasi = () => {
             <HiChevronRight className="!text-base xs:!text-xl" />
           </button>
         </nav>
+        {/*  */}
         <h6 className="mt-6">Bentuk Produk</h6>
-        <button className="bg-primary-900 text-white font-semibold my-4 py-4 px-3 rounded-2xl w-[280px]">
+        <button
+          onClick={() => handleModal("bentuk")}
+          className="bg-primary-900 text-white font-semibold my-4 py-4 px-3 rounded-2xl w-[280px]"
+        >
           Tambah Bentuk
         </button>
-        {/*  */}
         <div className="flex items-center justify-between">
           <div className="flex gap-2 items-center">
             <label htmlFor="sorting">Menampilkan</label>
@@ -200,7 +258,6 @@ const Spesifikasi = () => {
             <BsSearch className="absolute text-2xl top-[10px] left-5 fill-secondary-800" />
           </div>
         </div>
-        {/*  */}
         <table className="table-auto mt-4 w-[1440px] lg:w-full">
           <thead>
             <tr className="bg-orange-900">
@@ -248,11 +305,14 @@ const Spesifikasi = () => {
             <HiChevronRight className="!text-base xs:!text-xl" />
           </button>
         </nav>
+        {/*  */}
         <h6 className="mt-6">Ukuran Produk</h6>
-        <button className="bg-primary-900 text-white font-semibold my-4 py-4 px-3 rounded-2xl w-[280px]">
+        <button
+          onClick={() => handleModal("ukuran")}
+          className="bg-primary-900 text-white font-semibold my-4 py-4 px-3 rounded-2xl w-[280px]"
+        >
           Tambah Ukuran
         </button>
-        {/*  */}
         <div className="flex items-center justify-between">
           <div className="flex gap-2 items-center">
             <label htmlFor="sorting">Menampilkan</label>
@@ -279,7 +339,6 @@ const Spesifikasi = () => {
             <BsSearch className="absolute text-2xl top-[10px] left-5 fill-secondary-800" />
           </div>
         </div>
-        {/*  */}
         <table className="table-auto mt-4 w-[1440px] lg:w-full">
           <thead>
             <tr className="bg-orange-900">
@@ -333,11 +392,14 @@ const Spesifikasi = () => {
             <HiChevronRight className="!text-base xs:!text-xl" />
           </button>
         </nav>
+        {/*  */}
         <h6 className="mt-6">Finishing Kemasan</h6>
-        <button className="bg-primary-900 text-white font-semibold my-4 py-4 px-3 rounded-2xl w-[280px]">
+        <button
+          onClick={() => handleModal("finishing")}
+          className="bg-primary-900 text-white font-semibold my-4 py-4 px-3 rounded-2xl w-[280px]"
+        >
           Tambah Finishing
         </button>
-        {/*  */}
         <div className="flex items-center justify-between">
           <div className="flex gap-2 items-center">
             <label htmlFor="sorting">Menampilkan</label>
@@ -364,7 +426,6 @@ const Spesifikasi = () => {
             <BsSearch className="absolute text-2xl top-[10px] left-5 fill-secondary-800" />
           </div>
         </div>
-        {/*  */}
         <table className="table-auto mt-4 w-[1440px] lg:w-full">
           <thead>
             <tr className="bg-orange-900">

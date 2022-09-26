@@ -1,17 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { FaTrash } from "react-icons/fa";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
-
+import ModalAddProduk from "./components/ModalAddProduk";
+import ModalDetailProduk from "./components/ModalDetailProduk";
 const Produk = () => {
+  const [toggle, setToggle] = useState(false);
+  const [toggleDetail, setToggleDetail] = useState(false);
+  const [toggleId, setToggleId] = useState();
+
+  function handleModal(state, id) {
+    setToggleDetail(state);
+    setToggleId(id);
+  }
   return (
     <>
       <section>
+        {toggle && <ModalAddProduk setToggle={setToggle} />}
+        {toggleDetail && (
+          <ModalDetailProduk
+            setToggleDetail={setToggleDetail}
+            toggleId={toggleId}
+          />
+        )}
         <div className=" border-b border-orange-900">
           <h3 className="font-semibold">Produk</h3>
         </div>
         <h6 className="mt-6">Tabel Produk</h6>
-        <button className="bg-primary-900 text-white font-semibold my-4 py-4 px-3 rounded-2xl w-[280px]">
+        <button
+          onClick={() => setToggle(true)}
+          className="bg-primary-900 text-white font-semibold my-4 py-4 px-3 rounded-2xl w-[280px]"
+        >
           Tambah Produk
         </button>
         {/*  */}
@@ -59,7 +78,10 @@ const Produk = () => {
                 <td className="text-center py-3">karton</td>
                 <td className="text-center py-3">
                   <div className="flex items-center justify-center gap-2">
-                    <button className="border bg-white py-2 px-7 rounded-lg">
+                    <button
+                      onClick={() => handleModal(true, item)}
+                      className="border bg-white py-2 px-7 rounded-lg"
+                    >
                       Detail
                     </button>
                     <button className="border bg-white py-2 px-7 rounded-lg">

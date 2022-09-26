@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { FaTrash } from "react-icons/fa";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import ModalAddAdmin from "./components/ModalAddAdmin";
 
 const Anggota = () => {
+  const [toggle, setToggle] = useState(false);
   return (
     <>
       <section>
+        {toggle && <ModalAddAdmin setToggle={setToggle} />}
         <div className=" border-b border-orange-900">
           <h3 className="font-semibold">Admin</h3>
         </div>
         <h6 className="mt-6">Tabel Admin</h6>
-        <button className="bg-primary-900 text-white font-semibold my-4 py-4 px-3 rounded-2xl w-[280px]">
+        <button
+          onClick={() => setToggle(true)}
+          className="bg-primary-900 text-white font-semibold my-4 py-4 px-3 rounded-2xl w-[280px]"
+        >
           Tambah Admin
         </button>
         {/*  */}

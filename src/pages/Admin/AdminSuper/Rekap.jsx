@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import ModalRekap from "./components/ModalRekap";
 
 const Rekap = () => {
+  const [toggleDetail, setToggleDetail] = useState(false);
+  const [toggleId, setToggleId] = useState();
+
+  function handleModal(state, id) {
+    setToggleDetail(state);
+    setToggleId(id);
+  }
   return (
     <>
       <section>
+        {toggleDetail && (
+          <ModalRekap setToggleDetail={setToggleDetail} toggleId={toggleId} />
+        )}
         <div className=" border-b border-orange-900">
           <h3 className="font-semibold">Rekap Pesanan</h3>
         </div>
@@ -58,7 +69,10 @@ const Rekap = () => {
                 <td className="text-center py-3">Rp. 250.000</td>
                 <td className="text-center py-3">
                   <div className="flex items-center justify-center gap-2">
-                    <button className="border bg-white py-2 px-7 rounded-lg">
+                    <button
+                      onClick={() => handleModal(true, item)}
+                      className="border bg-white py-2 px-7 rounded-lg"
+                    >
                       Detail
                     </button>
                   </div>

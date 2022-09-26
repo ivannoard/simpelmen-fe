@@ -2,8 +2,10 @@ import React from "react";
 import { BsSearch } from "react-icons/bs";
 import { FaTrash } from "react-icons/fa";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 
 const Retribusi = () => {
+  const navigate = useNavigate();
   return (
     <section>
       <div className=" border-b border-orange-900">
@@ -56,15 +58,22 @@ const Retribusi = () => {
                 <td className="text-center py-3">Rp. 150000</td>
                 <td className="text-center py-3">
                   <div className="flex justify-center gap-[11px]">
-                    <div className="flex items-center justify-center rounded-lg py-2 px-5 border">
-                      <p>Detail</p>
-                    </div>
-                    <div className="flex items-center justify-center rounded-lg py-2 px-5 border">
-                      <p>Edit</p>
-                    </div>
-                    <div className="flex items-center justify-center rounded-lg py-2 px-5 border bg-primary-900">
+                    <button
+                      onClick={() =>
+                        navigate(
+                          `/admin/cs/dashboard/detail-retribusi-pelanggan/${item}`
+                        )
+                      }
+                      className="flex items-center justify-center rounded-lg py-2 px-5 border"
+                    >
+                      Detail
+                    </button>
+                    <button className="flex items-center justify-center rounded-lg py-2 px-5 border">
+                      Edit
+                    </button>
+                    <button className="flex items-center justify-center rounded-lg py-2 px-5 border bg-primary-900">
                       <FaTrash fill="#FFFFFF" />
-                    </div>
+                    </button>
                   </div>
                 </td>
               </tr>

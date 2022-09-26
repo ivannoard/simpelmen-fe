@@ -106,11 +106,7 @@ const Rekap = () => {
                     className={`${
                       parseInt(item.status) === 1
                         ? "bg-gradient-to-bl from-orange-900 to-primary-900 hover:from-primary-900 hover:to-orange-900 shadow-red"
-                        : parseInt(item.status) === 2
-                        ? "bg-green-500"
-                        : parseInt(item.status) === 3
-                        ? "bg-secondary-800"
-                        : ""
+                        : "bg-orange-600"
                     } font-semibold text-white text-sm rounded-2xl  block py-4 px-5 outline-none h-[60px] mx-auto !w-1/2`}
                   >
                     <option value="1">Status Pesanan</option>

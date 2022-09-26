@@ -35,7 +35,9 @@ const LoginAdmin = () => {
         },
       })
       .then((response) => {
-        localStorage.setItem("admin", JSON.stringify(5));
+
+        localStorage.setItem("admin", JSON.stringify(3));
+
         setTimeout(() => {
           if (localStorage.getItem("admin")) navigate("/admin");
           // window.location.replace("https://www.google.com");

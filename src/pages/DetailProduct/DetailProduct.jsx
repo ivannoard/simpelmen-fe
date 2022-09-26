@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import Zoom from 'react-img-zoom';
 import { HiOutlineArrowSmLeft } from 'react-icons/hi';
 import { dummyImg } from '../../assets/image';
 import FormKarton from './components/FormKarton';
@@ -100,11 +101,21 @@ const DetailProduct = () => {
           <div className="grid grid-systems gap-8 ">
             <div className="col-span-4 2xsm:col-span-8 2md:col-span-6">
               <div className="p-6 border rounded-xl mb-5 border-secondary-800/50">
-                <img
+                {/* <img
                   src={dummyImg.kardus}
                   alt="kardus"
                   className="w-full"
-                />
+                /> */}
+                <div className="w-full overflow-auto flex justify-center items-center">
+                  <div>
+                    <Zoom
+                      img={dummyImg.kardus}
+                      zoomScale={2}
+                      height={window.innerWidth < 576 ? 227 : 360}
+                      width={window.innerWidth < 576 ? 340 : 540}
+                    />
+                  </div>
+                </div>
               </div>
               <p className="text-3xl">
                 Bahan: <span>Karton</span>

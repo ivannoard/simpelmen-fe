@@ -12,7 +12,7 @@ const FABWhatsApp = () => {
   return (
     <>
       <button
-        className="fixed z-50 right-8 xs:right-12 lg:right-28 bottom-8 xs:bottom-12 md:bottom-14 lg:bottom-16 flex items-center justify-center w-12 md:w-16 h-12 md:h-16 rounded-full bg-[#25D366] shadow-gray"
+        className="fixed z-50 right-[5%] bottom-8 xs:bottom-12 md:bottom-14 lg:bottom-16 flex items-center justify-center w-12 md:w-16 h-12 md:h-16 rounded-full bg-[#25D366] shadow-gray"
         type="button"
         data-tip="React-tooltip"
         data-for="fab-whatsapp"

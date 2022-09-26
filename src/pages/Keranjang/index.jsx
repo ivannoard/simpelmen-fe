@@ -209,10 +209,10 @@ const Keranjang = () => {
           isOpen={isOpen}
           closeModal={closeModal}
           handleAccept={handleDelete}
-          titleModal="Lanjutkan Pemesanan"
-          captionModal="Yakin untuk melanjutkan pemesanan?"
+          titleModal="Hapus produk"
+          captionModal="Hapus produk dari keranjang?"
           btnCancelCaption="Kembali"
-          btnAcceptCaption="Lanjutkan"
+          btnAcceptCaption="Hapus"
           isErrorModal={false}
         />
       </main>

@@ -50,17 +50,23 @@ const LacakPesanan = () => {
               <table className="text-center w-full">
                 <thead>
                   <tr>
-                    <th className="bg-[#F29A41] text-white">No. Pesanan</th>
-                    <th className="bg-[#F29A41] text-white">Nama Produk</th>
-                    <th className="bg-[#F29A41] text-white">Lacak Pesanan</th>
+                    <th className="bg-[#F29A41] text-white py-3">
+                      No. Pesanan
+                    </th>
+                    <th className="bg-[#F29A41] text-white py-3">
+                      Nama Produk
+                    </th>
+                    <th className="bg-[#F29A41] text-white py-3">
+                      Lacak Pesanan
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {[1, 2, 3, 4, 5].map((item, index) => (
                     <tr key={item} className="border-b">
-                      <td className="py-2">001/BIKDK/O/VII/2022</td>
-                      <td className="py-2">Bentuk Langsungan</td>
-                      <td>
+                      <td className="py-3">001/BIKDK/O/VII/2022</td>
+                      <td className="py-3">Bentuk Langsungan</td>
+                      <td className="py-3">
                         <button
                           onClick={(e) => showTracking(e, index)}
                           className="border border-secondary-800 rounded-2xl px-[10px] py-1"

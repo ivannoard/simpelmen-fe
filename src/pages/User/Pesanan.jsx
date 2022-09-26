@@ -22,10 +22,10 @@ const Pesanan = () => {
           <table className="text-center w-[1440px] lg:w-full">
             <thead>
               <tr>
-                <th className="bg-[#F29A41] text-white">No. Pesanan</th>
-                <th className="bg-[#F29A41] text-white">Nama Produk</th>
-                <th className="bg-[#F29A41] text-white">Tanggal Pesan</th>
-                <th className="bg-[#F29A41] text-white">Detail Pesanan</th>
+                <th className="bg-[#F29A41] text-white py-3">No. Pesanan</th>
+                <th className="bg-[#F29A41] text-white py-3">Nama Produk</th>
+                <th className="bg-[#F29A41] text-white py-3">Tanggal Pesan</th>
+                <th className="bg-[#F29A41] text-white py-3">Detail Pesanan</th>
               </tr>
             </thead>
             <tbody>

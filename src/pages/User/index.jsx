@@ -69,7 +69,7 @@ const Dashboard = () => {
           {/* Navbar Top */}
           <Navbar />
           {/* Main Content */}
-          <main className="mt-10">{content}</main>
+          <main className="mt-10 min-h-screen">{content}</main>
         </div>
       </div>
     </>

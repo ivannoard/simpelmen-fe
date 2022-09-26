@@ -1,26 +1,37 @@
-import React from "react";
-import svg from "../../assets/svg";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import svg from '../../assets/svg';
 
 const Hero = () => {
+  const navigate = useNavigate();
   return (
     <>
-      <section className="relative">
+      <section className="relative pt-7">
         <img
           src={svg.bgHero}
           alt=""
-          className="absolute top-0 -z-10 left-0 right-0 mx-auto"
+          className="absolute top-12 xs:top-8 -z-10 left-0 right-0 mx-auto"
         />
-        <div className="containers flex flex-wrap flex-col-reverse md:grid md:grid-cols-12">
-          <div className="w-full self-center md:col-span-6">
-            <h1 className="!text-3xl md:!text-6xl md:mb-4">Simpelmenoke</h1>
-            <p className="!text-lg md:!text-[30px]">
+        <div className="containers !pb-12 xs:!pb-20 md:!pb-100/sp flex flex-wrap md:grid md:grid-cols-12">
+          <div className="w-full self-center mb-12 md:mb-0 md:col-span-5">
+            <figure className="min-w-[200px] md:min-w-0 w-1/2 md:w-3/4 block mb-4">
+              <img
+                src={svg.simpelmenLetterLogo}
+                alt="simpelmen-letter-logo"
+                className="w-full"
+              />
+            </figure>
+            <p className="text-lg xmd:text-3xl !leading-snug">
               Sistem Informasi Pelayanan Manajemen Order Kemasan
             </p>
-            <button className="button-gradient-sm md:text-lg md:px-30/sp md:py-4 mt-10">
+            <button
+              className="button-gradient mt-8"
+              onClick={() => navigate('/produk-kemasan')}
+            >
               Pesan Sekarang
             </button>
           </div>
-          <div className="w-full md:col-span-6">
+          <div className="w-full md:col-span-6 md:col-start-7">
             <img
               src={svg.heroImage}
               alt="woman-with-creditcard"

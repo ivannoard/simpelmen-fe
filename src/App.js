@@ -13,6 +13,7 @@ import PAD from './pages/PAD';
 import Kemasan from './pages/Kemasan';
 import Keranjang from './pages/Keranjang';
 import Pemesanan from './pages/Pemesanan';
+import ScrollToTop from './services/ScrollToTop';
 
 const ProtectingRoute = (props) => {
   const navigate = useNavigate();
@@ -37,6 +38,7 @@ const AuthenticatedRoute = (props) => {
 function App() {
   return (
     <div className="App">
+      <ScrollToTop />
       <Routes>
         <Route element={<WithoutFrame />}>
           <Route

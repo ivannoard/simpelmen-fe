@@ -1,19 +1,40 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import CardCart from '../../components/Card/CardCart';
+import FormDus from './components/FormDus';
+import FormKarton from './components/FormKarton';
+import FormSablon from './components/FormSablon';
+import FormSticker from './components/FormSticker';
+import FormStandingPouch from './components/FormStandingPouch';
 
 import { dummyImg } from '../../assets/image';
 import { HiOutlineArrowSmLeft } from 'react-icons/hi';
+import { BiTrashAlt } from 'react-icons/bi';
+import { GoCheck } from 'react-icons/go';
 import svg from '../../assets/svg';
+import Modal from '../../components/Card/Modal';
+
+const dummy = true;
 
 const Keranjang = () => {
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
   const [isCheck, setIsCheck] = useState(false);
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
   const handleCheck = () => {
     setIsCheck(!isCheck);
   };
+
   const handleDelete = () => {
     console.log('delete');
+    setIsOpen(false);
   };
 
   const dummyData = [
@@ -53,11 +74,29 @@ const Keranjang = () => {
       jenis: 'Box Model Pizza',
     },
   ];
-  const dummy = true;
+
+  // Set Dynamic Form
+  const formProduct = (product) => {
+    switch (product) {
+      case 1:
+        return <FormKarton />;
+      case 2:
+        return <FormDus categoryName="Slobokan" />;
+      case 3:
+        return <FormSablon />;
+      case 4:
+        return <FormSticker />;
+      case 5:
+        return <FormStandingPouch />;
+      default:
+        break;
+    }
+  };
+
   return (
     <>
       <main className="containers">
-        <div className="mb-5 flex">
+        <div className="mb-5 mt-0 xs:mt-7 flex">
           <Link
             to="/produk-kemasan"
             className="flex items-center mb-3"
@@ -73,15 +112,62 @@ const Keranjang = () => {
               id="cart"
               className="mb-10"
             >
-              {dummyData.map((item, index) => {
+              {dummyData.map((item) => {
                 return (
-                  <CardCart
-                    key={index}
-                    {...item}
-                    handleCheck={handleCheck}
-                    isCheck={isCheck}
-                    handleDelete={handleDelete}
-                  />
+                  <article
+                    className="relative mb-10 shadow-gray rounded-2xl pt-8 px-8 pb-9 grid grid-cols-4 2xsm:grid-cols-8 2md:grid-cols-12 gap-x-8"
+                    key={item.id}
+                  >
+                    <div className="absolute top-6 md:top-8 left-6 md:left-8">
+                      <div className="w-full flex justify-start">
+                        <button
+                          className={`w-5 h-5 p-[2px] rounded-[.25rem] ${
+                            isCheck
+                              ? 'bg-gradient-to-bl from-orange-900 to-primary-900'
+                              : 'bg-orange-900'
+                          } overflow-hidden`}
+                          onClick={handleCheck}
+                        >
+                          {isCheck ? (
+                            <div className="w-full h-full bg-gradient-to-bl from-orange-900 to-primary-900 flex items-center justify-center overflow-hidden">
+                              <GoCheck className="fill-white" />
+                            </div>
+                          ) : (
+                            <div className="w-full h-full rounded-[3px] bg-white hover:bg-orange-400"></div>
+                          )}
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="lg:col-start-2 col-span-4 2xsm:col-span-8 2md:col-span-12 lg:col-span-4">
+                      <div className="mb-3 w-11/12 xs:w-3/4 lg:w-full mx-auto">
+                        <img
+                          src={item.produkImg}
+                          alt={item.altImg}
+                          className="w-full object-cover object-center"
+                        />
+                      </div>
+                      <p className="text-xs xs:text-base">{item.kategori}</p>
+                      <p className="font-bold text-base xs:text-xl md:text-2xl mb-3 line-clamp-2">
+                        {item.jenis}
+                      </p>
+                    </div>
+
+                    <div className="lg:col-start-7 col-span-4 2xsm:col-span-8 2md:col-span-12 lg:col-span-5">
+                      {formProduct(item.id)}
+                    </div>
+
+                    <div className="absolute top-6 md:top-8 right-6 md:right-8">
+                      <div className="w-full flex justify-end">
+                        <button
+                          onClick={openModal}
+                          type="button"
+                        >
+                          <BiTrashAlt className="text-[26px] fill-orange-900 transition-200 hover:fill-red-500" />
+                        </button>
+                      </div>
+                    </div>
+                  </article>
                 );
               })}
             </section>
@@ -109,8 +195,7 @@ const Keranjang = () => {
               </h3>
               <div className="flex justify-center">
                 <button
-                  className="text-base 2xsm:text-lg text-white font-semibold px-5 2xsm:px-30/sp py-2 2xsm:py-4 rounded-2xl bg-gradient-to-bl from-orange-900 to-primary-900 hover:from-primary-900 hover:to-orange-900 shadow-red"
-                  type="button"
+                  className="button-fill"
                   onClick={() => navigate('/produk-kemasan')}
                 >
                   Pesan Sekarang
@@ -119,6 +204,17 @@ const Keranjang = () => {
             </div>
           </section>
         )}
+        {/* <Modal /> */}
+        <Modal
+          isOpen={isOpen}
+          closeModal={closeModal}
+          handleAccept={handleDelete}
+          titleModal="Lanjutkan Pemesanan"
+          captionModal="Yakin untuk melanjutkan pemesanan?"
+          btnCancelCaption="Kembali"
+          btnAcceptCaption="Lanjutkan"
+          isErrorModal={false}
+        />
       </main>
     </>
   );

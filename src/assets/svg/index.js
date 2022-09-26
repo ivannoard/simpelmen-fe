@@ -19,10 +19,10 @@ import flowOrder6 from './flow-order-6.svg';
 import flowOrder7 from './flow-order-7.svg';
 import flowOrder8 from './flow-order-8.svg';
 import bgOurProduct from './bg-our-product.svg';
-import karton from './karton.svg';
 import LogoDashboardUser from './dashboard-user-logo.svg';
 import emptyKeranjang from './empty-keranjang.svg';
 import successPO from './success-po.svg';
+import simpelmenLetterLogo from './simpelmen-letter-logo.svg';
 
 const svg = {
   loginPage,
@@ -46,10 +46,10 @@ const svg = {
   flowOrder7,
   flowOrder8,
   bgOurProduct,
-  karton,
   LogoDashboardUser,
   emptyKeranjang,
   successPO,
+  simpelmenLetterLogo,
 };
 
 export default svg;

@@ -36,10 +36,10 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="flex overflow-x-auto no-scrollbar">
+      <div className="relative flex overflow-x-auto no-scrollbar">
         <div
           className={`fixed bg-white rounded-tr-2xl rounded-br-2xl shadow-red z-10 ${
-            toggle ? 'w-72' : 'w-[86px]'
+            toggle ? 'w-52 xs:w-72' : 'w-[72px] xs:w-[86px]'
           } min-h-screen duration-500`}
         >
           <div
@@ -59,7 +59,7 @@ const Dashboard = () => {
               {/* Sidebar */}
               <Sidebar toggle={toggle} />
             </div>
-            <div className={`px-8 ${toggle ? 'block' : 'hidden'}`}>
+            <div className={`px-8 hidden 2xsm:block`}>
               <img
                 src={svg.swingChart}
                 alt="swing-chart"
@@ -69,7 +69,7 @@ const Dashboard = () => {
 
             {/* Toggle */}
             <div
-              className="bg-white shadow-red flex justify-center items-center absolute w-[20px] h-[20px] top-16 -right-3 rounded-full cursor-pointer"
+              className="bg-white shadow-red flex justify-center items-center absolute w-[20px] h-[20px] top-[55px] -right-[11px] rounded-full cursor-pointer z-20"
               onClick={() => setToggle(!toggle)}
             >
               {toggle ? <BiChevronsLeft /> : <BiChevronsRight />}
@@ -79,8 +79,8 @@ const Dashboard = () => {
 
         <div
           className={`flex-1 py-10 ${
-            toggle ? 'ml-72' : 'ml-20'
-          } duration-500 px-8 pt-6 ${toggle ? 'md:pt-[53px]' : 'md:pt-6'}`}
+            toggle ? 'ml-52 xs:ml-72' : 'ml-[72px] xs:ml-20'
+          } duration-500 px-6 xs:px-9 pt-[53px]`}
         >
           {/* Navbar Top */}
           <Navbar />

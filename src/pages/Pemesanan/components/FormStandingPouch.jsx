@@ -42,7 +42,7 @@ const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
           id="ukuran"
           name="ukuran"
           onChange={(e) => handleChange(e)}
-          className="input-field-xs appearance-none"
+          className="input-field-select-xs"
         >
           <option>Pilih Ukuran</option>
           <option value="1">Jasa Ukuran</option>
@@ -61,7 +61,7 @@ const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
           id="desain"
           name="desain"
           onChange={(e) => handleChange(e)}
-          className="input-field-xs appearance-none"
+          className="input-field-select-xs"
         >
           <option>Pilih Desain</option>
           <option value="1">Jasa Desain</option>
@@ -80,7 +80,7 @@ const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
           id="laminasi"
           name="laminasi"
           onChange={(e) => handleChange(e)}
-          className="input-field-xs appearance-none"
+          className="input-field-select-xs"
         >
           <option>Pilih Laminasi</option>
           <option value="1">Jasa Laminasi</option>

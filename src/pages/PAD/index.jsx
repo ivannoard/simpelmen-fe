@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { HiOutlineArrowSmLeft } from "react-icons/hi";
-import { Link } from "react-router-dom";
-import { IoIosArrowDown } from "react-icons/io";
-import Modal from "../../components/Card/Modal";
+import React, { useState } from 'react';
+import { HiOutlineArrowSmLeft } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
+import { IoIosArrowDown } from 'react-icons/io';
+import Modal from '../../components/Card/Modal';
 
 const PAD = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +19,10 @@ const PAD = () => {
       <main>
         <section className="containers">
           <div className="mt-0 xs:mt-7 mb-5 flex">
-            <Link to="/" className="flex items-center mb-3">
+            <Link
+              to="/"
+              className="flex items-center mb-3"
+            >
               <HiOutlineArrowSmLeft className="text-2xl mr-3" />
               <span className="leading-10">Kembali</span>
             </Link>
@@ -102,7 +105,7 @@ const PAD = () => {
                   id="laminasi"
                   name="laminasi"
                   // onChange={(e) => handleChange(e)}
-                  className="input-field-xs appearance-none"
+                  className="input-field-select-xs"
                 >
                   <option>Pilih Laminasi</option>
                   <option value="1">Jasa Laminasi</option>
@@ -123,7 +126,7 @@ const PAD = () => {
                   id="laminasi"
                   name="laminasi"
                   // onChange={(e) => handleChange(e)}
-                  className="input-field-xs appearance-none"
+                  className="input-field-select-xs"
                 >
                   <option>Pilih Laminasi</option>
                   <option value="1">Jasa Laminasi</option>
@@ -343,7 +346,11 @@ const PAD = () => {
 
         {/* check modal error */}
         <div className="flex justify-center">
-          <button className="button-fill" type="button" onClick={openModal}>
+          <button
+            className="button-fill"
+            type="button"
+            onClick={openModal}
+          >
             Show Error Modal
           </button>
         </div>

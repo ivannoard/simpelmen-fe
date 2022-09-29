@@ -1,19 +1,22 @@
-import { HiChevronDown } from "react-icons/hi";
-import { NavLink, useNavigate } from "react-router-dom";
-import { Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { HiChevronDown } from 'react-icons/hi';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { Menu, Transition } from '@headlessui/react';
+import { Fragment } from 'react';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const handleLogout = (e) => {
-    localStorage.removeItem("user");
-    navigate("/");
+    localStorage.removeItem('user');
+    navigate('/');
   };
   return (
     <>
-      <nav className="flex justify-between items-center pb-3 border-b border-secondary">
+      <nav className="flex justify-between items-center pb-4 border-b border-secondary">
         <p className="text-[18px] font-semibold">Dashboard</p>
-        <Menu as="div" className="relative">
+        <Menu
+          as="div"
+          className="relative"
+        >
           <Menu.Button>
             <div className="flex items-center ml-4">
               <p className="text-15/sp font-semibold mr-2 max-w-[5.625rem] lg:max-w-none truncate">
@@ -33,10 +36,13 @@ const Navbar = () => {
           >
             <Menu.Items
               as="nav"
-              className="absolute flex flex-col shadow-md top-10 right-0 bg-white rounded-xl border w-40 overflow-hidden"
+              className="absolute flex flex-col shadow-md top-10 right-0 bg-white rounded-xl border w-40 overflow-hidden z-50"
             >
               <Menu.Item as="div">
-                <NavLink to="/" className="navlink-mobile">
+                <NavLink
+                  to="/"
+                  className="navlink-mobile"
+                >
                   Beranda
                 </NavLink>
               </Menu.Item>

@@ -1,5 +1,6 @@
-import React from "react";
-import { useState } from "react";
+import React from 'react';
+import { useState } from 'react';
+import { IoIosArrowDown } from 'react-icons/io';
 
 const Profile = () => {
   const [toggleDisabled, setToggleDisabled] = useState(true);
@@ -9,7 +10,7 @@ const Profile = () => {
     e.preventDefault();
     setFields({
       ...fields,
-      [e.target.getAttribute("name")]: e.target.value,
+      [e.target.getAttribute('name')]: e.target.value,
     });
   }
 
@@ -23,14 +24,19 @@ const Profile = () => {
       <section>
         <form
           onSubmit={(e) => handleSubmit(e)}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-5"
+          className="grid grid-cols-4 md:grid-cols-8 gap-8"
         >
-          <div className="mx-auto left">
-            <div className="relative w-full flex flex-col">
-              <label htmlFor="nama">Nama Lengkap</label>
+          <div className="col-span-4">
+            <div className="">
+              <label
+                htmlFor="nama"
+                className="block mb-2 text-sm font-medium text-gray-700"
+              >
+                Nama Lengkap
+              </label>
               <input
                 type="text"
-                className="input-field !w-[488px] !h-[60px] mt-[6px] !px-5"
+                className="input-field-xs"
                 placeholder=""
                 name="nama"
                 id="nama"
@@ -40,11 +46,16 @@ const Profile = () => {
                 onChange={handleChange}
               />
             </div>
-            <div className="relative w-full flex flex-col mt-[10px]">
-              <label htmlFor="namaikm">Nama IKM</label>
+            <div className="mt-4">
+              <label
+                htmlFor="namaikm"
+                className="block mb-2 text-sm font-medium text-gray-700"
+              >
+                Nama IKM
+              </label>
               <input
                 type="text"
-                className="input-field !w-[488px] !h-[60px] mt-[6px] !px-5"
+                className="input-field-xs"
                 placeholder=""
                 name="namaikm"
                 id="namaikm"
@@ -54,11 +65,16 @@ const Profile = () => {
                 onChange={handleChange}
               />
             </div>
-            <div className="relative w-full flex flex-col mt-[10px]">
-              <label htmlFor="email">Email</label>
+            <div className="mt-4">
+              <label
+                htmlFor="email"
+                className="block mb-2 text-sm font-medium text-gray-700"
+              >
+                Email
+              </label>
               <input
                 type="email"
-                className="input-field !w-[488px] !h-[60px] mt-[6px] !px-5"
+                className="input-field-xs"
                 placeholder=""
                 name="email"
                 id="email"
@@ -68,11 +84,16 @@ const Profile = () => {
                 onChange={handleChange}
               />
             </div>
-            <div className="relative w-full flex flex-col mt-[10px]">
-              <label htmlFor="handphone">No. Handphone</label>
+            <div className="mt-4">
+              <label
+                htmlFor="handphone"
+                className="block mb-2 text-sm font-medium text-gray-700"
+              >
+                No. Handphone
+              </label>
               <input
                 type="text"
-                className="input-field !w-[488px] !h-[60px] mt-[6px] !px-5"
+                className="input-field-xs"
                 placeholder=""
                 name="handphone"
                 id="handphone"
@@ -82,11 +103,16 @@ const Profile = () => {
                 onChange={handleChange}
               />
             </div>
-            <div className="relative w-full flex flex-col mt-[10px]">
-              <label htmlFor="katasandi">Kata Sandi</label>
+            <div className="mt-4">
+              <label
+                htmlFor="katasandi"
+                className="block mb-2 text-sm font-medium text-gray-700"
+              >
+                Kata Sandi
+              </label>
               <input
                 type="password"
-                className="input-field !w-[488px] !h-[60px] mt-[6px] !px-5"
+                className="input-field-xs"
                 placeholder=""
                 name="katasandi"
                 id="katasandi"
@@ -97,12 +123,17 @@ const Profile = () => {
               />
             </div>
           </div>
-          <div className="mx-auto right">
-            <div className="relative w-full flex flex-col">
-              <label htmlFor="alamat">Alamat Lengkap</label>
+          <div className="col-span-4">
+            <div className="">
+              <label
+                htmlFor="alamat"
+                className="block mb-2 text-sm font-medium text-gray-700"
+              >
+                Alamat Lengkap
+              </label>
               <input
                 type="text"
-                className="input-field !w-[488px] !h-[60px] mt-[6px] !px-5"
+                className="input-field-xs"
                 placeholder=""
                 name="alamat"
                 id="alamat"
@@ -112,10 +143,10 @@ const Profile = () => {
                 onChange={handleChange}
               />
             </div>
-            <div className="mt-[10px]">
+            <div className="relative mt-4">
               <label
                 htmlFor="kecamatan"
-                className="block mb-2 text-15/sp font-medium text-dark"
+                className="block mb-2 text-sm font-medium text-gray-700"
               >
                 Kecamatan
               </label>
@@ -124,17 +155,18 @@ const Profile = () => {
                 name="kecamatan"
                 disabled={toggleDisabled}
                 // onChange={(e) => handleChange(e)}
-                className="bg-white border border-secondary-800 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-[488px] py-4 px-5 outline-none h-[60px]"
+                className="input-field-select-xs"
               >
                 <option>Pilih Kecamatan</option>
                 <option value="1">Jasa Bahan</option>
                 <option value="2">Tanpa Bahan</option>
               </select>
+              <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
             </div>
-            <div className="mt-[10px]">
+            <div className="relative mt-4">
               <label
                 htmlFor="kota"
-                className="block mb-2 text-15/sp font-medium text-dark"
+                className="block mb-2 text-sm font-medium text-gray-700"
               >
                 Kota / Kabupaten
               </label>
@@ -143,17 +175,18 @@ const Profile = () => {
                 name="kota"
                 disabled={toggleDisabled}
                 // onChange={(e) => handleChange(e)}
-                className="bg-white border border-secondary-800 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-[488px] py-4 px-5 outline-none h-[60px]"
+                className="input-field-select-xs"
               >
                 <option>Pilih Kota</option>
                 <option value="1">Jasa Bahan</option>
                 <option value="2">Tanpa Bahan</option>
               </select>
+              <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
             </div>
-            <div className="mt-[10px]">
+            <div className="relative mt-4">
               <label
                 htmlFor="provinsi"
-                className="block mb-2 text-15/sp font-medium text-dark"
+                className="block mb-2 text-sm font-medium text-gray-700"
               >
                 Provinsi
               </label>
@@ -162,18 +195,24 @@ const Profile = () => {
                 name="provinsi"
                 disabled={toggleDisabled}
                 // onChange={(e) => handleChange(e)}
-                className="bg-white border border-secondary-800 text-gray-900 text-sm rounded-2xl focus:ring-orange-900 focus:border-orange-900 block w-[488px] py-4 px-5 outline-none h-[60px]"
+                className="input-field-select-xs"
               >
                 <option>Pilih Provinsi</option>
                 <option value="1">Jasa Bahan</option>
                 <option value="2">Tanpa Bahan</option>
               </select>
+              <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
             </div>
-            <div className="relative w-full flex flex-col mt-[10px]">
-              <label htmlFor="kodepos">Kode Pos</label>
+            <div className="mt-4">
+              <label
+                htmlFor="kodepos"
+                className="block mb-2 text-sm font-medium text-gray-700"
+              >
+                Kode Pos
+              </label>
               <input
                 type="text"
-                className="input-field !w-[488px] !h-[60px] mt-[6px] !px-5"
+                className="input-field-xs"
                 placeholder=""
                 name="kodepos"
                 id="kodepos"
@@ -184,18 +223,19 @@ const Profile = () => {
               />
             </div>
           </div>
-          <div className="lg:col-span-2 mx-auto mt-3">
+
+          <div className="col-span-4 md:col-span-8 mx-auto mt-3">
             {toggleDisabled ? (
               <button
                 onClick={() => setToggleDisabled(false)}
-                className="button-fill-sm !w-[110px] !text-sm "
+                className="button-fill-sm"
               >
                 Edit Profil
               </button>
             ) : (
               <button
                 type="submit"
-                className="button-fill-sm !w-[188px] !text-sm "
+                className="button-fill-sm"
               >
                 Simpan Perubahan
               </button>

@@ -8,8 +8,8 @@ const Sidebar = (props) => {
   return (
     <>
       <nav
-        className={`mt-8 flex flex-col gap-9 ${
-          props.toggle ? 'px-10' : 'px-6'
+        className={`my-8 flex flex-col gap-9 ${
+          props.toggle ? 'px-6 xs:px-10' : 'px-6'
         }`}
       >
         <NavLink

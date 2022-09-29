@@ -35,7 +35,9 @@ const FABWhatsApp = () => {
           className="!bg-dark"
           isCapture={true}
         >
-          <span className="text-white bg-dark">Hubungi Customer Service</span>
+          <span className="text-white bg-dark !text-center">
+            Hubungi Customer Service
+          </span>
         </ReactTooltip>
       )}
       <p />

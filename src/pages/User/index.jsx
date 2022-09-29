@@ -42,25 +42,38 @@ const Dashboard = () => {
             toggle ? 'w-72' : 'w-[86px]'
           } min-h-screen duration-500`}
         >
-          <div className={`relative py-10 duration-500`}>
-            <Link
-              className="h-[58px] flex items-center justify-center"
-              to="/"
-            >
+          <div
+            className={`h-screen relative py-10 duration-500 flex flex-col justify-between`}
+          >
+            <div>
+              <Link
+                className="h-[58px] flex items-center justify-center"
+                to="/"
+              >
+                <img
+                  src={svg.LogoDashboardUser}
+                  alt="simpelmenok"
+                  className="mx-auto px-3"
+                />
+              </Link>
+              {/* Sidebar */}
+              <Sidebar toggle={toggle} />
+            </div>
+            <div className={`px-8 ${toggle ? 'block' : 'hidden'}`}>
               <img
-                src={svg.LogoDashboardUser}
-                alt="simpelmenok"
-                className="mx-auto px-3"
+                src={svg.swingChart}
+                alt="swing-chart"
+                className="w-full"
               />
-            </Link>
+            </div>
+
+            {/* Toggle */}
             <div
-              className="bg-white shadow-red flex justify-center items-center absolute w-[20px] h-[20px] top-16 -right-3 rounded-full"
+              className="bg-white shadow-red flex justify-center items-center absolute w-[20px] h-[20px] top-16 -right-3 rounded-full cursor-pointer"
               onClick={() => setToggle(!toggle)}
             >
               {toggle ? <BiChevronsLeft /> : <BiChevronsRight />}
             </div>
-            {/* Sidebar */}
-            <Sidebar toggle={toggle} />
           </div>
         </div>
 

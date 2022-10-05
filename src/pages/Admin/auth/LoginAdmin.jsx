@@ -35,8 +35,7 @@ const LoginAdmin = () => {
         },
       })
       .then((response) => {
-
-        localStorage.setItem("admin", JSON.stringify(3));
+        localStorage.setItem("admin", JSON.stringify(2));
 
         setTimeout(() => {
           if (localStorage.getItem("admin")) navigate("/admin");

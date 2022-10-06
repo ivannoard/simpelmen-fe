@@ -10,6 +10,7 @@ import Pesanan from './Pesanan';
 import Profile from './Profile';
 import { BiChevronsRight, BiChevronsLeft } from 'react-icons/bi';
 import DetailPesanan from './DetailPesanan';
+import BottomNavigation from './components/BottomNavigation';
 
 const Dashboard = () => {
   const [toggle, setToggle] = useState(true);
@@ -36,40 +37,42 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="relative flex overflow-x-auto no-scrollbar">
-        <div
-          className={`fixed bg-white rounded-tr-2xl rounded-br-2xl shadow-red z-10 ${
-            toggle ? 'w-52 xs:w-72' : 'w-[72px] xs:w-[86px]'
-          } min-h-screen duration-500`}
-        >
+      <div className="min-h-screen relative top-0 h-screen overflow-auto">
+        {/* sidebar */}
+        <div className="relative hidden sm:block">
           <div
-            className={`h-screen relative py-10 duration-500 flex flex-col justify-between`}
+            className={`fixed rounded-tr-2xl rounded-br-2xl shadow-red transition-all duration-500 left-0 inset-y-0 z-10 flex flex-col overflow-y-auto overflow-x-hidden h-full bg-white whitespace-nowrap justify-between ${
+              toggle ? 'w-72' : 'w-[86px]'
+            }`}
           >
-            <div>
-              <Link
-                className="h-[58px] flex items-center justify-center"
-                to="/"
-              >
-                <img
-                  src={svg.LogoDashboardUser}
-                  alt="simpelmenok"
-                  className="mx-auto px-3"
-                />
-              </Link>
+            <div className="mb-16">
+              <div className="mt-10 mb-9">
+                <Link
+                  className="h-[58px] flex items-center justify-center"
+                  to="/"
+                >
+                  <img
+                    src={svg.LogoDashboardUser}
+                    alt="simpelmenok"
+                    className="mx-auto px-3"
+                  />
+                </Link>
+              </div>
               {/* Sidebar */}
               <Sidebar toggle={toggle} />
             </div>
-            <div className={`px-8 hidden 2xsm:block`}>
+
+            <div className={`px-6 mb-8`}>
               <img
                 src={svg.swingChart}
                 alt="swing-chart"
-                className="w-full"
+                className="w-full block"
               />
             </div>
 
             {/* Toggle */}
             <div
-              className="bg-white shadow-red flex justify-center items-center absolute w-[20px] h-[20px] top-[55px] -right-[11px] rounded-full cursor-pointer z-20"
+              className="bg-white shadow-red flex justify-center items-center absolute w-[20px] h-[20px] top-[55px] right-3 rounded-full cursor-pointer z-20"
               onClick={() => setToggle(!toggle)}
             >
               {toggle ? <BiChevronsLeft /> : <BiChevronsRight />}
@@ -77,15 +80,25 @@ const Dashboard = () => {
           </div>
         </div>
 
+        {/* main content */}
         <div
-          className={`flex-1 py-10 ${
-            toggle ? 'ml-52 xs:ml-72' : 'ml-[72px] xs:ml-20'
-          } duration-500 px-6 xs:px-9 pt-[53px]`}
+          className={`relative top-0 float-right h-screen duration-500 min-h-full  ${
+            toggle ? 'maximize-main' : 'minimize-main'
+          }`}
         >
-          {/* Navbar Top */}
-          <Navbar />
-          {/* Main Content */}
-          <main className="mt-10 min-h-screen">{content}</main>
+          <div className="py-10 px-6 xs:px-9 pt-8 sm:pt-[53px]">
+            {/* Navbar Top */}
+            <Navbar />
+            {/* Main Content */}
+            <main className="mt-6 sm:mt-10 min-h-screen mb-20 sm:mb-0">
+              {content}
+            </main>
+          </div>
+        </div>
+
+        {/* bottom navigation */}
+        <div className="fixed inset-x-0 bottom-0 block sm:hidden">
+          <BottomNavigation />
         </div>
       </div>
     </>

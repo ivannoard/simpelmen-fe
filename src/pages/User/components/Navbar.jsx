@@ -1,18 +1,38 @@
 import { HiChevronDown } from 'react-icons/hi';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
+import svg from '../../../assets/svg';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
   const handleLogout = (e) => {
     localStorage.removeItem('user');
     navigate('/');
   };
+
+  const capitalizeFirstLetter = (str) => {
+    let splitStr = str.toLowerCase().split(' ');
+    for (let i = 0; i < splitStr.length; i++) {
+      splitStr[i] =
+        splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+    }
+    return splitStr.join(' ');
+  };
+
   return (
     <>
-      <nav className="flex justify-between items-center pb-4 border-b border-secondary">
-        <p className="text-[18px] font-semibold">Dashboard</p>
+      <nav className="flex justify-between items-center pb-5 sm:pb-4 border-b border-transparent sm:border-primary-600">
+        <p className="text-[18px] font-semibold mr-8 hidden sm:block">
+          Dashboard
+        </p>
+        <img
+          src={svg.LogoDashboardUser}
+          alt="logo-dashboard-user"
+          className="block sm:hidden w-100/sp"
+        />
         <Menu
           as="div"
           className="relative"
@@ -60,6 +80,9 @@ const Navbar = () => {
           </Transition>
         </Menu>
       </nav>
+      <p className="text-2xl font-bold block sm:hidden">
+        {capitalizeFirstLetter(pathname.split('/')[2].replace('-', ' '))}
+      </p>
     </>
   );
 };

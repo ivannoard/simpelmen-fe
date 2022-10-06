@@ -1,3 +1,4 @@
+/* sidebar */
 .sidebar-nav:hover span {
   color: #c9111b99;
 }
@@ -10,4 +11,32 @@
 }
 .sidebar-nav.active svg {
   fill: #c9111b;
+}
+
+/* bottom navigation */
+#bottomNav a.active {
+  border-color: #c9111b !important;
+}
+#bottomNav a.active svg {
+  fill: #c9111b !important;
+}
+#bottomNav a.active span {
+  color: #c9111b !important;
+}
+
+/* main content */
+.maximize-main {
+  width: calc(100% - 18rem);
+}
+.minimize-main {
+  width: calc(100% - 86px);
+}
+
+@media screen and (max-width: 639px) {
+  .maximize-main {
+    width: 100%;
+  }
+  .minimize-main {
+    width: 100%;
+  }
 }

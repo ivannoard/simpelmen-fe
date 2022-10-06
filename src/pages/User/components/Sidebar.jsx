@@ -8,12 +8,12 @@ const Sidebar = (props) => {
   return (
     <>
       <nav
-        className={`my-8 flex flex-col gap-9 ${
+        className={`mb-8 flex flex-col gap-9 ${
           props.toggle ? 'px-6 xs:px-10' : 'px-6'
         }`}
       >
         <NavLink
-          to="/dashboard/pesanann"
+          to="/dashboard/pesanan"
           className={`flex items-center ${
             props.toggle ? 'gap-4' : 'gap-0 justify-center'
           } duration-500 transition-200 sidebar-nav`}
@@ -24,7 +24,7 @@ const Sidebar = (props) => {
           </span>
         </NavLink>
         <NavLink
-          to="/dashboard/pembayarann"
+          to="/dashboard/pembayaran"
           className={`flex items-center ${
             props.toggle ? 'gap-5' : 'gap-0 justify-center'
           } duration-500 transition-200 sidebar-nav`}
@@ -35,7 +35,7 @@ const Sidebar = (props) => {
           </span>
         </NavLink>
         <NavLink
-          to="/dashboard/lacak-pesanann"
+          to="/dashboard/lacak-pesanan"
           className={`flex items-center ${
             props.toggle ? 'gap-5' : 'gap-0 justify-center'
           } duration-500 transition-200 sidebar-nav`}

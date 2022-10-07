@@ -4,6 +4,7 @@ import svg from "../../assets/svg";
 import { dummyImg } from "../../assets/image";
 import { useNavigate } from "react-router-dom";
 import useProducts from "../../hooks/useProducts";
+import CardSkeleton from "../../components/Skeletons/CardSkeleton";
 
 const OurProduct = () => {
   const navigate = useNavigate();
@@ -70,7 +71,11 @@ const OurProduct = () => {
           <div className="mt-12 md:mt-14">
             <div className="grid grid-systems gap-3 2xsm:gap-5 xl:gap-8">
               {isLoading
-                ? "is Loading"
+                ? [1, 2, 3, 4, 5, 6].map((item) => (
+                    <div className="col-span-2 2xsm:col-span-4" key={item}>
+                      <CardSkeleton />
+                    </div>
+                  ))
                 : data?.slice(0, 6)?.map((item) => (
                     <div className="col-span-2 2xsm:col-span-4" key={item.id}>
                       <CardProduct {...item} />

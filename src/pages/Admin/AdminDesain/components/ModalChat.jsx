@@ -1,10 +1,12 @@
 import React from "react";
 import { BsChevronLeft } from "react-icons/bs";
+import { AiOutlinePaperClip } from "react-icons/ai";
+import { MdSend } from "react-icons/md";
 const ModalChat = ({ setToggleChat }) => {
   return (
     <>
-      <div className="bg-white w-[543px] h-[550px]">
-        <div className="sticky top-0 flex shadow-md p-3 justify-between bg-white">
+      <div className="bg-white w-[543px] h-[550px] rounded-tr-lg rounded-tl-lg">
+        <div className="sticky top-0 flex shadow-md p-3 justify-between bg-white rounded-tr-lg rounded-tl-lg">
           <div className="flex items-center gap-3">
             <BsChevronLeft
               className="cursor-pointer"
@@ -53,7 +55,17 @@ const ModalChat = ({ setToggleChat }) => {
             <p className="text-white ml-auto">18.02</p>
           </div>
         </div>
-        <div className="bg-white p-3 border border-t">asd</div>
+        <div className="bg-[#F5F5F5] p-3 border-t flex items-center gap-4 rounded-br-lg rounded-bl-lg">
+          <AiOutlinePaperClip size={30} className="cursor-pointer" />
+          <div className="relative w-full">
+            <input type="text" className="py-2 w-full rounded-lg pr-12" />
+            <MdSend
+              className="absolute top-1 right-2"
+              size={30}
+              fill="#C9111B"
+            />
+          </div>
+        </div>
       </div>
     </>
   );

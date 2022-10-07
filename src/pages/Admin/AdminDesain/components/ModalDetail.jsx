@@ -9,7 +9,7 @@ const ModalDetail = ({ setToggleModal, toggleId }) => {
     <>
       <div className="fixed z-10 opacity-50 bg-black top-0 bottom-0 left-0 right-0 min-h-screen"></div>
       <div className="flex gap-5 justify-center fixed z-[11] right-0 left-0 mx-auto -mt-16">
-        <div className="bg-white rounded-2xl py-[30px] px-3 w-[543px] h-full">
+        <div className="bg-white rounded-lg py-[30px] px-3 w-[543px] h-full">
           <div className="relative w-full">
             <button
               onClick={() => setToggleModal(false)}

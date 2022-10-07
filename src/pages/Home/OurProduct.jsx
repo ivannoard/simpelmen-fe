@@ -10,7 +10,7 @@ const OurProduct = () => {
   const { data, isLoading } = useProducts(
     "https://simpelmen.herokuapp.com/api/products"
   );
-  console.log(data);
+
   // const dummyProduct = [
   //   {
   //     id: 1,
@@ -69,11 +69,13 @@ const OurProduct = () => {
           />
           <div className="mt-12 md:mt-14">
             <div className="grid grid-systems gap-3 2xsm:gap-5 xl:gap-8">
-              {data?.map((item) => (
-                <div className="col-span-2 2xsm:col-span-4" key={item.id}>
-                  <CardProduct {...item} />
-                </div>
-              ))}
+              {isLoading
+                ? "is Loading"
+                : data?.slice(0, 6)?.map((item) => (
+                    <div className="col-span-2 2xsm:col-span-4" key={item.id}>
+                      <CardProduct {...item} />
+                    </div>
+                  ))}
             </div>
             <div className="mt-12 flex justify-center">
               <button

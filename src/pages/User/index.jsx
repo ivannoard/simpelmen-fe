@@ -69,14 +69,6 @@ const Dashboard = () => {
                 className="w-full block"
               />
             </div>
-
-            {/* Toggle */}
-            <div
-              className="bg-white shadow-red flex justify-center items-center absolute w-[20px] h-[20px] top-[55px] right-3 rounded-full cursor-pointer z-20"
-              onClick={() => setToggle(!toggle)}
-            >
-              {toggle ? <BiChevronsLeft /> : <BiChevronsRight />}
-            </div>
           </div>
         </div>
 
@@ -93,6 +85,14 @@ const Dashboard = () => {
             <main className="mt-6 sm:mt-10 min-h-screen mb-20 sm:mb-0">
               {content}
             </main>
+          </div>
+
+          {/* Toggle */}
+          <div
+            className="bg-white shadow-red flex justify-center items-center absolute w-[20px] h-[20px] top-[55px] -left-[10px] rounded-full cursor-pointer z-20"
+            onClick={() => setToggle(!toggle)}
+          >
+            {toggle ? <BiChevronsLeft /> : <BiChevronsRight />}
           </div>
         </div>
 

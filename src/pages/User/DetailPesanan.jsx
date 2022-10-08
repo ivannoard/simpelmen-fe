@@ -47,11 +47,13 @@ const DetailPesanan = () => {
         <div className="grid grid-cols-4 2md:grid-cols-8 gap-x-5 gap-y-10 2md:gap-y-0">
           <div className="col-span-4 2md:col-span-3">
             <h6 className="mb-5">Detail Pesanan</h6>
-            <img
-              src={dummyImg.kardus}
-              alt="ini-gambar"
-              className="mb-5"
-            />
+            <div className="mb-5 p-4 border rounded-lg border-orange-900/40">
+              <img
+                src={dummyImg.kardus}
+                alt="ini-gambar"
+                className="w-full object-cover"
+              />
+            </div>
             <div className="product-title mb-5">
               <p className="mb-1 text-secondary-900">Dus Offset</p>
               <p className="font-semibold">Bentuk Langsungan</p>

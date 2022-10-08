@@ -1,10 +1,15 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import Modal from '../../components/Card/Modal';
 import { IoIosArrowDown } from 'react-icons/io';
 
 const Profile = () => {
   const [toggleDisabled, setToggleDisabled] = useState(true);
+  const [toggleConfirm, setToggleConfirm] = useState(false);
   const [fields, setFields] = useState({});
+
+  const closeModalConfirm = () => {
+    setToggleConfirm(false);
+  };
 
   function handleChange(e) {
     e.preventDefault();
@@ -16,8 +21,14 @@ const Profile = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
+    setToggleConfirm(true);
     console.log(fields);
   }
+
+  const handleEdit = () => {
+    console.log('edit');
+    setToggleConfirm(false);
+  };
 
   return (
     <>
@@ -243,6 +254,18 @@ const Profile = () => {
           </div>
         </form>
       </section>
+
+      {/* modal confirm */}
+      <Modal
+        isOpen={toggleConfirm}
+        closeModal={closeModalConfirm}
+        handleAccept={handleEdit}
+        titleModal="Edit Profil"
+        captionModal="Simpan perubahan pada profil Anda"
+        btnCancelCaption="Kembali"
+        btnAcceptCaption="Simpan"
+        isErrorModal={false}
+      />
     </>
   );
 };

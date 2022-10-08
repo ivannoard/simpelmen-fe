@@ -15,7 +15,7 @@ const BottomNavigation = () => {
         <div className="flex items-center justify-between">
           <NavLink
             to="/dashboard/pesanan"
-            className="flex flex-col px-3 pb-3 pt-2 items-center border-t-4 border-transparent rounded-sm"
+            className="flex flex-col px-[14px] pb-3 pt-2 items-center border-t-4 border-transparent rounded-sm"
           >
             <span className="block p-[10px]">
               <GiBookshelf className="text-2xl fill-secondary-800 transition-200" />
@@ -26,7 +26,7 @@ const BottomNavigation = () => {
           </NavLink>
           <NavLink
             to="/dashboard/pembayaran"
-            className="flex flex-col px-3 pb-3 pt-2 items-center border-t-4 border-transparent rounded-sm"
+            className="flex flex-col px-[14px] pb-3 pt-2 items-center border-t-4 border-transparent rounded-sm"
           >
             <span className="block p-[10px]">
               <IoIosWallet className="text-2xl fill-secondary-800 transition-200" />
@@ -37,7 +37,7 @@ const BottomNavigation = () => {
           </NavLink>
           <NavLink
             to="/dashboard/lacak-pesanan"
-            className="flex flex-col px-3 pb-3 pt-2 items-center border-t-4 border-transparent rounded-sm"
+            className="flex flex-col px-[14px] pb-3 pt-2 items-center border-t-4 border-transparent rounded-sm"
           >
             <span className="block p-[10px]">
               <MdLocalShipping className="text-2xl fill-secondary-800 transition-200" />
@@ -48,7 +48,7 @@ const BottomNavigation = () => {
           </NavLink>
           <NavLink
             to="/dashboard/profil"
-            className="flex flex-col px-3 pb-3 pt-2 items-center border-t-4 border-transparent rounded-sm"
+            className="flex flex-col px-[14px] pb-3 pt-2 items-center border-t-4 border-transparent rounded-sm"
           >
             <span className="block p-[10px]">
               <BsFillPersonFill className="text-2xl fill-secondary-800 transition-200" />

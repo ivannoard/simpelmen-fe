@@ -13,13 +13,14 @@ const Pesanan = () => {
           <select
             name="sorting"
             id="sorting"
-            className="w-[50px] rounded-[4px] h-10 p-2 bg-white border border-primary-900"
+            className="w-[50px] rounded h-10 p-2 bg-white border border-primary-900"
           >
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
           </select>
         </div>
+
         <div className="mt-4 overflow-x-auto">
           <table className="w-full table-auto mb-5">
             <thead>
@@ -63,6 +64,7 @@ const Pesanan = () => {
             </tbody>
           </table>
         </div>
+
         <nav
           className="flex justify-center items-center gap-x-[.375rem] py-2 mt-10"
           aria-label="pagination"

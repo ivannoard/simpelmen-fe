@@ -1,18 +1,23 @@
-import React, { useState } from "react";
-import svg from "../../assets/svg";
-import { HiChevronRight, HiChevronLeft } from "react-icons/hi";
-import Stepper from "./components/Stepper";
+import React, { useState } from 'react';
+import svg from '../../assets/svg';
+import { HiChevronRight, HiChevronLeft } from 'react-icons/hi';
+import Stepper from './components/Stepper';
 
 const EmptyState = () => {
   return (
     <>
-      <div className="empty-state w-full pt-10 flex flex-col justify-center items-center text-center">
-        <img src={svg.windTurbine} alt="wind-turbine" />
-        <p>Pilih produk yang ingin Anda lacak</p>
+      <div className="empty-state w-full pt-10 flex flex-col justify-center items-center text-center mb-12">
+        <img
+          src={svg.windTurbine}
+          alt="wind-turbine"
+          className="mb-4"
+        />
+        <p className="text-secondary-900">Pilih produk yang ingin Anda lacak</p>
       </div>
     </>
   );
 };
+
 const LacakPesanan = () => {
   const [toggleTracking, setToggleTracking] = useState(true);
   const [trackingOrder, setTrackingOrder] = useState();
@@ -27,57 +32,64 @@ const LacakPesanan = () => {
   return (
     <>
       <section>
-        <div className="grid grid-cols-10 gap-3">
-          <div className="col-span-10 lg:col-span-6">
+        <div className="grid grid-cols-4 xl:grid-cols-10 gap-x-5 gap-y-12 xl:gap-y-0">
+          <div className="col-span-4 xl:col-span-6 pr-4">
             <img
               src={svg.shippingVehicle}
               alt="shipping-vehicle"
-              className="w-full"
+              className="w-full mb-8"
             />
-            <div className="flex gap-2 items-center mt-5">
+            <div className="flex gap-2 items-center mb-3">
               <label htmlFor="sorting">Menampilkan</label>
               <select
                 name="sorting"
                 id="sorting"
-                className="w-[50px] rounded-md h-10 p-2 bg-white border border-primary-900"
+                className="w-[50px] rounded h-10 p-2 bg-white border border-primary-900"
               >
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
               </select>
             </div>
-            <div className="mt-[10px]">
-              <table className="text-center w-full">
-                <thead>
-                  <tr>
-                    <th className="bg-[#F29A41] text-white py-3">
-                      No. Pesanan
-                    </th>
-                    <th className="bg-[#F29A41] text-white py-3">
-                      Nama Produk
-                    </th>
-                    <th className="bg-[#F29A41] text-white py-3">
-                      Lacak Pesanan
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {[1, 2, 3, 4, 5].map((item, index) => (
-                    <tr key={item} className="border-b">
-                      <td className="py-3">001/BIKDK/O/VII/2022</td>
-                      <td className="py-3">Bentuk Langsungan</td>
-                      <td className="py-3">
-                        <button
-                          onClick={(e) => showTracking(e, index)}
-                          className="border border-secondary-800 rounded-2xl px-[10px] py-1"
-                        >
-                          Lacak Pesanan
-                        </button>
-                      </td>
+            <div className="">
+              <div className="overflow-x-auto">
+                <table className="text-center w-full">
+                  <thead>
+                    <tr>
+                      <th className="bg-[#F29A41] text-white py-3 w-[40%] px-2 min-w-[240px]">
+                        No. Pesanan
+                      </th>
+                      <th className="bg-[#F29A41] text-white py-3 w-[30%] px-2 text-left min-w-[180px]">
+                        Nama Produk
+                      </th>
+                      <th className="bg-[#F29A41] text-white py-3 w-[30%] px-2 min-w-[180px]">
+                        Aksi
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {[1, 2, 3, 4, 5].map((item, index) => (
+                      <tr
+                        key={item}
+                        className="border-b"
+                      >
+                        <td className="py-3 px-2">001/BIKDK/O/VII/2022</td>
+                        <td className="py-3 px-2 text-left">
+                          Bentuk Langsungan
+                        </td>
+                        <td className="py-3 px-2">
+                          <button
+                            onClick={(e) => showTracking(e, index)}
+                            className="text-sm border border-secondary-800 rounded-full px-3 py-1 hover:border-primary-900 transition-200"
+                          >
+                            Lacak Pesanan
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
               <nav
                 className="flex justify-center items-center gap-x-[.375rem] py-2 mt-10"
                 aria-label="pagination"
@@ -100,7 +112,7 @@ const LacakPesanan = () => {
               </nav>
             </div>
           </div>
-          <div className="col-span-10 lg:col-span-4 lg:border-l px-6">
+          <div className="col-span-4 xl:border-l px-5">
             {toggleTracking && <EmptyState />}
             {!toggleTracking && <Stepper trackingOrder={trackingOrder} />}
           </div>

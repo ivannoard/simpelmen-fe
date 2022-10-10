@@ -1,49 +1,27 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import CardProduct from '../../components/Card/CardProduct';
-
-import { dummyImg } from '../../assets/image';
-import { HiOutlineArrowSmLeft } from 'react-icons/hi';
-import { HiChevronRight, HiChevronLeft } from 'react-icons/hi';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import CardProduct from "../../components/Card/CardProduct";
+import { HiOutlineArrowSmLeft } from "react-icons/hi";
+import { HiChevronRight, HiChevronLeft } from "react-icons/hi";
+import useProducts from "../../hooks/useProductDetail";
+import CardSkeleton from "../../components/Skeletons/CardSkeleton";
 
 const Kemasan = () => {
-  const dummyData = [
-    {
-      id: 1,
-      produkImg: dummyImg.kotakBerdiri,
-      altImg: 'Kotak Berdiri',
-      kategori: 'Dus Offset',
-      jenis: 'Kotak Berdiri',
-    },
-    {
-      id: 2,
-      produkImg: dummyImg.boxTentengan,
-      altImg: 'Box Tentengan',
-      kategori: 'Karton',
-      jenis: 'Box Tentengan',
-    },
-    {
-      id: 3,
-      produkImg: dummyImg.topBottom,
-      altImg: 'Top Bottom',
-      kategori: 'Dus Offset',
-      jenis: 'Top Bottom',
-    },
-    {
-      id: 4,
-      produkImg: dummyImg.bentukSegitiga,
-      altImg: 'Bentuk Segitiga',
-      kategori: 'Dus Offset',
-      jenis: 'Bentuk Segitiga',
-    },
-    {
-      id: 5,
-      produkImg: dummyImg.boxModelPizza,
-      altImg: 'Box Model Pizza',
-      kategori: 'Karton',
-      jenis: 'Box Model Pizza',
-    },
+  const [active, setActive] = useState("Semua Kemasan");
+  const type = [
+    "Semua Kemasan",
+    "Karton",
+    "Dus Offset",
+    "Sablon Plastik, Pouch, Dus",
+    "Sticker",
+    "Standing Pouch",
   ];
+  const { data, isLoading } = useProducts(
+    "https://simpelmen.herokuapp.com/api/products"
+  );
+  function handleActive(type) {
+    setActive(type);
+  }
   return (
     <>
       <main className="containers">
@@ -52,50 +30,42 @@ const Kemasan = () => {
           className="mt-0 xs:mt-7 mb-12 2xsm:mb-60/sp"
         >
           <div className="mb-5 flex">
-            <Link
-              to="/"
-              className="flex items-center mb-3"
-            >
+            <Link to="/" className="flex items-center mb-3">
               <HiOutlineArrowSmLeft className="text-2xl mr-3" />
               <span className="leading-10">Kembali</span>
             </Link>
           </div>
           <div className="flex items-center gap-2 xs:gap-3 md:gap-4 flex-wrap">
-            <button className="button-gradient-sm !text-xs xs:!text-base !rounded-full">
-              Semua Kemasan
-            </button>
-            <button className="button-white-sm !text-xs xs:!text-base !rounded-full">
-              Karton
-            </button>
-            <button className="button-white-sm !text-xs xs:!text-base !rounded-full">
-              Dus Offset
-            </button>
-            <button className="button-white-sm !text-xs xs:!text-base !rounded-full">
-              Sablon Plastik, Pouch, Dus
-            </button>
-            <button className="button-white-sm !text-xs xs:!text-base !rounded-full">
-              Sticker
-            </button>
-            <button className="button-white-sm !text-xs xs:!text-base !rounded-full">
-              Standing Pouch
-            </button>
+            {type.map((item, index) => (
+              <button
+                key={index}
+                onClick={() => handleActive(item)}
+                className={
+                  active === item
+                    ? "button-gradient-sm !text-xs xs:!text-base !rounded-full"
+                    : "button-white-sm !text-xs xs:!text-base !rounded-full"
+                }
+              >
+                {item}
+              </button>
+            ))}
           </div>
         </section>
-        <section
-          id="kemasan"
-          className="mb-9"
-        >
+        <section id="kemasan" className="mb-9">
           <div className="w-full grid grid-cols-8 md:grid-cols-12 gap-3 2xsm:gap-5 xl:gap-7 mb-60/sp">
-            {dummyData.map((item, index) => {
-              return (
-                <div
-                  className="col-span-4 lg:col-span-3"
-                  key={index}
-                >
-                  <CardProduct {...item} />
-                </div>
-              );
-            })}
+            {isLoading
+              ? [1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+                  <div className="col-span-4 lg:col-span-3" key={item}>
+                    <CardSkeleton />
+                  </div>
+                ))
+              : data?.map((item, index) => {
+                  return (
+                    <div className="col-span-4 lg:col-span-3" key={index}>
+                      <CardProduct {...item} />
+                    </div>
+                  );
+                })}
           </div>
           <nav
             className="flex justify-center items-center gap-x-[.375rem] py-2"

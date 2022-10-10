@@ -88,6 +88,9 @@ const Keranjang = () => {
   };
 
   const handleDelete = () => {
+    setCartItem((prevState) =>
+      prevState.filter((item) => item.id !== deleteItem)
+    );
     setIsOpen(false);
   };
 
@@ -97,6 +100,7 @@ const Keranjang = () => {
       prevState.filter((item) => item.status === true)
     );
     setIsNext(true);
+    window.scrollTo(0, 0);
   };
 
   // Set Dynamic Form
@@ -146,6 +150,7 @@ const Keranjang = () => {
                     className="relative mb-10 shadow-gray rounded-2xl pt-8 px-8 pb-9 grid grid-cols-4 2xsm:grid-cols-8 2md:grid-cols-12 gap-x-8"
                     key={item.id}
                   >
+                    {/* checkbox */}
                     <div className="absolute top-6 md:top-8 left-6 md:left-8">
                       <div className="w-full flex justify-start">
                         <button

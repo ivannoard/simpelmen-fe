@@ -94,7 +94,7 @@ const FormSablon = ({ setAlertSuccess, setAlertFail }) => {
           id="desain"
           name="desain"
           onChange={(e) => handleChange(e)}
-          className="input-field-xs appearance-none"
+          className="input-field-select-xs"
         >
           <option>Pilih Desain</option>
           <option value="1">Jasa Desain</option>

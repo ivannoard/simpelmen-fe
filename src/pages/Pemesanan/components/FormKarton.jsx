@@ -94,7 +94,7 @@ const FormKarton = ({ setAlertSuccess, setAlertFail }) => {
           id="sablon"
           name="sablon"
           onChange={(e) => handleChange(e)}
-          className="input-field-xs appearance-none"
+          className="input-field-select-xs"
         >
           <option>Pilih Sablon</option>
           <option value="1">Jasa Sablon</option>
@@ -113,7 +113,7 @@ const FormKarton = ({ setAlertSuccess, setAlertFail }) => {
           id="desain"
           name="desain"
           onChange={(e) => handleChange(e)}
-          className="input-field-xs appearance-none"
+          className="input-field-select-xs"
         >
           <option>Pilih Desain</option>
           <option value="1">Jasa Desain</option>

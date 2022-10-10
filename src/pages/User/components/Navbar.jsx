@@ -1,19 +1,42 @@
-import { HiChevronDown } from "react-icons/hi";
-import { NavLink, useNavigate } from "react-router-dom";
-import { Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { HiChevronDown } from 'react-icons/hi';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { Menu, Transition } from '@headlessui/react';
+import { Fragment } from 'react';
+import svg from '../../../assets/svg';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
   const handleLogout = (e) => {
-    localStorage.removeItem("user");
-    navigate("/");
+    localStorage.removeItem('user');
+    navigate('/');
   };
+
+  const capitalizeFirstLetter = (str) => {
+    let splitStr = str.toLowerCase().split(' ');
+    for (let i = 0; i < splitStr.length; i++) {
+      splitStr[i] =
+        splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+    }
+    return splitStr.join(' ');
+  };
+
   return (
     <>
-      <nav className="flex justify-between items-center pb-3 border-b border-secondary">
-        <p className="text-[18px] font-semibold">Dashboard</p>
-        <Menu as="div" className="relative">
+      <nav className="flex justify-between items-center pb-5 sm:pb-4 border-b border-transparent sm:border-primary-600">
+        <p className="text-[18px] font-semibold mr-8 hidden sm:block">
+          Dashboard
+        </p>
+        <img
+          src={svg.LogoDashboardUser}
+          alt="logo-dashboard-user"
+          className="block sm:hidden w-100/sp"
+        />
+        <Menu
+          as="div"
+          className="relative"
+        >
           <Menu.Button>
             <div className="flex items-center ml-4">
               <p className="text-15/sp font-semibold mr-2 max-w-[5.625rem] lg:max-w-none truncate">
@@ -33,10 +56,13 @@ const Navbar = () => {
           >
             <Menu.Items
               as="nav"
-              className="absolute flex flex-col shadow-md top-10 right-0 bg-white rounded-xl border w-40 overflow-hidden"
+              className="absolute flex flex-col shadow-md top-10 right-0 bg-white rounded-xl border w-40 overflow-hidden z-50"
             >
               <Menu.Item as="div">
-                <NavLink to="/" className="navlink-mobile">
+                <NavLink
+                  to="/"
+                  className="navlink-mobile"
+                >
                   Beranda
                 </NavLink>
               </Menu.Item>
@@ -54,6 +80,9 @@ const Navbar = () => {
           </Transition>
         </Menu>
       </nav>
+      <p className="text-2xl font-bold block sm:hidden">
+        {capitalizeFirstLetter(pathname.split('/')[2].replace('-', ' '))}
+      </p>
     </>
   );
 };

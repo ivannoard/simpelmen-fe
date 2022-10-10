@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import FormDus from "./components/FormDus";
-import FormKarton from "./components/FormKarton";
-import FormSablon from "./components/FormSablon";
-import FormSticker from "./components/FormSticker";
-import FormStandingPouch from "./components/FormStandingPouch";
-import Modal from "../../components/Card/Modal";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import FormDus from './components/FormDus';
+import FormKarton from './components/FormKarton';
+import FormSablon from './components/FormSablon';
+import FormSticker from './components/FormSticker';
+import FormStandingPouch from './components/FormStandingPouch';
+import Modal from '../../components/Card/Modal';
 
-import { HiOutlineArrowSmLeft } from "react-icons/hi";
-import { dummyImg } from "../../assets/image";
-import { IoIosArrowDown } from "react-icons/io";
-import svg from "../../assets/svg";
+import { HiOutlineArrowSmLeft } from 'react-icons/hi';
+import { dummyImg } from '../../assets/image';
+import { IoIosArrowDown } from 'react-icons/io';
+import svg from '../../assets/svg';
 
 const dummy = true;
 const check = true;
@@ -18,23 +18,23 @@ const dummyData = [
   {
     id: 1,
     produkImg: dummyImg.kotakBerdiri,
-    altImg: "Kotak Berdiri",
-    kategori: "Dus Offset",
-    jenis: "Kotak Berdiri",
+    altImg: 'Kotak Berdiri',
+    kategori: 'Dus Offset',
+    jenis: 'Kotak Berdiri',
   },
   {
     id: 2,
     produkImg: dummyImg.boxTentengan,
-    altImg: "Box Tentengan",
-    kategori: "Karton",
-    jenis: "Box Tentengan",
+    altImg: 'Box Tentengan',
+    kategori: 'Karton',
+    jenis: 'Box Tentengan',
   },
   {
     id: 3,
     produkImg: dummyImg.topBottom,
-    altImg: "Top Bottom",
-    kategori: "Dus Offset",
-    jenis: "Top Bottom",
+    altImg: 'Top Bottom',
+    kategori: 'Dus Offset',
+    jenis: 'Top Bottom',
   },
 ];
 
@@ -56,9 +56,9 @@ const Pemesanan = () => {
     e.preventDefault();
     setFields({
       ...fields,
-      [e.target.getAttribute("name")]: e.target.value,
+      [e.target.getAttribute('name')]: e.target.value,
     });
-    if (e.target.value === "dikirim") {
+    if (e.target.value === 'dikirim') {
       setIsJasaKirim(true);
     } else {
       setIsJasaKirim(false);
@@ -72,7 +72,7 @@ const Pemesanan = () => {
   };
 
   const handleCheckout = async () => {
-    console.log("checkout");
+    console.log('checkout');
     setIsOpen(false);
   };
 
@@ -98,7 +98,10 @@ const Pemesanan = () => {
     <>
       <main className="containers">
         <div className="mb-5 mt-0 xs:mt-7 flex">
-          <Link to="/keranjang" className="flex items-center mb-3">
+          <Link
+            to="/keranjang"
+            className="flex items-center mb-3"
+          >
             <HiOutlineArrowSmLeft className="text-2xl mr-3" />
             <span className="leading-10">Kembali</span>
           </Link>
@@ -264,7 +267,7 @@ const Pemesanan = () => {
                     <select
                       name="kecamatan"
                       id="kecamatan"
-                      className="input-field-xs appearance-none"
+                      className="input-field-select-xs"
                       required
                       onChange={(e) => handleChange(e)}
                     >
@@ -283,7 +286,7 @@ const Pemesanan = () => {
                     <select
                       name="kota"
                       id="kota"
-                      className="input-field-xs appearance-none"
+                      className="input-field-select-xs"
                       required
                       onChange={(e) => handleChange(e)}
                     >
@@ -302,7 +305,7 @@ const Pemesanan = () => {
                     <select
                       name="provinsi"
                       id="provinsi"
-                      className="input-field-xs appearance-none"
+                      className="input-field-select-xs"
                       required
                       onChange={(e) => handleChange(e)}
                     >
@@ -361,8 +364,8 @@ const Pemesanan = () => {
                         <div
                           className={`${
                             isJasaKirim
-                              ? "radio-button-fill"
-                              : "radio-button-white"
+                              ? 'radio-button-fill'
+                              : 'radio-button-white'
                           }`}
                         >
                           Dikirim
@@ -380,8 +383,8 @@ const Pemesanan = () => {
                         <div
                           className={`${
                             isJasaKirim
-                              ? "radio-button-white"
-                              : "radio-button-fill"
+                              ? 'radio-button-white'
+                              : 'radio-button-fill'
                           }`}
                         >
                           Ambil Sendiri
@@ -400,7 +403,7 @@ const Pemesanan = () => {
                       <select
                         name="jasaKirim"
                         id="jasaKirim"
-                        className="input-field-xs appearance-none"
+                        className="input-field-select-xs"
                         required
                         onChange={(e) => handleChange(e)}
                       >
@@ -434,7 +437,7 @@ const Pemesanan = () => {
                 <button
                   className="button-fill"
                   type="button"
-                  onClick={() => navigate("/dashboard/pesanan")}
+                  onClick={() => navigate('/dashboard/pesanan')}
                 >
                   Lihat Detail Pesanan
                 </button>

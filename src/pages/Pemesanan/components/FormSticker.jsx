@@ -42,7 +42,7 @@ const FormSticker = ({ setAlertSuccess, setAlertFail }) => {
           id="desain"
           name="desain"
           onChange={(e) => handleChange(e)}
-          className="input-field-xs appearance-none"
+          className="input-field-select-xs"
         >
           <option>Pilih Bentuk</option>
           <option value="1">Jasa Bentuk</option>
@@ -113,7 +113,7 @@ const FormSticker = ({ setAlertSuccess, setAlertFail }) => {
           id="desain"
           name="desain"
           onChange={(e) => handleChange(e)}
-          className="input-field-xs appearance-none"
+          className="input-field-select-xs"
         >
           <option>Pilih Desain</option>
           <option value="1">Jasa Desain</option>

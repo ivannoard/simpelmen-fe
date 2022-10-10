@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
-import svg from "../../assets/svg";
-import Navbar from "./components/Navbar";
-import Sidebar from "./components/Sidebar";
-import LacakPesanan from "./LacakPesanan";
-import Pembayaran from "./Pembayaran";
-import Pesanan from "./Pesanan";
-import Profile from "./Profile";
-import { BiChevronsRight, BiChevronsLeft } from "react-icons/bi";
-import DetailPesanan from "./DetailPesanan";
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import svg from '../../assets/svg';
+import './styles.css';
+import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
+import LacakPesanan from './LacakPesanan';
+import Pembayaran from './Pembayaran';
+import Pesanan from './Pesanan';
+import Profile from './Profile';
+import { BiChevronsRight, BiChevronsLeft } from 'react-icons/bi';
+import DetailPesanan from './DetailPesanan';
+import BottomNavigation from './components/BottomNavigation';
 
 const Dashboard = () => {
   const [toggle, setToggle] = useState(true);
@@ -17,16 +19,16 @@ const Dashboard = () => {
   const { pesananId } = useParams();
 
   useEffect(() => {
-    switch (pathname.split("/")[2]) {
-      case "pesanan":
+    switch (pathname.split('/')[2]) {
+      case 'pesanan':
         return setContent(<Pesanan />);
-      case "detail":
+      case 'detail':
         return setContent(<DetailPesanan />);
-      case "pembayaran":
+      case 'pembayaran':
         return setContent(<Pembayaran />);
-      case "lacak-pesanan":
+      case 'lacak-pesanan':
         return setContent(<LacakPesanan />);
-      case "profil":
+      case 'profil':
         return setContent(<Profile />);
       default:
         break;
@@ -35,41 +37,70 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="flex overflow-x-auto no-scrollbar">
-        <div
-          className={`fixed bg-white rounded-tr-2xl rounded-br-2xl shadow-red z-10 ${
-            toggle ? "w-72" : "w-20"
-          } min-h-screen duration-500`}
-        >
-          <div
-            className={`relative py-2 ${
-              toggle ? "md:py-10" : "md:py-4"
-            } duration-500`}
-          >
-            <img
-              src={svg.LogoDashboardUser}
-              alt="simpelmenok"
-              className="mx-auto px-2"
-            />
+      <div className="min-h-screen relative top-0 h-screen overflow-auto">
+        {/* sidebar */}
+        <div className="relative hidden sm:block">
+          <div className="fixed rounded-tr-2xl rounded-br-2xl shadow-red left-0 inset-y-0 z-10 bg-white">
             <div
-              className="bg-white shadow-red flex justify-center items-center absolute w-[20px] h-[20px] top-16 -right-3 rounded-full"
+              className={`flex flex-col overflow-y-auto overflow-x-hidden h-full whitespace-nowrap justify-between transition-all duration-500 ${
+                toggle ? 'w-72' : 'w-[86px]'
+              }`}
+            >
+              <div className="mb-16">
+                <div className="mt-10 mb-9">
+                  <Link
+                    className="h-[58px] flex items-center justify-center"
+                    to="/"
+                  >
+                    <img
+                      src={svg.LogoDashboardUser}
+                      alt="simpelmenok"
+                      className="mx-auto px-3"
+                    />
+                  </Link>
+                </div>
+                {/* Sidebar */}
+                <Sidebar toggle={toggle} />
+              </div>
+
+              <div className={`px-6 mb-8`}>
+                <img
+                  src={svg.swingChart}
+                  alt="swing-chart"
+                  className="w-full block"
+                />
+              </div>
+            </div>
+
+            {/* Toggle */}
+            <div
+              className="bg-white shadow-red flex justify-center items-center absolute w-[20px] h-[20px] top-[55px] -right-[10px] rounded-full cursor-pointer z-20"
               onClick={() => setToggle(!toggle)}
             >
               {toggle ? <BiChevronsLeft /> : <BiChevronsRight />}
             </div>
-            {/* Sidebar */}
-            <Sidebar toggle={toggle} />
           </div>
         </div>
+
+        {/* main content */}
         <div
-          className={`flex-1 py-10 ${
-            toggle ? "ml-72" : "ml-20"
-          } duration-500 px-8 pt-6 ${toggle ? "md:pt-[53px]" : "md:pt-6"}`}
+          className={`relative top-0 float-right h-screen duration-500 min-h-full  ${
+            toggle ? 'maximize-main' : 'minimize-main'
+          }`}
         >
-          {/* Navbar Top */}
-          <Navbar />
-          {/* Main Content */}
-          <main className="mt-10 min-h-screen">{content}</main>
+          <div className="py-10 px-6 xs:px-9 pt-8 sm:pt-[53px]">
+            {/* Navbar Top */}
+            <Navbar />
+            {/* Main Content */}
+            <main className="mt-6 sm:mt-10 min-h-screen mb-20 sm:mb-0">
+              {content}
+            </main>
+          </div>
+        </div>
+
+        {/* bottom navigation */}
+        <div className="fixed inset-x-0 bottom-0 block sm:hidden">
+          <BottomNavigation />
         </div>
       </div>
     </>

@@ -97,7 +97,7 @@ const FormDus = ({ setAlertSuccess, setAlertFail, categoryName }) => {
             id="bahan"
             name="bahan"
             onChange={(e) => handleChange(e)}
-            className="input-field-xs appearance-none"
+            className="input-field-select-xs"
           >
             <option>Pilih Bahan</option>
             <option value="1">Jasa Bahan</option>
@@ -116,7 +116,7 @@ const FormDus = ({ setAlertSuccess, setAlertFail, categoryName }) => {
             id="desain"
             name="desain"
             onChange={(e) => handleChange(e)}
-            className="input-field-xs appearance-none"
+            className="input-field-select-xs"
           >
             <option>Pilih Desain</option>
             <option value="1">Jasa Desain</option>
@@ -135,7 +135,7 @@ const FormDus = ({ setAlertSuccess, setAlertFail, categoryName }) => {
             id="laminasi"
             name="laminasi"
             onChange={(e) => handleChange(e)}
-            className="input-field-xs appearance-none"
+            className="input-field-select-xs"
           >
             <option>Pilih Laminasi</option>
             <option value="1">Jasa Laminasi</option>

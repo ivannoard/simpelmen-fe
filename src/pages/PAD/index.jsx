@@ -31,6 +31,8 @@ const PAD = () => {
             Laporan Retribusi Pendapatan Asli Daerah
           </h4>
           <div className="grid grid-systems gap-x-8 gap-y-6 mb-9">
+            <div className="col-span-3 hidden 2xsm:block"></div>
+            <div className="col-span-3 hidden 2xsm:block"></div>
             <div className="col-span-4 2md:col-span-3">
               <label
                 htmlFor="start"
@@ -93,51 +95,9 @@ const PAD = () => {
                 />
               </div>
             </div>
-            <div className="col-span-4 2md:col-span-3">
-              <div className="relative">
-                <label
-                  htmlFor="laminasi"
-                  className="hidden 2md:block mb-2 text-sm font-medium text-gray-700 opacity-0 overflow-hidden"
-                >
-                  Laminasi
-                </label>
-                <select
-                  id="laminasi"
-                  name="laminasi"
-                  // onChange={(e) => handleChange(e)}
-                  className="input-field-select-xs"
-                >
-                  <option>Pilih Laminasi</option>
-                  <option value="1">Jasa Laminasi</option>
-                  <option value="2">Tanpa Laminasi</option>
-                </select>
-                <IoIosArrowDown className="absolute right-4 top-[15px] 2md:top-[43px] text-lg fill-gray-400" />
-              </div>
-            </div>
-            <div className="col-span-4 2md:col-span-3">
-              <div className="relative">
-                <label
-                  htmlFor="laminasi"
-                  className="hidden 2md:block mb-2 text-sm font-medium text-gray-700 opacity-0 overflow-hidden"
-                >
-                  Laminasi
-                </label>
-                <select
-                  id="laminasi"
-                  name="laminasi"
-                  // onChange={(e) => handleChange(e)}
-                  className="input-field-select-xs"
-                >
-                  <option>Pilih Laminasi</option>
-                  <option value="1">Jasa Laminasi</option>
-                  <option value="2">Tanpa Laminasi</option>
-                </select>
-                <IoIosArrowDown className="absolute right-4 top-[15px] 2md:top-[43px] text-lg fill-gray-400" />
-              </div>
-            </div>
           </div>
           {/* tabel */}
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto mb-9">
             <table className="table-auto w-full border border-orange-900 mb-4">
               <thead className="border-b border-orange-900 bg-orange-900/30">
                 <tr className="border-b border-orange-900">
@@ -341,6 +301,14 @@ const PAD = () => {
                 </tr>
               </tfoot>
             </table>
+          </div>
+          <div className="flex justify-center">
+            <button
+              className="button-gradient"
+              type="button"
+            >
+              Unduh PAD
+            </button>
           </div>
         </section>
 

@@ -40,34 +40,44 @@ const Dashboard = () => {
       <div className="min-h-screen relative top-0 h-screen overflow-auto">
         {/* sidebar */}
         <div className="relative hidden sm:block">
-          <div
-            className={`fixed rounded-tr-2xl rounded-br-2xl shadow-red transition-all duration-500 left-0 inset-y-0 z-10 flex flex-col overflow-y-auto overflow-x-hidden h-full bg-white whitespace-nowrap justify-between ${
-              toggle ? 'w-72' : 'w-[86px]'
-            }`}
-          >
-            <div className="mb-16">
-              <div className="mt-10 mb-9">
-                <Link
-                  className="h-[58px] flex items-center justify-center"
-                  to="/"
-                >
-                  <img
-                    src={svg.LogoDashboardUser}
-                    alt="simpelmenok"
-                    className="mx-auto px-3"
-                  />
-                </Link>
+          <div className="fixed rounded-tr-2xl rounded-br-2xl shadow-red left-0 inset-y-0 z-10 bg-white">
+            <div
+              className={`flex flex-col overflow-y-auto overflow-x-hidden h-full whitespace-nowrap justify-between transition-all duration-500 ${
+                toggle ? 'w-72' : 'w-[86px]'
+              }`}
+            >
+              <div className="mb-16">
+                <div className="mt-10 mb-9">
+                  <Link
+                    className="h-[58px] flex items-center justify-center"
+                    to="/"
+                  >
+                    <img
+                      src={svg.LogoDashboardUser}
+                      alt="simpelmenok"
+                      className="mx-auto px-3"
+                    />
+                  </Link>
+                </div>
+                {/* Sidebar */}
+                <Sidebar toggle={toggle} />
               </div>
-              {/* Sidebar */}
-              <Sidebar toggle={toggle} />
+
+              <div className={`px-6 mb-8`}>
+                <img
+                  src={svg.swingChart}
+                  alt="swing-chart"
+                  className="w-full block"
+                />
+              </div>
             </div>
 
-            <div className={`px-6 mb-8`}>
-              <img
-                src={svg.swingChart}
-                alt="swing-chart"
-                className="w-full block"
-              />
+            {/* Toggle */}
+            <div
+              className="bg-white shadow-red flex justify-center items-center absolute w-[20px] h-[20px] top-[55px] -right-[10px] rounded-full cursor-pointer z-20"
+              onClick={() => setToggle(!toggle)}
+            >
+              {toggle ? <BiChevronsLeft /> : <BiChevronsRight />}
             </div>
           </div>
         </div>
@@ -85,14 +95,6 @@ const Dashboard = () => {
             <main className="mt-6 sm:mt-10 min-h-screen mb-20 sm:mb-0">
               {content}
             </main>
-          </div>
-
-          {/* Toggle */}
-          <div
-            className="bg-white shadow-red flex justify-center items-center absolute w-[20px] h-[20px] top-[55px] -left-[10px] rounded-full cursor-pointer z-20"
-            onClick={() => setToggle(!toggle)}
-          >
-            {toggle ? <BiChevronsLeft /> : <BiChevronsRight />}
           </div>
         </div>
 

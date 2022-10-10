@@ -156,19 +156,19 @@ const Profile = () => {
             </div>
             <div className="relative mt-4">
               <label
-                htmlFor="kecamatan"
+                htmlFor="provinsi"
                 className="block mb-2 text-sm font-medium text-gray-700"
               >
-                Kecamatan
+                Provinsi
               </label>
               <select
-                id="kecamatan"
-                name="kecamatan"
+                id="provinsi"
+                name="provinsi"
                 disabled={toggleDisabled}
                 // onChange={(e) => handleChange(e)}
                 className="input-field-select-xs"
               >
-                <option>Pilih Kecamatan</option>
+                <option>Pilih Provinsi</option>
                 <option value="1">Jasa Bahan</option>
                 <option value="2">Tanpa Bahan</option>
               </select>
@@ -196,19 +196,19 @@ const Profile = () => {
             </div>
             <div className="relative mt-4">
               <label
-                htmlFor="provinsi"
+                htmlFor="kecamatan"
                 className="block mb-2 text-sm font-medium text-gray-700"
               >
-                Provinsi
+                Kecamatan
               </label>
               <select
-                id="provinsi"
-                name="provinsi"
+                id="kecamatan"
+                name="kecamatan"
                 disabled={toggleDisabled}
                 // onChange={(e) => handleChange(e)}
                 className="input-field-select-xs"
               >
-                <option>Pilih Provinsi</option>
+                <option>Pilih Kecamatan</option>
                 <option value="1">Jasa Bahan</option>
                 <option value="2">Tanpa Bahan</option>
               </select>

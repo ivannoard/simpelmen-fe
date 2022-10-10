@@ -19,7 +19,7 @@ const DetailProduct = () => {
   const { data, isLoading } = useProductDetail(
     `https://simpelmen.herokuapp.com/api/products/${productId}`
   );
-  console.log(data);
+
   // Use Custom Hook
   // useEffect(()=>{
   //   const getItem = async()=>{
@@ -100,31 +100,46 @@ const DetailProduct = () => {
           <div className="grid grid-systems gap-8 ">
             <div className="col-span-4 2xsm:col-span-8 2md:col-span-6">
               <div className="p-6 border rounded-xl mb-5 border-secondary-800/50">
-                {/* <img
-                  src={dummyImg.kardus}
-                  alt="kardus"
-                  className="w-full"
-                /> */}
                 <div className="w-full overflow-auto flex justify-center items-center rounded-xl">
                   <div>
-                    <Zoom
+                    {isLoading ? (
+                      "isLoading"
+                    ) : (
+                      <img
+                        src={`data:image/jpg;base64,${data?.product_image}`}
+                        alt="kardus"
+                        className="w-full"
+                      />
+                    )}
+                    {/* <Zoom
                       img={`data:image/jpg;base64,${data?.product_image}`}
                       zoomScale={2}
                       height={window.innerWidth < 576 ? 227 : 360}
                       width={window.innerWidth < 576 ? 340 : 540}
-                    />
+                    /> */}
                   </div>
                 </div>
               </div>
-              <p className="text-3xl">
-                Bahan:{" "}
-                <span>{data?.product_materials.product_material_name}</span>
-              </p>
-              <h2 className="text-orange-900 mb-2">{data?.product_name}</h2>
-              <p>{data?.product_materials.product_material_description}</p>
+              {isLoading ? (
+                "isLoading"
+              ) : (
+                <>
+                  <p className="text-3xl">
+                    Bahan:{" "}
+                    <span>{data?.product_materials.product_material_name}</span>
+                  </p>
+
+                  <h2 className="text-orange-900 mb-2">{data?.product_name}</h2>
+                  <p>{data?.product_materials.product_material_description}</p>
+                </>
+              )}
             </div>
             <div className="col-span-4 2xsm:col-span-8 2md:col-span-6">
-              <div className="form-content 2md:px-10">{form}</div>
+              {isLoading ? (
+                "isLoading"
+              ) : (
+                <div className="form-content 2md:px-10">{form}</div>
+              )}
             </div>
           </div>
         </section>

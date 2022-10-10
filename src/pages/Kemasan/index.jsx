@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import CardProduct from "../../components/Card/CardProduct";
-
-import { dummyImg } from "../../assets/image";
 import { HiOutlineArrowSmLeft } from "react-icons/hi";
 import { HiChevronRight, HiChevronLeft } from "react-icons/hi";
 import useProducts from "../../hooks/useProductDetail";
@@ -38,8 +36,9 @@ const Kemasan = () => {
             </Link>
           </div>
           <div className="flex items-center gap-2 xs:gap-3 md:gap-4 flex-wrap">
-            {type.map((item) => (
+            {type.map((item, index) => (
               <button
+                key={index}
                 onClick={() => handleActive(item)}
                 className={
                   active === item

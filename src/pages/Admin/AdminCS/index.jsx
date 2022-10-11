@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { BiChevronsLeft, BiChevronsRight } from "react-icons/bi";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Sidebar from "./components/Sidebar";
-import svg from "../../../assets/svg";
-import Dashboard from "./Dashboard";
-import Retribusi from "./Retribusi";
-import Status from "./Status";
-import Rekap from "./Rekap";
-import PAD from "./PAD";
-import Profil from "./Profil";
-import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
-import DetailRetribusi from "./DetailRetribusi";
+import React, { useEffect, useState } from 'react';
+import { BiChevronsLeft, BiChevronsRight } from 'react-icons/bi';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
+import svg from '../../../assets/svg';
+import Dashboard from './Dashboard';
+import Retribusi from './Retribusi';
+import Status from './Status';
+import Rekap from './Rekap';
+import PAD from './PAD';
+import Profil from './Profil';
+import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
+import DetailRetribusi from './DetailRetribusi';
+import '../styles.css';
 
 const AdminCS = () => {
   const [toggle, setToggle] = useState(true);
@@ -19,26 +20,26 @@ const AdminCS = () => {
   const [content, setContent] = useState();
   const { retribusiId } = useParams();
 
-  const adminRole = localStorage.getItem("admin");
+  const adminRole = localStorage.getItem('admin');
   console.log(retribusiId);
   const navigate = useNavigate();
   useEffect(() => {
-    if (parseInt(adminRole) !== 1) navigate("/admin/login");
+    if (parseInt(adminRole) !== 1) navigate('/admin/login');
   }, [adminRole, navigate]);
 
   useEffect(() => {
-    switch (pathname.split("/")[4]) {
-      case "":
+    switch (pathname.split('/')[4]) {
+      case '':
         return setContent(<Dashboard />);
-      case "retribusi-pelanggan":
+      case 'retribusi-pelanggan':
         return setContent(<Retribusi />);
-      case "detail-retribusi-pelanggan":
+      case 'detail-retribusi-pelanggan':
         return setContent(<DetailRetribusi />);
-      case "status-po":
+      case 'status-po':
         return setContent(<Status />);
-      case "rekap-pesanan":
+      case 'rekap-pesanan':
         return setContent(<Rekap />);
-      case "pad":
+      case 'pad':
         return setContent(<PAD />);
       // case "profil":
       //   return setContent(<Profil />);
@@ -52,12 +53,12 @@ const AdminCS = () => {
       <div className="flex overflow-x-auto no-scrollbar">
         <div
           className={`fixed bg-orange-900 rounded-tr-2xl rounded-br-2xl z-10 ${
-            toggle ? "w-72" : "w-20"
+            toggle ? 'w-72' : 'w-20'
           } min-h-screen duration-500`}
         >
           <div
             className={`relative py-2 ${
-              toggle ? "md:py-10" : "md:py-4"
+              toggle ? 'md:py-10' : 'md:py-4'
             } duration-500`}
           >
             <img
@@ -77,8 +78,8 @@ const AdminCS = () => {
         </div>
         <div
           className={`flex-1 py-10 ${
-            toggle ? "ml-72" : "ml-20"
-          } duration-500 px-8 pt-6 ${toggle ? "md:pt-[53px]" : "md:pt-6"}`}
+            toggle ? 'ml-72' : 'ml-20'
+          } duration-500 px-8 pt-6 ${toggle ? 'md:pt-[53px]' : 'md:pt-6'}`}
         >
           {/* Navbar Top */}
           <Navbar />

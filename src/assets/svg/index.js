@@ -32,6 +32,7 @@ import emptyKeranjang from './empty-keranjang.svg';
 import successPO from './success-po.svg';
 import simpelmenLetterLogo from './simpelmen-letter-logo.svg';
 import swingChart from './swing-chart.svg';
+import logoLetterSimppelmenPrimaryDark from './logo-letter-simpelmenok-pd.svg';
 
 const svg = {
   loginPage,
@@ -68,6 +69,7 @@ const svg = {
   simpelmenLetterLogo,
   karton,
   swingChart,
+  logoLetterSimppelmenPrimaryDark,
 };
 
 export default svg;

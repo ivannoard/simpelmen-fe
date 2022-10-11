@@ -50,55 +50,83 @@ const AdminCS = () => {
 
   return (
     <>
-      <div className="flex overflow-x-auto no-scrollbar">
-        <div
-          className={`fixed bg-orange-900 rounded-tr-2xl rounded-br-2xl z-10 ${
-            toggle ? 'w-72' : 'w-20'
-          } min-h-screen duration-500`}
-        >
-          <div
-            className={`relative py-2 ${
-              toggle ? 'md:py-10' : 'md:py-4'
-            } duration-500`}
-          >
-            <img
-              src={svg.adminLogo}
-              alt="simpelmenok"
-              className="mx-auto px-2"
-            />
+      <div className="min-h-screen relative top-0 h-screen overflow-y-auto overflow-x-hidden md:overflow-x-auto">
+        {/* sidebar */}
+        <div className="relative">
+          <div className="fixed rounded-tr-2xl rounded-br-2xl shadow-red left-0 inset-y-0 z-10 bg-orange-900">
             <div
-              className="bg-orange-900 cursor-pointer border-white border-2 flex justify-center items-center absolute w-[20px] h-[20px] top-16 -right-3 rounded-full"
+              className={`flex flex-col overflow-y-auto overflow-x-hidden h-full whitespace-nowrap justify-between transition-all duration-500 ${
+                toggle ? 'w-[15rem] md:w-72' : 'w-[88px]'
+              }`}
+            >
+              <div className="mb-16 mt-10">
+                <img
+                  src={svg.simpelmenLetterLogo}
+                  alt="simpelmenok"
+                  className="mx-auto px-18/sp h-16"
+                />
+                {/* Sidebar */}
+                <Sidebar toggle={toggle} />
+              </div>
+            </div>
+            <div
+              className="bg-orange-900 cursor-pointer border-white border-2 flex justify-center items-center absolute w-[20px] h-[20px] top-16 -right-[10px] rounded-full"
               onClick={() => setToggle(!toggle)}
             >
               {toggle ? <BiChevronsLeft /> : <BiChevronsRight />}
             </div>
-            {/* Sidebar */}
-            <Sidebar toggle={toggle} />
           </div>
         </div>
+
+        {/* main content */}
         <div
-          className={`flex-1 py-10 ${
-            toggle ? 'ml-72' : 'ml-20'
-          } duration-500 px-8 pt-6 ${toggle ? 'md:pt-[53px]' : 'md:pt-6'}`}
+          className={`relative top-0 float-right h-screen duration-500 min-h-full  ${
+            toggle ? 'maximize-admin-main' : 'minimize-admin-main'
+          }`}
         >
-          {/* Navbar Top */}
-          <Navbar />
-          {/* Main Content */}
-          <main className="mt-6 min-h-screen">{content}</main>
-          <div className="copyright mt-10 flex items-center justify-end gap-4">
-            <p>&copy; 2022 BIKDK Provinsi Jawa Tengah. All Rights Reserved.</p>
-            <div className="icons flex gap-2">
-              <div className="facebook bg-[#1877F2] p-2 rounded-full">
-                <FaFacebook fill="#FFFFFF" />
-              </div>
-              <div className="facebook bg-[#1DA1F2] p-2 rounded-full">
-                <FaTwitter fill="#FFFFFF" />
-              </div>
-              <div className="facebook bg-[#F00073] p-2 rounded-full">
-                <FaInstagram fill="#FFFFFF" />
-              </div>
-              <div className="facebook bg-[#C9111B] p-2 rounded-full">
-                <FaYoutube fill="#FFFFFF" />
+          <div className="pb-6 px-6 xs:px-9 pt-8 sm:pt-12">
+            {/* Navbar Top */}
+            <Navbar />
+            {/* Main Content */}
+            <main className="mt-6 min-h-screen mb-16">{content}</main>
+            {/* footer */}
+            <div className="copyright mt-10 flex items-center justify-end gap-4">
+              <p>
+                &copy; 2022 BIKDK Provinsi Jawa Tengah. All Rights Reserved.
+              </p>
+              <div className="icons flex gap-2">
+                <a
+                  href="https://www.facebook.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="bg-[#1877F2] p-2 rounded-full"
+                >
+                  <FaFacebook fill="#FFFFFF" />
+                </a>
+                <a
+                  href="https://www.twitter.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="bg-[#1DA1F2] p-2 rounded-full"
+                >
+                  <FaTwitter fill="#FFFFFF" />
+                </a>
+                <a
+                  href="https://www.instagram.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="bg-[#F00073] p-2 rounded-full"
+                >
+                  <FaInstagram fill="#FFFFFF" />
+                </a>
+                <a
+                  href="https://www.youtube.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="bg-[#C9111B] p-2 rounded-full"
+                >
+                  <FaYoutube fill="#FFFFFF" />
+                </a>
               </div>
             </div>
           </div>

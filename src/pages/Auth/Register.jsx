@@ -1,35 +1,35 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Alerts from '../../components/Alerts';
-import AuthLayout from './components/AuthLayout';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Alerts from "../../components/Alerts";
+import AuthLayout from "./components/AuthLayout";
 
-import svg from '../../assets/svg';
-import { MdEmail, MdLock } from 'react-icons/md';
-import { BsFillPersonFill } from 'react-icons/bs';
-import { AiFillPhone } from 'react-icons/ai';
-import { VscEye, VscEyeClosed } from 'react-icons/vsc';
-import { userAuth } from '../../services/api';
+import svg from "../../assets/svg";
+import { MdEmail, MdLock } from "react-icons/md";
+import { BsFillPersonFill } from "react-icons/bs";
+import { AiFillPhone } from "react-icons/ai";
+import { VscEye, VscEyeClosed } from "react-icons/vsc";
+import { userAuth } from "../../services/api";
 
 const Register = () => {
   const [togglePassword, setTogglePassword] = useState(false);
   const [toggleConfirmPassword, setToggleConfirmPassword] = useState(false);
   const [alerts, setAlerts] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
-  const [failMessage, setFailMessage] = useState('');
+  const [failMessage, setFailMessage] = useState("");
 
   const [fields, setFields] = useState({
-    username: '',
-    email: '',
-    telp: '',
-    password: '',
-    confirmPassword: '',
+    username: "",
+    email: "",
+    telp: "",
+    password: "",
+    confirmPassword: "",
   });
 
   function handleChange(e) {
     e.preventDefault();
     setFields({
       ...fields,
-      [e.target.getAttribute('name')]: e.target.value,
+      [e.target.getAttribute("name")]: e.target.value,
     });
   }
   /*
@@ -42,9 +42,9 @@ const Register = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     await userAuth
-      .post('/signup', fields, {
+      .post("/signup", fields, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       })
       .then((response) => {
@@ -52,16 +52,19 @@ const Register = () => {
       })
       .catch((e) => {
         setAlertFail(true);
-        setFailMessage(e.response.data.message);
+        setFailMessage(e.message);
       });
   }
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (alerts || alertFail === true) setAlertFail(false) || setAlerts(false);
+    }, 2000);
+  }, [alertFail, alerts]);
+
   return (
     <>
-      <AuthLayout
-        images={svg.registerPage}
-        altImages="woman-and-handphone"
-      >
+      <AuthLayout images={svg.registerPage} altImages="woman-and-handphone">
         {alerts && (
           <Alerts
             // path="/login"
@@ -76,17 +79,14 @@ const Register = () => {
             // path="/login"
             background="bg-red-100"
             textColor="text-red-600"
-            textContent={failMessage}
+            textContent={`Ups, sepertinya ada yang salah: ${failMessage}`}
             closeButton="true"
           />
         )}
         <div className="form-content w-full p-6 xs:p-12 2md:p-0 rounded-2xl shadow-[0_4px_20px_0_#00000029] 2md:shadow-none">
           <h3 className="mb-1">Daftar Akun</h3>
           <p className="mb-7">Silahkan daftar akun agar dapat masuk</p>
-          <form
-            className="flex flex-col gap-4 mb-8"
-            onSubmit={handleSubmit}
-          >
+          <form className="flex flex-col gap-4 mb-8" onSubmit={handleSubmit}>
             <div className="relative">
               <input
                 type="text"
@@ -125,7 +125,7 @@ const Register = () => {
             </div>
             <div className="relative">
               <input
-                type={!togglePassword ? 'password' : 'text'}
+                type={!togglePassword ? "password" : "text"}
                 name="password"
                 onChange={handleChange}
                 required
@@ -148,7 +148,7 @@ const Register = () => {
             </div>
             <div className="relative">
               <input
-                type={!toggleConfirmPassword ? 'password' : 'text'}
+                type={!toggleConfirmPassword ? "password" : "text"}
                 name="confirmPassword"
                 onChange={handleChange}
                 required
@@ -176,7 +176,7 @@ const Register = () => {
             <button className="button-fill transition-200 mt-4">Daftar</button>
           </form>
           <p className="text-center">
-            Sudah mempunyai akun?{' '}
+            Sudah mempunyai akun?{" "}
             <Link to="/login">
               <strong className="hover:text-orange-900 transition-200">
                 Masuk

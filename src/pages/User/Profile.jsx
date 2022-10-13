@@ -48,7 +48,7 @@ const Profile = () => {
               <input
                 type="text"
                 className="input-field-xs"
-                placeholder=""
+                placeholder="Masukkan Nama Lengkap"
                 name="nama"
                 id="nama"
                 required
@@ -67,7 +67,7 @@ const Profile = () => {
               <input
                 type="text"
                 className="input-field-xs"
-                placeholder=""
+                placeholder="Masukkan Nama IKM"
                 name="namaikm"
                 id="namaikm"
                 required
@@ -86,7 +86,7 @@ const Profile = () => {
               <input
                 type="email"
                 className="input-field-xs"
-                placeholder=""
+                placeholder="Masukkan Email"
                 name="email"
                 id="email"
                 required
@@ -105,7 +105,7 @@ const Profile = () => {
               <input
                 type="text"
                 className="input-field-xs"
-                placeholder=""
+                placeholder="Masukkan No. Handphone"
                 name="handphone"
                 id="handphone"
                 required
@@ -124,7 +124,7 @@ const Profile = () => {
               <input
                 type="password"
                 className="input-field-xs"
-                placeholder=""
+                placeholder="Masukkan Kata Sandi"
                 name="katasandi"
                 id="katasandi"
                 required
@@ -145,7 +145,7 @@ const Profile = () => {
               <input
                 type="text"
                 className="input-field-xs"
-                placeholder=""
+                placeholder="Masukkan Alamat Lengkap"
                 name="alamat"
                 id="alamat"
                 required
@@ -224,7 +224,7 @@ const Profile = () => {
               <input
                 type="text"
                 className="input-field-xs"
-                placeholder=""
+                placeholder="Masukkan Kode Pos"
                 name="kodepos"
                 id="kodepos"
                 required

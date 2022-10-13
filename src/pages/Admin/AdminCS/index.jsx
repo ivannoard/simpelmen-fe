@@ -41,8 +41,8 @@ const AdminCS = () => {
         return setContent(<Rekap />);
       case 'pad':
         return setContent(<PAD />);
-      // case "profil":
-      //   return setContent(<Profil />);
+      case 'profil':
+        return setContent(<Profil />);
       default:
         break;
     }
@@ -90,8 +90,8 @@ const AdminCS = () => {
             {/* Main Content */}
             <main className="mt-6 min-h-screen mb-16">{content}</main>
             {/* footer */}
-            <div className="copyright mt-10 flex items-center justify-end gap-4">
-              <p>
+            <div className="copyright mt-10 flex flex-col sm:flex-row items-center justify-end gap-4">
+              <p className="text-center sm:text-left">
                 &copy; 2022 BIKDK Provinsi Jawa Tengah. All Rights Reserved.
               </p>
               <div className="icons flex gap-2">

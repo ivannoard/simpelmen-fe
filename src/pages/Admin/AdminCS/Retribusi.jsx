@@ -9,7 +9,7 @@ const Retribusi = () => {
 
   return (
     <section>
-      <div className=" border-b border-orange-900">
+      <div className="border-b border-orange-900">
         <h3 className="font-semibold pb-3">Retribusi Pelanggan</h3>
       </div>
       <h6 className="mt-10 mb-4">Tabel Retribusi Pelanggan</h6>
@@ -28,10 +28,10 @@ const Retribusi = () => {
         </div>
         <div className="flex relative top-2 flex-col mb-4">
           <input
-            type="email"
+            type="text"
             className="input-field !rounded-full !py-2 !pl-14"
             placeholder="Cari"
-            name="email"
+            name="search"
             required
             autoComplete="on"
             // onChange={handleChange}

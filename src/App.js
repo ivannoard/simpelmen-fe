@@ -175,7 +175,7 @@ function App() {
             element={<AdminCS />}
           />
           <Route path="/admin/cs/dashboard/pad" element={<AdminCS />} />
-          {/* <Route path="/admin/cs/dashboard/profil" element={<AdminCS />} /> */}
+          <Route path="/admin/cs/dashboard/profil" element={<AdminCS />} />
           {/* End of AdminCS */}
 
           {/* Dashboard Admin Desain */}

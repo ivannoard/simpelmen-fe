@@ -71,7 +71,6 @@ const Register = () => {
             background="bg-green-100"
             textColor="text-green-600"
             textContent="Email telah dikirim! Silahkan Aktivasi Akun Anda "
-            closeButton="true"
           />
         )}
         {alertFail && (

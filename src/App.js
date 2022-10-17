@@ -28,6 +28,7 @@ import AdminSuper from "./pages/Admin/AdminSuper";
 import AdminProduksi from "./pages/Admin/AdminProduksi";
 import AdminKasir from "./pages/Admin/AdminKasir";
 import AdminGudang from "./pages/Admin/AdminGudang";
+import ActivateAccount from "./pages/Auth/ActivateAccount";
 
 const ProtectingRoute = (props) => {
   const navigate = useNavigate();
@@ -81,6 +82,10 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
 
           <Route path="/new-password/:resetToken" element={<NewPassword />} />
+          <Route
+            path="/activate-account/:activateToken"
+            element={<ActivateAccount />}
+          />
           {/* End of User Authentication */}
           {/* Dashboard User */}
           <Route

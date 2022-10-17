@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AuthLayout from "./components/AuthLayout";
 
 import svg from "../../assets/svg";
@@ -12,7 +12,6 @@ const ForgotPassword = () => {
   const [alerts, setAlerts] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
   const [failMessage, setFailMessage] = useState("");
-  const navigate = useNavigate();
 
   function handleChange(e) {
     e.preventDefault();
@@ -25,7 +24,7 @@ const ForgotPassword = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     await userAuth
-      .post("reset-password", fields, {
+      .post("/reset-password", fields, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -39,6 +38,12 @@ const ForgotPassword = () => {
       });
   }
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (alerts || alertFail === true) setAlertFail(false) || setAlerts(false);
+    }, 5000);
+  }, [alertFail, alerts]);
+
   return (
     <>
       <AuthLayout images={svg.loginPage} altImages="woman-and-password-laptop">
@@ -47,7 +52,7 @@ const ForgotPassword = () => {
             state="true"
             background="bg-green-100"
             textColor="text-green-600"
-            textContent=""
+            textContent="Email telah dikirim! Silahkan reset password anda"
           />
         )}
         {alertFail && (

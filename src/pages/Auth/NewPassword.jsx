@@ -4,7 +4,7 @@ import AuthLayout from "./components/AuthLayout";
 import svg from "../../assets/svg";
 import { MdLock } from "react-icons/md";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { userAuth } from "../../services/api";
 import Alerts from "../../components/Alerts";
 
@@ -16,8 +16,7 @@ const NewPassword = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { resetToken } = useParams();
   const [fields, setFields] = useState({});
-
-  console.log(resetToken);
+  const navigate = useNavigate();
 
   function handleChange(e) {
     e.preventDefault();
@@ -36,8 +35,10 @@ const NewPassword = () => {
         },
       })
       .then((response) => {
+        setTimeout(() => {
+          navigate("/login");
+        }, 5000);
         setAlerts(true);
-        // navigate ke /
       })
       .catch((e) => {
         setAlertFail(true);
@@ -53,7 +54,7 @@ const NewPassword = () => {
             state="true"
             background="bg-green-100"
             textColor="text-green-600"
-            textContent=""
+            textContent="Password telah diganti! Silahkan login"
           />
         )}
         {alertFail && (

@@ -21,7 +21,7 @@ const Alerts = ({
     <div
       className={`absolute z-10 ${
         !close
-          ? "-translate-y-14 transition ease-in-out"
+          ? "translate-y-14 transition ease-in-out"
           : "transition translate-y-24 ease-in-out"
       }  top-0 left-0 right-0 mx-auto p-4 mb-4 text-sm ${textColor} ${background} rounded-lg w-[450px] flex justify-between`}
       role="alert"

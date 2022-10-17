@@ -18,9 +18,9 @@ const Register = () => {
   const [failMessage, setFailMessage] = useState("");
 
   const [fields, setFields] = useState({
-    username: "",
+    name: "",
     email: "",
-    telp: "",
+    phone: "",
     password: "",
     confirmPassword: "",
   });
@@ -67,16 +67,16 @@ const Register = () => {
       <AuthLayout images={svg.registerPage} altImages="woman-and-handphone">
         {alerts && (
           <Alerts
-            // path="/login"
+            status="true"
             background="bg-green-100"
             textColor="text-green-600"
-            textContent="Silahkan Aktivasi Akun Anda"
+            textContent="Email telah dikirim! Silahkan Aktivasi Akun Anda "
             closeButton="true"
           />
         )}
         {alertFail && (
           <Alerts
-            // path="/login"
+            status="true"
             background="bg-red-100"
             textColor="text-red-600"
             textContent={`Ups, sepertinya ada yang salah: ${failMessage}`}
@@ -90,7 +90,7 @@ const Register = () => {
             <div className="relative">
               <input
                 type="text"
-                name="username"
+                name="name"
                 onChange={handleChange}
                 required
                 autoComplete="off"
@@ -114,7 +114,7 @@ const Register = () => {
             <div className="relative">
               <input
                 type="telp"
-                name="telp"
+                name="phone"
                 required
                 autoComplete="off"
                 onChange={handleChange}

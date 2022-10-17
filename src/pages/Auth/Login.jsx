@@ -30,7 +30,7 @@ const Login = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     await userAuth
-      .post("/signin", fields, {
+      .post("/login", fields, {
         headers: {
           "content-type": "application/json",
         },
@@ -38,7 +38,7 @@ const Login = () => {
       .then((response) => {
         localStorage.setItem("user", JSON.stringify(response.data));
         setTimeout(() => {
-          if (localStorage.getItem("user")) navigate("/dashboard");
+          if (localStorage.getItem("user")) navigate("/");
           // window.location.replace("https://www.google.com");
         }, 1000);
         setAlerts(true);

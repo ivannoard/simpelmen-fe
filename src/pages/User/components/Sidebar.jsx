@@ -31,7 +31,7 @@ const Sidebar = (props) => {
         >
           <IoIosWallet className="text-2xl fill-secondary-800 transition-200" />
           <span className="font-semibold text-secondary-800 transition-200 truncate">
-            {props.toggle ? 'Pembayaran' : ''}
+            {props.toggle ? 'Status Pesanan' : ''}
           </span>
         </NavLink>
         <NavLink

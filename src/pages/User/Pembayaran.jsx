@@ -7,35 +7,35 @@ const Pembayaran = () => {
       id: 1,
       date: '2021-08-01',
       pesanan: '001/BIKDK/O/VII/2022',
-      produk: 'Baju Koko',
+      jenis: 'Bentuk Langsungan - Duplex 310gr - Laminasi Glosi',
       status: 1,
     },
     {
       id: 2,
       date: '2021-09-04',
       pesanan: '001/BIKDK/O/VII/2022',
-      produk: 'Kemeja',
+      jenis: 'Bentuk Langsungan - Duplex 310gr - Laminasi Glosi',
       status: 2,
     },
     {
       id: 3,
       date: '2022-01-20',
       pesanan: '001/BIKDK/O/VII/2022',
-      produk: 'Roti Gandum',
+      jenis: 'Bentuk Langsungan - Duplex 310gr - Laminasi Glosi',
       status: 3,
     },
     {
       id: 4,
       date: '2022-01-22',
       pesanan: '001/BIKDK/O/VII/2022',
-      produk: 'Sepatu Nike KW Super',
+      jenis: 'Bentuk Langsungan - Duplex 310gr - Laminasi Glosi',
       status: 4,
     },
     {
       id: 5,
       date: '2022-02-28',
       pesanan: '001/BIKDK/O/VII/2022',
-      produk: 'Vitamin C',
+      jenis: 'Bentuk Langsungan - Duplex 310gr - Laminasi Glosi',
       status: 3,
     },
   ];
@@ -44,31 +44,31 @@ const Pembayaran = () => {
     switch (status) {
       case 1:
         return (
-          <p className="px-4 py-1 rounded font-medium cursor-default bg-primary-900/[15%] text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
+          <p className="px-4 py-1 rounded font-medium cursor-default truncate bg-primary-900/[15%] text-xs xs:text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
             Belum Terkonfirmasi
           </p>
         );
       case 2:
         return (
-          <p className="px-4 py-1 rounded font-medium cursor-default bg-success/[15%] text-sm transition-200 hover:bg-success/20 text-success">
+          <p className="px-4 py-1 rounded font-medium cursor-default truncate bg-success/[15%] text-xs xs:text-sm transition-200 hover:bg-success/20 text-success">
             Sudah Terkonfirmasi
           </p>
         );
       case 3:
         return (
-          <p className="px-4 py-1 rounded font-medium cursor-default bg-primary-900/[15%] text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
+          <p className="px-4 py-1 rounded font-medium cursor-default truncate bg-primary-900/[15%] text-xs xs:text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
             Belum Diproses
           </p>
         );
       case 4:
         return (
-          <p className="px-4 py-1 rounded font-medium cursor-default bg-success/[15%] text-sm transition-200 hover:bg-success/20 text-success">
+          <p className="px-4 py-1 rounded font-medium cursor-default truncate bg-success/[15%] text-xs xs:text-sm transition-200 hover:bg-success/20 text-success">
             Sudah Diproses
           </p>
         );
       default:
         return (
-          <p className="px-4 py-1 rounded font-medium cursor-default bg-primary-900/[15%] text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
+          <p className="px-4 py-1 rounded font-medium cursor-default truncate bg-primary-900/[15%] text-xs xs:text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
             Belum Terkonfirmasi
           </p>
         );
@@ -81,32 +81,37 @@ const Pembayaran = () => {
         <h5 className="mb-4">Status Pesanan</h5>
 
         <article id="statusPesanan mb-8">
-          <div className="w-full grid grid-cols-1 gap-y-5">
+          <div className="w-full grid grid-cols-4 gap-y-5 gap-x-6">
             {dummyData?.map((item) => (
               <div
-                className="col-span-1"
+                className="col-span-4"
                 key={item.id}
               >
-                <div className="w-full shadow-gray p-4 rounded-[10px] bg-white grid grid-cols-8 items-center border border-secondary-700/40">
-                  <div className="col-span-2">
-                    <p className="text-sm font-medium mb-2 text-secondary-900">
+                <div className="w-full shadow-gray p-4 rounded-[10px] bg-white grid grid-cols-8 gap-x-3 gap-y-2 xs:gap-y-3 xl:items-center border border-secondary-700/40">
+                  <div className="col-span-3 xl:col-span-2">
+                    <p className="text-xs xs:text-sm font-medium mb-1 xs:mb-2 text-secondary-900">
                       Tanggal Pesanan
                     </p>
                     <p className="font-semibold">{item.date}</p>
                   </div>
-                  <div className="col-span-2">
-                    <p className="text-sm font-medium mb-2 text-secondary-900">
+                  <div className="col-span-5 xl:col-span-2 block xl:hidden">
+                    <div className="flex xl:justify-center">
+                      {badge(item.status)}
+                    </div>
+                  </div>
+                  <div className="col-span-3 xl:col-span-2">
+                    <p className="text-xs xs:text-sm font-medium mb-1 xs:mb-2 text-secondary-900">
                       No. Pesanan
                     </p>
-                    <p className="font-semibold">{item.pesanan}</p>
+                    <p className="font-semibold truncate">{item.pesanan}</p>
                   </div>
-                  <div className="col-span-2">
-                    <p className="text-sm font-medium mb-2 text-secondary-900">
-                      Nama Produk
+                  <div className="col-span-5 xl:col-span-2">
+                    <p className="text-xs xs:text-sm font-medium mb-1 xs:mb-2 text-secondary-900">
+                      Jenis Produk
                     </p>
-                    <p className="font-semibold">{item.produk}</p>
+                    <p className="font-semibold">{item.jenis}</p>
                   </div>
-                  <div className="col-span-2">
+                  <div className="xl:col-span-2 hidden xl:block">
                     <div className="flex justify-center">
                       {badge(item.status)}
                     </div>

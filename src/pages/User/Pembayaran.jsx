@@ -44,31 +44,31 @@ const Pembayaran = () => {
     switch (status) {
       case 1:
         return (
-          <p className="px-4 py-1 rounded font-medium cursor-default truncate bg-primary-900/[15%] text-xs xs:text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
+          <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-primary-900/[15%] text-[10px] xs:text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
             Belum Terkonfirmasi
           </p>
         );
       case 2:
         return (
-          <p className="px-4 py-1 rounded font-medium cursor-default truncate bg-success/[15%] text-xs xs:text-sm transition-200 hover:bg-success/20 text-success">
+          <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-success/[15%] text-[10px] xs:text-sm transition-200 hover:bg-success/20 text-success">
             Sudah Terkonfirmasi
           </p>
         );
       case 3:
         return (
-          <p className="px-4 py-1 rounded font-medium cursor-default truncate bg-primary-900/[15%] text-xs xs:text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
+          <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-primary-900/[15%] text-[10px] xs:text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
             Belum Diproses
           </p>
         );
       case 4:
         return (
-          <p className="px-4 py-1 rounded font-medium cursor-default truncate bg-success/[15%] text-xs xs:text-sm transition-200 hover:bg-success/20 text-success">
+          <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-success/[15%] text-[10px] xs:text-sm transition-200 hover:bg-success/20 text-success">
             Sudah Diproses
           </p>
         );
       default:
         return (
-          <p className="px-4 py-1 rounded font-medium cursor-default truncate bg-primary-900/[15%] text-xs xs:text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
+          <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-primary-900/[15%] text-[10px] xs:text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
             Belum Terkonfirmasi
           </p>
         );
@@ -80,7 +80,10 @@ const Pembayaran = () => {
       <section>
         <h5 className="mb-4">Status Pesanan</h5>
 
-        <article id="statusPesanan mb-8">
+        <article
+          id="statusPesanan"
+          className="mb-8"
+        >
           <div className="w-full grid grid-cols-4 gap-y-5 gap-x-6">
             {dummyData?.map((item) => (
               <div

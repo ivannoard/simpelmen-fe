@@ -92,7 +92,7 @@ const Dashboard = () => {
             {/* Navbar Top */}
             <Navbar />
             {/* Main Content */}
-            <main className="mt-6 sm:mt-10 min-h-screen mb-20 sm:mb-0">
+            <main className="mt-6 sm:mt-6 min-h-screen mb-20 sm:mb-0">
               {content}
             </main>
           </div>

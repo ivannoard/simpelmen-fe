@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
-import Modal from '../../components/Card/Modal';
-import { IoIosArrowDown } from 'react-icons/io';
+import React, { useEffect, useState } from "react";
+import Modal from "../../components/Card/Modal";
+import { IoIosArrowDown } from "react-icons/io";
+import { getUser } from "../../services/api";
 
 const Profile = () => {
+  const currentUser = localStorage.getItem("user");
+  const parseUser = JSON.parse(currentUser);
   const [toggleDisabled, setToggleDisabled] = useState(true);
   const [toggleConfirm, setToggleConfirm] = useState(false);
   const [fields, setFields] = useState({});
+  const [userData, setUserData] = useState();
 
   const closeModalConfirm = () => {
     setToggleConfirm(false);
@@ -15,7 +19,7 @@ const Profile = () => {
     e.preventDefault();
     setFields({
       ...fields,
-      [e.target.getAttribute('name')]: e.target.value,
+      [e.target.getAttribute("name")]: e.target.value,
     });
   }
 
@@ -26,9 +30,25 @@ const Profile = () => {
   }
 
   const handleEdit = () => {
-    console.log('edit');
+    console.log("edit");
     setToggleConfirm(false);
   };
+
+  useEffect(() => {
+    const getUserData = async () => {
+      await getUser
+        .get("/profile", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setUserData(response))
+        .catch((e) => console.log(e));
+    };
+    getUserData();
+  }, [parseUser.data.token]);
+
+  console.log(userData.data.data);
 
   return (
     <>
@@ -55,6 +75,7 @@ const Profile = () => {
                 disabled={toggleDisabled}
                 autoComplete="on"
                 onChange={handleChange}
+                defaultValue={userData.data.data.user_name}
               />
             </div>
             <div className="mt-4">
@@ -74,6 +95,7 @@ const Profile = () => {
                 disabled={toggleDisabled}
                 autoComplete="on"
                 onChange={handleChange}
+                defaultValue={userData.data.data.user_ikm}
               />
             </div>
             <div className="mt-4">
@@ -93,6 +115,7 @@ const Profile = () => {
                 disabled={toggleDisabled}
                 autoComplete="on"
                 onChange={handleChange}
+                defaultValue={userData.data.data.user_email}
               />
             </div>
             <div className="mt-4">
@@ -112,6 +135,7 @@ const Profile = () => {
                 disabled={toggleDisabled}
                 autoComplete="on"
                 onChange={handleChange}
+                defaultValue={userData.data.data.user_contact}
               />
             </div>
             <div className="mt-4">
@@ -131,6 +155,7 @@ const Profile = () => {
                 disabled={toggleDisabled}
                 autoComplete="on"
                 onChange={handleChange}
+                defaultValue={userData.data.data.user_password}
               />
             </div>
           </div>
@@ -152,6 +177,7 @@ const Profile = () => {
                 disabled={toggleDisabled}
                 autoComplete="on"
                 onChange={handleChange}
+                defaultValue={userData.data.data.user_address}
               />
             </div>
             <div className="relative mt-4">
@@ -167,6 +193,7 @@ const Profile = () => {
                 disabled={toggleDisabled}
                 // onChange={(e) => handleChange(e)}
                 className="input-field-select-xs"
+                // defaultValue={userData.data.data.user_name}
               >
                 <option>Pilih Provinsi</option>
                 <option value="1">Jasa Bahan</option>
@@ -187,6 +214,7 @@ const Profile = () => {
                 disabled={toggleDisabled}
                 // onChange={(e) => handleChange(e)}
                 className="input-field-select-xs"
+                // defaultValue={userData.data.data.user_district}
               >
                 <option>Pilih Kota</option>
                 <option value="1">Jasa Bahan</option>
@@ -207,6 +235,7 @@ const Profile = () => {
                 disabled={toggleDisabled}
                 // onChange={(e) => handleChange(e)}
                 className="input-field-select-xs"
+                // defaultValue={userData.data.data.user_district}
               >
                 <option>Pilih Kecamatan</option>
                 <option value="1">Jasa Bahan</option>
@@ -231,6 +260,7 @@ const Profile = () => {
                 disabled={toggleDisabled}
                 autoComplete="on"
                 onChange={handleChange}
+                defaultValue={userData.data.data.user_postal_code}
               />
             </div>
           </div>
@@ -244,10 +274,7 @@ const Profile = () => {
                 Edit Profil
               </button>
             ) : (
-              <button
-                type="submit"
-                className="button-fill-sm"
-              >
+              <button type="submit" className="button-fill-sm">
                 Simpan Perubahan
               </button>
             )}

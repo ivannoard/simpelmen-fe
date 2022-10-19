@@ -50,7 +50,7 @@ const Navbar = () => {
                 <Menu.Button>
                   <div className="flex items-center ml-4">
                     <p className="text-15/sp font-semibold mr-2 max-w-[5.625rem] lg:max-w-none truncate">
-                      {parseUser.data.user_email}
+                      {parseUser.data.user_name}
                     </p>
                     <HiChevronDown className="text-2xl" />
                   </div>
@@ -93,7 +93,10 @@ const Navbar = () => {
           </div>
         </div>
 
-        <NavbarMobile userLog={user} handleLogout={(e) => handleLogout(e)} />
+        <NavbarMobile
+          userLog={parseUser}
+          handleLogout={(e) => handleLogout(e)}
+        />
       </div>
     </nav>
   );

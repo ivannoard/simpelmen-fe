@@ -38,7 +38,7 @@ const Profil = () => {
         <div className="flex justify-center items-center w-full mb-12">
           <div className="bg-white rounded-2xl shadow-gray px-8 xs:px-10 pb-8 xs:pb-10 pt-9 xs:pt-12 w-full">
             <div className="border-b border-orange-900 mb-8">
-              <h3 className="pb-4">Update Profile Admin Gudang</h3>
+              <h3 className="pb-4">Edit Profile Admin Gudang</h3>
             </div>
             <form
               className=""
@@ -155,6 +155,25 @@ const Profil = () => {
             >
               <div className="relative w-full flex flex-col mb-4">
                 <label
+                  htmlFor="oldPassword"
+                  className="block mb-2 text-sm font-medium text-gray-700"
+                >
+                  Kata Sandi Lama
+                </label>
+                <input
+                  type="password"
+                  className="input-field-xs"
+                  placeholder="Masukkan Kata Sandi Lama"
+                  name="oldPassword"
+                  id="oldPassword"
+                  required
+                  disabled={toggleDisabledPwd}
+                  onChange={handleChangePwd}
+                  autoComplete="on"
+                />
+              </div>
+              <div className="relative w-full flex flex-col mb-4">
+                <label
                   htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
@@ -192,7 +211,7 @@ const Profil = () => {
                 />
               </div>
               <div className="flex justify-end">
-                {toggleDisabledProfile ? (
+                {toggleDisabledPwd ? (
                   <button
                     className="button-fill"
                     onClick={() => setToggleDisabledPwd(false)}

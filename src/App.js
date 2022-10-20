@@ -282,6 +282,10 @@ function App() {
             path="/admin/tu/dashboard"
             element={<AdminTU />}
           />
+          <Route
+            path="/admin/tu/dashboard/profil"
+            element={<AdminTU />}
+          />
           {/* End of Admin TU */}
           {/* End of Admin Dashboard */}
           <Route

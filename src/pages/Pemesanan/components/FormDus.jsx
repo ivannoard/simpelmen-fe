@@ -45,7 +45,7 @@ const FormDus = ({ setAlertSuccess, setAlertFail, categoryName }) => {
             <div className="relative col-span-3 xs:col-span-1">
               <input
                 type="text"
-                id="ukuran"
+                id="panjang"
                 name="panjang"
                 className="input-field-xs !pr-12"
                 placeholder="Panjang"
@@ -59,7 +59,7 @@ const FormDus = ({ setAlertSuccess, setAlertFail, categoryName }) => {
             <div className="relative col-span-3 xs:col-span-1">
               <input
                 type="text"
-                id="ukuran"
+                id="lebar"
                 name="lebar"
                 className="input-field-xs !pr-12"
                 placeholder="Lebar"
@@ -73,7 +73,7 @@ const FormDus = ({ setAlertSuccess, setAlertFail, categoryName }) => {
             <div className="relative col-span-3 xs:col-span-1">
               <input
                 type="text"
-                id="ukuran"
+                id="tinggi"
                 name="tinggi"
                 className="input-field-xs !pr-12"
                 placeholder="Tinggi"

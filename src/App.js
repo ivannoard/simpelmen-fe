@@ -246,6 +246,10 @@ function App() {
             path="/admin/produksi/dashboard"
             element={<AdminProduksi />}
           />
+          <Route
+            path="/admin/produksi/dashboard/profil"
+            element={<AdminProduksi />}
+          />
           {/* End of Admin Produksi */}
           {/* Dashboard Admin Super */}
           <Route

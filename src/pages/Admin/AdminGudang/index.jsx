@@ -35,7 +35,7 @@ const AdminGudang = () => {
     <>
       <div className="min-h-screen relative top-0 h-screen overflow-y-auto overflow-x-hidden md:overflow-x-auto">
         {/* sidebar */}
-        <div className="relativer">
+        <div className="relative">
           <div className="fixed rounded-tr-2xl rounded-br-2xl shadow-red left-0 inset-y-0 z-10 bg-orange-900">
             <div
               className={`flex flex-col overflow-y-auto overflow-x-hidden h-full whitespace-nowrap justify-between transition-all duration-500 ${

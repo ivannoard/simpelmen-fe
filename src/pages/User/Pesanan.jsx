@@ -93,7 +93,7 @@ const Pesanan = () => {
                   <div className="xl:col-span-2 hidden xl:block">
                     <div className="flex justify-center">
                       <button
-                        onClick={() => navigate(`/dashboard/detail/${item}`)}
+                        onClick={() => navigate(`/dashboard/detail/${item.id}`)}
                         className="border border-secondary-800 rounded-[4px] px-2 py-2 flex items-center hover:border-orange-900 transition-200"
                         type="button"
                       >

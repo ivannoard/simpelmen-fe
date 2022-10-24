@@ -1,17 +1,88 @@
-import React, { useState } from 'react';
-import { BsCartPlus } from 'react-icons/bs';
-import { postProduct } from '../../../services/api';
-import { IoIosArrowDown } from 'react-icons/io';
+import React, { useState } from "react";
+import { BsCartPlus } from "react-icons/bs";
+import { postProduct } from "../../../services/api";
+import { IoIosArrowDown } from "react-icons/io";
 
 const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
   const [fields, setFields] = useState({});
-  const user = localStorage.getItem('user');
+  const user = localStorage.getItem("user");
+  // const [size, setSize] = useState({});
+
+  const dummySize = [
+    {
+      id: 1,
+      p: 10,
+      l: 12,
+    },
+    {
+      id: 2,
+      p: 10,
+      l: 15,
+    },
+    {
+      id: 3,
+      p: 12,
+      l: 20,
+    },
+    {
+      id: 4,
+      p: 13,
+      l: 20,
+    },
+    {
+      id: 5,
+      p: 14,
+      l: 20,
+    },
+    {
+      id: 6,
+      p: 15,
+      l: 22,
+    },
+    {
+      id: 7,
+      p: 16,
+      l: 24,
+    },
+    {
+      id: 8,
+      p: 18,
+      l: 26,
+    },
+    {
+      id: 9,
+      p: 20,
+      l: 30,
+    },
+  ];
+
+  const dummyLamination = [
+    "Laminasi Glossy",
+    "Laminasi Doff",
+    "Tanpa Laminasi",
+  ];
+
+  const dummyDesign = [
+    "Lama (Diambil dari data pesanan file pesanan sebelumnya)",
+    "Baru (Dibuatkan oleh desainer BIKDK)",
+    "Swadesign (File desain dari konsumen)",
+    "Re-design (Desain ulang dari pesanan sebelumnya)",
+  ];
+
+  const finalDummy = [];
+
+  for (let i = 0; i < dummySize.length; i++) {
+    // console.log(dummySize[i]);
+    for (let j = 0; j < dummyLamination.length; j++) {
+      finalDummy.push({ size: dummySize[i], lamination: dummyLamination[j] });
+    }
+  }
 
   function handleChange(e) {
     e.preventDefault();
     setFields({
       ...fields,
-      [e.target.getAttribute('name')]: e.target.value,
+      [e.target.getAttribute("name")]: e.target.value,
     });
   }
 
@@ -19,34 +90,39 @@ const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
     e.preventDefault();
     if (user) {
       await postProduct
-        .post('/Xk17j2l08BHDkmwD3lgW')
+        .post("/Xk17j2l08BHDkmwD3lgW")
         .then((response) => console.log(response));
       setAlertSuccess(true);
       console.log(fields);
     } else {
       setAlertFail(true);
-      console.log('no user');
+      console.log("no user");
     }
   }
+
+  console.log(finalDummy);
 
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
       <div className="relative">
         <label
-          htmlFor="ukuran"
+          htmlFor="spesifikasi"
           className="block mb-2 text-sm font-medium text-gray-700"
         >
-          Ukuran
+          Spesifikasi
         </label>
         <select
-          id="ukuran"
-          name="ukuran"
+          id="spesifikasi"
+          name="spesifikasi"
           onChange={(e) => handleChange(e)}
           className="input-field-select-xs"
         >
-          <option>Pilih Ukuran</option>
-          <option value="1">Jasa Ukuran</option>
-          <option value="2">Tanpa Ukuran</option>
+          <option>Pilih Spesifikasi</option>
+          {finalDummy.map((item, index) => (
+            <option value={index}>
+              {item.size.p} cm X {item.size.l} cm {item.lamination}
+            </option>
+          ))}
         </select>
         <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
       </div>
@@ -64,12 +140,13 @@ const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
           className="input-field-select-xs"
         >
           <option>Pilih Desain</option>
-          <option value="1">Jasa Desain</option>
-          <option value="2">Tanpa Desain</option>
+          {dummyDesign.map((item, index) => (
+            <option value={index}>{item}</option>
+          ))}
         </select>
         <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
       </div>
-      <div className="mt-4 relative">
+      {/* <div className="mt-4 relative">
         <label
           htmlFor="laminasi"
           className="block mb-2 text-sm font-medium text-gray-700"
@@ -87,7 +164,7 @@ const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
           <option value="2">Tanpa Laminasi</option>
         </select>
         <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
-      </div>
+      </div> */}
       <div className="mt-4">
         <label
           htmlFor="jumlah"
@@ -111,10 +188,7 @@ const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
       <div className="buttons flex justify-end mt-8 gap-5">
         <button className="button-fill !py-4">Pesan Sekarang</button>
         <button className="button-white !p-4">
-          <BsCartPlus
-            size={20}
-            className="mx-auto"
-          />
+          <BsCartPlus size={20} className="mx-auto" />
         </button>
       </div>
     </form>

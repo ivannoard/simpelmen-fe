@@ -139,12 +139,13 @@ const DetailProduct = () => {
               ) : (
                 <>
                   <p className="text-3xl">
-                    Bahan:{" "}
-                    <span>{data?.product_materials.product_material_name}</span>
+                    {/* Bahan:{" "} */}
+                    <span>{data?.product_name}</span>
                   </p>
-
-                  <h2 className="text-orange-900 mb-2">{data?.product_name}</h2>
-                  <p>{data?.product_materials.product_material_description}</p>
+                  <h2 className="text-orange-900 mb-2">
+                    {data?.jenis_products.jenis_product_name}
+                  </h2>
+                  {/* <p>{data?.product_materials.product_material_description}</p> */}
                 </>
               )}
             </div>

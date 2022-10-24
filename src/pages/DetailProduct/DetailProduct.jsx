@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Zoom from "react-img-zoom";
+import { Link, useParams } from "react-router-dom";
 import { HiOutlineArrowSmLeft } from "react-icons/hi";
-import { dummyImg } from "../../assets/image";
 import FormKarton from "./components/FormKarton";
 import Alerts from "../../components/Alerts";
 import FormDus from "./components/FormDus";
@@ -16,7 +14,6 @@ import FormSkeleton from "../../components/Skeletons/FormSkeleton";
 const DetailProduct = () => {
   const { productId } = useParams();
   const [form, setForm] = useState();
-  const navigate = useNavigate();
   const [alertSuccess, setAlertSuccess] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
   const { data, isLoading } = useProductDetail(
@@ -33,7 +30,7 @@ const DetailProduct = () => {
   // Set Dynamic Form
   useEffect(() => {
     switch (data?.product_category) {
-      case 1:
+      case "K":
         return setForm(
           <FormKarton
             setAlertSuccess={setAlertSuccess}
@@ -48,7 +45,7 @@ const DetailProduct = () => {
             setAlertFail={setAlertFail}
           />
         );
-      case 3:
+      case "S":
         return setForm(
           <FormSablon
             setAlertSuccess={setAlertSuccess}
@@ -62,7 +59,7 @@ const DetailProduct = () => {
             setAlertFail={setAlertFail}
           />
         );
-      case 5:
+      case "O":
         return setForm(
           <FormStandingPouch
             setAlertSuccess={setAlertSuccess}

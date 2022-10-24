@@ -7,7 +7,6 @@ import PAD from "./PAD";
 import WhyUs from "./WhyUs";
 
 const Home = () => {
-  const user = localStorage.getItem("user");
   return (
     <>
       <FABWhatsApp />

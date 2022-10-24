@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import AuthLayout from "./components/AuthLayout";
-
 import svg from "../../assets/svg";
 import { MdEmail } from "react-icons/md";
 import { userAuth } from "../../services/api";
 import Alerts from "../../components/Alerts";
-import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
   const [fields, setFields] = useState({});

@@ -17,7 +17,7 @@ const Kemasan = () => {
     "Standing Pouch",
   ];
   const { data, isLoading } = useProducts(
-    "https://simpelmen.herokuapp.com/api/products"
+    "https://simpelmen.herokuapp.com/api/product"
   );
   function handleActive(type) {
     setActive(type);

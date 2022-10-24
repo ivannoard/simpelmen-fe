@@ -1,15 +1,12 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Modal from "../../components/Card/Modal";
-
-import { HiOutlineArrowSmLeft } from "react-icons/hi";
 import { IoIosArrowDown } from "react-icons/io";
 import svg from "../../assets/svg";
 
 const dummy = true;
 
 const Pemesanan = ({ item }) => {
-  // console.log(item);
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [fields, setFields] = useState({});

@@ -245,12 +245,12 @@ const Profile = () => {
                 >
                   <option
                     value={
-                      userData?.data.data.subdistricts.cities.provinces
+                      userData?.data?.data?.subdistricts?.cities.provinces
                         .province_id
                     }
                   >
-                    {userData?.data.data.subdistricts
-                      ? userData?.data.data.subdistricts.cities.provinces
+                    {userData?.data?.data?.subdistricts
+                      ? userData?.data.data.subdistricts?.cities.provinces
                           .province
                       : "Pilih Provinsi"}
                   </option>
@@ -278,10 +278,10 @@ const Profile = () => {
                   // defaultValue={userData?.data?.data?.user_district}
                 >
                   <option
-                    value={userData?.data.data.subdistricts.cities.city_id}
+                    value={userData?.data?.data?.subdistricts?.cities.city_id}
                   >
-                    {userData?.data.data.subdistricts
-                      ? userData?.data.data.subdistricts.cities.city_name
+                    {userData?.data?.data?.subdistricts
+                      ? userData?.data?.data?.subdistricts?.cities.city_name
                       : "Pilih Kota/Kabupaten"}
                   </option>
                   {cityData?.map((item) => (
@@ -308,10 +308,10 @@ const Profile = () => {
                   // defaultValue={userData?.data?.data?.user_district}
                 >
                   <option
-                    value={userData?.data.data.subdistricts.subdistrict_id}
+                    value={userData?.data?.data?.subdistricts?.subdistrict_id}
                   >
-                    {userData?.data.data.subdistricts
-                      ? userData?.data.data.subdistricts.subdistrict_name
+                    {userData?.data?.data?.subdistricts
+                      ? userData?.data?.data?.subdistricts?.subdistrict_name
                       : "Pilih Kecamatan"}
                   </option>
                   {districtData?.map((item) => (

@@ -1,12 +1,10 @@
 import React, { Fragment } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
-
 import svg from "../../assets/svg";
 import "./styles.css";
 import { HiChevronDown } from "react-icons/hi";
 import NavbarMobile from "./components/NavbarMobile";
-import { getUser } from "../../services/api";
 
 const Navbar = () => {
   const user = localStorage.getItem("user");

@@ -1,58 +1,66 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import AuthLayout from './components/AuthLayout';
-import Alerts from '../../components/Alerts';
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import AuthLayout from "./components/AuthLayout";
+import Alerts from "../../components/Alerts";
 
-import svg from '../../assets/svg';
-import { MdEmail, MdLock } from 'react-icons/md';
-import { VscEye, VscEyeClosed } from 'react-icons/vsc';
-import { userAuth } from '../../services/api';
+import svg from "../../assets/svg";
+import { MdEmail, MdLock } from "react-icons/md";
+import { VscEye, VscEyeClosed } from "react-icons/vsc";
+import { userAuth } from "../../services/api";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [alerts, setAlerts] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
+  const [failMessage, setFailMessage] = useState("");
   const navigate = useNavigate();
   const [fields, setFields] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   function handleChange(e) {
     e.preventDefault();
     setFields({
       ...fields,
-      [e.target.getAttribute('name')]: e.target.value,
+      [e.target.getAttribute("name")]: e.target.value,
     });
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
     await userAuth
-      .post('/signin', fields, {
+      .post("/login", fields, {
         headers: {
-          'content-type': 'application/json',
+          "content-type": "application/json",
         },
       })
       .then((response) => {
-        localStorage.setItem('user', JSON.stringify(response.data));
+        localStorage.setItem("user", JSON.stringify(response.data));
         setTimeout(() => {
-          if (localStorage.getItem('user')) navigate('/dashboard');
+          if (localStorage.getItem("user")) navigate("/");
           // window.location.replace("https://www.google.com");
         }, 1000);
         setAlerts(true);
       })
-      .catch((e) => setAlertFail(true));
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (alerts || alertFail === true) setAlertFail(false) || setAlerts(false);
+    }, 2000);
+  }, [alertFail, alerts]);
 
   return (
     <>
-      <AuthLayout
-        images={svg.loginPage}
-        altImages="woman-and-password-laptop"
-      >
+      <AuthLayout images={svg.loginPage} altImages="woman-and-password-laptop">
         {alerts && (
           <Alerts
+            state="true"
             background="bg-green-100"
             textColor="text-green-600"
             textContent="Login Berhasil"
@@ -60,19 +68,17 @@ const Login = () => {
         )}
         {alertFail && (
           <Alerts
+            state="true"
             background="bg-red-100"
             textColor="text-red-600"
-            textContent="Ups, sepertinya ada yang salah"
+            textContent={`Ups, sepertinya ada yang salah: ${failMessage}`}
             closeButton="true"
           />
         )}
         <div className="w-full p-6 xs:p-12 2md:p-0 rounded-2xl shadow-[0_4px_20px_0_#00000029] 2md:shadow-none">
           <h3 className="mb-1">Selamat Datang Kembali!</h3>
           <p className="mb-7">Silahkan masuk untuk mengakses akun Anda</p>
-          <form
-            className="flex flex-col mb-8"
-            onSubmit={handleSubmit}
-          >
+          <form className="flex flex-col mb-8" onSubmit={handleSubmit}>
             <div className="relative w-full flex flex-col mb-4">
               <input
                 type="email"
@@ -87,7 +93,7 @@ const Login = () => {
             </div>
             <div className="relative w-full flex flex-col mb-4">
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 className="input-password-field"
                 placeholder="Password"
                 name="password"
@@ -109,7 +115,7 @@ const Login = () => {
               )}
             </div>
             <p className="mb-6">
-              Lupa kata sandi?{' '}
+              Lupa kata sandi?{" "}
               <Link
                 to="/forgot-password"
                 className="font-bold hover:text-orange-900 transition-200"
@@ -120,7 +126,7 @@ const Login = () => {
             <button className="button-fill transition-200">Masuk</button>
           </form>
           <p className="text-center">
-            Belum punya akun?{' '}
+            Belum punya akun?{" "}
             <Link
               to="/register"
               className="font-bold hover:text-orange-900 transition-200"

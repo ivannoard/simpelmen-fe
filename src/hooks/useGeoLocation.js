@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-const useProducts = (url) => {
+const useGeoLocation = (url) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    const getProducts = async () => {
+    const getLocation = async () => {
       try {
         const response = await fetch(url);
         if (response) {
@@ -18,10 +18,10 @@ const useProducts = (url) => {
         setIsLoading(false);
       }
     };
-    if (url) getProducts();
+    if (url) getLocation();
   }, [url]);
 
   return { data, isLoading };
 };
 
-export default useProducts;
+export default useGeoLocation;

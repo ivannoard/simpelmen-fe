@@ -6,15 +6,18 @@ import svg from "../../assets/svg";
 import "./styles.css";
 import { HiChevronDown } from "react-icons/hi";
 import NavbarMobile from "./components/NavbarMobile";
+import { getUser } from "../../services/api";
 
 const Navbar = () => {
   const user = localStorage.getItem("user");
+  const parseUser = JSON.parse(user);
   const navigate = useNavigate();
 
   const handleLogout = (e) => {
     localStorage.removeItem("user");
     navigate("/");
   };
+
   return (
     <nav className="w-full shadow-md bg-white fixed z-10">
       <div className="containers flex items-center justify-between bg-white !py-3 xmd:!py-6">
@@ -47,7 +50,7 @@ const Navbar = () => {
                 <Menu.Button>
                   <div className="flex items-center ml-4">
                     <p className="text-15/sp font-semibold mr-2 max-w-[5.625rem] lg:max-w-none truncate">
-                      Username
+                      {parseUser.data.user_name}
                     </p>
                     <HiChevronDown className="text-2xl" />
                   </div>
@@ -90,7 +93,10 @@ const Navbar = () => {
           </div>
         </div>
 
-        <NavbarMobile userLog={user} handleLogout={(e) => handleLogout(e)} />
+        <NavbarMobile
+          userLog={parseUser}
+          handleLogout={(e) => handleLogout(e)}
+        />
       </div>
     </nav>
   );

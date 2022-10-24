@@ -1,7 +1,8 @@
-import React, { Fragment } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import React, { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 
 const Modal = ({
+  id,
   isOpen,
   closeModal,
   handleAccept,
@@ -13,16 +14,8 @@ const Modal = ({
 }) => {
   return (
     <>
-      <Transition
-        appear
-        show={isOpen}
-        as={Fragment}
-      >
-        <Dialog
-          as="div"
-          className="relative z-10"
-          onClose={closeModal}
-        >
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -51,7 +44,7 @@ const Modal = ({
                     as="h3"
                     className="text-2xl font-bold text-center"
                   >
-                    {titleModal}
+                    {titleModal} {id}
                   </Dialog.Title>
                   <div className="mt-3">
                     <p className="text-gray-500 text-center">{captionModal}</p>

@@ -1,79 +1,107 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import FormDus from './components/FormDus';
-import FormKarton from './components/FormKarton';
-import FormSablon from './components/FormSablon';
-import FormSticker from './components/FormSticker';
-import FormStandingPouch from './components/FormStandingPouch';
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import FormDus from "./components/FormDus";
+import FormKarton from "./components/FormKarton";
+import FormSablon from "./components/FormSablon";
+import FormSticker from "./components/FormSticker";
+import FormStandingPouch from "./components/FormStandingPouch";
 
-import { dummyImg } from '../../assets/image';
-import { HiOutlineArrowSmLeft } from 'react-icons/hi';
-import { BiTrashAlt } from 'react-icons/bi';
-import { GoCheck } from 'react-icons/go';
-import svg from '../../assets/svg';
-import Modal from '../../components/Card/Modal';
-
-const dummy = true;
+import { dummyImg } from "../../assets/image";
+import { HiOutlineArrowSmLeft } from "react-icons/hi";
+import { BiTrashAlt } from "react-icons/bi";
+import { GoCheck } from "react-icons/go";
+import svg from "../../assets/svg";
+import Modal from "../../components/Card/Modal";
+import Pemesanan from "../Pemesanan";
 
 const Keranjang = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const [isCheck, setIsCheck] = useState(false);
+  const [deleteItem, setDeleteItem] = useState();
+  const [isNext, setIsNext] = useState(false);
+  const [isDisable, setIsDisable] = useState(true);
+  const [cartItem, setCartItem] = useState([
+    {
+      id: 1,
+      produkImg: dummyImg.kotakBerdiri,
+      altImg: "Kotak Berdiri",
+      kategori: "Dus Offset",
+      jenis: "Kotak Berdiri",
+      status: false,
+    },
+    {
+      id: 2,
+      produkImg: dummyImg.boxTentengan,
+      altImg: "Box Tentengan",
+      kategori: "Karton",
+      jenis: "Box Tentengan",
+      status: false,
+    },
+    {
+      id: 3,
+      produkImg: dummyImg.topBottom,
+      altImg: "Top Bottom",
+      kategori: "Dus Offset",
+      jenis: "Top Bottom",
+      status: false,
+    },
+    {
+      id: 4,
+      produkImg: dummyImg.bentukSegitiga,
+      altImg: "Bentuk Segitiga",
+      kategori: "Dus Offset",
+      jenis: "Bentuk Segitiga",
+      status: false,
+    },
+    {
+      id: 5,
+      produkImg: dummyImg.boxModelPizza,
+      altImg: "Box Model Pizza",
+      kategori: "Karton",
+      jenis: "Box Model Pizza",
+      status: false,
+    },
+  ]);
 
   const closeModal = () => {
     setIsOpen(false);
   };
 
-  const openModal = () => {
+  const openModal = (e, id) => {
+    e.preventDefault();
     setIsOpen(true);
+    setDeleteItem(id);
   };
 
-  const handleCheck = () => {
-    setIsCheck(!isCheck);
+  const handleCheck = (e, itemId) => {
+    e.preventDefault();
+    const getItemFromArray = cartItem.filter((item) => item.id === itemId)[0];
+    getItemFromArray.status = !getItemFromArray.status;
+    console.log(getItemFromArray);
+    setCartItem((prevState) =>
+      prevState.map((state) =>
+        state.id === getItemFromArray.id
+          ? { ...state, status: getItemFromArray.status }
+          : state
+      )
+    );
   };
 
   const handleDelete = () => {
-    console.log('delete');
+    setCartItem((prevState) =>
+      prevState.filter((item) => item.id !== deleteItem)
+    );
     setIsOpen(false);
   };
 
-  const dummyData = [
-    {
-      id: 1,
-      produkImg: dummyImg.kotakBerdiri,
-      altImg: 'Kotak Berdiri',
-      kategori: 'Dus Offset',
-      jenis: 'Kotak Berdiri',
-    },
-    {
-      id: 2,
-      produkImg: dummyImg.boxTentengan,
-      altImg: 'Box Tentengan',
-      kategori: 'Karton',
-      jenis: 'Box Tentengan',
-    },
-    {
-      id: 3,
-      produkImg: dummyImg.topBottom,
-      altImg: 'Top Bottom',
-      kategori: 'Dus Offset',
-      jenis: 'Top Bottom',
-    },
-    {
-      id: 4,
-      produkImg: dummyImg.bentukSegitiga,
-      altImg: 'Bentuk Segitiga',
-      kategori: 'Dus Offset',
-      jenis: 'Bentuk Segitiga',
-    },
-    {
-      id: 5,
-      produkImg: dummyImg.boxModelPizza,
-      altImg: 'Box Model Pizza',
-      kategori: 'Karton',
-      jenis: 'Box Model Pizza',
-    },
-  ];
+  const handleCartConfirm = (e) => {
+    e.preventDefault();
+    setCartItem((prevState) =>
+      prevState.filter((item) => item.status === true)
+    );
+    setIsNext(true);
+    window.scrollTo(0, 0);
+  };
 
   // Set Dynamic Form
   const formProduct = (product) => {
@@ -93,42 +121,48 @@ const Keranjang = () => {
     }
   };
 
+  useEffect(() => {
+    const checkStatus = () => {
+      const getStatus = cartItem.filter((item) => item.status === true);
+      console.log(getStatus);
+      getStatus.length > 0 ? setIsDisable(false) : setIsDisable(true);
+    };
+    checkStatus();
+  }, [cartItem]);
+
   return (
     <>
       <main className="containers">
         <div className="mb-5 mt-0 xs:mt-7 flex">
-          <Link
-            to="/produk-kemasan"
-            className="flex items-center mb-3"
-          >
+          <Link to="/produk-kemasan" className="flex items-center mb-3">
             <HiOutlineArrowSmLeft className="text-2xl mr-3" />
             <span className="leading-10">Kembali</span>
           </Link>
         </div>
         {/* dummy condition */}
-        {dummy ? (
+        {/* if data !== null */}
+        {cartItem.length > 0 ? (
           <>
-            <section
-              id="cart"
-              className="mb-10"
-            >
-              {dummyData.map((item) => {
+            <section id="cart" className="mb-10">
+              {cartItem.map((item) => {
                 return (
                   <article
                     className="relative mb-10 shadow-gray rounded-2xl pt-8 px-8 pb-9 grid grid-cols-4 2xsm:grid-cols-8 2md:grid-cols-12 gap-x-8"
                     key={item.id}
                   >
+                    {/* checkbox */}
                     <div className="absolute top-6 md:top-8 left-6 md:left-8">
                       <div className="w-full flex justify-start">
                         <button
                           className={`w-5 h-5 p-[2px] rounded-[.25rem] ${
-                            isCheck
-                              ? 'bg-gradient-to-bl from-orange-900 to-primary-900'
-                              : 'bg-orange-900'
+                            item.status
+                              ? "bg-gradient-to-bl from-orange-900 to-primary-900"
+                              : "bg-orange-900"
                           } overflow-hidden`}
-                          onClick={handleCheck}
+                          disabled={isNext}
+                          onClick={(e) => handleCheck(e, item.id)}
                         >
-                          {isCheck ? (
+                          {item.status ? (
                             <div className="w-full h-full bg-gradient-to-bl from-orange-900 to-primary-900 flex items-center justify-center overflow-hidden">
                               <GoCheck className="fill-white" />
                             </div>
@@ -139,6 +173,7 @@ const Keranjang = () => {
                       </div>
                     </div>
 
+                    {/* product image */}
                     <div className="lg:col-start-2 col-span-4 2xsm:col-span-8 2md:col-span-12 lg:col-span-4">
                       <div className="mb-3 w-11/12 xs:w-3/4 lg:w-full mx-auto">
                         <img
@@ -153,15 +188,18 @@ const Keranjang = () => {
                       </p>
                     </div>
 
+                    {/* form product */}
                     <div className="lg:col-start-7 col-span-4 2xsm:col-span-8 2md:col-span-12 lg:col-span-5">
                       {formProduct(item.id)}
                     </div>
 
+                    {/* delete state */}
                     <div className="absolute top-6 md:top-8 right-6 md:right-8">
                       <div className="w-full flex justify-end">
                         <button
-                          onClick={openModal}
+                          onClick={(e) => openModal(e, item.id)}
                           type="button"
+                          disabled={isNext}
                         >
                           <BiTrashAlt className="text-[26px] fill-orange-900 transition-200 hover:fill-red-500" />
                         </button>
@@ -171,16 +209,21 @@ const Keranjang = () => {
                 );
               })}
             </section>
-            <div className="flex justify-center mb-9">
+            {isNext && <Pemesanan item={cartItem} />}
+            <div
+              className={`${isNext ? "hidden" : ""} flex justify-center mb-9`}
+            >
               <button
-                className="button-fill"
-                onClick={() => navigate('/pemesanan')}
+                className={`${isDisable ? "!bg-slate-300" : ""} button-fill`}
+                onClick={(e) => handleCartConfirm(e)}
+                disabled={isDisable}
               >
                 Lanjutkan Pesanan
               </button>
             </div>
           </>
         ) : (
+          // Cart Empty State
           <section className="pt-9 pb-12 2xsm:pb-28 xmd:pb-40">
             <div className="w-4/5 md:w-[33.75rem] mx-auto">
               <div className="w-full px-9">
@@ -196,7 +239,7 @@ const Keranjang = () => {
               <div className="flex justify-center">
                 <button
                   className="button-fill"
-                  onClick={() => navigate('/produk-kemasan')}
+                  onClick={() => navigate("/produk-kemasan")}
                 >
                   Pesan Sekarang
                 </button>
@@ -205,7 +248,9 @@ const Keranjang = () => {
           </section>
         )}
         {/* <Modal /> */}
+        {/* state from product trach icon */}
         <Modal
+          id={deleteItem}
           isOpen={isOpen}
           closeModal={closeModal}
           handleAccept={handleDelete}

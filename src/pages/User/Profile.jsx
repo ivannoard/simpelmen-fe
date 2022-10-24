@@ -1,14 +1,39 @@
-import React, { useState } from 'react';
-import Modal from '../../components/Card/Modal';
-import { IoIosArrowDown } from 'react-icons/io';
+import React, { useEffect, useState } from "react";
+import Modal from "../../components/Card/Modal";
+import { IoIosArrowDown } from "react-icons/io";
+import { getUser } from "../../services/api";
+import useGeoLocation from "../../hooks/useGeoLocation";
 
 const Profile = () => {
+  const currentUser = localStorage.getItem("user");
+  const parseUser = JSON.parse(currentUser);
   const [toggleDisabled, setToggleDisabled] = useState(true);
   const [toggleConfirm, setToggleConfirm] = useState(false);
-  const [fields, setFields] = useState({});
   const [togglePwdDisabled, setTogglePwdDisabled] = useState(true);
   const [togglePwdConfirm, setTogglePwdConfirm] = useState(false);
   const [pwdFields, setPwdFields] = useState({});
+  const [userData, setUserData] = useState();
+  const [fields, setFields] = useState({
+    user_name: "",
+    user_ikm: "",
+    user_email: "",
+    user_contact: "",
+    user_password: "",
+    user_address: "",
+    user_province: "",
+    user_city: "",
+    user_district: "",
+    user_postal_code: "",
+  });
+  const { data: provinceData } = useGeoLocation(
+    `https://simpelmen.herokuapp.com/api/province`
+  );
+  const { data: cityData } = useGeoLocation(
+    `https://simpelmen.herokuapp.com/api/city?province_id=${fields.user_province}`
+  );
+  const { data: districtData } = useGeoLocation(
+    `https://simpelmen.herokuapp.com/api/district?city_id=${fields.user_city}`
+  );
 
   const closeModalConfirm = () => {
     setToggleConfirm(false);
@@ -17,7 +42,7 @@ const Profile = () => {
     e.preventDefault();
     setFields({
       ...fields,
-      [e.target.getAttribute('name')]: e.target.value,
+      [e.target.getAttribute("name")]: e.target.value,
     });
   }
   function handleSubmit(e) {
@@ -25,9 +50,17 @@ const Profile = () => {
     setToggleConfirm(true);
     console.log(fields);
   }
-  const handleEdit = () => {
-    console.log('edit');
+
+  const handleEdit = async () => {
     setToggleConfirm(false);
+    await getUser
+      .put("/profile", fields, {
+        headers: {
+          "x-access-token": `${parseUser.data.token}`,
+        },
+      })
+      .then((response) => console.log(response))
+      .catch((e) => console.log(e));
   };
 
   const closeModalPwdConfirm = () => {
@@ -37,7 +70,7 @@ const Profile = () => {
     e.preventDefault();
     setPwdFields({
       ...pwdFields,
-      [e.target.getAttribute('name')]: e.target.value,
+      [e.target.getAttribute("name")]: e.target.value,
     });
   }
   function handlePwdSubmit(e) {
@@ -46,9 +79,39 @@ const Profile = () => {
     console.log(pwdFields);
   }
   const handlePwdEdit = () => {
-    console.log('edit');
+    console.log("edit");
     setTogglePwdConfirm(false);
   };
+
+  useEffect(() => {
+    const getUserData = async () => {
+      await getUser
+        .get("/profile", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => {
+          setUserData(response);
+          setFields({
+            user_name: response.data.data.user_name,
+            user_ikm: response.data.data.user_ikm,
+            user_email: response.data.data.user_email,
+            user_contact: response.data.data.user_contact,
+            user_password: response.data.data.user_password,
+            user_address: response.data.data.user_address,
+            user_province: response.data.data.user_province,
+            user_city: response.data.data.user_city,
+            user_district: response.data.data.user_district,
+            user_postal_code: response.data.data.user_postal_code,
+          });
+        })
+        .catch((e) => console.log(e));
+    };
+    getUserData();
+  }, [parseUser.data.token]);
+
+  console.log(userData);
 
   return (
     <>
@@ -75,12 +138,13 @@ const Profile = () => {
                   type="text"
                   className="input-field-xs"
                   placeholder="Masukkan Nama Lengkap"
-                  name="nama"
-                  id="nama"
+                  name="user_name"
+                  id="user_name"
                   required
                   disabled={toggleDisabled}
                   autoComplete="on"
                   onChange={handleChange}
+                  defaultValue={userData?.data?.data?.user_name}
                 />
               </div>
               <div className="mt-4">
@@ -94,12 +158,13 @@ const Profile = () => {
                   type="text"
                   className="input-field-xs"
                   placeholder="Masukkan Nama IKM"
-                  name="namaikm"
-                  id="namaikm"
+                  name="user_ikm"
+                  id="user_ikm"
                   required
                   disabled={toggleDisabled}
                   autoComplete="on"
                   onChange={handleChange}
+                  defaultValue={userData?.data?.data?.user_ikm}
                 />
               </div>
               <div className="mt-4">
@@ -113,12 +178,13 @@ const Profile = () => {
                   type="email"
                   className="input-field-xs"
                   placeholder="Masukkan Email"
-                  name="email"
-                  id="email"
+                  name="user_email"
+                  id="user_email"
                   required
                   disabled={toggleDisabled}
                   autoComplete="on"
                   onChange={handleChange}
+                  defaultValue={userData?.data?.data?.user_email}
                 />
               </div>
               <div className="mt-4">
@@ -132,12 +198,13 @@ const Profile = () => {
                   type="text"
                   className="input-field-xs"
                   placeholder="Masukkan No. Handphone"
-                  name="handphone"
-                  id="handphone"
+                  name="user_contact"
+                  id="user_contact"
                   required
                   disabled={toggleDisabled}
                   autoComplete="on"
                   onChange={handleChange}
+                  defaultValue={userData?.data?.data?.user_contact}
                 />
               </div>
             </div>
@@ -153,71 +220,108 @@ const Profile = () => {
                   type="text"
                   className="input-field-xs"
                   placeholder="Masukkan Alamat Lengkap"
-                  name="alamat"
-                  id="alamat"
+                  name="user_address"
+                  id="user_address"
                   required
                   disabled={toggleDisabled}
                   autoComplete="on"
                   onChange={handleChange}
+                  defaultValue={userData?.data?.data?.user_address}
                 />
               </div>
               <div className="relative mt-4">
                 <label
-                  htmlFor="provinsi"
+                  htmlFor="user_province"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Provinsi
                 </label>
                 <select
-                  id="provinsi"
-                  name="provinsi"
+                  id="user_province"
+                  name="user_province"
                   disabled={toggleDisabled}
-                  // onChange={(e) => handleChange(e)}
+                  onChange={(e) => handleChange(e)}
                   className="input-field-select-xs"
                 >
-                  <option>Pilih Provinsi</option>
-                  <option value="1">Jasa Bahan</option>
-                  <option value="2">Tanpa Bahan</option>
+                  <option
+                    value={
+                      userData?.data.data.subdistricts.cities.provinces
+                        .province_id
+                    }
+                  >
+                    {userData?.data.data.subdistricts
+                      ? userData?.data.data.subdistricts.cities.provinces
+                          .province
+                      : "Pilih Provinsi"}
+                  </option>
+                  {provinceData?.map((item) => (
+                    <option value={item.province_id} key={item.province_id}>
+                      {item.province}
+                    </option>
+                  ))}
                 </select>
                 <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
               </div>
               <div className="relative mt-4">
                 <label
-                  htmlFor="kota"
+                  htmlFor="user_city"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Kota / Kabupaten
                 </label>
                 <select
-                  id="kota"
-                  name="kota"
+                  id="user_city"
+                  name="user_city"
                   disabled={toggleDisabled}
-                  // onChange={(e) => handleChange(e)}
+                  onChange={(e) => handleChange(e)}
                   className="input-field-select-xs"
+                  // defaultValue={userData?.data?.data?.user_district}
                 >
-                  <option>Pilih Kota</option>
-                  <option value="1">Jasa Bahan</option>
-                  <option value="2">Tanpa Bahan</option>
+                  <option
+                    value={userData?.data.data.subdistricts.cities.city_id}
+                  >
+                    {userData?.data.data.subdistricts
+                      ? userData?.data.data.subdistricts.cities.city_name
+                      : "Pilih Kota/Kabupaten"}
+                  </option>
+                  {cityData?.map((item) => (
+                    <option value={item.city_id} key={item.city_id}>
+                      {item.city_name}
+                    </option>
+                  ))}
                 </select>
                 <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
               </div>
               <div className="relative mt-4">
                 <label
-                  htmlFor="kecamatan"
+                  htmlFor="user_district"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Kecamatan
                 </label>
                 <select
-                  id="kecamatan"
-                  name="kecamatan"
+                  id="user_district"
+                  name="user_district"
                   disabled={toggleDisabled}
-                  // onChange={(e) => handleChange(e)}
+                  onChange={(e) => handleChange(e)}
                   className="input-field-select-xs"
+                  // defaultValue={userData?.data?.data?.user_district}
                 >
-                  <option>Pilih Kecamatan</option>
-                  <option value="1">Jasa Bahan</option>
-                  <option value="2">Tanpa Bahan</option>
+                  <option
+                    value={userData?.data.data.subdistricts.subdistrict_id}
+                  >
+                    {userData?.data.data.subdistricts
+                      ? userData?.data.data.subdistricts.subdistrict_name
+                      : "Pilih Kecamatan"}
+                  </option>
+                  {districtData?.map((item) => (
+                    <option
+                      value={item.subdistrict_id}
+                      key={item.subdistrict_id}
+                    >
+                      {item.subdistrict_name}
+                    </option>
+                  ))}
                 </select>
                 <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
               </div>
@@ -232,12 +336,13 @@ const Profile = () => {
                   type="text"
                   className="input-field-xs"
                   placeholder="Masukkan Kode Pos"
-                  name="kodepos"
-                  id="kodepos"
+                  name="user_postal_code"
+                  id="user_postal_code"
                   required
                   disabled={toggleDisabled}
                   autoComplete="on"
                   onChange={handleChange}
+                  defaultValue={userData?.data?.data?.user_postal_code}
                 />
               </div>
             </div>
@@ -279,10 +384,7 @@ const Profile = () => {
                   Edit Profil
                 </button>
               ) : (
-                <button
-                  type="submit"
-                  className="button-fill-sm"
-                >
+                <button type="submit" className="button-fill-sm">
                   Simpan Perubahan
                 </button>
               )}
@@ -382,10 +484,7 @@ const Profile = () => {
                   Ubah Kata Sandi
                 </button>
               ) : (
-                <button
-                  type="submit"
-                  className="button-fill-sm"
-                >
+                <button type="submit" className="button-fill-sm">
                   Simpan Perubahan
                 </button>
               )}

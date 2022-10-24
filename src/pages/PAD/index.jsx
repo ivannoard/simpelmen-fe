@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { HiOutlineArrowSmLeft } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
-import { IoIosArrowDown } from 'react-icons/io';
 import Modal from '../../components/Card/Modal';
 
 const PAD = () => {

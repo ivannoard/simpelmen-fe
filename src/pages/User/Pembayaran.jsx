@@ -2,71 +2,128 @@ import React from 'react';
 import { HiChevronRight, HiChevronLeft } from 'react-icons/hi';
 
 const Pembayaran = () => {
+  const dummyData = [
+    {
+      id: 1,
+      date: '2021-08-01',
+      pesanan: '001/BIKDK/O/VII/2022',
+      jenis: 'Bentuk Langsungan - Duplex 310gr - Laminasi Glosi',
+      status: 1,
+    },
+    {
+      id: 2,
+      date: '2021-09-04',
+      pesanan: '001/BIKDK/O/VII/2022',
+      jenis: 'Bentuk Langsungan - Duplex 310gr - Laminasi Glosi',
+      status: 2,
+    },
+    {
+      id: 3,
+      date: '2022-01-20',
+      pesanan: '001/BIKDK/O/VII/2022',
+      jenis: 'Bentuk Langsungan - Duplex 310gr - Laminasi Glosi',
+      status: 3,
+    },
+    {
+      id: 4,
+      date: '2022-01-22',
+      pesanan: '001/BIKDK/O/VII/2022',
+      jenis: 'Bentuk Langsungan - Duplex 310gr - Laminasi Glosi',
+      status: 4,
+    },
+    {
+      id: 5,
+      date: '2022-02-28',
+      pesanan: '001/BIKDK/O/VII/2022',
+      jenis: 'Bentuk Langsungan - Duplex 310gr - Laminasi Glosi',
+      status: 3,
+    },
+  ];
+
+  const badge = (status) => {
+    switch (status) {
+      case 1:
+        return (
+          <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-primary-900/[15%] text-[10px] xs:text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
+            Belum Terkonfirmasi
+          </p>
+        );
+      case 2:
+        return (
+          <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-success/[15%] text-[10px] xs:text-sm transition-200 hover:bg-success/20 text-success">
+            Sudah Terkonfirmasi
+          </p>
+        );
+      case 3:
+        return (
+          <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-primary-900/[15%] text-[10px] xs:text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
+            Belum Diproses
+          </p>
+        );
+      case 4:
+        return (
+          <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-success/[15%] text-[10px] xs:text-sm transition-200 hover:bg-success/20 text-success">
+            Sudah Diproses
+          </p>
+        );
+      default:
+        return (
+          <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-primary-900/[15%] text-[10px] xs:text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
+            Belum Terkonfirmasi
+          </p>
+        );
+    }
+  };
+
   return (
     <>
       <section>
-        <div className="flex gap-2 items-center">
-          <label htmlFor="sorting">Menampilkan</label>
-          <select
-            name="sorting"
-            id="sorting"
-            className="w-[50px] rounded h-10 p-2 bg-white border border-primary-900"
-          >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </select>
-        </div>
+        <h5 className="mb-4">Status Pesanan</h5>
 
-        <div className="mt-4 overflow-x-auto">
-          <table className="w-full table-auto mb-5">
-            <thead>
-              <tr>
-                <th className="bg-[#F29A41] text-white p-3 w-1/5 min-w-[224px]">
-                  No. Pesanan
-                </th>
-                <th className="bg-[#F29A41] text-white p-3 text-left w-1/5 min-w-[180x]">
-                  Nama Produk
-                </th>
-                <th className="bg-[#F29A41] text-white p-3 w-1/5 min-w-[160px]">
-                  Tanggal Pesan
-                </th>
-                <th className="bg-[#F29A41] text-white p-3 w-1/5 min-w-[224px]">
-                  Status Pembayaran
-                </th>
-                <th className="bg-[#F29A41] text-white p-3 w-1/5 min-w-[224px]">
-                  Status Pesanan
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {[1, 2, 3, 4, 5].map((item) => (
-                <tr
-                  key={item}
-                  className="border-b"
-                >
-                  <td className="py-2 px-3 text-center">
-                    001/BIKDK/O/VII/2022
-                  </td>
-                  <td className="py-2 px-3 text-left">Bentuk Langsungan</td>
-                  <td className="py-2 px-3 text-center">1 Januari 2022</td>
-                  <td>
-                    <div className="py-2 px-3 flex justify-center items-center gap-[10px]">
-                      <div className="w-[10px] h-[10px] bg-[#21B630] rounded-full"></div>
-                      Sudah Terkonfirmasi
+        <article
+          id="statusPesanan"
+          className="mb-8"
+        >
+          <div className="w-full grid grid-cols-4 gap-y-5 gap-x-6">
+            {dummyData?.map((item) => (
+              <div
+                className="col-span-4"
+                key={item.id}
+              >
+                <div className="w-full shadow-gray p-4 rounded-[10px] bg-white grid grid-cols-8 gap-x-3 gap-y-2 xs:gap-y-3 xl:items-center border border-secondary-700/40">
+                  <div className="col-span-3 xl:col-span-2">
+                    <p className="text-xs xs:text-sm font-medium mb-1 xs:mb-2 text-secondary-900">
+                      Tanggal Pesanan
+                    </p>
+                    <p className="font-semibold">{item.date}</p>
+                  </div>
+                  <div className="col-span-5 xl:col-span-2 block xl:hidden">
+                    <div className="flex xl:justify-center">
+                      {badge(item.status)}
                     </div>
-                  </td>
-                  <td>
-                    <div className="py-2 px-3 flex justify-center items-center gap-[10px]">
-                      <div className="w-[10px] h-[10px] bg-[#C9111B] rounded-full"></div>
-                      Belum Diproses
+                  </div>
+                  <div className="col-span-3 xl:col-span-2">
+                    <p className="text-xs xs:text-sm font-medium mb-1 xs:mb-2 text-secondary-900">
+                      No. Pesanan
+                    </p>
+                    <p className="font-semibold truncate">{item.pesanan}</p>
+                  </div>
+                  <div className="col-span-5 xl:col-span-2">
+                    <p className="text-xs xs:text-sm font-medium mb-1 xs:mb-2 text-secondary-900">
+                      Jenis Produk
+                    </p>
+                    <p className="font-semibold">{item.jenis}</p>
+                  </div>
+                  <div className="xl:col-span-2 hidden xl:block">
+                    <div className="flex justify-center">
+                      {badge(item.status)}
                     </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </article>
 
         <nav
           className="flex justify-center items-center gap-x-[.375rem] py-2 mt-10"

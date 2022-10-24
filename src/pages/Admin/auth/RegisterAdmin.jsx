@@ -99,7 +99,7 @@ const RegisterAdmin = () => {
                 placeholder="Nama Lengkap"
                 className="input-field"
               />
-              <BsFillPersonFill className="absolute text-2xl top-17/sp left-5 fill-secondary-800" />
+              <BsFillPersonFill className="absolute text-xl top-4 left-4 fill-secondary-800" />
             </div>
             <div className="relative">
               <input
@@ -111,7 +111,7 @@ const RegisterAdmin = () => {
                 placeholder="Email"
                 className="input-field"
               />
-              <MdEmail className="absolute text-2xl top-17/sp left-5 fill-secondary-800" />
+              <MdEmail className="absolute text-xl top-4 left-4 fill-secondary-800" />
             </div>
             <div className="relative">
               <input
@@ -123,7 +123,7 @@ const RegisterAdmin = () => {
                 placeholder="No. Handphone"
                 className="input-field"
               />
-              <AiFillPhone className="absolute text-2xl top-17/sp left-5 fill-secondary-800" />
+              <AiFillPhone className="absolute text-xl top-4 left-4 fill-secondary-800" />
             </div>
             <div className="relative">
               <input
@@ -135,16 +135,16 @@ const RegisterAdmin = () => {
                 placeholder="Kata Sandi"
                 className="input-password-field"
               />
-              <MdLock className="absolute text-2xl top-17/sp left-5 fill-secondary-800" />
+              <MdLock className="absolute text-xl top-4 left-4 fill-secondary-800" />
               {!togglePassword ? (
                 <VscEye
                   onClick={() => setTogglePassword(!togglePassword)}
-                  className="absolute text-2xl top-17/sp right-5 fill-secondary-800 cursor-pointer"
+                  className="absolute text-xl top-4 right-5 fill-secondary-800 cursor-pointer"
                 />
               ) : (
                 <VscEyeClosed
                   onClick={() => setTogglePassword(!togglePassword)}
-                  className="absolute text-2xl top-17/sp right-5 fill-secondary-800 cursor-pointer"
+                  className="absolute text-xl top-4 right-5 fill-secondary-800 cursor-pointer"
                 />
               )}
             </div>
@@ -158,20 +158,20 @@ const RegisterAdmin = () => {
                 placeholder="Konfirmasi Kata Sandi"
                 className="input-password-field"
               />
-              <MdLock className="absolute text-2xl top-17/sp left-5 fill-secondary-800" />
+              <MdLock className="absolute text-xl top-4 left-4 fill-secondary-800" />
               {!toggleConfirmPassword ? (
                 <VscEye
                   onClick={() =>
                     setToggleConfirmPassword(!toggleConfirmPassword)
                   }
-                  className="absolute text-2xl top-17/sp right-5 fill-secondary-800 cursor-pointer"
+                  className="absolute text-xl top-4 right-5 fill-secondary-800 cursor-pointer"
                 />
               ) : (
                 <VscEyeClosed
                   onClick={() =>
                     setToggleConfirmPassword(!toggleConfirmPassword)
                   }
-                  className="absolute text-2xl top-17/sp right-5 fill-secondary-800 cursor-pointer"
+                  className="absolute text-xl top-4 right-5 fill-secondary-800 cursor-pointer"
                 />
               )}
             </div>
@@ -180,7 +180,9 @@ const RegisterAdmin = () => {
           <p className="text-center">
             Sudah mempunyai akun?{" "}
             <Link to="/admin/login">
-              <strong>Masuk</strong>
+              <strong className="hover:text-orange-900 transition-200">
+                Masuk
+              </strong>
             </Link>
           </p>
         </div>

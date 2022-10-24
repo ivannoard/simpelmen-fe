@@ -19,7 +19,6 @@ import flowOrder6 from './flow-order-6.svg';
 import flowOrder7 from './flow-order-7.svg';
 import flowOrder8 from './flow-order-8.svg';
 import bgOurProduct from './bg-our-product.svg';
-import karton from './karton.svg';
 import LogoDashboardUser from './dashboard-user-logo.svg';
 import shippingVehicle from './shipping.svg';
 import windTurbine from './wind-turbine.svg';
@@ -32,6 +31,7 @@ import emptyKeranjang from './empty-keranjang.svg';
 import successPO from './success-po.svg';
 import simpelmenLetterLogo from './simpelmen-letter-logo.svg';
 import swingChart from './swing-chart.svg';
+import logoLetterSimppelmenPrimaryDark from './logo-letter-simpelmenok-pd.svg';
 
 const svg = {
   loginPage,
@@ -66,8 +66,8 @@ const svg = {
   emptyKeranjang,
   successPO,
   simpelmenLetterLogo,
-  karton,
   swingChart,
+  logoLetterSimppelmenPrimaryDark,
 };
 
 export default svg;

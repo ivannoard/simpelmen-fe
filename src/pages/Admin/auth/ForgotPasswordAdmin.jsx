@@ -1,12 +1,15 @@
-import React from "react";
-import { MdEmail } from "react-icons/md";
-import svg from "../../../assets/svg";
-import AuthLayout from "./components/AuthLayout";
+import React from 'react';
+import { MdEmail } from 'react-icons/md';
+import svg from '../../../assets/svg';
+import AuthLayout from './components/AuthLayout';
 
 const ForgotPasswordAdmin = () => {
   return (
     <>
-      <AuthLayout images={svg.adminForgotPassword} altImages="woman-and-laptop">
+      <AuthLayout
+        images={svg.adminForgotPassword}
+        altImages="woman-and-laptop"
+      >
         <div className="w-full p-6 xs:p-12 2md:p-0 rounded-2xl shadow-[0_4px_20px_0_#00000029] 2md:shadow-none">
           <h3 className="mb-2">Lupa Kata Sandi</h3>
           <p className="mb-7">
@@ -22,7 +25,7 @@ const ForgotPasswordAdmin = () => {
                 required
                 autoComplete="on"
               />
-              <MdEmail className="absolute text-2xl top-17/sp left-5 fill-secondary-800" />
+              <MdEmail className="absolute text-xl top-4 left-4 fill-secondary-800" />
             </div>
             <button className="button-fill transition-200">Kirim Email</button>
           </form>

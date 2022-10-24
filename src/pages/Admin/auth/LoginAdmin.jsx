@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthLayout from "./components/AuthLayout";
 import Alerts from "../../../components/Alerts";
-
 import svg from "../../../assets/svg";
 import { MdEmail, MdLock } from "react-icons/md";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
@@ -86,9 +85,9 @@ const LoginAdmin = () => {
                 autoComplete="on"
                 onChange={handleChange}
               />
-              <MdEmail className="absolute text-2xl top-17/sp left-5 fill-secondary-800" />
+              <MdEmail className="absolute text-xl top-4 left-4 fill-secondary-800" />
             </div>
-            <div className="relative w-full flex flex-col mb-7">
+            <div className="relative w-full flex flex-col mb-5">
               <input
                 type={showPassword ? "text" : "password"}
                 className="input-password-field"
@@ -98,23 +97,23 @@ const LoginAdmin = () => {
                 autoComplete="on"
                 onChange={handleChange}
               />
-              <MdLock className="absolute text-2xl top-17/sp left-5 fill-secondary-800" />
+              <MdLock className="absolute text-xl top-4 left-4 fill-secondary-800" />
               {showPassword ? (
                 <VscEyeClosed
-                  className="absolute text-2xl top-17/sp right-5 fill-secondary-800 cursor-pointer"
+                  className="absolute text-xl top-4 right-5 fill-secondary-800 cursor-pointer"
                   onClick={() => setShowPassword(!showPassword)}
                 />
               ) : (
                 <VscEye
-                  className="absolute text-2xl top-17/sp right-5 fill-secondary-800 cursor-pointer"
+                  className="absolute text-xl top-4 right-5 fill-secondary-800 cursor-pointer"
                   onClick={() => setShowPassword(!showPassword)}
                 />
               )}
             </div>
-            <p className="mb-8">
+            <p className="mb-6">
               <Link
                 to="/admin/forgot-password"
-                className="font-bold text-primary-900"
+                className="font-bold text-primary-900 hover:text-orange-900 transition-200"
               >
                 Lupa kata sandi?
               </Link>
@@ -123,7 +122,10 @@ const LoginAdmin = () => {
           </form>
           <p className="text-center">
             Belum punya akun?{" "}
-            <Link to="/admin/register" className="font-bold text-primary-900">
+            <Link
+              to="/admin/register"
+              className="font-bold text-primary-900 hover:text-orange-900 transition-200"
+            >
               Daftar
             </Link>
           </p>

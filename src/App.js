@@ -171,7 +171,7 @@ function App() {
             element={<AdminCS />}
           />
           <Route path="/admin/cs/dashboard/pad" element={<AdminCS />} />
-          {/* <Route path="/admin/cs/dashboard/profil" element={<AdminCS />} /> */}
+          <Route path="/admin/cs/dashboard/profil" element={<AdminCS />} />
           {/* End of AdminCS */}
 
           {/* Dashboard Admin Desain */}
@@ -187,6 +187,10 @@ function App() {
           {/* End of Admin Desain */}
           {/* Dashboard Admin Gudang */}
           <Route path="/admin/gudang/dashboard" element={<AdminGudang />} />
+          <Route
+            path="/admin/gudang/dashboard/profil"
+            element={<AdminGudang />}
+          />
           {/* End of Admin Gudang */}
           {/* Dashboard Admin Kasir */}
           <Route path="/admin/kasir/dashboard" element={<AdminKasir />} />
@@ -198,6 +202,10 @@ function App() {
           {/* End of Admin Kasir */}
           {/* Dashboard Admin Produksi */}
           <Route path="/admin/produksi/dashboard" element={<AdminProduksi />} />
+          <Route
+            path="/admin/produksi/dashboard/profil"
+            element={<AdminProduksi />}
+          />
           {/* End of Admin Produksi */}
           {/* Dashboard Admin Super */}
           <Route path="/admin/super/dashboard" element={<AdminSuper />} />
@@ -224,6 +232,7 @@ function App() {
           {/* End of Admin Super */}
           {/* Dashboard Admin TU */}
           <Route path="/admin/tu/dashboard" element={<AdminTU />} />
+          <Route path="/admin/tu/dashboard/profil" element={<AdminTU />} />
           {/* End of Admin TU */}
           {/* End of Admin Dashboard */}
           <Route path="*" element="404 Not Found" />

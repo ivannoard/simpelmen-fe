@@ -10,6 +10,9 @@ import FormSablon from "./components/FormSablon";
 import FormSticker from "./components/FormSticker";
 import FormStandingPouch from "./components/FormStandingPouch";
 import useProductDetail from "../../hooks/useProductDetail";
+import SkeletonImage from "../../components/Skeletons/SkeletonImage";
+import FormSkeleton from "../../components/Skeletons/FormSkeleton";
+
 const DetailProduct = () => {
   const { productId } = useParams();
   const [form, setForm] = useState();
@@ -99,15 +102,23 @@ const DetailProduct = () => {
           </div>
           <div className="grid grid-systems gap-8 ">
             <div className="col-span-4 2xsm:col-span-8 2md:col-span-6">
-              <div className="p-6 border rounded-xl mb-5 border-secondary-800/50">
-                <div className="w-full overflow-auto flex justify-center items-center rounded-xl">
+              <div
+                className={`border rounded-xl mb-5 border-secondary-800/50 ${
+                  !isLoading ? "p-6" : ""
+                }`}
+              >
+                <div
+                  className={`w-full overflow-auto rounded-xl ${
+                    !isLoading ? "flex justify-center items-center" : ""
+                  }`}
+                >
                   <div>
                     {isLoading ? (
-                      "isLoading"
+                      <SkeletonImage />
                     ) : (
                       <img
                         src={`data:image/jpg;base64,${data?.product_image}`}
-                        alt="kardus"
+                        alt="gambar-produk"
                         className="w-full"
                       />
                     )}
@@ -121,7 +132,13 @@ const DetailProduct = () => {
                 </div>
               </div>
               {isLoading ? (
-                "isLoading"
+                <>
+                  <div className="animate-pulse">
+                    <div className="h-8 w-1/3 bg-slate-200 rounded"></div>
+                    <div className="h-8 w-1/2 bg-slate-200 rounded mt-3"></div>
+                    <div className="h-24 w-full bg-slate-200 rounded mt-3"></div>
+                  </div>
+                </>
               ) : (
                 <>
                   <p className="text-3xl">
@@ -136,7 +153,7 @@ const DetailProduct = () => {
             </div>
             <div className="col-span-4 2xsm:col-span-8 2md:col-span-6">
               {isLoading ? (
-                "isLoading"
+                <FormSkeleton />
               ) : (
                 <div className="form-content 2md:px-10">{form}</div>
               )}

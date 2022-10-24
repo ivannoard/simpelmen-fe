@@ -9,7 +9,14 @@ import axios from "axios";
 // });
 
 export const userAuth = axios.create({
-  baseURL: "http://localhost:8080/api/auth",
+  baseURL: "http://simpelmen.herokuapp.com/api/auth",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+export const getUser = axios.create({
+  baseURL: "http://simpelmen.herokuapp.com/api/users",
   headers: {
     "Content-Type": "application/json",
   },

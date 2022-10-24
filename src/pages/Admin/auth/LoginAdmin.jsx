@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthLayout from "./components/AuthLayout";
 import Alerts from "../../../components/Alerts";
@@ -12,6 +12,7 @@ const LoginAdmin = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [alerts, setAlerts] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const [fields, setFields] = useState({
     email: "",
@@ -29,11 +30,7 @@ const LoginAdmin = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     await adminAuth
-      .post("/jeNGzxdJpYF9n2Q93eBj", fields, {
-        headers: {
-          "content-type": "application/json",
-        },
-      })
+      .post("/jeNGzxdJpYF9n2Q93eBj", fields)
       .then((response) => {
         localStorage.setItem("admin", JSON.stringify(2));
 
@@ -43,13 +40,24 @@ const LoginAdmin = () => {
         }, 1000);
         setAlerts(true);
       })
-      .catch((e) => setAlertFail(true));
+      .catch((e) => {
+        setMessage(e.message);
+        setAlertFail(true);
+      });
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (alerts || alertFail === true) setAlertFail(false) || setAlerts(false);
+    }, 2000);
+  }, [alertFail, alerts]);
+
   return (
     <>
       <AuthLayout images={svg.adminLogin} altImages="woman-and-laptop">
         {alerts && (
           <Alerts
+            state="true"
             background="bg-green-100"
             textColor="text-green-600"
             textContent="Login Berhasil"
@@ -57,9 +65,10 @@ const LoginAdmin = () => {
         )}
         {alertFail && (
           <Alerts
+            state="true"
             background="bg-red-100"
             textColor="text-red-600"
-            textContent="Ups, sepertinya ada yang salah"
+            textContent={`Ups, sepertinya ada yang salah: ${message}`}
             closeButton="true"
           />
         )}

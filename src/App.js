@@ -12,8 +12,8 @@ import NewPassword from "./pages/Auth/NewPassword";
 import PAD from "./pages/PAD";
 import Kemasan from "./pages/Kemasan";
 import Keranjang from "./pages/Keranjang";
-import Pemesanan from './pages/Pemesanan';
-import ScrollToTop from './services/ScrollToTop';
+import Pemesanan from "./pages/Pemesanan";
+import ScrollToTop from "./services/ScrollToTop";
 import LoginAdmin from "./pages/Admin/auth/LoginAdmin";
 import RegisterAdmin from "./pages/Admin/auth/RegisterAdmin";
 import ForgotPasswordAdmin from "./pages/Admin/auth/ForgotPasswordAdmin";
@@ -28,13 +28,12 @@ import AdminSuper from "./pages/Admin/AdminSuper";
 import AdminProduksi from "./pages/Admin/AdminProduksi";
 import AdminKasir from "./pages/Admin/AdminKasir";
 import AdminGudang from "./pages/Admin/AdminGudang";
-
+import ActivateAccount from "./pages/Auth/ActivateAccount";
 
 const ProtectingRoute = (props) => {
   const navigate = useNavigate();
-  const user = localStorage.getItem('user');
+  const user = localStorage.getItem("user");
   useEffect(() => {
-
     if (!user) navigate("/");
   }, [navigate, user]);
 
@@ -43,10 +42,10 @@ const ProtectingRoute = (props) => {
 
 const AuthenticatedRoute = (props) => {
   const navigate = useNavigate();
-  const user = localStorage.getItem('user');
+  const user = localStorage.getItem("user");
 
   useEffect(() => {
-    !user ? navigate('/login') : navigate('/');
+    !user ? navigate("/login") : navigate("/");
   }, [navigate, user]);
 
   return props.children;
@@ -82,13 +81,10 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
 
+          <Route path="/new-password/:resetToken" element={<NewPassword />} />
           <Route
-            path="/new-password"
-            element={
-              <AuthenticatedRoute>
-                <NewPassword />
-              </AuthenticatedRoute>
-            }
+            path="/activate-account/:activateToken"
+            element={<ActivateAccount />}
           />
           {/* End of User Authentication */}
           {/* Dashboard User */}
@@ -233,30 +229,12 @@ function App() {
           <Route path="*" element="404 Not Found" />
         </Route>
         <Route element={<WithFrame />}>
-          <Route
-            path="/"
-            element={<Home />}
-          />
-          <Route
-            path="/detail-produk/:productId"
-            element={<DetailProduct />}
-          />
-          <Route
-            path="/laporan"
-            element={<PAD />}
-          />
-          <Route
-            path="/produk-kemasan"
-            element={<Kemasan />}
-          />
-          <Route
-            path="/keranjang"
-            element={<Keranjang />}
-          />
-          <Route
-            path="/pemesanan"
-            element={<Pemesanan />}
-          />
+          <Route path="/" element={<Home />} />
+          <Route path="/detail-produk/:productId" element={<DetailProduct />} />
+          <Route path="/laporan" element={<PAD />} />
+          <Route path="/produk-kemasan" element={<Kemasan />} />
+          <Route path="/keranjang" element={<Keranjang />} />
+          <Route path="/pemesanan" element={<Pemesanan />} />
         </Route>
       </Routes>
     </div>

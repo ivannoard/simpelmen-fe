@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Alerts from "../../../components/Alerts";
 import AuthLayout from "./components/AuthLayout";
 
@@ -8,7 +8,7 @@ import { MdEmail, MdLock } from "react-icons/md";
 import { BsFillPersonFill } from "react-icons/bs";
 import { AiFillPhone } from "react-icons/ai";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
-import { userAuth } from "../../../services/api";
+import { adminAuth } from "../../../services/api";
 
 const RegisterAdmin = () => {
   const [togglePassword, setTogglePassword] = useState(false);
@@ -16,6 +16,7 @@ const RegisterAdmin = () => {
   const [alerts, setAlerts] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
   const [failMessage, setFailMessage] = useState("");
+  const navigate = useNavigate();
 
   const [fields, setFields] = useState({
     username: "",
@@ -41,25 +42,32 @@ const RegisterAdmin = () => {
   */
   async function handleSubmit(e) {
     e.preventDefault();
-    await userAuth
-      .post("/signup", fields, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+    await adminAuth
+      .post("/LgdNVnKpZxF1lrp1aK9e", fields)
       .then((response) => {
         setAlerts(true);
+        setTimeout(() => {
+          navigate("/admin/login");
+        }, 1000);
       })
       .catch((e) => {
         setAlertFail(true);
-        setFailMessage(e.response.data.message);
+        setFailMessage(e.message);
       });
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (alerts || alertFail === true) setAlertFail(false) || setAlerts(false);
+    }, 2000);
+  }, [alertFail, alerts]);
+
   return (
     <>
       <AuthLayout images={svg.adminLogin} altImages="woman-and-laptop">
         {alerts && (
           <Alerts
+            state="true"
             // path="/login"
             background="bg-green-100"
             textColor="text-green-600"
@@ -69,10 +77,11 @@ const RegisterAdmin = () => {
         )}
         {alertFail && (
           <Alerts
+            state="true"
             // path="/login"
             background="bg-red-100"
             textColor="text-red-600"
-            textContent={failMessage}
+            textContent={`Ups, sepertinya ada yang salah: ${failMessage}`}
             closeButton="true"
           />
         )}

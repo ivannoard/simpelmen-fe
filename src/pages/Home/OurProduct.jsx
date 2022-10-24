@@ -8,8 +8,9 @@ import CardSkeleton from "../../components/Skeletons/CardSkeleton";
 const OurProduct = () => {
   const navigate = useNavigate();
   const { data, isLoading } = useProducts(
-    "https://simpelmen.herokuapp.com/api/products"
+    "https://simpelmen.herokuapp.com/api/product"
   );
+  console.log(data);
 
   return (
     <>

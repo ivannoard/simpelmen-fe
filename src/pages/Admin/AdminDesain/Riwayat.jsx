@@ -53,6 +53,8 @@ const Riwayat = () => {
   function handleChangeStatus(e, item) {
     e.preventDefault();
     console.log(e.target.value);
+    // samakan api data id dengan item index
+    // post data setelah get
     const filtered = data.filter((brg) => brg.id === item.id)[0];
     filtered.status = parseInt(e.target.value);
     setData((prevState) =>

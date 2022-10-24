@@ -4,7 +4,7 @@ const useProducts = (url) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    const getPokemon = async () => {
+    const getProductDetail = async () => {
       try {
         const response = await fetch(url);
         if (response) {
@@ -18,7 +18,7 @@ const useProducts = (url) => {
         setIsLoading(false);
       }
     };
-    if (url) getPokemon();
+    if (url) getProductDetail();
   }, [url]);
 
   return { data, isLoading };

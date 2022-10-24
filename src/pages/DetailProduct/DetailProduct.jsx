@@ -20,7 +20,7 @@ const DetailProduct = () => {
   const [alertSuccess, setAlertSuccess] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
   const { data, isLoading } = useProductDetail(
-    `https://simpelmen.herokuapp.com/api/products/${productId}`
+    `https://simpelmen.herokuapp.com/api/product/${productId}`
   );
 
   // Use Custom Hook

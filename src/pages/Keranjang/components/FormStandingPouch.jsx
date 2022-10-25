@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { BsCartPlus } from 'react-icons/bs';
-import { postProduct } from '../../../services/api';
-import { IoIosArrowDown } from 'react-icons/io';
+import React, { useState } from "react";
+import { BsCartPlus } from "react-icons/bs";
+import { postProduct } from "../../../services/api";
+import { IoIosArrowDown } from "react-icons/io";
 
 const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
   const [fields, setFields] = useState({});
@@ -11,7 +11,7 @@ const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
     e.preventDefault();
     setFields({
       ...fields,
-      [e.target.getAttribute('name')]: e.target.value,
+      [e.target.getAttribute("name")]: e.target.value,
     });
   }
 
@@ -30,23 +30,28 @@ const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
   }
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
+    <form>
       <div className="relative">
         <label
-          htmlFor="ukuran"
+          htmlFor="spesifikasi"
           className="block mb-2 text-sm font-medium text-gray-700"
         >
-          Ukuran
+          Spesifikasi
         </label>
         <select
-          id="ukuran"
-          name="ukuran"
+          id="spesifikasi"
+          name="spesifikasi"
           onChange={(e) => handleChange(e)}
           className="input-field-select-xs"
         >
-          <option>Pilih Ukuran</option>
-          <option value="1">Jasa Ukuran</option>
-          <option value="2">Tanpa Ukuran</option>
+          <option>Pilih Spesifikasi</option>
+          {/* {finalDummy.map((item, index) => (
+            <option
+              value={`${item.size.p} cm X ${item.size.l} cm ${item.lamination}`}
+            >
+              {item.size.p} cm X {item.size.l} cm {item.lamination}
+            </option>
+          ))} */}
         </select>
         <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
       </div>
@@ -64,12 +69,13 @@ const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
           className="input-field-select-xs"
         >
           <option>Pilih Desain</option>
-          <option value="1">Jasa Desain</option>
-          <option value="2">Tanpa Desain</option>
+          {/* {dummyDesign.map((item, index) => (
+            <option value={item}>{item}</option>
+          ))} */}
         </select>
         <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
       </div>
-      <div className="mt-4 relative">
+      {/* <div className="mt-4 relative">
         <label
           htmlFor="laminasi"
           className="block mb-2 text-sm font-medium text-gray-700"
@@ -87,7 +93,7 @@ const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
           <option value="2">Tanpa Laminasi</option>
         </select>
         <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
-      </div>
+      </div> */}
       <div className="mt-4">
         <label
           htmlFor="jumlah"

@@ -5,8 +5,6 @@ import FormKarton from "./components/FormKarton";
 import FormSablon from "./components/FormSablon";
 import FormSticker from "./components/FormSticker";
 import FormStandingPouch from "./components/FormStandingPouch";
-
-import { dummyImg } from "../../assets/image";
 import { HiOutlineArrowSmLeft } from "react-icons/hi";
 import { BiTrashAlt } from "react-icons/bi";
 import { GoCheck } from "react-icons/go";
@@ -23,49 +21,7 @@ const Keranjang = () => {
   const [isDisable, setIsDisable] = useState(true);
   const user = localStorage.getItem("user");
   const userToken = JSON.parse(user).data.token;
-  const [item, setItem] = useState();
-  const [cartItem, setCartItem] = useState([
-    {
-      id: 1,
-      produkImg: dummyImg.kotakBerdiri,
-      altImg: "Kotak Berdiri",
-      kategori: "Dus Offset",
-      jenis: "Kotak Berdiri",
-      status: false,
-    },
-    {
-      id: 2,
-      produkImg: dummyImg.boxTentengan,
-      altImg: "Box Tentengan",
-      kategori: "Karton",
-      jenis: "Box Tentengan",
-      status: false,
-    },
-    {
-      id: 3,
-      produkImg: dummyImg.topBottom,
-      altImg: "Top Bottom",
-      kategori: "Dus Offset",
-      jenis: "Top Bottom",
-      status: false,
-    },
-    {
-      id: 4,
-      produkImg: dummyImg.bentukSegitiga,
-      altImg: "Bentuk Segitiga",
-      kategori: "Dus Offset",
-      jenis: "Bentuk Segitiga",
-      status: false,
-    },
-    {
-      id: 5,
-      produkImg: dummyImg.boxModelPizza,
-      altImg: "Box Model Pizza",
-      kategori: "Karton",
-      jenis: "Box Model Pizza",
-      status: false,
-    },
-  ]);
+  const [finalCartItem, setFinalCartItem] = useState();
 
   const closeModal = () => {
     setIsOpen(false);
@@ -79,12 +35,13 @@ const Keranjang = () => {
 
   const handleCheck = (e, itemId) => {
     e.preventDefault();
-    const getItemFromArray = cartItem.filter((item) => item.id === itemId)[0];
+    const getItemFromArray = finalCartItem?.filter(
+      (item) => item.order_id === itemId
+    )[0];
     getItemFromArray.status = !getItemFromArray.status;
-    console.log(getItemFromArray);
-    setCartItem((prevState) =>
+    setFinalCartItem((prevState) =>
       prevState.map((state) =>
-        state.id === getItemFromArray.id
+        state.order_id === getItemFromArray.order_id
           ? { ...state, status: getItemFromArray.status }
           : state
       )
@@ -92,7 +49,7 @@ const Keranjang = () => {
   };
 
   const handleDelete = () => {
-    setCartItem((prevState) =>
+    setFinalCartItem((prevState) =>
       prevState.filter((item) => item.id !== deleteItem)
     );
     setIsOpen(false);
@@ -100,7 +57,7 @@ const Keranjang = () => {
 
   const handleCartConfirm = (e) => {
     e.preventDefault();
-    setCartItem((prevState) =>
+    setFinalCartItem((prevState) =>
       prevState.filter((item) => item.status === true)
     );
     setIsNext(true);
@@ -118,7 +75,7 @@ const Keranjang = () => {
         return <FormSablon />;
       case 4:
         return <FormSticker />;
-      case 5:
+      case "O":
         return <FormStandingPouch />;
       default:
         break;
@@ -133,19 +90,20 @@ const Keranjang = () => {
             "x-access-token": `${userToken}`,
           },
         })
-        .then((response) => console.log(response));
+        .then((response) => {
+          setFinalCartItem(response.data);
+        });
     };
     getCart();
   }, [userToken]);
 
   useEffect(() => {
     const checkStatus = () => {
-      const getStatus = cartItem.filter((item) => item.status === true);
-      console.log(getStatus);
-      getStatus.length > 0 ? setIsDisable(false) : setIsDisable(true);
+      const getStatus = finalCartItem?.filter((item) => item.status === true);
+      getStatus?.length > 0 ? setIsDisable(false) : setIsDisable(true);
     };
     checkStatus();
-  }, [cartItem]);
+  }, [finalCartItem]);
 
   return (
     <>
@@ -158,14 +116,14 @@ const Keranjang = () => {
         </div>
         {/* dummy condition */}
         {/* if data !== null */}
-        {cartItem.length > 0 ? (
+        {finalCartItem?.length > 0 ? (
           <>
             <section id="cart" className="mb-10">
-              {cartItem.map((item) => {
+              {finalCartItem?.map((item) => {
                 return (
                   <article
                     className="relative mb-10 shadow-gray rounded-2xl pt-8 px-8 pb-9 grid grid-cols-4 2xsm:grid-cols-8 2md:grid-cols-12 gap-x-8"
-                    key={item.id}
+                    key={item.order_id}
                   >
                     {/* checkbox */}
                     <div className="absolute top-6 md:top-8 left-6 md:left-8">
@@ -177,7 +135,7 @@ const Keranjang = () => {
                               : "bg-orange-900"
                           } overflow-hidden`}
                           disabled={isNext}
-                          onClick={(e) => handleCheck(e, item.id)}
+                          onClick={(e) => handleCheck(e, item.order_id)}
                         >
                           {item.status ? (
                             <div className="w-full h-full bg-gradient-to-bl from-orange-900 to-primary-900 flex items-center justify-center overflow-hidden">
@@ -194,20 +152,30 @@ const Keranjang = () => {
                     <div className="lg:col-start-2 col-span-4 2xsm:col-span-8 2md:col-span-12 lg:col-span-4">
                       <div className="mb-3 w-11/12 xs:w-3/4 lg:w-full mx-auto">
                         <img
-                          src={item.produkImg}
+                          src={`data:image/jpg;base64,${item?.order_products[0]?.products?.product_image}`}
                           alt={item.altImg}
                           className="w-full object-cover object-center"
                         />
                       </div>
-                      <p className="text-xs xs:text-base">{item.kategori}</p>
+                      <p className="text-xs xs:text-base">
+                        {
+                          item?.order_products[0]?.products?.produk_categories
+                            ?.product_category_description
+                        }
+                      </p>
                       <p className="font-bold text-base xs:text-xl md:text-2xl mb-3 line-clamp-2">
-                        {item.jenis}
+                        {
+                          item?.order_products[0]?.products?.product_finishings
+                            ?.product_finishing_name
+                        }
                       </p>
                     </div>
 
                     {/* form product */}
                     <div className="lg:col-start-7 col-span-4 2xsm:col-span-8 2md:col-span-12 lg:col-span-5">
-                      {formProduct(item.id)}
+                      {formProduct(
+                        item?.order_products[0]?.products?.product_category
+                      )}
                     </div>
 
                     {/* delete state */}
@@ -226,7 +194,7 @@ const Keranjang = () => {
                 );
               })}
             </section>
-            {isNext && <Pemesanan item={cartItem} />}
+            {isNext && <Pemesanan item={finalCartItem} />}
             <div
               className={`${isNext ? "hidden" : ""} flex justify-center mb-9`}
             >

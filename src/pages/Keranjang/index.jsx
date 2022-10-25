@@ -13,6 +13,7 @@ import { GoCheck } from "react-icons/go";
 import svg from "../../assets/svg";
 import Modal from "../../components/Card/Modal";
 import Pemesanan from "../Pemesanan";
+import { postOrder } from "../../services/api";
 
 const Keranjang = () => {
   const navigate = useNavigate();
@@ -20,6 +21,9 @@ const Keranjang = () => {
   const [deleteItem, setDeleteItem] = useState();
   const [isNext, setIsNext] = useState(false);
   const [isDisable, setIsDisable] = useState(true);
+  const user = localStorage.getItem("user");
+  const userToken = JSON.parse(user).data.token;
+  const [item, setItem] = useState();
   const [cartItem, setCartItem] = useState([
     {
       id: 1,
@@ -120,6 +124,19 @@ const Keranjang = () => {
         break;
     }
   };
+
+  useEffect(() => {
+    const getCart = async () => {
+      await postOrder
+        .get("/cart", {
+          headers: {
+            "x-access-token": `${userToken}`,
+          },
+        })
+        .then((response) => console.log(response));
+    };
+    getCart();
+  }, [userToken]);
 
   useEffect(() => {
     const checkStatus = () => {

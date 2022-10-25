@@ -62,6 +62,7 @@ const DetailProduct = () => {
       case "O":
         return setForm(
           <FormStandingPouch
+            productId={productId}
             setAlertSuccess={setAlertSuccess}
             setAlertFail={setAlertFail}
           />
@@ -69,7 +70,14 @@ const DetailProduct = () => {
       default:
         break;
     }
-  }, [data]);
+  }, [data, productId]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (alertSuccess || alertFail === true)
+        setAlertFail(false) || setAlertSuccess(false);
+    }, 2000);
+  }, [alertFail, alertSuccess]);
 
   return (
     <>
@@ -79,7 +87,7 @@ const DetailProduct = () => {
             background="bg-green-100"
             textColor="text-green-600"
             textContent="Pemesanan Berhasil"
-            closeButton="true"
+            state="true"
           />
         )}
         {alertFail && (
@@ -87,7 +95,7 @@ const DetailProduct = () => {
             background="bg-red-100"
             textColor="text-red-600"
             textContent="Login Terlebih Dahulu"
-            closeButton="true"
+            state="true"
           />
         )}
         <section className="containers">

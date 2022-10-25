@@ -29,7 +29,7 @@ export const adminAuth = axios.create({
   },
 });
 
-export const postForm = axios.create({
+export const postOrder = axios.create({
   baseURL: "http://simpelmen.herokuapp.com/api/order",
   headers: {
     "Content-Type": "application/json",

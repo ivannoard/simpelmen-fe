@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { BsCartPlus } from "react-icons/bs";
-import { postProduct } from "../../../services/api";
+import { postOrder } from "../../../services/api";
 import { IoIosArrowDown } from "react-icons/io";
 
-const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
+const FormStandingPouch = ({ productId, setAlertSuccess, setAlertFail }) => {
   const [fields, setFields] = useState({});
   const user = localStorage.getItem("user");
-  // const [size, setSize] = useState({});
 
   const dummySize = [
     {
@@ -86,24 +85,29 @@ const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
     });
   }
 
-  async function handleSubmit(e) {
+  async function handleCart(e) {
     e.preventDefault();
+    const finalSpesification = {
+      panjang_1: parseInt(fields.spesifikasi.split(" ")[0]),
+      lebar_1: parseInt(fields.spesifikasi.split(" ")[3]),
+      order_design: fields.desain,
+      order_quantity: parseInt(fields.jumlah),
+    };
+
     if (user) {
-      await postProduct
-        .post("/Xk17j2l08BHDkmwD3lgW")
-        .then((response) => console.log(response));
+      await postOrder.post(`/cart/${productId}`, finalSpesification, {
+        headers: {
+          "x-access-token": `${JSON.parse(user).data.token}`,
+        },
+      });
       setAlertSuccess(true);
-      console.log(fields);
     } else {
       setAlertFail(true);
-      console.log("no user");
     }
   }
 
-  console.log(finalDummy);
-
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
+    <form>
       <div className="relative">
         <label
           htmlFor="spesifikasi"
@@ -119,7 +123,9 @@ const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
         >
           <option>Pilih Spesifikasi</option>
           {finalDummy.map((item, index) => (
-            <option value={index}>
+            <option
+              value={`${item.size.p} cm X ${item.size.l} cm ${item.lamination}`}
+            >
               {item.size.p} cm X {item.size.l} cm {item.lamination}
             </option>
           ))}
@@ -141,7 +147,7 @@ const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
         >
           <option>Pilih Desain</option>
           {dummyDesign.map((item, index) => (
-            <option value={index}>{item}</option>
+            <option value={item}>{item}</option>
           ))}
         </select>
         <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
@@ -187,7 +193,7 @@ const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
       </div>
       <div className="buttons flex justify-end mt-8 gap-5">
         <button className="button-fill !py-4">Pesan Sekarang</button>
-        <button className="button-white !p-4">
+        <button className="button-white !p-4" onClick={(e) => handleCart(e)}>
           <BsCartPlus size={20} className="mx-auto" />
         </button>
       </div>

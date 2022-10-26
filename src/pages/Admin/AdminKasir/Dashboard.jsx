@@ -43,10 +43,10 @@ const Dashboard = () => {
                     <td className="text-left p-3">Ikha Katering</td>
                     <td className="text-center p-3">
                       <div className="flex gap-2 w-full justify-center item-center">
-                        <div className="bg-[#21B630] text-white py-2 px-3 rounded-lg font-semibold">
+                        <div className="bg-[#21B630] text-white py-2 px-4 rounded-lg font-semibold">
                           Langsung
                         </div>
-                        <div className="bg-[#6D6061] text-white py-2 px-3 rounded-lg font-semibold">
+                        <div className="bg-[#6D6061] text-white py-2 px-4 rounded-lg font-semibold">
                           Belum Lunas
                         </div>
                       </div>
@@ -113,7 +113,7 @@ const Dashboard = () => {
                     <td className="text-center p-3">Rp. 120.000</td>
                     <td className="text-center p-3">
                       <div className="flex justify-center">
-                        <div className="bg-[#21B630] text-white py-2 px-4 rounded-lg font-semibold">
+                        <div className="bg-[#21B630] text-white py-2 px-8 rounded-lg font-semibold">
                           Disetujui
                         </div>
                       </div>

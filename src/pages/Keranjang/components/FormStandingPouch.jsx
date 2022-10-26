@@ -29,7 +29,7 @@ const FormStandingPouch = ({ data }) => {
           onChange={(e) => handleChange(e)}
           className="input-field-select-xs"
         >
-          <option>Pilih Spesifikasi</option>
+          <option>{`${data.order_details[0].p1} X ${data.order_details[0].l1}`}</option>
           {/* {finalDummy.map((item, index) => (
             <option
               value={`${item.size.p} cm X ${item.size.l} cm ${item.lamination}`}
@@ -53,7 +53,7 @@ const FormStandingPouch = ({ data }) => {
           onChange={(e) => handleChange(e)}
           className="input-field-select-xs"
         >
-          <option>Pilih Desain</option>
+          <option>{data.order_design}</option>
           {/* {dummyDesign.map((item, index) => (
             <option value={item}>{item}</option>
           ))} */}
@@ -95,6 +95,7 @@ const FormStandingPouch = ({ data }) => {
             placeholder="Masukkan Jumlah Pesanan"
             required
             onChange={(e) => handleChange(e)}
+            defaultValue={data.order_quantity}
           />
           <span className="text-gray-400 absolute right-3 top-[11px]">pcs</span>
         </div>

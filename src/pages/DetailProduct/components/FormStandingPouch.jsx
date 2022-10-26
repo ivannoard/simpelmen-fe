@@ -126,6 +126,7 @@ const FormStandingPouch = ({ productId, setAlertSuccess, setAlertFail }) => {
           {finalDummy.map((item, index) => (
             <option
               value={`${item.size.p} cm X ${item.size.l} cm ${item.lamination}`}
+              key={index}
             >
               {item.size.p} cm X {item.size.l} cm {item.lamination}
             </option>
@@ -148,7 +149,9 @@ const FormStandingPouch = ({ productId, setAlertSuccess, setAlertFail }) => {
         >
           <option>Pilih Desain</option>
           {dummyDesign.map((item, index) => (
-            <option value={item}>{item}</option>
+            <option value={item} key={index}>
+              {item}
+            </option>
           ))}
         </select>
         <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />

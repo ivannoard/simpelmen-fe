@@ -3,9 +3,8 @@ import { BsCartPlus } from "react-icons/bs";
 import { postProduct } from "../../../services/api";
 import { IoIosArrowDown } from "react-icons/io";
 
-const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
+const FormStandingPouch = ({ data }) => {
   const [fields, setFields] = useState({});
-  // const user = localStorage.getItem('user');
 
   function handleChange(e) {
     e.preventDefault();
@@ -13,20 +12,6 @@ const FormStandingPouch = ({ setAlertSuccess, setAlertFail }) => {
       ...fields,
       [e.target.getAttribute("name")]: e.target.value,
     });
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    // if (user) {
-    //   await postProduct
-    //     .post('/Xk17j2l08BHDkmwD3lgW')
-    //     .then((response) => console.log(response));
-    //   setAlertSuccess(true);
-    //   console.log(fields);
-    // } else {
-    //   setAlertFail(true);
-    //   console.log('no user');
-    // }
   }
 
   return (

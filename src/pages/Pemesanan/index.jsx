@@ -1,16 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "../../components/Card/Modal";
 import { IoIosArrowDown } from "react-icons/io";
 import svg from "../../assets/svg";
+import { getUser, postOrder } from "../../services/api";
+import useGeoLocation from "../../hooks/useGeoLocation";
 
 const dummy = true;
 
 const Pemesanan = ({ item }) => {
+  const currentUser = localStorage.getItem("user");
+  const parseUser = JSON.parse(currentUser);
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const [fields, setFields] = useState({});
   const [isJasaKirim, setIsJasaKirim] = useState(false);
+  const [userData, setUserData] = useState();
+  const [fields, setFields] = useState({});
+  const { data: provinceData } = useGeoLocation(
+    `https://simpelmen.herokuapp.com/api/province`
+  );
+  const { data: cityData } = useGeoLocation(
+    `https://simpelmen.herokuapp.com/api/city?province_id=${fields.user_province}`
+  );
+  const { data: districtData } = useGeoLocation(
+    `https://simpelmen.herokuapp.com/api/district?city_id=${fields.user_city}`
+  );
 
   const closeModal = () => {
     setIsOpen(false);
@@ -33,16 +47,69 @@ const Pemesanan = ({ item }) => {
     }
   };
 
+  // toggle modal post product
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(fields);
     openModal();
   };
 
+  // post product checkout api
   const handleCheckout = async () => {
-    console.log("checkout");
+    await postOrder
+      .put(
+        `/checkout?order_id=${item[0].order_id}`,
+        {
+          delivery_detail_order_id: item[0].order_id,
+          delivery_detail_name: fields.user_name,
+          delivery_detail_ikm: fields.user_ikm,
+          delivery_detail_email: fields.user_email,
+          delivery_detail_contact: fields.user_contact,
+          delivery_detail_method: fields.user_shipping,
+          delivery_detail_address: fields.user_address,
+          delivery_detail_district: fields.user_district,
+          delivery_detail_postal_code: fields.postal_code,
+          delivery_detail_couried: fields.user_courier,
+        },
+        {
+          headers: {
+            "x-access-token": parseUser.data.token,
+          },
+        }
+      )
+      .then((response) => navigate("/"))
+      .catch((e) => console.log(e));
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    const getUserData = async () => {
+      await getUser
+        .get("/profile", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => {
+          setUserData(response);
+          setFields({
+            user_name: response.data.data.user_name,
+            user_ikm: response.data.data.user_ikm,
+            user_email: response.data.data.user_email,
+            user_contact: response.data.data.user_contact,
+            user_address: response.data.data.user_address,
+            user_province:
+              response.data.data.subdistricts.cities.provinces.province,
+            user_city: response.data.data.subdistricts.cities.city_name,
+            user_district: response.data.data.user_district,
+            user_postal_code: response.data.data.user_postal_code,
+            user_shipping: "sendiri",
+            user_courier: "jk1",
+          });
+        })
+        .catch((e) => console.log(e));
+    };
+    getUserData();
+  }, [parseUser.data.token]);
 
   return (
     <>
@@ -57,7 +124,7 @@ const Pemesanan = ({ item }) => {
               <div className="col-span-4 2md:col-span-6">
                 <div className="mb-5">
                   <label
-                    htmlFor="fullname"
+                    htmlFor="user_name"
                     className="block mb-2 text-sm font-medium text-gray-700"
                   >
                     Nama Lengkap <span className="text-red-500">*</span>
@@ -66,14 +133,16 @@ const Pemesanan = ({ item }) => {
                     type="text"
                     className="input-field-xs"
                     placeholder="Masukkan Nama Lengkap"
-                    name="fullname"
+                    name="user_name"
+                    id="user_name"
                     required
                     onChange={(e) => handleChange(e)}
+                    defaultValue={userData?.data?.data?.user_name}
                   />
                 </div>
                 <div className="mb-5">
                   <label
-                    htmlFor="ikm"
+                    htmlFor="user_ikm"
                     className="block mb-2 text-sm font-medium text-gray-700"
                   >
                     Nama IKM <span className="text-red-500">*</span>
@@ -82,14 +151,16 @@ const Pemesanan = ({ item }) => {
                     type="text"
                     className="input-field-xs"
                     placeholder="Masukkan Nama IKM"
-                    name="ikm"
+                    name="user_ikm"
+                    id="user_ikm"
                     required
                     onChange={(e) => handleChange(e)}
+                    defaultValue={userData?.data?.data?.user_ikm}
                   />
                 </div>
                 <div className="mb-5">
                   <label
-                    htmlFor="email"
+                    htmlFor="user_email"
                     className="block mb-2 text-sm font-medium text-gray-700"
                   >
                     Email <span className="text-red-500">*</span>
@@ -98,14 +169,16 @@ const Pemesanan = ({ item }) => {
                     type="email"
                     className="input-field-xs"
                     placeholder="Masukkan Email"
-                    name="email"
+                    name="user_email"
+                    id="user_email"
                     required
                     onChange={(e) => handleChange(e)}
+                    defaultValue={userData?.data?.data?.user_email}
                   />
                 </div>
                 <div className="mb-5">
                   <label
-                    htmlFor="phone"
+                    htmlFor="user_contact"
                     className="block mb-2 text-sm font-medium text-gray-700"
                   >
                     No. Handphone <span className="text-red-500">*</span>
@@ -114,9 +187,11 @@ const Pemesanan = ({ item }) => {
                     type="text"
                     className="input-field-xs"
                     placeholder="Masukkan Nomor Handphone"
-                    name="phone"
+                    name="user_contact"
+                    id="user_contact"
                     required
                     onChange={(e) => handleChange(e)}
+                    defaultValue={userData?.data?.data?.user_contact}
                   />
                 </div>
                 <div className="mb-5">
@@ -135,14 +210,14 @@ const Pemesanan = ({ item }) => {
                 </div>
                 <div className="mb-5">
                   <label
-                    htmlFor="catatan"
+                    htmlFor="user_note"
                     className="block mb-2 text-sm font-medium text-gray-700"
                   >
                     Catatan
                   </label>
                   <textarea
-                    name="catatan"
-                    id="catatan"
+                    name="user_note"
+                    id="user_note"
                     cols="30"
                     rows="4"
                     className="input-field-xs"
@@ -155,7 +230,7 @@ const Pemesanan = ({ item }) => {
               <div className="col-span-4 2md:col-span-6">
                 <div className="mb-5">
                   <label
-                    htmlFor="address"
+                    htmlFor="user_address"
                     className="block mb-2 text-sm font-medium text-gray-700"
                   >
                     Alamat Lengkap <span className="text-red-500">*</span>
@@ -164,71 +239,110 @@ const Pemesanan = ({ item }) => {
                     type="text"
                     className="input-field-xs"
                     placeholder="Masukkan Alamat Lengkap"
-                    name="address"
+                    name="user_address"
+                    id="user_address"
                     required
                     onChange={(e) => handleChange(e)}
+                    defaultValue={userData?.data?.data?.user_address}
                   />
                 </div>
                 <div className="mb-5 relative">
                   <label
-                    htmlFor="kecamatan"
-                    className="block mb-2 text-sm font-medium text-gray-700"
-                  >
-                    Kecamatan <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    name="kecamatan"
-                    id="kecamatan"
-                    className="input-field-select-xs"
-                    required
-                    onChange={(e) => handleChange(e)}
-                  >
-                    <option value="kec1">Kecamatan 1</option>
-                    <option value="kec2">Kecamatan 2</option>
-                  </select>
-                  <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
-                </div>
-                <div className="mb-5 relative">
-                  <label
-                    htmlFor="kota"
-                    className="block mb-2 text-sm font-medium text-gray-700"
-                  >
-                    Kota / Kabupaten <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    name="kota"
-                    id="kota"
-                    className="input-field-select-xs"
-                    required
-                    onChange={(e) => handleChange(e)}
-                  >
-                    <option value="kota1">Kota 1</option>
-                    <option value="kota2">Kota 2</option>
-                  </select>
-                  <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
-                </div>
-                <div className="mb-5 relative">
-                  <label
-                    htmlFor="provinsi"
+                    htmlFor="user_province"
                     className="block mb-2 text-sm font-medium text-gray-700"
                   >
                     Provinsi <span className="text-red-500">*</span>
                   </label>
                   <select
-                    name="provinsi"
-                    id="provinsi"
+                    name="user_province"
+                    id="user_province"
                     className="input-field-select-xs"
                     required
                     onChange={(e) => handleChange(e)}
                   >
-                    <option value="prov1">Provinsi 1</option>
-                    <option value="prov2">Provinsi 2</option>
+                    <option
+                      value={
+                        userData?.data?.data?.subdistricts?.cities.provinces
+                          .province_id
+                      }
+                    >
+                      {userData?.data?.data?.subdistricts
+                        ? userData?.data.data.subdistricts?.cities.provinces
+                            .province
+                        : "Pilih Provinsi"}
+                    </option>
+                    {provinceData?.map((item) => (
+                      <option value={item.province_id} key={item.province_id}>
+                        {item.province}
+                      </option>
+                    ))}
+                  </select>
+                  <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
+                </div>
+                <div className="mb-5 relative">
+                  <label
+                    htmlFor="user_city"
+                    className="block mb-2 text-sm font-medium text-gray-700"
+                  >
+                    Kota / Kabupaten <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    name="user_city"
+                    id="user_city"
+                    className="input-field-select-xs"
+                    required
+                    onChange={(e) => handleChange(e)}
+                  >
+                    <option
+                      value={userData?.data?.data?.subdistricts?.cities.city_id}
+                    >
+                      {userData?.data?.data?.subdistricts
+                        ? userData?.data?.data?.subdistricts?.cities.city_name
+                        : "Pilih Kota/Kabupaten"}
+                    </option>
+                    {cityData?.map((item) => (
+                      <option value={item.city_id} key={item.city_id}>
+                        {item.city_name}
+                      </option>
+                    ))}
+                  </select>
+                  <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
+                </div>
+                <div className="mb-5 relative">
+                  <label
+                    htmlFor="user_district"
+                    className="block mb-2 text-sm font-medium text-gray-700"
+                  >
+                    Kecamatan <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    name="user_district"
+                    id="user_district"
+                    className="input-field-select-xs"
+                    required
+                    onChange={(e) => handleChange(e)}
+                  >
+                    <option
+                      value={userData?.data?.data?.subdistricts?.subdistrict_id}
+                    >
+                      {userData?.data?.data?.subdistricts
+                        ? userData?.data?.data?.subdistricts?.subdistrict_name
+                        : "Pilih Kecamatan"}
+                    </option>
+                    {districtData?.map((item) => (
+                      <option
+                        value={item.subdistrict_id}
+                        key={item.subdistrict_id}
+                      >
+                        {item.subdistrict_name}
+                      </option>
+                    ))}
                   </select>
                   <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
                 </div>
                 <div className="mb-5">
                   <label
-                    htmlFor="kodePos"
+                    htmlFor="user_postal_code"
                     className="block mb-2 text-sm font-medium text-gray-700"
                   >
                     Kode Pos <span className="text-red-500">*</span>
@@ -237,9 +351,11 @@ const Pemesanan = ({ item }) => {
                     type="text"
                     className="input-field-xs"
                     placeholder="Masukkan Nomor Kode Pos"
-                    name="kodePos"
+                    name="user_postal_code"
+                    id="user_postal_code"
                     required
                     onChange={(e) => handleChange(e)}
+                    defaultValue={userData?.data?.data?.user_postal_code}
                   />
                 </div>
                 <div className="mb-5">
@@ -266,9 +382,9 @@ const Pemesanan = ({ item }) => {
                   <div className="flex items-center gap-x-5">
                     <label className="relative block">
                       <input
-                        id="pengirimanDikirim"
+                        id="user_shipping"
                         type="radio"
-                        name="pengiriman"
+                        name="user_shipping"
                         value="dikirim"
                         className="absolute opacity-0 top-0 left-0 -z-10"
                         onChange={(e) => handleChange(e)}
@@ -285,9 +401,9 @@ const Pemesanan = ({ item }) => {
                     </label>
                     <label className="relative block">
                       <input
-                        id="pengirimanSendiri"
+                        id="user_shipping"
                         type="radio"
-                        name="pengiriman"
+                        name="user_shipping"
                         value="sendiri"
                         className="absolute opacity-0 top-0 left-0 -z-10"
                         onChange={(e) => handleChange(e)}
@@ -304,21 +420,23 @@ const Pemesanan = ({ item }) => {
                     </label>
                   </div>
                 </div>
+                {/* need api rajaongkir for courier */}
                 {isJasaKirim && (
                   <div className="mb-5 relative">
                     <label
-                      htmlFor="jasaKirim"
+                      htmlFor="user_courier"
                       className="block mb-2 text-sm font-medium text-gray-700"
                     >
                       Jasa Kirim
                     </label>
                     <select
-                      name="jasaKirim"
-                      id="jasaKirim"
+                      name="user_courier"
+                      id="user_courier"
                       className="input-field-select-xs"
                       required
                       onChange={(e) => handleChange(e)}
                     >
+                      {/* get rajaongkir api */}
                       <option value="jk1">Jasa Kirim 1</option>
                       <option value="jk2">Jasa Kirim 2</option>
                     </select>

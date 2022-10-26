@@ -95,12 +95,13 @@ const FormStandingPouch = ({ productId, setAlertSuccess, setAlertFail }) => {
     };
 
     if (user) {
-      await postOrder.post(`/cart/${productId}`, finalSpesification, {
-        headers: {
-          "x-access-token": `${JSON.parse(user).data.token}`,
-        },
-      });
-      setAlertSuccess(true);
+      await postOrder
+        .post(`/cart/${productId}`, finalSpesification, {
+          headers: {
+            "x-access-token": `${JSON.parse(user).data.token}`,
+          },
+        })
+        .then((response) => setAlertSuccess(true));
     } else {
       setAlertFail(true);
     }

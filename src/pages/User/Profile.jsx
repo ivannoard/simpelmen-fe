@@ -3,10 +3,14 @@ import Modal from "../../components/Card/Modal";
 import { IoIosArrowDown } from "react-icons/io";
 import { getUser } from "../../services/api";
 import useGeoLocation from "../../hooks/useGeoLocation";
+import Alerts from "../../components/Alerts";
 
 const Profile = () => {
   const currentUser = localStorage.getItem("user");
   const parseUser = JSON.parse(currentUser);
+  const [alertSuccess, setAlertSuccess] = useState(false);
+  const [alertFail, setAlertFail] = useState(false);
+  const [failMessage, setFailMessage] = useState("");
   const [toggleDisabled, setToggleDisabled] = useState(true);
   const [toggleConfirm, setToggleConfirm] = useState(false);
   const [togglePwdDisabled, setTogglePwdDisabled] = useState(true);
@@ -48,7 +52,6 @@ const Profile = () => {
   function handleSubmit(e) {
     e.preventDefault();
     setToggleConfirm(true);
-    console.log(fields);
   }
 
   const handleEdit = async () => {
@@ -59,8 +62,11 @@ const Profile = () => {
           "x-access-token": `${parseUser.data.token}`,
         },
       })
-      .then((response) => console.log(response))
-      .catch((e) => console.log(e));
+      .then((response) => setAlertSuccess(true))
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
   };
 
   const closeModalPwdConfirm = () => {
@@ -111,10 +117,32 @@ const Profile = () => {
     getUserData();
   }, [parseUser.data.token]);
 
-  console.log(userData);
+  useEffect(() => {
+    setTimeout(() => {
+      if (alertSuccess || alertFail === true)
+        setAlertFail(false) || setAlertSuccess(false);
+    }, 2000);
+  }, [alertFail, alertSuccess]);
 
   return (
     <>
+      {alertSuccess && (
+        <Alerts
+          state="true"
+          background="bg-green-100"
+          textColor="text-green-600"
+          textContent="Profil Berhasil Diubah"
+        />
+      )}
+      {alertFail && (
+        <Alerts
+          state="true"
+          background="bg-red-100"
+          textColor="text-red-600"
+          textContent={`Ups, sepertinya ada yang salah: ${failMessage}`}
+          closeButton="true"
+        />
+      )}
       <section>
         <article className="mb-12">
           <form
@@ -129,7 +157,7 @@ const Profile = () => {
             <div className="col-span-4">
               <div className="">
                 <label
-                  htmlFor="nama"
+                  htmlFor="user_name"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Nama Lengkap
@@ -149,7 +177,7 @@ const Profile = () => {
               </div>
               <div className="mt-4">
                 <label
-                  htmlFor="namaikm"
+                  htmlFor="user_ikm"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Nama IKM
@@ -169,7 +197,7 @@ const Profile = () => {
               </div>
               <div className="mt-4">
                 <label
-                  htmlFor="email"
+                  htmlFor="user_email"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Email
@@ -189,7 +217,7 @@ const Profile = () => {
               </div>
               <div className="mt-4">
                 <label
-                  htmlFor="handphone"
+                  htmlFor="user_contact"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   No. Handphone
@@ -211,7 +239,7 @@ const Profile = () => {
             <div className="col-span-4">
               <div className="">
                 <label
-                  htmlFor="alamat"
+                  htmlFor="user_address"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Alamat Lengkap

@@ -12,6 +12,7 @@ import svg from "../../assets/svg";
 import Modal from "../../components/Card/Modal";
 import Pemesanan from "../Pemesanan";
 import { postOrder } from "../../services/api";
+import CartSkeleton from "../../components/Skeletons/CartSkeleton";
 
 const Keranjang = () => {
   const navigate = useNavigate();
@@ -65,7 +66,7 @@ const Keranjang = () => {
   };
 
   // Set Dynamic Form
-  const formProduct = (product) => {
+  const formProduct = (product, data) => {
     switch (product) {
       case 1:
         return <FormKarton />;
@@ -76,7 +77,7 @@ const Keranjang = () => {
       case 4:
         return <FormSticker />;
       case "O":
-        return <FormStandingPouch />;
+        return <FormStandingPouch data={data} />;
       default:
         break;
     }
@@ -116,7 +117,13 @@ const Keranjang = () => {
         </div>
         {/* dummy condition */}
         {/* if data !== null */}
-        {finalCartItem?.length > 0 ? (
+        {!finalCartItem ? (
+          <div className="flex flex-col gap-5">
+            {[1, 2, 3].map((item) => (
+              <CartSkeleton key={item} />
+            ))}
+          </div>
+        ) : finalCartItem.length > 0 ? (
           <>
             <section id="cart" className="mb-10">
               {finalCartItem?.map((item) => {
@@ -174,7 +181,8 @@ const Keranjang = () => {
                     {/* form product */}
                     <div className="lg:col-start-7 col-span-4 2xsm:col-span-8 2md:col-span-12 lg:col-span-5">
                       {formProduct(
-                        item?.order_products[0]?.products?.product_category
+                        item?.order_products[0]?.products?.product_category,
+                        item
                       )}
                     </div>
 

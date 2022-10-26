@@ -19,7 +19,6 @@ const AdminCS = () => {
   const { pathname } = useLocation();
   const [content, setContent] = useState();
   const { retribusiId } = useParams();
-
   const adminRole = localStorage.getItem("admin");
   const decode_token = jwt_decode(JSON.parse(adminRole).data.token);
   const navigate = useNavigate();

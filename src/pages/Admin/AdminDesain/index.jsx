@@ -8,18 +8,17 @@ import Dashboard from "./Dashboard";
 import Riwayat from "./Riwayat";
 import Konfirmasi from "./Konfirmasi";
 import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
-
-const AdminCS = () => {
+import jwt_decode from "jwt-decode";
+const AdminDesain = () => {
   const [toggle, setToggle] = useState(true);
   const { pathname } = useLocation();
   const [content, setContent] = useState();
-
   const adminRole = localStorage.getItem("admin");
-  console.log(adminRole);
+  const decode_token = jwt_decode(JSON.parse(adminRole).data.token);
   const navigate = useNavigate();
   useEffect(() => {
-    if (parseInt(adminRole) !== 2) navigate("/admin/login");
-  }, [adminRole, navigate]);
+    if (decode_token.user_role_id !== 4) navigate("/admin/login");
+  }, [adminRole, decode_token.user_role_id, navigate]);
 
   useEffect(() => {
     switch (pathname.split("/")[4]) {
@@ -94,4 +93,4 @@ const AdminCS = () => {
   );
 };
 
-export default AdminCS;
+export default AdminDesain;

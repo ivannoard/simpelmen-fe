@@ -11,18 +11,17 @@ import Produk from "./Produk";
 import Spesifikasi from "./Spesifikasi";
 import Rekap from "./Rekap";
 import Profil from "./Profil";
-
+import jwt_decode from "jwt-decode";
 const AdminSuper = () => {
   const [toggle, setToggle] = useState(true);
   const { pathname } = useLocation();
   const [content, setContent] = useState();
-
   const adminRole = localStorage.getItem("admin");
-  console.log(adminRole);
+  const decode_token = jwt_decode(JSON.parse(adminRole).data.token);
   const navigate = useNavigate();
   useEffect(() => {
-    if (parseInt(adminRole) !== 6) navigate("/admin/login");
-  }, [adminRole, navigate]);
+    if (decode_token.user_role_id !== 1) navigate("/admin/login");
+  }, [adminRole, decode_token.user_role_id, navigate]);
 
   useEffect(() => {
     switch (pathname.split("/")[4]) {

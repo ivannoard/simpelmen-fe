@@ -8,18 +8,17 @@ import Dashboard from "./Dashboard";
 import Pembayaran from "./Pembayaran";
 import PAD from "./PAD";
 import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
-
+import jwt_decode from "jwt-decode";
 const AdminKasir = () => {
   const [toggle, setToggle] = useState(true);
   const { pathname } = useLocation();
   const [content, setContent] = useState();
-
   const adminRole = localStorage.getItem("admin");
-  console.log(pathname.split("/"));
+  const decode_token = jwt_decode(JSON.parse(adminRole).data.token);
   const navigate = useNavigate();
   useEffect(() => {
-    if (parseInt(adminRole) !== 4) navigate("/admin/login");
-  }, [adminRole, navigate]);
+    if (decode_token.user_role_id !== 3) navigate("/admin/login");
+  }, [adminRole, decode_token.user_role_id, navigate]);
 
   useEffect(() => {
     switch (pathname.split("/")[4]) {

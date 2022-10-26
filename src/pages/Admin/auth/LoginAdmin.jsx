@@ -29,10 +29,10 @@ const LoginAdmin = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     await adminAuth
-      .post("/jeNGzxdJpYF9n2Q93eBj", fields)
+      .post("/login", fields)
       .then((response) => {
-        localStorage.setItem("admin", JSON.stringify(2));
-
+        // console.log(response.data);
+        localStorage.setItem("admin", JSON.stringify(response.data));
         setTimeout(() => {
           if (localStorage.getItem("admin")) navigate("/admin");
           // window.location.replace("https://www.google.com");

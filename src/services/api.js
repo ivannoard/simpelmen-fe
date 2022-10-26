@@ -23,7 +23,7 @@ export const getUser = axios.create({
 });
 
 export const adminAuth = axios.create({
-  baseURL: "https://hookb.in/",
+  baseURL: "http://simpelmen.herokuapp.com/api/auth",
   headers: {
     "Content-Type": "application/json",
   },

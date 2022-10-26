@@ -1,25 +1,26 @@
-import { HiChevronDown } from 'react-icons/hi';
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { Menu, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
-import svg from '../../../assets/svg';
+import { HiChevronDown } from "react-icons/hi";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { Menu, Transition } from "@headlessui/react";
+import { Fragment } from "react";
+import svg from "../../../assets/svg";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const user = localStorage.getItem("user");
 
   const handleLogout = (e) => {
-    localStorage.removeItem('user');
-    navigate('/');
+    localStorage.removeItem("user");
+    navigate("/");
   };
 
   const capitalizeFirstLetter = (str) => {
-    let splitStr = str.toLowerCase().split(' ');
+    let splitStr = str.toLowerCase().split(" ");
     for (let i = 0; i < splitStr.length; i++) {
       splitStr[i] =
         splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
     }
-    return splitStr.join(' ');
+    return splitStr.join(" ");
   };
 
   return (
@@ -33,14 +34,11 @@ const Navbar = () => {
           alt="logo-dashboard-user"
           className="block sm:hidden w-100/sp"
         />
-        <Menu
-          as="div"
-          className="relative"
-        >
+        <Menu as="div" className="relative">
           <Menu.Button>
             <div className="flex items-center ml-4">
               <p className="text-15/sp font-semibold mr-2 max-w-[5.625rem] lg:max-w-none truncate">
-                Username
+                {JSON.parse(user).data.user_name}
               </p>
               <HiChevronDown className="text-2xl" />
             </div>
@@ -59,10 +57,7 @@ const Navbar = () => {
               className="absolute flex flex-col shadow-md top-10 right-0 bg-white rounded-xl border w-40 overflow-hidden z-50"
             >
               <Menu.Item as="div">
-                <NavLink
-                  to="/"
-                  className="navlink-mobile"
-                >
+                <NavLink to="/" className="navlink-mobile">
                   Beranda
                 </NavLink>
               </Menu.Item>
@@ -81,7 +76,7 @@ const Navbar = () => {
         </Menu>
       </nav>
       <p className="text-2xl font-bold block sm:hidden">
-        {capitalizeFirstLetter(pathname.split('/')[2].replace('-', ' '))}
+        {capitalizeFirstLetter(pathname.split("/")[2].replace("-", " "))}
       </p>
     </>
   );

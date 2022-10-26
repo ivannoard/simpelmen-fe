@@ -70,7 +70,7 @@ function App() {
         <Route element={<WithoutFrame />}>
           {/* User Authentication */}
           <Route
-            path="/login"
+            path="/login/"
             element={
               <AuthenticatedRoute>
                 <Login />

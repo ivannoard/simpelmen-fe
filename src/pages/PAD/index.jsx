@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { HiOutlineArrowSmLeft } from 'react-icons/hi';
-import { Link } from 'react-router-dom';
-import Modal from '../../components/Card/Modal';
+import React, { useState } from "react";
+import { HiOutlineArrowSmLeft } from "react-icons/hi";
+import { Link } from "react-router-dom";
+import Modal from "../../components/Card/Modal";
 
 const PAD = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,10 +18,7 @@ const PAD = () => {
       <main>
         <section className="containers">
           <div className="mt-0 xs:mt-7 mb-5 flex">
-            <Link
-              to="/"
-              className="flex items-center mb-3"
-            >
+            <Link to="/" className="flex items-center mb-3">
               <HiOutlineArrowSmLeft className="text-2xl mr-3" />
               <span className="leading-10">Kembali</span>
             </Link>
@@ -302,17 +299,14 @@ const PAD = () => {
             </table>
           </div>
           <div className="flex justify-center">
-            <button
-              className="button-gradient"
-              type="button"
-            >
+            <button className="button-gradient" type="button">
               Unduh PAD
             </button>
           </div>
         </section>
 
         {/* check modal error */}
-        <div className="flex justify-center">
+        {/* <div className="flex justify-center">
           <button
             className="button-fill"
             type="button"
@@ -320,7 +314,7 @@ const PAD = () => {
           >
             Show Error Modal
           </button>
-        </div>
+        </div> */}
 
         {/* modal */}
         <Modal

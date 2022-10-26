@@ -29,6 +29,13 @@ export const adminAuth = axios.create({
   },
 });
 
+export const postOrder = axios.create({
+  baseURL: "http://simpelmen.herokuapp.com/api/order",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 export const postProduct = axios.create({
   baseURL: "https://hookb.in/",
   headers: {

@@ -10,7 +10,6 @@ const OurProduct = () => {
   const { data, isLoading } = useProducts(
     "https://simpelmen.herokuapp.com/api/product"
   );
-  console.log(data);
 
   return (
     <>

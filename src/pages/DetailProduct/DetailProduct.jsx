@@ -62,6 +62,7 @@ const DetailProduct = () => {
       case "O":
         return setForm(
           <FormStandingPouch
+            productId={productId}
             setAlertSuccess={setAlertSuccess}
             setAlertFail={setAlertFail}
           />
@@ -69,7 +70,14 @@ const DetailProduct = () => {
       default:
         break;
     }
-  }, [data]);
+  }, [data, productId]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (alertSuccess || alertFail === true)
+        setAlertFail(false) || setAlertSuccess(false);
+    }, 2000);
+  }, [alertFail, alertSuccess]);
 
   return (
     <>
@@ -79,7 +87,7 @@ const DetailProduct = () => {
             background="bg-green-100"
             textColor="text-green-600"
             textContent="Pemesanan Berhasil"
-            closeButton="true"
+            state="true"
           />
         )}
         {alertFail && (
@@ -87,7 +95,7 @@ const DetailProduct = () => {
             background="bg-red-100"
             textColor="text-red-600"
             textContent="Login Terlebih Dahulu"
-            closeButton="true"
+            state="true"
           />
         )}
         <section className="containers">
@@ -139,12 +147,13 @@ const DetailProduct = () => {
               ) : (
                 <>
                   <p className="text-3xl">
-                    Bahan:{" "}
-                    <span>{data?.product_materials.product_material_name}</span>
+                    {/* Bahan:{" "} */}
+                    <span>{data?.product_name}</span>
                   </p>
-
-                  <h2 className="text-orange-900 mb-2">{data?.product_name}</h2>
-                  <p>{data?.product_materials.product_material_description}</p>
+                  <h2 className="text-orange-900 mb-2">
+                    {data?.jenis_products.jenis_product_name}
+                  </h2>
+                  {/* <p>{data?.product_materials.product_material_description}</p> */}
                 </>
               )}
             </div>

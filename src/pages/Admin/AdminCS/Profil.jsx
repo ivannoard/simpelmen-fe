@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { adminCS } from "../../../services/api";
 
 const Profil = () => {
+  const user = localStorage.getItem("admin");
+  const parseUser = JSON.parse(user);
   const [toggleDisabledProfile, setToggleDisabledProfile] = useState(true);
   const [toggleDisabledPwd, setToggleDisabledPwd] = useState(true);
   const [fieldsProfile, setFieldsProfile] = useState({});
@@ -10,7 +13,7 @@ const Profil = () => {
     e.preventDefault();
     setFieldsProfile({
       ...fieldsProfile,
-      [e.target.getAttribute('name')]: e.target.value,
+      [e.target.getAttribute("name")]: e.target.value,
     });
   };
 
@@ -18,7 +21,7 @@ const Profil = () => {
     e.preventDefault();
     setFieldsPwd({
       ...fieldsPwd,
-      [e.target.getAttribute('name')]: e.target.value,
+      [e.target.getAttribute("name")]: e.target.value,
     });
   };
 
@@ -32,6 +35,24 @@ const Profil = () => {
     console.log(fieldsPwd);
   };
 
+  useEffect(() => {
+    const getAdmin = async () => {
+      await adminCS
+        .get("/profile", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) =>
+          setFieldsProfile({
+            user_name: response.data.data.user_name,
+            user_email: response.data.data.user_email,
+          })
+        );
+    };
+    getAdmin();
+  }, [parseUser.data.token]);
+
   return (
     <>
       <section>
@@ -40,13 +61,10 @@ const Profil = () => {
             <div className="border-b border-orange-900 mb-8">
               <h3 className="pb-4">Update Profile Admin</h3>
             </div>
-            <form
-              className=""
-              onSubmit={(e) => handleSubmitProfile(e)}
-            >
+            <form className="" onSubmit={(e) => handleSubmitProfile(e)}>
               <div className="relative w-full flex flex-col mb-4">
                 <label
-                  htmlFor="nama"
+                  htmlFor="user_name"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Nama Lengkap
@@ -55,18 +73,18 @@ const Profil = () => {
                   type="text"
                   className="input-field-xs"
                   placeholder="Masukkan Nama Lengkap"
-                  name="nama"
-                  id="nama"
+                  name="user_name"
+                  id="user_name"
                   required
                   autoComplete="on"
                   disabled={toggleDisabledProfile}
                   onChange={handleChangeProfile}
-                  value={fieldsProfile.nama}
+                  defaultValue={fieldsProfile.user_name}
                 />
               </div>
               <div className="relative w-full flex flex-col mb-4">
                 <label
-                  htmlFor="posisi"
+                  htmlFor="position_admin"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Posisi Admin
@@ -75,18 +93,18 @@ const Profil = () => {
                   type="text"
                   className="input-field-xs"
                   placeholder="Masukkan Posisi Admin"
-                  name="posisi"
-                  id="posisi"
+                  name="position_admin"
+                  id="position_admin"
+                  disabled
                   required
-                  disabled={toggleDisabledProfile}
                   onChange={handleChangeProfile}
                   autoComplete="on"
-                  value={fieldsProfile.posisi}
+                  value="GAADA RESPONSE"
                 />
               </div>
               <div className="relative w-full flex flex-col mb-4">
                 <label
-                  htmlFor="email"
+                  htmlFor="user_email"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Email
@@ -95,13 +113,13 @@ const Profil = () => {
                   type="email"
                   className="input-field-xs"
                   placeholder="Masukkan Email"
-                  name="email"
-                  id="email"
+                  name="user_email"
+                  id="user_email"
                   required
                   disabled={toggleDisabledProfile}
                   onChange={handleChangeProfile}
                   autoComplete="on"
-                  value={fieldsProfile.email}
+                  defaultValue={fieldsProfile.user_email}
                 />
               </div>
               <div className="relative w-full flex flex-col mb-8">
@@ -133,10 +151,7 @@ const Profil = () => {
                     Edit Profil
                   </button>
                 ) : (
-                  <button
-                    className="button-fill"
-                    type="submit"
-                  >
+                  <button className="button-fill" type="submit">
                     Simpan Perubahan
                   </button>
                 )}
@@ -149,10 +164,7 @@ const Profil = () => {
             <div className="border-b border-orange-900 mb-8">
               <h3 className="pb-4">Ubah Kata Sandi</h3>
             </div>
-            <form
-              className=""
-              onSubmit={(e) => handleSubmitPwd(e)}
-            >
+            <form className="" onSubmit={(e) => handleSubmitPwd(e)}>
               <div className="relative w-full flex flex-col mb-4">
                 <label
                   htmlFor="password"
@@ -201,10 +213,7 @@ const Profil = () => {
                     Edit Password
                   </button>
                 ) : (
-                  <button
-                    className="button-fill"
-                    type="submit"
-                  >
+                  <button className="button-fill" type="submit">
                     Perbarui Password
                   </button>
                 )}

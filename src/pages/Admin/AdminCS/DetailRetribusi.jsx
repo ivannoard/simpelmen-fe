@@ -1,20 +1,66 @@
-import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { HiOutlineArrowSmLeft } from 'react-icons/hi';
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { HiOutlineArrowSmLeft } from "react-icons/hi";
+import { adminCS } from "../../../services/api";
 
 const DetailRetribusi = () => {
+  const user = localStorage.getItem("admin");
+  const parseUser = JSON.parse(user);
   const navigate = useNavigate();
   const { retribusiId } = useParams();
   const [fields, setFields] = useState({});
-  const [disable, setDisable] = useState(true);
+  const [data, setData] = useState();
+  const disable = true;
+  useEffect(() => {
+    const getData = async () => {
+      await adminCS
+        .get(`/retributions/${retribusiId}`, {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setData(response.data[0]));
+    };
+    getData();
+  }, [parseUser.data.token, retribusiId]);
 
   function handleChange(e) {
     e.preventDefault();
     setFields({
       ...fields,
-      [e.target.getAttribute('name')]: e.target.value,
+      [e.target.getAttribute("name")]: e.target.value,
     });
   }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const retribution_jasa_total =
+      parseInt(fields.retribution_jasa_pound) +
+      parseInt(fields.retribution_jasa_sablon) +
+      parseInt(fields.retribution_jasa_design) +
+      parseInt(fields.retribution_jasa_finishing) +
+      parseInt(fields.retribution_jasa_karton);
+    await adminCS
+      .put(
+        `/retributions/${retribusiId}`,
+        {
+          retribution_jasa_pound: fields.retribution_jasa_pound,
+          retribution_jasa_sablon: fields.retribution_jasa_sablon,
+          retribution_jasa_design: fields.retribution_jasa_design,
+          retribution_jasa_finishing: fields.retribution_jasa_finishing,
+          retribution_jasa_karton: fields.retribution_jasa_karton,
+          retribution_jasa_total: retribution_jasa_total,
+        },
+        {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        }
+      )
+      .then((response) => console.log(response));
+  }
+
+  console.log(data);
   return (
     <>
       <section>
@@ -34,7 +80,7 @@ const DetailRetribusi = () => {
           <h6 className="mr-3 mb-2 sm:mb-0">Kemasan Karton A{retribusiId}</h6>
           <h6>001/BIKDK/O/VII/2022</h6>
         </div>
-        <form className="mt-5">
+        <form className="mt-5" onSubmit={(e) => handleSubmit(e)}>
           <p className="block mb-2 text-sm font-medium text-gray-700">
             Ukuran Produk
           </p>
@@ -45,11 +91,12 @@ const DetailRetribusi = () => {
                 id="ukuran"
                 name="panjang"
                 className={`${
-                  disable ? '!bg-secondary-600' : '!bg-white'
+                  disable ? "!bg-secondary-600" : "!bg-white"
                 } input-field !pr-12 !pl-4`}
                 required
                 disabled={disable}
                 onChange={(e) => handleChange(e)}
+                defaultValue={data?.orders.order_details[0].p1}
               />
               <span className="text-gray-400 absolute right-4 top-[14px]">
                 cm
@@ -61,11 +108,12 @@ const DetailRetribusi = () => {
                 id="ukuran"
                 name="lebar"
                 className={`${
-                  disable ? '!bg-secondary-600' : '!bg-white'
+                  disable ? "!bg-secondary-600" : "!bg-white"
                 } input-field !pr-12 !pl-4`}
                 required
                 disabled={disable}
                 onChange={(e) => handleChange(e)}
+                defaultValue={data?.orders.order_details[0].l1}
               />
               <span className="text-gray-400 absolute right-4 top-[14px]">
                 cm
@@ -77,11 +125,16 @@ const DetailRetribusi = () => {
                 id="ukuran"
                 name="tinggi"
                 className={`${
-                  disable ? '!bg-secondary-600' : '!bg-white'
+                  disable ? "!bg-secondary-600" : "!bg-white"
                 } input-field !pr-12 !pl-4`}
                 required
                 disabled={disable}
                 onChange={(e) => handleChange(e)}
+                defaultValue={
+                  data?.orders.order_details[0].t1 !== null
+                    ? data?.orders.order_details[0].t1
+                    : ""
+                }
               />
               <span className="text-gray-400 absolute right-4 top-[14px]">
                 cm
@@ -103,7 +156,7 @@ const DetailRetribusi = () => {
                     id="bentuk"
                     name="bentuk"
                     className={`${
-                      disable ? '!bg-secondary-600' : '!bg-white'
+                      disable ? "!bg-secondary-600" : "!bg-white"
                     } input-field !px-5`}
                     required
                     disabled={disable}
@@ -124,11 +177,15 @@ const DetailRetribusi = () => {
                     id="finishing"
                     name="finishing"
                     className={`${
-                      disable ? '!bg-secondary-600' : '!bg-white'
+                      disable ? "!bg-secondary-600" : "!bg-white"
                     } input-field !px-5`}
                     required
                     disabled={disable}
                     onChange={(e) => handleChange(e)}
+                    defaultValue={
+                      data?.orders.order_details[0].order_products.products
+                        .product_finishings.product_finishing_name
+                    }
                   />
                 </div>
               </div>
@@ -147,7 +204,7 @@ const DetailRetribusi = () => {
                     id="sablon"
                     name="sablon"
                     className={`${
-                      disable ? '!bg-secondary-600' : '!bg-white'
+                      disable ? "!bg-secondary-600" : "!bg-white"
                     } input-field !px-5`}
                     required
                     disabled={disable}
@@ -168,11 +225,12 @@ const DetailRetribusi = () => {
                     id="desain"
                     name="desain"
                     className={`${
-                      disable ? '!bg-secondary-600' : '!bg-white'
+                      disable ? "!bg-secondary-600" : "!bg-white"
                     } input-field !px-5`}
                     required
                     disabled={disable}
                     onChange={(e) => handleChange(e)}
+                    defaultValue={data?.orders.order_design}
                   />
                 </div>
               </div>
@@ -184,7 +242,7 @@ const DetailRetribusi = () => {
             <div className="left">
               <div className="mt-5">
                 <label
-                  htmlFor="jasapound"
+                  htmlFor="retribution_jasa_pound"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Jasa Pound
@@ -193,8 +251,8 @@ const DetailRetribusi = () => {
                   <h6>Rp</h6>
                   <input
                     type="text"
-                    id="jasapound"
-                    name="jasapound"
+                    id="retribution_jasa_pound"
+                    name="retribution_jasa_pound"
                     className="input-field !px-5"
                     required
                     onChange={(e) => handleChange(e)}
@@ -203,7 +261,7 @@ const DetailRetribusi = () => {
               </div>
               <div className="mt-4">
                 <label
-                  htmlFor="jumlahkarton"
+                  htmlFor="retribution_jasa_karton"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Jumlah Karton
@@ -212,8 +270,8 @@ const DetailRetribusi = () => {
                   <h6>Rp</h6>
                   <input
                     type="text"
-                    id="jumlahkarton"
-                    name="jumlahkarton"
+                    id="retribution_jasa_karton"
+                    name="retribution_jasa_karton"
                     className="input-field !px-5"
                     required
                     onChange={(e) => handleChange(e)}
@@ -222,7 +280,7 @@ const DetailRetribusi = () => {
               </div>
               <div className="mt-4">
                 <label
-                  htmlFor="jasasablon"
+                  htmlFor="retribution_jasa_sablon"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Jasa Sablon
@@ -231,8 +289,8 @@ const DetailRetribusi = () => {
                   <h6>Rp</h6>
                   <input
                     type="text"
-                    id="jasasablon"
-                    name="jasasablon"
+                    id="retribution_jasa_sablon"
+                    name="retribution_jasa_sablon"
                     className="input-field !px-5"
                     required
                     onChange={(e) => handleChange(e)}
@@ -243,7 +301,7 @@ const DetailRetribusi = () => {
             <div className="right">
               <div className="mt-4 xmd:mt-5">
                 <label
-                  htmlFor="jasadesain"
+                  htmlFor="retribution_jasa_design"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Jasa Desain
@@ -252,8 +310,8 @@ const DetailRetribusi = () => {
                   <h6>Rp</h6>
                   <input
                     type="text"
-                    id="jasadesain"
-                    name="jasadesain"
+                    id="retribution_jasa_design"
+                    name="retribution_jasa_design"
                     className="input-field !px-5"
                     required
                     onChange={(e) => handleChange(e)}
@@ -262,7 +320,7 @@ const DetailRetribusi = () => {
               </div>
               <div className="mt-4">
                 <label
-                  htmlFor="jasafinishing"
+                  htmlFor="retribution_jasa_finishing"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Jasa Finishing
@@ -271,8 +329,8 @@ const DetailRetribusi = () => {
                   <h6>Rp</h6>
                   <input
                     type="text"
-                    id="jasafinishing"
-                    name="jasafinishing"
+                    id="retribution_jasa_finishing"
+                    name="retribution_jasa_finishing"
                     className="input-field !px-5"
                     required
                     onChange={(e) => handleChange(e)}
@@ -293,7 +351,9 @@ const DetailRetribusi = () => {
                   name="jumlahorder"
                   className="input-field !px-5 !w-[160px]"
                   required
+                  disabled
                   onChange={(e) => handleChange(e)}
+                  defaultValue={data?.orders.order_quantity}
                 />
               </div>
             </div>

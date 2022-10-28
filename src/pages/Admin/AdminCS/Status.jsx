@@ -1,52 +1,69 @@
-import React, { useState } from 'react';
-import { BsSearch } from 'react-icons/bs';
-import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
-import { IoIosArrowDown } from 'react-icons/io';
+import React, { useEffect, useState } from "react";
+import { BsSearch } from "react-icons/bs";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { IoIosArrowDown } from "react-icons/io";
+import { adminCS } from "../../../services/api";
 
 const Status = () => {
-  const [barang, setBarang] = useState([
-    {
-      id: 1,
-      noPesanan: '001/BIKDK/O/VII/2022',
-      tanggalPesan: '22 September 2022',
-      namaIKM: 'Ikha Katering',
-      status: 3,
-    },
-    {
-      id: 2,
-      noPesanan: '001/BIKDK/O/VII/2022',
-      tanggalPesan: '22 September 2022',
-      namaIKM: 'Ikha Katering',
-      status: 1,
-    },
-    {
-      id: 3,
-      noPesanan: '001/BIKDK/O/VII/2022',
-      tanggalPesan: '22 September 2022',
-      namaIKM: 'Ikha Katering',
-      status: 2,
-    },
-    {
-      id: 4,
-      noPesanan: '001/BIKDK/O/VII/2022',
-      tanggalPesan: '22 September 2022',
-      namaIKM: 'Ikha Katering',
-      status: 1,
-    },
-  ]);
+  const user = localStorage.getItem("admin");
+  const parseUser = JSON.parse(user);
+  const [data, setData] = useState();
+
+  const declineStatus = async (id, status) => {
+    await adminCS.put(
+      `/orders/decline/${id}`,
+      { order_status: status },
+      {
+        headers: {
+          "x-access-token": `${parseUser.data.token}`,
+        },
+      }
+    );
+  };
+  const acceptStatus = async (id, status) => {
+    await adminCS.put(
+      `/orders/accept/${id}`,
+      { order_status: status },
+      {
+        headers: {
+          "x-access-token": `${parseUser.data.token}`,
+        },
+      }
+    );
+  };
 
   function handleChange(e, item) {
     e.preventDefault();
-    console.log(e.target.value);
-    const filtered = barang.filter((brg) => brg.id === item.id)[0];
-    filtered.status = parseInt(e.target.value);
-    setBarang((prevState) =>
-      prevState.map((state) =>
-        state.id === filtered.id ? { ...state, status: filtered.status } : state
-      )
-    );
-    console.log(typeof barang[0].status);
+    // const filtered = data.filter((brg) => brg.order_id === item.order_id)[0];
+    // filtered.order_status = parseInt(e.target.value);
+
+    if (e.target.value === "2") {
+      declineStatus(item.order_id, parseInt(e.target.value));
+    } else if (e.target.value === "3") {
+      acceptStatus(item.order_id, parseInt(e.target.value));
+    }
+    console.log(data);
+    // console.log(filtered);
+    // setData(
+    //   (prevState) => [...prevState, filtered]
+    //   prevState.map((state) =>
+    //     state.id === filtered.id ? { ...state, status: filtered.status } : state
+    //   )
+    // );
   }
+
+  useEffect(() => {
+    const getData = async () => {
+      await adminCS
+        .get("/orders", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setData(response.data));
+    };
+    getData();
+  }, [parseUser.data.token]);
 
   return (
     <section>
@@ -103,36 +120,35 @@ const Status = () => {
               </tr>
             </thead>
             <tbody>
-              {barang.map((item, index) => (
-                <tr
-                  className="border-b"
-                  key={index}
-                >
+              {data?.map((item, index) => (
+                <tr className="border-b" key={index}>
                   <td className="text-center p-3">{index + 1}</td>
-                  <td className="text-center p-3">{item.noPesanan}</td>
-                  <td className="text-center p-3">{item.tanggalPesan}</td>
-                  <td className="text-left p-3">{item.namaIKM}</td>
+                  <td className="text-center p-3">{item.order_code}</td>
+                  <td className="text-center p-3">{item.createdAt}</td>
+                  <td className="text-left p-3">
+                    {item.delivery_details[0].delivery_detail_ikm}
+                  </td>
                   <td className="text-center py-3 px-4 flex justify-center">
                     <div className="relative">
                       <select
                         id="status"
                         name="status"
-                        defaultValue={item.status}
+                        defaultValue={item.order_status}
                         // value={item.status}
                         onChange={(e) => handleChange(e, item)}
                         className={`${
-                          parseInt(item.status) === 1
-                            ? '!bg-gradient-to-bl !from-orange-900 !to-primary-900 hover:!from-primary-900 hover:!to-orange-900 !shadow-red'
-                            : parseInt(item.status) === 2
-                            ? '!bg-green-500 hover:!bg-green-500/80'
-                            : parseInt(item.status) === 3
-                            ? '!bg-secondary-800 hover:!bg-secondary-800/80'
-                            : ''
+                          item.order_status === 1
+                            ? "!bg-gradient-to-bl !from-orange-900 !to-primary-900 hover:!from-primary-900 hover:!to-orange-900 !shadow-red"
+                            : item.order_status === 3
+                            ? "!bg-green-500 hover:!bg-green-500/80"
+                            : item.order_status === 2
+                            ? "!bg-secondary-800 hover:!bg-secondary-800/80"
+                            : ""
                         } input-field-select-xs !border-none !font-semibold !text-white !w-auto !pr-12`}
                       >
                         <option value="1">Status PO</option>
-                        <option value="2">Diterima</option>
-                        <option value="3">Belum Disetujui</option>
+                        <option value="3">Diterima</option>
+                        <option value="2">Belum Disetujui</option>
                       </select>
                       <IoIosArrowDown className="absolute right-4 top-[15px] text-base fill-white" />
                     </div>

@@ -19,7 +19,7 @@ const Alerts = ({
   };
   return (
     <div
-      className={`absolute z-10 ${
+      className={`fixed z-10 ${
         !close
           ? "translate-y-14 transition ease-in-out"
           : "transition translate-y-24 ease-in-out"

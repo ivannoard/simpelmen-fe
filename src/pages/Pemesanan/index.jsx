@@ -117,6 +117,13 @@ const Pemesanan = ({ item }) => {
         <>
           <hr className="my-10 border-primary-400/50" />
           <section id="alamat">
+            {fields.user_postal_code === null ? (
+              <h6 className="font-semibold">
+                Silahkan Lengkapi Data Diri Anda di Dashboard
+              </h6>
+            ) : (
+              ""
+            )}
             <form
               className="w-full grid grid-cols-4 2xsm:grid-cols-8 2md:grid-cols-12 gap-x-8"
               onSubmit={handleSubmit}
@@ -444,9 +451,20 @@ const Pemesanan = ({ item }) => {
                   </div>
                 )}
               </div>
-              <div className="col-span-4 2xsm:col-span-8 2md:col-span-12 flex justify-center mt-8">
-                <button className="button-fill">Lanjutkan Pesanan</button>
-              </div>
+              {fields.user_postal_code === null ? (
+                <div className="col-span-4 2xsm:col-span-8 2md:col-span-12 flex justify-center mt-8">
+                  <button
+                    className="button-fill"
+                    onClick={() => navigate("/dashboard/profil")}
+                  >
+                    Update Profil
+                  </button>
+                </div>
+              ) : (
+                <div className="col-span-4 2xsm:col-span-8 2md:col-span-12 flex justify-center mt-8">
+                  <button className="button-fill">Lanjutkan Pesanan</button>
+                </div>
+              )}
             </form>
           </section>
         </>

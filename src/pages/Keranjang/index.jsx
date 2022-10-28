@@ -21,7 +21,7 @@ const Keranjang = () => {
   const [isNext, setIsNext] = useState(false);
   const [isDisable, setIsDisable] = useState(true);
   const user = localStorage.getItem("user");
-  const userToken = JSON.parse(user).data.token;
+  const [userToken, setUserToken] = useState();
   const [finalCartItem, setFinalCartItem] = useState();
 
   const closeModal = () => {
@@ -49,11 +49,14 @@ const Keranjang = () => {
     );
   };
 
-  const handleDelete = () => {
-    setFinalCartItem((prevState) =>
-      prevState.filter((item) => item.id !== deleteItem)
-    );
+  const handleDelete = async () => {
+    await postOrder.delete(`/cart/${deleteItem}`, {
+      headers: {
+        "x-access-token": `${userToken}`,
+      },
+    });
     setIsOpen(false);
+    window.location.reload(true);
   };
 
   const handleCartConfirm = (e) => {
@@ -62,7 +65,6 @@ const Keranjang = () => {
       prevState.filter((item) => item.status === true)
     );
     setIsNext(true);
-    window.scrollTo(0, 0);
   };
 
   // Set Dynamic Form
@@ -82,6 +84,10 @@ const Keranjang = () => {
         break;
     }
   };
+
+  useEffect(() => {
+    if (user) setUserToken(JSON.parse(user).data.token);
+  }, [user]);
 
   useEffect(() => {
     const getCart = async () => {
@@ -190,7 +196,7 @@ const Keranjang = () => {
                     <div className="absolute top-6 md:top-8 right-6 md:right-8">
                       <div className="w-full flex justify-end">
                         <button
-                          onClick={(e) => openModal(e, item.id)}
+                          onClick={(e) => openModal(e, item.order_user_id)}
                           type="button"
                           disabled={isNext}
                         >

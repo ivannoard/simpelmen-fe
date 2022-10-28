@@ -42,3 +42,10 @@ export const postProduct = axios.create({
     "Content-Type": "application/json",
   },
 });
+
+export const adminCS = axios.create({
+  baseURL: "http://simpelmen.herokuapp.com/api/admin/cs",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});

@@ -217,6 +217,10 @@ function App() {
             path="/admin/desain/dashboard/konfirmasi-desain"
             element={<AdminDesain />}
           />
+          <Route
+            path="/admin/desain/dashboard/profil"
+            element={<AdminDesain />}
+          />
           {/* End of Admin Desain */}
           {/* Dashboard Admin Gudang */}
           <Route

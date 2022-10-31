@@ -1,33 +1,35 @@
-import React, { useState } from "react";
-import { BsSearch } from "react-icons/bs";
-import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
-import ModalRekap from "./components/ModalRekap";
+import React, { useState } from 'react';
+import { BsSearch } from 'react-icons/bs';
+import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
+import ModalsRekap from './components/ModalsRekap';
 
 const Rekap = () => {
-  const [toggleDetail, setToggleDetail] = useState(false);
   const [toggleId, setToggleId] = useState();
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
-  function handleModal(state, id) {
-    setToggleDetail(state);
+  const closeModal = () => {
+    setIsOpenModal(false);
+  };
+
+  const detailModalHandling = (id) => {
+    setIsOpenModal(true);
     setToggleId(id);
-  }
+  };
+
   return (
     <>
       <section>
-        {toggleDetail && (
-          <ModalRekap setToggleDetail={setToggleDetail} toggleId={toggleId} />
-        )}
-        <div className=" border-b border-orange-900">
-          <h3 className="font-semibold">Rekap Pesanan</h3>
+        <div className="border-b border-orange-900">
+          <h3 className="font-semibold pb-3">Rekap Pesanan</h3>
         </div>
-        <h6 className="mt-6">Tabel Rekap Pesanan</h6>
-        <div className="flex items-center justify-between">
-          <div className="flex gap-2 items-center">
+        <h6 className="mt-6 mb-4">Tabel Rekap Pesanan</h6>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex gap-2 items-center mr-4">
             <label htmlFor="sorting">Menampilkan</label>
             <select
               name="sorting"
               id="sorting"
-              className="w-[50px] rounded-md h-10 p-2 bg-white border border-primary-900"
+              className="w-[50px] rounded h-10 p-2 bg-white border border-primary-900"
             >
               <option value="1">1</option>
               <option value="2">2</option>
@@ -36,72 +38,98 @@ const Rekap = () => {
           </div>
           <div className="flex relative top-2 flex-col mb-4">
             <input
-              type="email"
-              className="input-field !rounded-full !py-2"
+              type="search"
+              className="input-field !rounded-full !py-2 !pl-14"
               placeholder="Cari"
-              name="email"
+              name="search"
               required
               autoComplete="on"
               // onChange={handleChange}
             />
-            <BsSearch className="absolute text-2xl top-[10px] left-5 fill-secondary-800" />
+            <BsSearch className="absolute text-xl top-3 left-6 fill-secondary-800" />
           </div>
         </div>
-        {/*  */}
-        <table className="table-auto mt-4 w-[1440px] lg:w-full">
-          <thead>
-            <tr className="bg-orange-900">
-              <td className="text-white text-center py-3">No</td>
-              <td className="text-white text-center py-3">Nomor Pesanan</td>
-              <td className="text-white text-center py-3">Nama IKM</td>
-              <td className="text-white text-center py-3">Status</td>
-              <td className="text-white text-center py-3">Nominal Transaksi</td>
-              <td className="text-white text-center py-3">Aksi</td>
-            </tr>
-          </thead>
-          <tbody>
-            {[1, 2, 3, 4, 5].map((item) => (
-              <tr className="border-b">
-                <td className="text-center py-3">1</td>
-                <td className="text-center py-3">001/BIKDK/O/VII/2022</td>
-                <td className="text-center py-3">Ikha Katering</td>
-                <td className="text-center py-3">Admin Gudang</td>
-                <td className="text-center py-3">Rp. 250.000</td>
-                <td className="text-center py-3">
-                  <div className="flex items-center justify-center gap-2">
-                    <button
-                      onClick={() => handleModal(true, item)}
-                      className="border bg-white py-2 px-7 rounded-lg"
-                    >
-                      Detail
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <nav
-          className="flex justify-end items-center gap-x-[.375rem] py-2 mt-5"
-          aria-label="pagination"
-        >
-          <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-            <HiChevronLeft className="!text-base xs:!text-xl" />
-          </button>
-          <button className="button-gradient-sm !text-xs xs:!text-base">
-            1
-          </button>
-          <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-            2
-          </button>
-          <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-            3
-          </button>
-          <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-            <HiChevronRight className="!text-base xs:!text-xl" />
-          </button>
-        </nav>
+
+        <article id="tableRekapPesanan">
+          <div className="overflow-x-auto">
+            <table className="table-auto mb-4 w-full">
+              <thead>
+                <tr className="bg-orange-900">
+                  <th className="text-white text-center p-3 min-w-[54px]">
+                    No
+                  </th>
+                  <th className="text-white text-center p-3 min-w-[180px]">
+                    Nomor Pesanan
+                  </th>
+                  <th className="text-white text-left p-3 min-w-[140px]">
+                    Nama IKM
+                  </th>
+                  <th className="text-white text-center p-3 min-w-[140px]">
+                    Status
+                  </th>
+                  <th className="text-white text-center p-3 min-w-[160px]">
+                    Nominal Transaksi
+                  </th>
+                  <th className="text-white text-center p-3 min-w-[100px]">
+                    Aksi
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {[1, 2, 3, 4, 5].map((item, index) => (
+                  <tr
+                    className="border-b"
+                    key={index}
+                  >
+                    <td className="text-center p-3">{index + 1}</td>
+                    <td className="text-center p-3">001/BIKDK/O/VII/2022</td>
+                    <td className="text-left p-3">Ikha Katering</td>
+                    <td className="text-center p-3">Admin Gudang</td>
+                    <td className="text-center p-3">Rp. 250.000</td>
+                    <td className="text-center p-3">
+                      <div className="flex justify-center">
+                        <button
+                          onClick={() => detailModalHandling(item)}
+                          className="bg-white border py-3 px-4 rounded-lg text-sm transition-200 hover:border-orange-900"
+                        >
+                          Detail
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <nav
+            className="flex justify-end items-center gap-x-[.375rem] py-2 mt-2"
+            aria-label="pagination"
+          >
+            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
+              <HiChevronLeft className="!text-base xs:!text-xl" />
+            </button>
+            <button className="button-gradient-sm !text-xs xs:!text-base">
+              1
+            </button>
+            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
+              2
+            </button>
+            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
+              3
+            </button>
+            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
+              <HiChevronRight className="!text-base xs:!text-xl" />
+            </button>
+          </nav>
+        </article>
       </section>
+
+      {/* Modal Detail Recap */}
+      <ModalsRekap
+        isOpen={isOpenModal}
+        closeModal={closeModal}
+        idPesanan={toggleId}
+      />
     </>
   );
 };

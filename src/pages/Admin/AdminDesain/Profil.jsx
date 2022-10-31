@@ -192,7 +192,7 @@ const Profil = () => {
                 />
               </div>
               <div className="flex justify-end">
-                {toggleDisabledProfile ? (
+                {toggleDisabledPwd ? (
                   <button
                     className="button-fill"
                     onClick={() => setToggleDisabledPwd(false)}

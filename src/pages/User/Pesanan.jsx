@@ -9,43 +9,6 @@ const Pesanan = () => {
   const user = localStorage.getItem("user");
   const parseUser = JSON.parse(user);
   const [data, setData] = useState();
-  const dummyData = [
-    {
-      id: 1,
-      date: "2021-08-01",
-      pesanan: "001/BIKDK/O/VII/2022",
-      jenis: "Bentuk Langsungan - Duplex 310gr - Laminasi Glosi",
-      status: 1,
-    },
-    {
-      id: 2,
-      date: "2021-09-04",
-      pesanan: "001/BIKDK/O/VII/2022",
-      jenis: "Bentuk Langsungan - Duplex 310gr - Laminasi Glosi",
-      status: 2,
-    },
-    {
-      id: 3,
-      date: "2022-01-20",
-      pesanan: "001/BIKDK/O/VII/2022",
-      jenis: "Bentuk Langsungan - Duplex 310gr - Laminasi Glosi",
-      status: 3,
-    },
-    {
-      id: 4,
-      date: "2022-01-22",
-      pesanan: "001/BIKDK/O/VII/2022",
-      jenis: "Bentuk Langsungan - Duplex 310gr - Laminasi Glosi",
-      status: 4,
-    },
-    {
-      id: 5,
-      date: "2022-02-28",
-      pesanan: "001/BIKDK/O/VII/2022",
-      jenis: "Bentuk Langsungan - Duplex 310gr - Laminasi Glosi",
-      status: 3,
-    },
-  ];
 
   useEffect(() => {
     const getOrder = async () => {
@@ -59,6 +22,8 @@ const Pesanan = () => {
     };
     getOrder();
   }, [parseUser.data.token]);
+
+  console.log(data);
 
   return (
     <>
@@ -103,8 +68,16 @@ const Pesanan = () => {
                         <p className="text-xs xs:text-sm font-medium mb-1 xs:mb-2 text-secondary-900">
                           Jenis Produk
                         </p>
-                        <p className="font-semibold text-primary-900">
-                          GAK ADA RESPONSE
+                        <p className="font-semibold">
+                          {
+                            item.order_products[0].products.jenis_products
+                              .jenis_product_name
+                          }{" "}
+                          -{" "}
+                          {
+                            item.order_products[0].products.jenis_products
+                              .jenis_product_description
+                          }
                         </p>
                       </div>
                       <div className="xl:col-span-2 hidden xl:block">

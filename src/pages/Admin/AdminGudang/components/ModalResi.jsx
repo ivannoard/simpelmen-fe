@@ -1,27 +1,22 @@
-import React, { Fragment } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
-import { MdClose } from 'react-icons/md';
-import { IoIosArrowDown } from 'react-icons/io';
+import React, { Fragment, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { MdClose } from "react-icons/md";
+import { IoIosArrowDown } from "react-icons/io";
 
 const ModalResi = ({
   isOpen,
   closeModal,
-  noPesanan,
   submitHandler,
   changeHandler,
+  data,
+  id,
 }) => {
+  const filteredData = data?.filter((item) => item.order_id === id)[0];
+
   return (
     <>
-      <Transition
-        appear
-        show={isOpen}
-        as={Fragment}
-      >
-        <Dialog
-          as="div"
-          className="relative z-10"
-          onClose={closeModal}
-        >
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -56,9 +51,6 @@ const ModalResi = ({
                   >
                     Tambah Resi
                   </Dialog.Title>
-                  <div className="mb-3">
-                    <p className="text-gray-500">ID: {noPesanan}</p>
-                  </div>
                   <hr className="mb-6" />
 
                   <form onSubmit={submitHandler}>
@@ -75,26 +67,35 @@ const ModalResi = ({
                         className="input-field-select-xs"
                         required
                         onChange={changeHandler}
+                        defaultValue={
+                          filteredData?.delivery_details[0]
+                            ?.delivery_detail_courier
+                        }
+                        value={
+                          filteredData?.delivery_details[0]
+                            ?.delivery_detail_courier
+                        }
                       >
-                        <option value="1">Pilih Kurir</option>
-                        <option value="2">JNE</option>
-                        <option value="3">JNT</option>
-                        <option value="4">Ninja Express</option>
-                        <option value="5">Pos Indonesia</option>
+                        <option value="1">
+                          {
+                            filteredData?.delivery_details[0]
+                              ?.delivery_detail_courier
+                          }
+                        </option>
                       </select>
                       <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
                     </div>
                     <div className="mb-5">
                       <label
-                        htmlFor="noResi"
+                        htmlFor="delivery_detail_receipt"
                         className="block mb-2 text-sm font-medium text-gray-700"
                       >
                         Nomor Resi
                       </label>
                       <input
                         type="text"
-                        name="noResi"
-                        id="noResi"
+                        name="delivery_detail_receipt"
+                        id="delivery_detail_receipt"
                         className="input-field-xs"
                         placeholder="Masukkan nomor resi"
                         required
@@ -103,7 +104,7 @@ const ModalResi = ({
                     </div>
                     <div className="mb-6">
                       <label
-                        htmlFor="estimasi"
+                        htmlFor="delivery_detail_estimate"
                         className="block mb-2 text-sm font-medium text-gray-700"
                       >
                         Tanggal Estimasi
@@ -111,8 +112,8 @@ const ModalResi = ({
                       <div className="relative">
                         <input
                           type="date"
-                          name="estimasi"
-                          id="estimasi"
+                          name="delivery_detail_estimate"
+                          id="delivery_detail_estimate"
                           className="input-field-icon-xs"
                           required
                           onChange={changeHandler}

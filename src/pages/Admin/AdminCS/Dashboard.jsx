@@ -1,14 +1,63 @@
-import React from 'react';
-import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
+import React, { useEffect, useState } from "react";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { adminCS } from "../../../services/api";
 
 const Dashboard = () => {
+  const user = localStorage.getItem("admin");
+  const parseUser = JSON.parse(user);
+  const [customerRetribution, setCustomerRetribution] = useState();
+  const [customerStatus, setCustomerStatus] = useState();
+  const [order, setOrder] = useState();
+
+  useEffect(() => {
+    const getRetribution = async () => {
+      await adminCS
+        .get("/retributions", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setCustomerRetribution(response.data));
+    };
+    getRetribution();
+  }, [parseUser.data.token]);
+
+  useEffect(() => {
+    const getOrders = async () => {
+      await adminCS
+        .get("/orders", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setCustomerStatus(response.data));
+    };
+    getOrders();
+  }, [parseUser.data.token]);
+
+  // get rekap-pesanan
+  useEffect(() => {
+    const getData = async () => {
+      await adminCS
+        .get("/rekap/order", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setOrder(response.data));
+    };
+    getData();
+  }, [parseUser.data.token]);
+
+  console.log(order);
+
   return (
     <section>
       <div className="border-b border-orange-900">
         <h3 className="font-semibold pb-3">Dashboard CS</h3>
       </div>
       <article id="retribusiPelanggan">
-        <h6 className="mt-10 mb-4">Tabel Retribusi Pelanggan</h6>
+        <h6 className="mt-10 mb-4">Tabel Retribusi Pelanggan </h6>
         <div className="overflow-x-auto">
           <table className="table-auto w-full mb-4">
             <thead>
@@ -31,20 +80,27 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {[1, 2, 3, 4, 5].map((item) => (
-                <tr
-                  className=" border-b"
-                  key={item}
-                >
-                  <td className="text-center px-3 py-2">{item}</td>
+              {customerRetribution?.map((item, index) => (
+                <tr className=" border-b" key={item.orders.order_id}>
+                  <td className="text-center px-3 py-2">{index + 1}</td>
                   <td className="text-center px-3 py-2">
-                    001/BIKDK/O/VII/2022
+                    {item.orders.order_code}
                   </td>
-                  <td className="text-left px-3 py-2">Ikha Katering</td>
-                  <td className="text-center px-3 py-2">Rp.120000</td>
-                  <td className="text-center py-2 px-4">
-                    <div className="bg-[#21B630] text-white py-2 rounded-lg font-semibold text-sm">
-                      Disetujui
+                  <td className="text-left px-3 py-2">
+                    {item.orders.users.user_ikm}
+                  </td>
+                  <td className="text-center px-3 py-2">
+                    Rp.{item.retribution_jasa_total}
+                  </td>
+                  <td className="text-center py-2 px-4 [#21B630]">
+                    <div
+                      className={`bg-${
+                        item.retribution_status === "Disetujui"
+                          ? "[#21B630]"
+                          : "primary-900"
+                      } text-white py-2 rounded-lg font-semibold text-sm`}
+                    >
+                      {item.retribution_status}
                     </div>
                   </td>
                 </tr>
@@ -75,7 +131,7 @@ const Dashboard = () => {
       </article>
 
       <article id="statusPOPelanggan">
-        <h6 className="mt-5 mb-4">Tabel Status PO Pelanggan</h6>
+        <h6 className="mt-5 mb-4">Tabel Status PO Pelanggan </h6>
         <div className="overflow-x-auto">
           <table className="table-auto mb-4 w-full">
             <thead>
@@ -95,20 +151,21 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {[1, 2, 3, 4, 5].map((item) => (
-                <tr
-                  className=" border-b"
-                  key={item}
-                >
-                  <td className="text-center px-3 py-2">{item}</td>
-                  <td className="text-center px-3 py-2">
-                    001/BIKDK/O/VII/2022
+              {customerStatus?.map((item, index) => (
+                <tr className=" border-b" key={index}>
+                  <td className="text-center px-3 py-2">{index + 1}</td>
+                  <td className="text-center px-3 py-2">{item?.order_code}</td>
+                  <td className="text-left px-3 py-2">
+                    {item?.delivery_details[0].delivery_detail_ikm}
                   </td>
-                  <td className="text-left px-3 py-2">Ikha Katering</td>
                   <td className="text-center px-4 py-2">
-                    <div className="bg-[#21B630] text-white py-2 rounded-lg font-semibold text-sm">
-                      Disetujui
-                    </div>
+                    {item?.order_statuses[0].order_status_admin_code === "2" ? (
+                      <div className="bg-primary-900 text-white py-2 rounded-lg font-semibold text-sm truncate px-2">
+                        Belum Disetujui
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </td>
                 </tr>
               ))}
@@ -138,7 +195,12 @@ const Dashboard = () => {
       </article>
 
       <article id="rekapPesanan">
-        <h6 className="mt-5 mb-4">Tabel Rekap Pesanan</h6>
+        <h6 className="mt-5 mb-4">
+          Tabel Rekap Pesanan{" "}
+          <span className="text-primary-900 font-semibold">
+            Kurang Status Admin
+          </span>
+        </h6>
         <div className="overflow-x-auto">
           <table className="table-auto mb-4 w-full">
             <thead>
@@ -161,16 +223,17 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {[1, 2, 3, 4, 5].map((item) => (
-                <tr
-                  className=" border-b"
-                  key={item}
-                >
-                  <td className="text-center p-3">{item}</td>
-                  <td className="text-center p-3">001/BIKDK/O/VII/2022</td>
-                  <td className="text-left p-3">Ikha Katering</td>
-                  <td className="text-center p-3">admin gudang</td>
-                  <td className="text-center p-3">Rp.120000</td>
+              {order?.map((item, index) => (
+                <tr className=" border-b" key={index}>
+                  <td className="text-center p-3">{index + 1}</td>
+                  <td className="text-center p-3">{item.order_code}</td>
+                  <td className="text-left p-3">{item.users.user_ikm}</td>
+                  <td className="text-center p-3">
+                    {item.order_statuses[0].order_status_admin_code}
+                  </td>
+                  <td className="text-center p-3">
+                    Rp. {item.retributions[0]?.retribution_jasa_total}
+                  </td>
                 </tr>
               ))}
             </tbody>

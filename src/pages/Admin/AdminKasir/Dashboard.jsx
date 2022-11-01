@@ -1,14 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { adminKasir } from "../../../services/api";
 
 const Dashboard = () => {
+  const user = localStorage.getItem("admin");
+  const parseUser = JSON.parse(user);
+  const [sellData, setSellData] = useState();
+  const [pad, setPad] = useState();
+
+  useEffect(() => {
+    const getData = async () => {
+      await adminKasir
+        .get("/orders", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setSellData(response.data));
+    };
+    getData();
+  }, [parseUser.data.token]);
+
+  useEffect(() => {
+    const getData = async () => {
+      await adminKasir
+        .get("/pad", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setPad(response.data));
+    };
+    getData();
+  }, [parseUser.data.token]);
+
+  console.log(pad);
   return (
     <>
       <section>
         <div className=" border-b border-orange-900">
           <h3 className="font-semibold">Dashboard Kasir</h3>
         </div>
-        <h6 className="mt-10 mb-4">Tabel Daftar Pembayaran</h6>
+        <h6 className="mt-10 mb-4">Tabel Daftar Pembayaran </h6>
         <table className="table-auto mt-4 w-[1440px] lg:w-full">
           <thead>
             <tr className="bg-orange-900">
@@ -20,19 +53,19 @@ const Dashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {[1, 2, 3, 4, 5].map((item) => (
-              <tr className=" border-b" key={item}>
-                <td className="text-center py-3">{item}</td>
-                <td className="text-center py-3">001/BIKDK/O/VII/2022</td>
-                <td className="text-center py-3">12 September 2022</td>
-                <td className="text-center py-3">Ikha Katering</td>
+            {sellData?.map((item, index) => (
+              <tr className=" border-b" key={index}>
+                <td className="text-center py-3">{index + 1}</td>
+                <td className="text-center py-3">{item.order_code}</td>
+                <td className="text-center py-3">{item.createdAt}</td>
+                <td className="text-center py-3">{item.users.user_ikm}</td>
                 <td className="text-center py-3">
                   <div className="flex gap-2 w-full justify-center">
                     <div className="bg-[#21B630] text-white py-2 px-3 rounded-lg font-semibold">
-                      Langsung
+                      {item.order_payment_method}
                     </div>
                     <div className="bg-[#6D6061] text-white py-2 px-3 rounded-lg font-semibold">
-                      Belum Lunas
+                      {item.order_payment_status}
                     </div>
                   </div>
                 </td>
@@ -61,7 +94,7 @@ const Dashboard = () => {
           </button>
         </nav>
         {/*  */}
-        <h6 className="mt-10 mb-4">Tabel PAD</h6>
+        <h6 className="mt-10 mb-4">Tabel PAD </h6>
         <table className="table-auto mt-4 w-[1440px] lg:w-full">
           <thead>
             <tr className="bg-orange-900">
@@ -73,16 +106,26 @@ const Dashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {[1, 2, 3, 4, 5].map((item) => (
-              <tr className=" border-b" key={item}>
-                <td className="text-center py-3">{item}</td>
-                <td className="text-center py-3">001/BIKDK/O/VII/2022</td>
-                <td className="text-center py-3">Ikha Katering</td>
-                <td className="text-center py-3">Rp. 120.000</td>
+            {pad?.map((item, index) => (
+              <tr className=" border-b" key={index}>
+                <td className="text-center py-3">{index + 1}</td>
+                <td className="text-center py-3">{item.orders.order_code}</td>
                 <td className="text-center py-3">
-                  <div className="bg-[#21B630] text-white py-2 px-3 rounded-lg font-semibold">
-                    Disetujui
-                  </div>
+                  {item.orders.users.user_ikm}
+                </td>
+                <td className="text-center py-3">
+                  Rp. {item.retribution_jasa_total}
+                </td>
+                <td className="text-center py-3">
+                  {item.retribution_pad_status === 2 ? (
+                    <div className="bg-[#21B630] text-white py-2 px-3 rounded-lg font-semibold">
+                      Disetujui
+                    </div>
+                  ) : (
+                    <div className="bg-primary-900 text-white py-2 px-3 rounded-lg font-semibold">
+                      Belum Disetujui
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}

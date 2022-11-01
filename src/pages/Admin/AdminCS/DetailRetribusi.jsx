@@ -11,6 +11,8 @@ const DetailRetribusi = () => {
   const [fields, setFields] = useState({});
   const [data, setData] = useState();
   const disable = true;
+  const [detailRetribution, setDetailRetribution] = useState();
+  const [totalRetribution, setTotalRetribution] = useState(0);
   useEffect(() => {
     const getData = async () => {
       await adminCS
@@ -27,6 +29,10 @@ const DetailRetribusi = () => {
   function handleChange(e) {
     e.preventDefault();
     setFields({
+      ...fields,
+      [e.target.getAttribute("name")]: e.target.value,
+    });
+    setDetailRetribution({
       ...fields,
       [e.target.getAttribute("name")]: e.target.value,
     });
@@ -57,10 +63,9 @@ const DetailRetribusi = () => {
           },
         }
       )
-      .then((response) => console.log(response));
+      .then((response) => navigate(-1));
   }
 
-  console.log(data);
   return (
     <>
       <section>
@@ -378,17 +383,37 @@ const DetailRetribusi = () => {
                   <tr>
                     <td className="text-center pr-2 py-2 text-black/60">1</td>
                     <td className="p-2">Jasa Pound</td>
-                    <td className="p-2">Rp 750.000</td>
+                    <td className="p-2">
+                      Rp {detailRetribution?.retribution_jasa_pound}
+                    </td>
                   </tr>
                   <tr>
                     <td className="text-center pr-2 py-2 text-black/60">2</td>
                     <td className="p-2">Jasa Karton</td>
-                    <td className="p-2">Rp 1.050.000</td>
+                    <td className="p-2">
+                      Rp {detailRetribution?.retribution_jasa_karton}
+                    </td>
                   </tr>
                   <tr>
                     <td className="text-center pr-2 py-2 text-black/60">3</td>
                     <td className="p-2">Jasa Sablon</td>
-                    <td className="p-2">Rp 480.000</td>
+                    <td className="p-2">
+                      Rp {detailRetribution?.retribution_jasa_sablon}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="text-center pr-2 py-2 text-black/60">3</td>
+                    <td className="p-2">Jasa Desain</td>
+                    <td className="p-2">
+                      Rp {detailRetribution?.retribution_jasa_design}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="text-center pr-2 py-2 text-black/60">3</td>
+                    <td className="p-2">Jasa Finishing</td>
+                    <td className="p-2">
+                      Rp {detailRetribution?.retribution_jasa_finishing}
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -401,9 +426,11 @@ const DetailRetribusi = () => {
                   <p className="text-black/60">Subtotal</p>
                 </div>
                 <div>
-                  <p className="text-right mb-3">24</p>
+                  <p className="text-right mb-3">
+                    {data?.orders.order_quantity}
+                  </p>
                   <p className="text-right text-lg font-semibold text-[#427afb]">
-                    Rp. 750.000
+                    Rp. {totalRetribution}
                   </p>
                 </div>
               </div>

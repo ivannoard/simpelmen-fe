@@ -1,44 +1,48 @@
-import React, { useState } from 'react';
-import { BsSearch } from 'react-icons/bs';
-import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
-import { IoIosArrowDown } from 'react-icons/io';
-import ModalDetail from './components/ModalDetail';
+import React, { useEffect, useState } from "react";
+import { BsSearch } from "react-icons/bs";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { IoIosArrowDown } from "react-icons/io";
+import { adminProduksi } from "../../../services/api";
+import ModalDetail from "./components/ModalDetail";
 
 const Dashboard = () => {
+  const user = localStorage.getItem("admin");
+  const parseUser = JSON.parse(user);
+  const [productData, setProductData] = useState();
   const [data, setData] = useState([
     {
       id: 1,
-      nomorPesanan: '001/BIKDK/1/VII/2022',
-      tanggalPesanan: '12 September 2022',
-      namaIKM: 'Ikha cathering',
+      nomorPesanan: "001/BIKDK/1/VII/2022",
+      tanggalPesanan: "12 September 2022",
+      namaIKM: "Ikha cathering",
       status: 2,
     },
     {
       id: 2,
-      nomorPesanan: '004/BIKDK/1/VII/2022',
-      tanggalPesanan: '12 September 2022',
-      namaIKM: 'Ikha cathering',
+      nomorPesanan: "004/BIKDK/1/VII/2022",
+      tanggalPesanan: "12 September 2022",
+      namaIKM: "Ikha cathering",
       status: 1,
     },
     {
       id: 3,
-      nomorPesanan: '018/BIKDK/3/VII/2022',
-      tanggalPesanan: '12 September 2022',
-      namaIKM: 'Ikha cathering',
+      nomorPesanan: "018/BIKDK/3/VII/2022",
+      tanggalPesanan: "12 September 2022",
+      namaIKM: "Ikha cathering",
       status: 3,
     },
     {
       id: 4,
-      nomorPesanan: '019/BIKDK/8/VII/2022',
-      tanggalPesanan: '12 September 2022',
-      namaIKM: 'Ikha cathering',
+      nomorPesanan: "019/BIKDK/8/VII/2022",
+      tanggalPesanan: "12 September 2022",
+      namaIKM: "Ikha cathering",
       status: 3,
     },
     {
       id: 5,
-      nomorPesanan: '020/BIKDK/18/VII/2022',
-      tanggalPesanan: '12 September 2022',
-      namaIKM: 'Ikha cathering',
+      nomorPesanan: "020/BIKDK/18/VII/2022",
+      tanggalPesanan: "12 September 2022",
+      namaIKM: "Ikha cathering",
       status: 2,
     },
   ]);
@@ -68,13 +72,33 @@ const Dashboard = () => {
     console.log(typeof data[0].status);
   }
 
+  useEffect(() => {
+    const getData = async () => {
+      await adminProduksi
+        .get("/orders", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setProductData(response.data));
+    };
+    getData();
+  }, [parseUser.data.token]);
+
+  console.log(productData);
+
   return (
     <>
       <section>
         <div className="border-b border-orange-900">
-          <h3 className="font-semibold pb-3">Dashboard Produksi</h3>
+          <h3 className="font-semibold pb-3">Dashboard Produksi </h3>
         </div>
-        <h6 className="mt-10 mb-4">Tabel Status Produksi</h6>
+        <h6 className="mt-10 mb-4">
+          Tabel Status Produksi{" "}
+          <span className="text-primary-900 font-semibold">
+            Response belum jelas
+          </span>
+        </h6>
         <div className="flex items-center justify-between mb-4">
           <div className="flex gap-2 items-center mr-4">
             <label htmlFor="sorting">Menampilkan</label>
@@ -127,15 +151,14 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => (
-                  <tr
-                    className="border-b"
-                    key={item.id}
-                  >
+                {productData?.map((item, index) => (
+                  <tr className="border-b" key={item.id}>
                     <td className="text-center p-3">{index + 1}</td>
-                    <td className="text-center p-3">{item.nomorPesanan}</td>
-                    <td className="text-center p-3">{item.tanggalPesanan}</td>
-                    <td className="text-left p-3">{item.namaIKM}</td>
+                    <td className="text-center p-3">{item.order_code}</td>
+                    <td className="text-center p-3">{item.createdAt}</td>
+                    <td className="text-left p-3 text-primary-900 font-semibold">
+                      GAADA RESPONSE
+                    </td>
                     <td className="text-center p-3">
                       <div className="relative">
                         <select
@@ -145,15 +168,15 @@ const Dashboard = () => {
                           // value={item.status}
                           onChange={(e) => handleChange(e, item)}
                           className={`${
-                            parseInt(item.status) === 1
-                              ? '!bg-gradient-to-bl !from-orange-900 !to-primary-900 hover:!from-primary-900 hover:!to-orange-900 !shadow-red'
-                              : parseInt(item.status) === 2
-                              ? '!bg-primary-400 hover:!bg-primary-400/80'
-                              : parseInt(item.status) === 3
-                              ? '!bg-secondary-800 hover:!bg-secondary-800/80'
-                              : parseInt(item.status) === 4
-                              ? '!bg-green-500 hover:!bg-green-500/80'
-                              : ''
+                            item.order_status === null
+                              ? "!bg-gradient-to-bl !from-orange-900 !to-primary-900 hover:!from-primary-900 hover:!to-orange-900 !shadow-red"
+                              : item.order_status === 2
+                              ? "!bg-primary-400 hover:!bg-primary-400/80"
+                              : item.order_status === 3
+                              ? "!bg-secondary-800 hover:!bg-secondary-800/80"
+                              : item.order_status === 4
+                              ? "!bg-green-500 hover:!bg-green-500/80"
+                              : ""
                           } input-field-select-xs !border-none !font-semibold !text-white !w-auto !pr-12`}
                         >
                           <option value="1">Status Produksi</option>
@@ -167,7 +190,7 @@ const Dashboard = () => {
                     <td>
                       <div className="w-full flex justify-center">
                         <button
-                          onClick={() => detailModalHandling(item.nomorPesanan)}
+                          onClick={() => detailModalHandling(item.order_code)}
                           className="bg-white border py-2 px-4 rounded-lg text-sm transition-200 hover:border-orange-900"
                         >
                           Detail

@@ -6,77 +6,53 @@ const Pembayaran = () => {
   const [data, setData] = useState();
   const user = localStorage.getItem("user");
   const parseUser = JSON.parse(user);
-  const dummyData = [
-    {
-      id: 1,
-      date: "2021-08-01",
-      pesanan: "001/BIKDK/O/VII/2022",
-      jenis: "Bentuk Langsungan - Duplex 310gr - Laminasi Glosi",
-      status: 1,
-    },
-    {
-      id: 2,
-      date: "2021-09-04",
-      pesanan: "001/BIKDK/O/VII/2022",
-      jenis: "Bentuk Langsungan - Duplex 310gr - Laminasi Glosi",
-      status: 2,
-    },
-    {
-      id: 3,
-      date: "2022-01-20",
-      pesanan: "001/BIKDK/O/VII/2022",
-      jenis: "Bentuk Langsungan - Duplex 310gr - Laminasi Glosi",
-      status: 3,
-    },
-    {
-      id: 4,
-      date: "2022-01-22",
-      pesanan: "001/BIKDK/O/VII/2022",
-      jenis: "Bentuk Langsungan - Duplex 310gr - Laminasi Glosi",
-      status: 4,
-    },
-    {
-      id: 5,
-      date: "2022-02-28",
-      pesanan: "001/BIKDK/O/VII/2022",
-      jenis: "Bentuk Langsungan - Duplex 310gr - Laminasi Glosi",
-      status: 3,
-    },
-  ];
 
-  const badge = (status) => {
-    switch (status) {
-      case 1:
-        return (
-          <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-primary-900/[15%] text-[10px] xs:text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
-            Belum Terkonfirmasi
-          </p>
-        );
-      case 2:
-        return (
-          <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-success/[15%] text-[10px] xs:text-sm transition-200 hover:bg-success/20 text-success">
-            Sudah Terkonfirmasi
-          </p>
-        );
-      case 3:
-        return (
-          <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-primary-900/[15%] text-[10px] xs:text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
-            Belum Diproses
-          </p>
-        );
-      case 4:
-        return (
-          <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-success/[15%] text-[10px] xs:text-sm transition-200 hover:bg-success/20 text-success">
-            Sudah Diproses
-          </p>
-        );
-      default:
-        return (
-          <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-primary-900/[15%] text-[10px] xs:text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
-            Belum Terkonfirmasi
-          </p>
-        );
+  const badge = (description, status) => {
+    if (parseInt(status) === 2) {
+      return (
+        <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-primary-900/[15%] text-[10px] xs:text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
+          {description}
+        </p>
+      );
     }
+    return (
+      <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-success/[15%] text-[10px] xs:text-sm transition-200 hover:bg-success/20 text-success">
+        {description}
+      </p>
+    );
+
+    // switch (status) {
+    //   case '2':
+    //     return (
+    //       <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-primary-900/[15%] text-[10px] xs:text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
+    //         {description}
+    //       </p>
+    //     );
+    //   case '8':
+    //     return (
+    //       <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-success/[15%] text-[10px] xs:text-sm transition-200 hover:bg-success/20 text-success">
+    //         Sudah Terkonfirmasi
+    //       </p>
+    //     );
+    //   case 3:
+    //     return (
+    //       <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-primary-900/[15%] text-[10px] xs:text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
+    //         Belum Diproses
+    //       </p>
+    //     );
+    //   case 4:
+    //     return (
+    //       <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-success/[15%] text-[10px] xs:text-sm transition-200 hover:bg-success/20 text-success">
+    //         Sudah Diproses
+    //       </p>
+    //     );
+    //   default:
+    //     return (
+    //       <p className="px-3 xs:px-4 py-1 rounded font-medium cursor-default truncate bg-primary-900/[15%] text-[10px] xs:text-sm transition-200 hover:bg-primary-900/20 text-primary-900">
+    //         Belum Terkonfirmasi
+    //       </p>
+    //     );
+    // }
   };
 
   useEffect(() => {
@@ -91,8 +67,6 @@ const Pembayaran = () => {
     };
     getStatusOrder();
   }, [parseUser.data.token]);
-
-  console.log(data);
 
   return (
     <>
@@ -114,7 +88,8 @@ const Pembayaran = () => {
                       <div className="col-span-5 xl:col-span-2 block xl:hidden">
                         <div className="flex xl:justify-center">
                           {badge(
-                            item.order_statuses[0].order_status_description
+                            item.order_statuses[0].order_status_description,
+                            item.order_statuses[0].order_status_admin_code
                           )}
                         </div>
                       </div>
@@ -131,13 +106,22 @@ const Pembayaran = () => {
                           Jenis Produk
                         </p>
                         <p className="font-semibold">
-                          {item.jenis} | belum ada
+                          {
+                            item.order_products[0].products.jenis_products
+                              .jenis_product_name
+                          }{" "}
+                          -
+                          {
+                            item.order_products[0].products.jenis_products
+                              .jenis_product_description
+                          }
                         </p>
                       </div>
                       <div className="xl:col-span-2 hidden xl:block">
                         <div className="flex justify-center">
                           {badge(
-                            item.order_statuses[0].order_status_description
+                            item.order_statuses[0].order_status_description,
+                            item.order_statuses[0].order_status_admin_code
                           )}
                         </div>
                       </div>

@@ -54,14 +54,9 @@ const DetailPesanan = () => {
   return (
     <>
       <section className="w-full mb-6">
-        <div className="flex items-center mb-4">
+        <div className="flex items-center mb-4" onClick={() => navigate(-1)}>
           <HiOutlineArrowSmLeft className="text-2xl mr-3" />
-          <span
-            className="leading-10 cursor-pointer"
-            onClick={() => navigate(-1)}
-          >
-            Kembali
-          </span>
+          <span className="leading-10 cursor-pointer">Kembali</span>
         </div>
 
         {/* content detail pesanan */}
@@ -124,7 +119,12 @@ const DetailPesanan = () => {
                       Bahan
                     </td>
                     <td className="w-[3%]">:</td>
-                    <td className="pl-2 w-[50%]">Duplex 350 gram</td>
+                    <td className="pl-2 w-[50%]">
+                      {
+                        data?.order_products[0].products.product_materials
+                          .product_material_name
+                      }
+                    </td>
                   </tr>
                   <tr>
                     <td className="text-secondary-900 pr-3 w-[47%] py-2">
@@ -138,7 +138,12 @@ const DetailPesanan = () => {
                       Laminasi
                     </td>
                     <td className="w-[3%]">:</td>
-                    <td className="pl-2 w-[50%]">Belum ada</td>
+                    <td className="pl-2 w-[50%]">
+                      {
+                        data?.order_products[0].products.product_finishings
+                          .product_finishing_name
+                      }
+                    </td>
                   </tr>
                   <tr>
                     <td className="text-secondary-900 pr-3 w-[47%] py-2">
@@ -152,7 +157,9 @@ const DetailPesanan = () => {
                       Retribusi
                     </td>
                     <td className="w-[3%]">:</td>
-                    <td className="pl-2 w-[50%]">Belum ada</td>
+                    <td className="pl-2 w-[50%]">
+                      {data?.retributions[0].retribution_jasa_total}
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -173,34 +180,30 @@ const DetailPesanan = () => {
                       Nama IKM
                     </td>
                     <td className="w-[3%]">:</td>
-                    <td className="pl-2 w-[50%]">
-                      {data?.users.user_ikm} | Belum ada
-                    </td>
+                    <td className="pl-2 w-[50%]">{data?.users.user_ikm}</td>
                   </tr>
                   <tr>
                     <td className="text-secondary-900 pr-3 w-[47%] py-2">
                       No. Handphone
                     </td>
                     <td className="w-[3%]">:</td>
-                    <td className="pl-2 w-[50%]">
-                      {data?.users.user_contact} | Belum ada
-                    </td>
+                    <td className="pl-2 w-[50%]">{data?.users.user_contact}</td>
                   </tr>
                   <tr>
                     <td className="text-secondary-900 pr-3 w-[47%] py-2">
                       Alamat
                     </td>
                     <td className="w-[3%]">:</td>
-                    <td className="pl-2 w-[50%]">
-                      {data?.users.user_address} | Belum ada
-                    </td>
+                    <td className="pl-2 w-[50%]">{data?.users.user_address}</td>
                   </tr>
                   <tr>
                     <td className="text-secondary-900 pr-3 w-[47%] py-2">
                       Pengiriman
                     </td>
                     <td className="w-[3%]">:</td>
-                    <td className="pl-2 w-[50%]">Belum ada</td>
+                    <td className="pl-2 w-[50%]">
+                      {data?.delivery_details[0].delivery_detail_courier}
+                    </td>
                   </tr>
                 </tbody>
               </table>

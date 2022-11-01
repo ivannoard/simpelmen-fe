@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
-
+import React, { useEffect, useState } from "react";
+import { adminTU } from "../../../services/api";
 const Profil = () => {
+  const user = localStorage.getItem("admin");
+  const parseUser = JSON.parse(user);
+  const [data, setData] = useState();
   const [toggleDisabledProfile, setToggleDisabledProfile] = useState(true);
   const [toggleDisabledPwd, setToggleDisabledPwd] = useState(true);
   const [fieldsProfile, setFieldsProfile] = useState({});
@@ -10,7 +13,7 @@ const Profil = () => {
     e.preventDefault();
     setFieldsProfile({
       ...fieldsProfile,
-      [e.target.getAttribute('name')]: e.target.value,
+      [e.target.getAttribute("name")]: e.target.value,
     });
   };
 
@@ -18,19 +21,44 @@ const Profil = () => {
     e.preventDefault();
     setFieldsPwd({
       ...fieldsPwd,
-      [e.target.getAttribute('name')]: e.target.value,
+      [e.target.getAttribute("name")]: e.target.value,
     });
   };
 
-  const handleSubmitProfile = (e) => {
+  const handleSubmitProfile = async (e) => {
     e.preventDefault();
-    console.log(fieldsProfile);
+    // console.log(fieldsProfile);
+    await adminTU.put(`/profile/${data?.data?.user_id}`, {
+      headers: {
+        "x-access-token": `${parseUser.data.token}`,
+      },
+    });
   };
 
   const handleSubmitPwd = (e) => {
     e.preventDefault();
     console.log(fieldsPwd);
   };
+
+  useEffect(() => {
+    const getData = async () => {
+      await adminTU
+        .get("/profile", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) =>
+          setFieldsProfile({
+            user_name: response.data.data.user_name,
+            user_email: response.data.data.user_email,
+          })
+        );
+    };
+    getData();
+  }, [parseUser.data.token]);
+
+  // console.log(data.data.user_name);
 
   return (
     <>
@@ -40,13 +68,10 @@ const Profil = () => {
             <div className="border-b border-orange-900 mb-8">
               <h3 className="pb-4">Edit Profile Admin TU</h3>
             </div>
-            <form
-              className=""
-              onSubmit={(e) => handleSubmitProfile(e)}
-            >
+            <form className="" onSubmit={(e) => handleSubmitProfile(e)}>
               <div className="relative w-full flex flex-col mb-4">
                 <label
-                  htmlFor="nama"
+                  htmlFor="user_name"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Nama Lengkap
@@ -55,13 +80,14 @@ const Profil = () => {
                   type="text"
                   className="input-field-xs"
                   placeholder="Masukkan Nama Lengkap"
-                  name="nama"
-                  id="nama"
+                  name="user_name"
+                  id="user_name"
                   required
                   autoComplete="on"
                   disabled={toggleDisabledProfile}
                   onChange={handleChangeProfile}
-                  value={fieldsProfile.nama}
+                  value={fieldsProfile.user_name}
+                  defaultValue={fieldsProfile.user_name}
                 />
               </div>
               <div className="relative w-full flex flex-col mb-4">
@@ -78,15 +104,16 @@ const Profil = () => {
                   name="posisi"
                   id="posisi"
                   required
-                  disabled={toggleDisabledProfile}
+                  disabled
                   onChange={handleChangeProfile}
                   autoComplete="on"
                   value={fieldsProfile.posisi}
+                  // defaultValue={data?.data?.user_name}
                 />
               </div>
               <div className="relative w-full flex flex-col mb-4">
                 <label
-                  htmlFor="email"
+                  htmlFor="user_email"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Email
@@ -95,18 +122,19 @@ const Profil = () => {
                   type="email"
                   className="input-field-xs"
                   placeholder="Masukkan Email"
-                  name="email"
-                  id="email"
+                  name="user_email"
+                  id="user_email"
                   required
                   disabled={toggleDisabledProfile}
                   onChange={handleChangeProfile}
                   autoComplete="on"
-                  value={fieldsProfile.email}
+                  value={fieldsProfile.user_email}
+                  defaultValue={fieldsProfile.user_email}
                 />
               </div>
               <div className="relative w-full flex flex-col mb-8">
                 <label
-                  htmlFor="password"
+                  htmlFor="user_password"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Kata Sandi
@@ -115,8 +143,8 @@ const Profil = () => {
                   type="password"
                   className="input-field-xs"
                   placeholder="Masukkan Kata Sandi"
-                  name="password"
-                  id="password"
+                  name="user_password"
+                  id="user_password"
                   required
                   disabled={toggleDisabledProfile}
                   onChange={handleChangeProfile}
@@ -133,10 +161,7 @@ const Profil = () => {
                     Edit Profil
                   </button>
                 ) : (
-                  <button
-                    className="button-fill"
-                    type="submit"
-                  >
+                  <button className="button-fill" type="submit">
                     Simpan Perubahan
                   </button>
                 )}
@@ -149,10 +174,7 @@ const Profil = () => {
             <div className="border-b border-orange-900 mb-8">
               <h3 className="pb-4">Ubah Kata Sandi</h3>
             </div>
-            <form
-              className=""
-              onSubmit={(e) => handleSubmitPwd(e)}
-            >
+            <form className="" onSubmit={(e) => handleSubmitPwd(e)}>
               <div className="relative w-full flex flex-col mb-4">
                 <label
                   htmlFor="oldPassword"
@@ -220,10 +242,7 @@ const Profil = () => {
                     Edit Password
                   </button>
                 ) : (
-                  <button
-                    className="button-fill"
-                    type="submit"
-                  >
+                  <button className="button-fill" type="submit">
                     Perbarui Password
                   </button>
                 )}

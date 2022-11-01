@@ -1,15 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { adminKasir } from "../../../services/api";
 
 const PAD = () => {
+  const user = localStorage.getItem("admin");
+  const parseUser = JSON.parse(user);
+  const [pad, setPad] = useState();
+  useEffect(() => {
+    const getData = async () => {
+      await adminKasir
+        .get("/pad", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setPad(response.data));
+    };
+    getData();
+  }, [parseUser.data.token]);
+  console.log(pad);
   return (
     <>
       <section>
         <div className=" border-b border-orange-900">
           <h3 className="font-semibold">PAD</h3>
         </div>
-        <h6 className="mt-10 mb-4">Tabel PAD</h6>
+        <h6 className="mt-10 mb-4">Tabel PAD </h6>
         <div className="flex items-center justify-between">
           <div className="flex gap-2 items-center">
             <label htmlFor="sorting">Menampilkan</label>
@@ -48,16 +65,26 @@ const PAD = () => {
             </tr>
           </thead>
           <tbody>
-            {[1, 2, 3, 4, 5].map((item, index) => (
-              <tr className="border-b" key={item}>
-                <td className="text-center py-3">{index}</td>
-                <td className="text-center py-3">001/BIKDK/O/VII/2022</td>
-                <td className="text-center py-3">Ikha Katering</td>
-                <td className="text-center py-3">Rp. 120.000</td>
+            {pad?.map((item, index) => (
+              <tr className="border-b" key={index}>
+                <td className="text-center py-3">{index + 1}</td>
+                <td className="text-center py-3">{item.orders.order_code}</td>
                 <td className="text-center py-3">
-                  <div className="bg-[#21B630] text-white py-2 px-3 rounded-lg font-semibold">
-                    Sudah Setor
-                  </div>
+                  {item.orders.users.user_ikm}
+                </td>
+                <td className="text-center py-3">
+                  Rp. {item.retribution_jasa_total}
+                </td>
+                <td className="text-center py-3">
+                  {item.retribution_pad_status === 2 ? (
+                    <div className="bg-[#21B630] text-white py-2 px-3 rounded-lg font-semibold">
+                      Disetujui
+                    </div>
+                  ) : (
+                    <div className="bg-primary-900 text-white py-2 px-3 rounded-lg font-semibold">
+                      Belum Disetujui
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}

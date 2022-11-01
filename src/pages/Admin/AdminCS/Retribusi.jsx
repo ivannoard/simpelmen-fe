@@ -23,8 +23,16 @@ const Retribusi = () => {
     };
     getData();
   }, [parseUser.data.token]);
-  console.log(data);
 
+  // async function handleDelete(e, id) {
+  //   e.preventDefault();
+  //   await adminCS.delete(`/retributions/${id}`, {
+  //     headers: {
+  //       "x-access-token": `${parseUser.data.token}`,
+  //     },
+  //   });
+  // }
+  // console.log(data);
   return (
     <section>
       <div className="border-b border-orange-900">
@@ -105,9 +113,12 @@ const Retribusi = () => {
                       >
                         Edit
                       </button>
-                      <button className="flex items-center justify-center rounded-lg py-2 px-3 bg-primary-900 transition-200 hover:bg-primary-900/70">
+                      {/* <button
+                        className="flex items-center justify-center rounded-lg py-2 px-3 bg-primary-900 transition-200 hover:bg-primary-900/70"
+                        onClick={(e) => handleDelete(e, item.retribution_id)}
+                      >
                         <FaTrash className="fill-white text-base" />
-                      </button>
+                      </button> */}
                     </div>
                   </td>
                 </tr>

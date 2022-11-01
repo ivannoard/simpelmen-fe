@@ -2,34 +2,52 @@ import React, { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { IoIosArrowDown } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+import Alerts from "../../../components/Alerts";
 import { adminCS } from "../../../services/api";
 
 const Status = () => {
   const user = localStorage.getItem("admin");
   const parseUser = JSON.parse(user);
   const [data, setData] = useState();
+  const navigate = useNavigate();
+  const [alerts, setAlerts] = useState(false);
+  const [alertFail, setAlertFail] = useState(false);
+  const [failMessage, setFailMessage] = useState("");
 
   const declineStatus = async (id, status) => {
-    await adminCS.put(
-      `/orders/decline/${id}`,
-      { order_status: status },
-      {
-        headers: {
-          "x-access-token": `${parseUser.data.token}`,
-        },
-      }
-    );
+    await adminCS
+      .put(
+        `/orders/decline/${id}`,
+        { order_status: status },
+        {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        }
+      )
+      .then((response) => setAlerts(true))
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
   };
   const acceptStatus = async (id, status) => {
-    await adminCS.put(
-      `/orders/accept/${id}`,
-      { order_status: status },
-      {
-        headers: {
-          "x-access-token": `${parseUser.data.token}`,
-        },
-      }
-    );
+    await adminCS
+      .put(
+        `/orders/accept/${id}`,
+        { order_status: status },
+        {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        }
+      )
+      .then((response) => setAlerts(true))
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
   };
 
   function handleChange(e, item) {
@@ -42,7 +60,7 @@ const Status = () => {
     } else if (e.target.value === "3") {
       acceptStatus(item.order_id, parseInt(e.target.value));
     }
-    console.log(data);
+    // console.log(data);
     // console.log(filtered);
     // setData(
     //   (prevState) => [...prevState, filtered]
@@ -67,6 +85,23 @@ const Status = () => {
 
   return (
     <section>
+      {alerts && (
+        <Alerts
+          state="true"
+          background="bg-green-100"
+          textColor="text-green-600"
+          textContent="Status pesanan telah diubah!"
+        />
+      )}
+      {alertFail && (
+        <Alerts
+          state="true"
+          background="bg-red-100"
+          textColor="text-red-600"
+          textContent={`Ups, sepertinya ada yang salah: ${failMessage}`}
+          closeButton="true"
+        />
+      )}
       <div className="border-b border-orange-900">
         <h3 className="font-semibold pb-3">Status PO</h3>
       </div>
@@ -133,22 +168,27 @@ const Status = () => {
                       <select
                         id="status"
                         name="status"
-                        defaultValue={item.order_status}
+                        defaultValue={
+                          item.order_statuses[0].order_status_admin_code
+                        }
                         // value={item.status}
                         onChange={(e) => handleChange(e, item)}
                         className={`${
-                          item.order_status === 1
+                          item.order_statuses[0].order_status_admin_code ===
+                          null
                             ? "!bg-gradient-to-bl !from-orange-900 !to-primary-900 hover:!from-primary-900 hover:!to-orange-900 !shadow-red"
-                            : item.order_status === 3
+                            : item.order_statuses[0].order_status_admin_code ===
+                              "3"
                             ? "!bg-green-500 hover:!bg-green-500/80"
-                            : item.order_status === 2
+                            : item.order_statuses[0].order_status_admin_code ===
+                              "2"
                             ? "!bg-secondary-800 hover:!bg-secondary-800/80"
                             : ""
                         } input-field-select-xs !border-none !font-semibold !text-white !w-auto !pr-12`}
                       >
                         <option value="1">Status PO</option>
-                        <option value="3">Diterima</option>
                         <option value="2">Belum Disetujui</option>
+                        <option value="3">Diterima</option>
                       </select>
                       <IoIosArrowDown className="absolute right-4 top-[15px] text-base fill-white" />
                     </div>

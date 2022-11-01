@@ -68,7 +68,8 @@ const Pemesanan = ({ item }) => {
           delivery_detail_address: fields.user_address,
           delivery_detail_district: fields.user_district,
           delivery_detail_postal_code: fields.postal_code,
-          delivery_detail_couried: fields.user_courier,
+          delivery_detail_courier: fields.user_courier,
+          delivery_detail_note: fields.user_note,
         },
         {
           headers: {
@@ -117,7 +118,7 @@ const Pemesanan = ({ item }) => {
         <>
           <hr className="my-10 border-primary-400/50" />
           <section id="alamat">
-            {fields.user_postal_code === null ? (
+            {fields.user_postal_code === undefined ? (
               <h6 className="font-semibold">
                 Silahkan Lengkapi Data Diri Anda di Dashboard
               </h6>
@@ -451,7 +452,7 @@ const Pemesanan = ({ item }) => {
                   </div>
                 )}
               </div>
-              {fields.user_postal_code === null ? (
+              {fields.user_postal_code === undefined ? (
                 <div className="col-span-4 2xsm:col-span-8 2md:col-span-12 flex justify-center mt-8">
                   <button
                     className="button-fill"

@@ -20,6 +20,7 @@ const LacakPesanan = () => {
   const parseUser = JSON.parse(user);
   const [toggleTracking, setToggleTracking] = useState(true);
   const [trackingOrder, setTrackingOrder] = useState();
+  const [trackingData, setTrackingData] = useState();
   const [data, setData] = useState();
 
   useEffect(() => {
@@ -40,6 +41,10 @@ const LacakPesanan = () => {
     setToggleTracking(false);
     setTrackingOrder(index);
   }
+
+  useEffect(() => {
+    setTrackingData(data?.filter((item) => item.order_id === trackingOrder)[0]);
+  }, [data, trackingOrder]);
 
   return (
     <>
@@ -68,14 +73,17 @@ const LacakPesanan = () => {
                         <p className="text-xs xs:text-sm font-medium mb-1 xs:mb-2 text-secondary-900">
                           Jenis Produk
                         </p>
-                        <p className="font-semibold text-primary-900">
-                          GAADA RESPONSE{" "}
+                        <p className="font-semibold">
+                          {
+                            item.order_products[0].products.jenis_products
+                              .jenis_product_name
+                          }{" "}
                         </p>
                       </div>
                       <div className="xl:col-span-2 hidden xl:block">
                         <div className="flex justify-center">
                           <button
-                            onClick={(e) => showTracking(e, index)}
+                            onClick={(e) => showTracking(e, item.order_id)}
                             className="text-sm border border-secondary-800 rounded-full px-3 py-1 hover:border-primary-900 transition-200"
                           >
                             Lacak Pesanan
@@ -85,7 +93,7 @@ const LacakPesanan = () => {
                       <div className="col-span-6 xl:col-span-2 block xl:hidden">
                         <div className="flex xl:justify-center">
                           <button
-                            onClick={(e) => showTracking(e, index)}
+                            onClick={(e) => showTracking(e, item.order_id)}
                             className="text-sm border border-secondary-800 rounded-full px-3 py-1 hover:border-primary-900 transition-200"
                           >
                             Lacak Pesanan
@@ -120,7 +128,20 @@ const LacakPesanan = () => {
           </div>
           <div className="col-span-4 xl:border-l px-5">
             {toggleTracking && <EmptyState />}
-            {!toggleTracking && <Stepper trackingOrder={trackingOrder} />}
+            {!toggleTracking && (
+              <div className="flex flex-col gap-5">
+                {trackingData?.order_statuses.map((item) => (
+                  <>
+                    <div className="bg-white rounded-md shadow-md p-3">
+                      <p>{item.createdAt}</p>
+                      <h6 className="font-semibold">
+                        {item.order_status_description}
+                      </h6>
+                    </div>
+                  </>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>

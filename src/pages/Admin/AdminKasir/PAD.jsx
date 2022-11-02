@@ -23,17 +23,17 @@ const PAD = () => {
   return (
     <>
       <section>
-        <div className=" border-b border-orange-900">
-          <h3 className="font-semibold">PAD</h3>
+        <div className="border-b border-orange-900">
+          <h3 className="font-semibold pb-3">PAD</h3>
         </div>
-        <h6 className="mt-10 mb-4">Tabel PAD </h6>
-        <div className="flex items-center justify-between">
-          <div className="flex gap-2 items-center">
+        <h6 className="mt-10 mb-4">Tabel PAD</h6>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex gap-2 items-center mr-4">
             <label htmlFor="sorting">Menampilkan</label>
             <select
               name="sorting"
               id="sorting"
-              className="w-[50px] rounded-md h-10 p-2 bg-white border border-primary-900"
+              className="w-[50px] rounded h-10 p-2 bg-white border border-primary-900"
             >
               <option value="1">1</option>
               <option value="2">2</option>
@@ -43,14 +43,14 @@ const PAD = () => {
           <div className="flex relative top-2 flex-col mb-4">
             <input
               type="email"
-              className="input-field !rounded-full !py-2"
+              className="input-field !rounded-full !py-2 !pl-14"
               placeholder="Cari"
               name="email"
               required
               autoComplete="on"
               // onChange={handleChange}
             />
-            <BsSearch className="absolute text-2xl top-[10px] left-5 fill-secondary-800" />
+            <BsSearch className="absolute text-xl top-3 left-6 fill-secondary-800" />
           </div>
         </div>
         {/*  */}

@@ -39,7 +39,7 @@ const Dashboard = () => {
     <>
       <section>
         <div className=" border-b border-orange-900">
-          <h3 className="font-semibold">Dashboard Kasir</h3>
+          <h3 className="font-semibold pb-3">Dashboard Kasir</h3>
         </div>
         <h6 className="mt-10 mb-4">Tabel Daftar Pembayaran </h6>
         <table className="table-auto mt-4 w-[1440px] lg:w-full">

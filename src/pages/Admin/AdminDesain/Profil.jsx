@@ -38,7 +38,7 @@ const Profil = () => {
         <div className="flex justify-center items-center w-full mb-12">
           <div className="bg-white rounded-2xl shadow-gray px-8 xs:px-10 pb-8 xs:pb-10 pt-9 xs:pt-12 w-full">
             <div className="border-b border-orange-900 mb-8">
-              <h3 className="pb-4">Update Profile Super Admin</h3>
+              <h3 className="pb-4">Update Profile Admin Desain</h3>
             </div>
             <form
               className=""

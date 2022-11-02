@@ -117,12 +117,7 @@ const Dashboard = () => {
         <div className="border-b border-orange-900">
           <h3 className="font-semibold pb-3">Dashboard Gudang</h3>
         </div>
-        <h6 className="mt-10 mb-4">
-          Tabel Status Pengiriman Barang{" "}
-          <span className="text-primary-900 font-semibold">
-            Clear but need review
-          </span>
-        </h6>
+        <h6 className="mt-10 mb-4">Tabel Status Pengiriman Barang </h6>
         <div className="flex items-center justify-between mb-4">
           <div className="flex gap-2 items-center mr-4">
             <label htmlFor="sorting">Menampilkan</label>
@@ -173,7 +168,7 @@ const Dashboard = () => {
               </thead>
               <tbody>
                 {warehouseData?.map((item, index) => (
-                  <tr className="border-b" key={item.id}>
+                  <tr className="border-b" key={index}>
                     <td className="text-center p-3">{index + 1}</td>
                     <td className="text-center p-3">{item.order_code}</td>
                     <td className="text-center p-3">{item.createdAt}</td>

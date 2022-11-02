@@ -1,23 +1,14 @@
-import React, { Fragment } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
-import { MdClose } from 'react-icons/md';
-import { dummyImg } from '../../../../assets/image';
+import React, { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { MdClose } from "react-icons/md";
 
-const ModalDetail = ({ isOpen, closeModal, idPesanan }) => {
+const ModalDetail = ({ isOpen, closeModal, detailData }) => {
   const isDisabled = true;
 
   return (
     <>
-      <Transition
-        appear
-        show={isOpen}
-        as={Fragment}
-      >
-        <Dialog
-          as="div"
-          className="relative z-10"
-          onClose={closeModal}
-        >
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -55,17 +46,23 @@ const ModalDetail = ({ isOpen, closeModal, idPesanan }) => {
                   <hr className="mb-6" />
                   <div className="mb-6">
                     <p className="mb-1">
-                      Pesanan: {`1 Januari 2022`}/{idPesanan}
+                      Pesanan: {detailData?.createdAt}/ {detailData?.order_code}
                     </p>
                     <p className="mb-1">
-                      {`Standing Pouch`} {`(Nama Produk)`}
+                      {
+                        detailData?.order_details[0]?.order_products.products
+                          .product_name
+                      }
                     </p>
                     <p className="mb-4">
-                      {`Standing Pouch Full COlor`} {`(Jenis Produk)`}
+                      {
+                        detailData?.order_details[0]?.order_products.products
+                          .jenis_products.jenis_product_name
+                      }
                     </p>
                     <figure className="p-6 rounded-xl border border-orange-900/70">
                       <img
-                        src={dummyImg.boxTentengan}
+                        src={`data:image/jpg;base64,${detailData?.order_details[0]?.order_products.products.product_image}`}
                         alt={`nama`}
                         className="w-full"
                       />
@@ -87,9 +84,13 @@ const ModalDetail = ({ isOpen, closeModal, idPesanan }) => {
                               type="text"
                               name="panjang"
                               className={`input-field-xs ${
-                                isDisabled ? '!bg-secondary-600' : '!bg-white'
+                                isDisabled ? "!bg-secondary-600" : "!bg-white"
                               }`}
-                              value={`20`}
+                              value={
+                                detailData?.order_details[0]?.p1 === null
+                                  ? "0"
+                                  : detailData?.order_details[0]?.p1
+                              }
                               disabled={isDisabled}
                             />
                           </div>
@@ -100,9 +101,13 @@ const ModalDetail = ({ isOpen, closeModal, idPesanan }) => {
                               type="text"
                               name="lebar"
                               className={`input-field-xs ${
-                                isDisabled ? '!bg-secondary-600' : '!bg-white'
+                                isDisabled ? "!bg-secondary-600" : "!bg-white"
                               }`}
-                              value={`20`}
+                              value={
+                                detailData?.order_details[0]?.l1 === null
+                                  ? "0"
+                                  : detailData?.order_details[0]?.l1
+                              }
                               disabled
                             />
                           </div>
@@ -113,9 +118,13 @@ const ModalDetail = ({ isOpen, closeModal, idPesanan }) => {
                               type="text"
                               name="tinggi"
                               className={`input-field-xs ${
-                                isDisabled ? '!bg-secondary-600' : '!bg-white'
+                                isDisabled ? "!bg-secondary-600" : "!bg-white"
                               }`}
-                              value={`30`}
+                              value={
+                                detailData?.order_details[0]?.t1 === null
+                                  ? "0"
+                                  : detailData?.order_details[0]?.t1
+                              }
                               disabled
                             />
                           </div>
@@ -134,11 +143,14 @@ const ModalDetail = ({ isOpen, closeModal, idPesanan }) => {
                         name="jenisProduk"
                         id="jenisProduk"
                         className={`input-field-xs ${
-                          isDisabled ? '!bg-secondary-600' : '!bg-white'
+                          isDisabled ? "!bg-secondary-600" : "!bg-white"
                         }`}
                         placeholder="Masukkan jenis produk"
                         disabled={isDisabled}
-                        value={`A1 Pond`}
+                        value={
+                          detailData?.order_details[0]?.order_products.products
+                            .jenis_products.jenis_product_name
+                        }
                       />
                     </div>
                     <div className="mb-5">
@@ -153,11 +165,14 @@ const ModalDetail = ({ isOpen, closeModal, idPesanan }) => {
                         name="bahanProduk"
                         id="bahanProduk"
                         className={`input-field-xs ${
-                          isDisabled ? '!bg-secondary-600' : '!bg-white'
+                          isDisabled ? "!bg-secondary-600" : "!bg-white"
                         }`}
                         placeholder="Masukkan bahan produk"
                         disabled={isDisabled}
-                        value={`Duplex 310 gram`}
+                        value={
+                          detailData?.order_details[0]?.order_products.products
+                            .product_materials.product_material_name
+                        }
                       />
                     </div>
                     <div className="mb-3">
@@ -172,11 +187,14 @@ const ModalDetail = ({ isOpen, closeModal, idPesanan }) => {
                         name="finishingProduk"
                         id="finishingProduk"
                         className={`input-field-xs ${
-                          isDisabled ? '!bg-secondary-600' : '!bg-white'
+                          isDisabled ? "!bg-secondary-600" : "!bg-white"
                         }`}
                         placeholder="Masukkan finishing produk"
                         disabled={isDisabled}
-                        value={`Laminasi glossi`}
+                        value={
+                          detailData?.order_details[0]?.order_products.products
+                            .product_finishings.product_finishing_name
+                        }
                       />
                     </div>
                   </form>

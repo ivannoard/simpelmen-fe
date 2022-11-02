@@ -49,8 +49,6 @@ const Dashboard = () => {
     getData();
   }, [parseUser.data.token]);
 
-  console.log(order);
-
   return (
     <section>
       <div className="border-b border-orange-900">
@@ -156,10 +154,11 @@ const Dashboard = () => {
                   <td className="text-center px-3 py-2">{index + 1}</td>
                   <td className="text-center px-3 py-2">{item?.order_code}</td>
                   <td className="text-left px-3 py-2">
-                    {item?.delivery_details[0].delivery_detail_ikm}
+                    {item?.delivery_details[0]?.delivery_detail_ikm}
                   </td>
                   <td className="text-center px-4 py-2">
-                    {item?.order_statuses[0].order_status_admin_code === "2" ? (
+                    {item?.order_statuses[0]?.order_status_admin_code ===
+                    "2" ? (
                       <div className="bg-primary-900 text-white py-2 rounded-lg font-semibold text-sm truncate px-2">
                         Belum Disetujui
                       </div>

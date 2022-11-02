@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
+import Alerts from "../../../components/Alerts";
 import { adminTU } from "../../../services/api";
 const Profil = () => {
   const user = localStorage.getItem("admin");
   const parseUser = JSON.parse(user);
-  const [data, setData] = useState();
   const [toggleDisabledProfile, setToggleDisabledProfile] = useState(true);
   const [toggleDisabledPwd, setToggleDisabledPwd] = useState(true);
   const [fieldsProfile, setFieldsProfile] = useState({});
   const [fieldsPwd, setFieldsPwd] = useState({});
+  const [alerts, setAlerts] = useState(false);
+  const [alertFail, setAlertFail] = useState(false);
+  const [failMessage, setFailMessage] = useState("");
 
   const handleChangeProfile = (e) => {
     e.preventDefault();
@@ -28,16 +31,39 @@ const Profil = () => {
   const handleSubmitProfile = async (e) => {
     e.preventDefault();
     // console.log(fieldsProfile);
-    await adminTU.put(`/profile/${data?.data?.user_id}`, {
-      headers: {
-        "x-access-token": `${parseUser.data.token}`,
-      },
-    });
+    await adminTU
+      .put(`/profile/${fieldsProfile?.user_id}`, {
+        headers: {
+          "x-access-token": `${parseUser.data.token}`,
+        },
+      })
+      .then((response) => setAlerts(true))
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
   };
 
-  const handleSubmitPwd = (e) => {
+  const handleSubmitPwd = async (e) => {
     e.preventDefault();
-    console.log(fieldsPwd);
+    await adminTU
+      .put(
+        `/changepassword/${fieldsProfile?.user_id}`,
+        {
+          user_password_old: fieldsPwd.password,
+          user_password_new: fieldsPwd.new_password,
+        },
+        {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        }
+      )
+      .then((response) => setAlerts(true))
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
   };
 
   useEffect(() => {
@@ -50,6 +76,7 @@ const Profil = () => {
         })
         .then((response) =>
           setFieldsProfile({
+            user_id: response.data.data.user_id,
             user_name: response.data.data.user_name,
             user_email: response.data.data.user_email,
           })
@@ -63,6 +90,23 @@ const Profil = () => {
   return (
     <>
       <section>
+        {alerts && (
+          <Alerts
+            state="true"
+            background="bg-green-100"
+            textColor="text-green-600"
+            textContent="Status pesanan telah diubah!"
+          />
+        )}
+        {alertFail && (
+          <Alerts
+            state="true"
+            background="bg-red-100"
+            textColor="text-red-600"
+            textContent={`Ups, sepertinya ada yang salah: ${failMessage}`}
+            closeButton="true"
+          />
+        )}
         <div className="flex justify-center items-center w-full mb-12">
           <div className="bg-white rounded-2xl shadow-gray px-8 xs:px-10 pb-8 xs:pb-10 pt-9 xs:pt-12 w-full">
             <div className="border-b border-orange-900 mb-8">
@@ -107,7 +151,7 @@ const Profil = () => {
                   disabled
                   onChange={handleChangeProfile}
                   autoComplete="on"
-                  value={fieldsProfile.posisi}
+                  value="GAADA RESPONSE"
                   // defaultValue={data?.data?.user_name}
                 />
               </div>
@@ -177,7 +221,7 @@ const Profil = () => {
             <form className="" onSubmit={(e) => handleSubmitPwd(e)}>
               <div className="relative w-full flex flex-col mb-4">
                 <label
-                  htmlFor="oldPassword"
+                  htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Kata Sandi Lama
@@ -186,8 +230,8 @@ const Profil = () => {
                   type="password"
                   className="input-field-xs"
                   placeholder="Masukkan Kata Sandi Lama"
-                  name="oldPassword"
-                  id="oldPassword"
+                  name="password"
+                  id="password"
                   required
                   disabled={toggleDisabledPwd}
                   onChange={handleChangePwd}
@@ -196,7 +240,7 @@ const Profil = () => {
               </div>
               <div className="relative w-full flex flex-col mb-4">
                 <label
-                  htmlFor="password"
+                  htmlFor="new_password"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Kata Sandi Baru
@@ -205,8 +249,8 @@ const Profil = () => {
                   type="password"
                   className="input-field-xs"
                   placeholder="Masukkan Kata Sandi Baru"
-                  name="password"
-                  id="password"
+                  name="new_password"
+                  id="new_password"
                   required
                   disabled={toggleDisabledPwd}
                   onChange={handleChangePwd}
@@ -215,7 +259,7 @@ const Profil = () => {
               </div>
               <div className="relative w-full flex flex-col mb-8">
                 <label
-                  htmlFor="password"
+                  htmlFor="confirm_password"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Konfirmasi Kata Sandi Baru
@@ -224,8 +268,8 @@ const Profil = () => {
                   type="password"
                   className="input-field-xs"
                   placeholder="Masukkan Konfirmasi Kata Sandi Baru"
-                  name="password"
-                  id="password"
+                  name="confirm_password"
+                  id="confirm_password"
                   required
                   disabled={toggleDisabledPwd}
                   onChange={handleChangePwd}

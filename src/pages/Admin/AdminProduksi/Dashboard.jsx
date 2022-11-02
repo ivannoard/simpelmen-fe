@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { IoIosArrowDown } from "react-icons/io";
+import Alerts from "../../../components/Alerts";
 import { adminProduksi } from "../../../services/api";
 import ModalDetail from "./components/ModalDetail";
 
@@ -9,67 +10,103 @@ const Dashboard = () => {
   const user = localStorage.getItem("admin");
   const parseUser = JSON.parse(user);
   const [productData, setProductData] = useState();
-  const [data, setData] = useState([
-    {
-      id: 1,
-      nomorPesanan: "001/BIKDK/1/VII/2022",
-      tanggalPesanan: "12 September 2022",
-      namaIKM: "Ikha cathering",
-      status: 2,
-    },
-    {
-      id: 2,
-      nomorPesanan: "004/BIKDK/1/VII/2022",
-      tanggalPesanan: "12 September 2022",
-      namaIKM: "Ikha cathering",
-      status: 1,
-    },
-    {
-      id: 3,
-      nomorPesanan: "018/BIKDK/3/VII/2022",
-      tanggalPesanan: "12 September 2022",
-      namaIKM: "Ikha cathering",
-      status: 3,
-    },
-    {
-      id: 4,
-      nomorPesanan: "019/BIKDK/8/VII/2022",
-      tanggalPesanan: "12 September 2022",
-      namaIKM: "Ikha cathering",
-      status: 3,
-    },
-    {
-      id: 5,
-      nomorPesanan: "020/BIKDK/18/VII/2022",
-      tanggalPesanan: "12 September 2022",
-      namaIKM: "Ikha cathering",
-      status: 2,
-    },
-  ]);
-
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [toggleId, setToggleId] = useState();
+  const [detailData, setDetailData] = useState();
+  const [alerts, setAlerts] = useState(false);
+  const [alertFail, setAlertFail] = useState(false);
+  const [failMessage, setFailMessage] = useState("");
 
   const closeModal = () => {
     setIsOpenModal(false);
   };
 
-  const detailModalHandling = (id) => {
+  const detailModalHandling = async (id) => {
     setIsOpenModal(true);
-    setToggleId(id);
+    await adminProduksi
+      .get(`/orders/${id}`, {
+        headers: {
+          "x-access-token": `${parseUser.data.token}`,
+        },
+      })
+      .then((response) => setDetailData(response.data));
   };
+
+  async function belumProduksi(status, id) {
+    await adminProduksi
+      .put(
+        `/orders/belum-produksi/${id}`,
+        {
+          order_status: status,
+        },
+        {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        }
+      )
+      .then((response) => setAlerts(true))
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
+  }
+  async function dalamProduksi(status, id) {
+    await adminProduksi
+      .put(
+        `/orders/dalam-produksi/${id}`,
+        {
+          order_status: status,
+        },
+        {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        }
+      )
+      .then((response) => setAlerts(true))
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
+  }
+  async function selesaiProduksi(status, id) {
+    await adminProduksi
+      .put(
+        `/orders/selesai-produksi/${id}`,
+        {
+          order_status: status,
+        },
+        {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        }
+      )
+      .then((response) => setAlerts(true))
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
+  }
 
   function handleChange(e, item) {
     e.preventDefault();
     console.log(e.target.value);
-    const filtered = data.filter((brg) => brg.id === item.id)[0];
-    filtered.status = parseInt(e.target.value);
-    setData((prevState) =>
-      prevState.map((state) =>
-        state.id === filtered.id ? { ...state, status: filtered.status } : state
-      )
-    );
-    console.log(typeof data[0].status);
+    if (parseInt(e.target.value) === 2) {
+      belumProduksi(parseInt(e.target.value), item.order_id);
+    } else if (parseInt(e.target.value) === 3) {
+      dalamProduksi(parseInt(e.target.value), item.order_id);
+    } else if (parseInt(e.target.value) === 4) {
+      selesaiProduksi(parseInt(e.target.value), item.order_id);
+    }
+    // const filtered = data.filter((brg) => brg.id === item.id)[0];
+    // filtered.status = parseInt(e.target.value);
+    // setData((prevState) =>
+    //   prevState.map((state) =>
+    //     state.id === filtered.id ? { ...state, status: filtered.status } : state
+    //   )
+    // );
+    // console.log(typeof data[0].status);
   }
 
   useEffect(() => {
@@ -90,14 +127,29 @@ const Dashboard = () => {
   return (
     <>
       <section>
+        {alerts && (
+          <Alerts
+            state="true"
+            background="bg-green-100"
+            textColor="text-green-600"
+            textContent="Status pesanan telah diubah!"
+          />
+        )}
+        {alertFail && (
+          <Alerts
+            state="true"
+            background="bg-red-100"
+            textColor="text-red-600"
+            textContent={`Ups, sepertinya ada yang salah: ${failMessage}`}
+            closeButton="true"
+          />
+        )}
         <div className="border-b border-orange-900">
           <h3 className="font-semibold pb-3">Dashboard Produksi </h3>
         </div>
         <h6 className="mt-10 mb-4">
           Tabel Status Produksi{" "}
-          <span className="text-primary-900 font-semibold">
-            Response belum jelas
-          </span>
+          <span className="text-primary-900 font-semibold">GAADA IKM</span>
         </h6>
         <div className="flex items-center justify-between mb-4">
           <div className="flex gap-2 items-center mr-4">
@@ -152,19 +204,19 @@ const Dashboard = () => {
               </thead>
               <tbody>
                 {productData?.map((item, index) => (
-                  <tr className="border-b" key={item.id}>
+                  <tr className="border-b" key={index}>
                     <td className="text-center p-3">{index + 1}</td>
                     <td className="text-center p-3">{item.order_code}</td>
                     <td className="text-center p-3">{item.createdAt}</td>
                     <td className="text-left p-3 text-primary-900 font-semibold">
-                      GAADA RESPONSE
+                      IKM GAADA
                     </td>
                     <td className="text-center p-3">
                       <div className="relative">
                         <select
                           id="status"
                           name="status"
-                          defaultValue={item.status}
+                          defaultValue={item.order_status}
                           // value={item.status}
                           onChange={(e) => handleChange(e, item)}
                           className={`${
@@ -179,6 +231,15 @@ const Dashboard = () => {
                               : ""
                           } input-field-select-xs !border-none !font-semibold !text-white !w-auto !pr-12`}
                         >
+                          <option value={item.order_status}>
+                            {item.order_status === null
+                              ? "Status Produksi"
+                              : item.order_status === 2
+                              ? "Belum Produksi"
+                              : item.order_status === 3
+                              ? "Dalam Proses"
+                              : "Selesai Produksi"}
+                          </option>
                           <option value="1">Status Produksi</option>
                           <option value="2">Belum Diproduksi</option>
                           <option value="3">Dalam Proses</option>
@@ -190,7 +251,7 @@ const Dashboard = () => {
                     <td>
                       <div className="w-full flex justify-center">
                         <button
-                          onClick={() => detailModalHandling(item.order_code)}
+                          onClick={() => detailModalHandling(item.order_id)}
                           className="bg-white border py-2 px-4 rounded-lg text-sm transition-200 hover:border-orange-900"
                         >
                           Detail
@@ -229,7 +290,7 @@ const Dashboard = () => {
       <ModalDetail
         isOpen={isOpenModal}
         closeModal={closeModal}
-        idPesanan={toggleId}
+        detailData={detailData}
       />
     </>
   );

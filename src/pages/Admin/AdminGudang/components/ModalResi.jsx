@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { MdClose } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
@@ -67,10 +67,6 @@ const ModalResi = ({
                         className="input-field-select-xs"
                         required
                         onChange={changeHandler}
-                        defaultValue={
-                          filteredData?.delivery_details[0]
-                            ?.delivery_detail_courier
-                        }
                         value={
                           filteredData?.delivery_details[0]
                             ?.delivery_detail_courier

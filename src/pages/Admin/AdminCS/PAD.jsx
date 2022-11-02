@@ -2,54 +2,41 @@ import React, { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { IoIosArrowDown } from "react-icons/io";
+import Alerts from "../../../components/Alerts";
 import { adminCS } from "../../../services/api";
 
 const PAD = () => {
   const user = localStorage.getItem("admin");
   const parseUser = JSON.parse(user);
   const [data, setData] = useState();
-  const [barang, setBarang] = useState([
-    {
-      id: 1,
-      noPesanan: "001/BIKDK/O/VII/2022",
-      namaIKM: "Ikha Katering",
-      nominalTransaksi: "Rp.150.000",
-      status: 3,
-    },
-    {
-      id: 2,
-      noPesanan: "001/BIKDK/O/VII/2022",
-      nominalTransaksi: "Rp.150.000",
-      status: 1,
-      namaIKM: "Ikha Katering",
-    },
-    {
-      id: 3,
-      noPesanan: "001/BIKDK/O/VII/2022",
-      nominalTransaksi: "Rp.150.000",
-      status: 2,
-      namaIKM: "Ikha Katering",
-    },
-    {
-      id: 4,
-      noPesanan: "001/BIKDK/O/VII/2022",
-      nominalTransaksi: "Rp.150.000",
-      status: 1,
-      namaIKM: "Ikha Katering",
-    },
-  ]);
+  const [alerts, setAlerts] = useState(false);
+  const [alertFail, setAlertFail] = useState(false);
+  const [failMessage, setFailMessage] = useState("");
+
+  async function padStatus(status, id) {
+    await adminCS
+      .put(
+        `/pad/${id}`,
+        {
+          retribution_pad_status: parseInt(status),
+        },
+        {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        }
+      )
+      .then((response) => setAlerts(true))
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
+  }
 
   function handleChange(e, item) {
     e.preventDefault();
-    console.log(e.target.value);
-    const filtered = barang.filter((brg) => brg.id === item.id)[0];
-    filtered.status = parseInt(e.target.value);
-    setBarang((prevState) =>
-      prevState.map((state) =>
-        state.id === filtered.id ? { ...state, status: filtered.status } : state
-      )
-    );
-    console.log(typeof barang[0].status);
+    console.log(item.retribution_id);
+    padStatus(e.target.value, item.retribution_id);
   }
 
   useEffect(() => {
@@ -65,10 +52,31 @@ const PAD = () => {
     getData();
   }, [parseUser.data.token]);
 
-  console.log(data);
+  useEffect(() => {
+    setTimeout(() => {
+      if (alerts || alertFail === true) setAlertFail(false) || setAlerts(false);
+    }, 2000);
+  }, [alertFail, alerts]);
 
   return (
     <section>
+      {alerts && (
+        <Alerts
+          state="true"
+          background="bg-green-100"
+          textColor="text-green-600"
+          textContent="Status pesanan telah diubah!"
+        />
+      )}
+      {alertFail && (
+        <Alerts
+          state="true"
+          background="bg-red-100"
+          textColor="text-red-600"
+          textContent={`Ups, sepertinya ada yang salah: ${failMessage}`}
+          closeButton="true"
+        />
+      )}
       <div className="border-b border-orange-900">
         <h3 className="font-semibold pb-3">PAD</h3>
       </div>

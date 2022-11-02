@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { IoIosArrowDown } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
 import Alerts from "../../../components/Alerts";
 import { adminCS } from "../../../services/api";
 
@@ -10,7 +9,6 @@ const Status = () => {
   const user = localStorage.getItem("admin");
   const parseUser = JSON.parse(user);
   const [data, setData] = useState();
-  const navigate = useNavigate();
   const [alerts, setAlerts] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
   const [failMessage, setFailMessage] = useState("");
@@ -161,7 +159,7 @@ const Status = () => {
                   <td className="text-center p-3">{item.order_code}</td>
                   <td className="text-center p-3">{item.createdAt}</td>
                   <td className="text-left p-3">
-                    {item.delivery_details[0].delivery_detail_ikm}
+                    {item.delivery_details[0]?.delivery_detail_ikm}
                   </td>
                   <td className="text-center py-3 px-4 flex justify-center">
                     <div className="relative">
@@ -169,19 +167,19 @@ const Status = () => {
                         id="status"
                         name="status"
                         defaultValue={
-                          item.order_statuses[0].order_status_admin_code
+                          item.order_statuses[0]?.order_status_admin_code
                         }
                         // value={item.status}
                         onChange={(e) => handleChange(e, item)}
                         className={`${
-                          item.order_statuses[0].order_status_admin_code ===
+                          item.order_statuses[0]?.order_status_admin_code ===
                           null
                             ? "!bg-gradient-to-bl !from-orange-900 !to-primary-900 hover:!from-primary-900 hover:!to-orange-900 !shadow-red"
-                            : item.order_statuses[0].order_status_admin_code ===
-                              "3"
+                            : item.order_statuses[0]
+                                ?.order_status_admin_code === "3"
                             ? "!bg-green-500 hover:!bg-green-500/80"
-                            : item.order_statuses[0].order_status_admin_code ===
-                              "2"
+                            : item.order_statuses[0]
+                                ?.order_status_admin_code === "2"
                             ? "!bg-secondary-800 hover:!bg-secondary-800/80"
                             : ""
                         } input-field-select-xs !border-none !font-semibold !text-white !w-auto !pr-12`}

@@ -74,3 +74,15 @@ export const adminProduksi = axios.create({
     "Content-Type": "application/json",
   },
 });
+export const adminDesain = axios.create({
+  baseURL: "http://simpelmen.herokuapp.com/api/admin/desain",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+export const adminSuper = axios.create({
+  baseURL: "http://simpelmen.herokuapp.com/api/super/admin",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});

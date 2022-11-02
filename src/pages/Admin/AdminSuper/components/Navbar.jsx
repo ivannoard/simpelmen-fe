@@ -4,6 +4,8 @@ import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
 const Navbar = () => {
+  const user = localStorage.getItem("admin");
+  const parseUser = JSON.parse(user);
   const navigate = useNavigate();
   const handleLogout = (e) => {
     localStorage.removeItem("admin");
@@ -16,7 +18,7 @@ const Navbar = () => {
           <Menu.Button>
             <div className="flex items-center ">
               <p className="text-15/sp font-semibold mr-2 max-w-[5.625rem] lg:max-w-none truncate">
-                Username
+                {parseUser.data.user_name}
               </p>
               <HiChevronDown className="text-2xl" />
             </div>

@@ -8,49 +8,19 @@ const Rekap = () => {
   const user = localStorage.getItem("admin");
   const parseUser = JSON.parse(user);
   const [data, setData] = useState();
-  const [barang, setBarang] = useState([
-    {
-      id: 1,
-      noPesanan: "001/BIKDK/O/VII/2022",
-      namaIKM: "Ikha Katering",
-      status: 3,
-      totalTransaksi: "Rp.150.000",
-    },
-    {
-      id: 2,
-      noPesanan: "001/BIKDK/O/VII/2022",
-      totalTransaksi: "Rp.150.000",
-      namaIKM: "Ikha Katering",
-      status: 1,
-    },
-    {
-      id: 3,
-      noPesanan: "001/BIKDK/O/VII/2022",
-      totalTransaksi: "Rp.150.000",
-      namaIKM: "Ikha Katering",
-      status: 2,
-    },
-    {
-      id: 4,
-      noPesanan: "001/BIKDK/O/VII/2022",
-      totalTransaksi: "Rp.150.000",
-      namaIKM: "Ikha Katering",
-      status: 1,
-    },
-  ]);
 
-  function handleChange(e, item) {
-    e.preventDefault();
-    console.log(e.target.value);
-    const filtered = barang.filter((brg) => brg.id === item.id)[0];
-    filtered.status = parseInt(e.target.value);
-    setBarang((prevState) =>
-      prevState.map((state) =>
-        state.id === filtered.id ? { ...state, status: filtered.status } : state
-      )
-    );
-    console.log(typeof barang[0].status);
-  }
+  // function handleChange(e, item) {
+  //   e.preventDefault();
+  //   console.log(e.target.value);
+  //   const filtered = barang.filter((brg) => brg.id === item.id)[0];
+  //   filtered.status = parseInt(e.target.value);
+  //   setBarang((prevState) =>
+  //     prevState.map((state) =>
+  //       state.id === filtered.id ? { ...state, status: filtered.status } : state
+  //     )
+  //   );
+  //   console.log(typeof barang[0].status);
+  // }
 
   useEffect(() => {
     const getData = async () => {

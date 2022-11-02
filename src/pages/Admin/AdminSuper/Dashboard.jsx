@@ -1,9 +1,21 @@
-import React from 'react';
-import { BsFillCartFill, BsFillPersonFill } from 'react-icons/bs';
-import { FaBox } from 'react-icons/fa';
-import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
+import React, { useEffect, useState } from "react";
+import { BsFillCartFill, BsFillPersonFill } from "react-icons/bs";
+import { FaBox } from "react-icons/fa";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { adminSuper } from "../../../services/api";
+import jwt_decode from "jwt-decode";
 
 const Dashboard = () => {
+  const user = localStorage.getItem("admin");
+  const parseUser = JSON.parse(user);
+  const decodeToken = jwt_decode(parseUser.data.token);
+  console.log(decodeToken);
+  // const [dataAdmin,setDataAdmin]=useState()
+  // useEffect(()=>{
+  //   const getDataAdmin=async()=>{
+  //     await adminSuper.get('/data/admin',{})
+  //   }
+  // })
   return (
     <>
       <section>
@@ -13,10 +25,7 @@ const Dashboard = () => {
         <div className="grid grid-cols-4 xmd:grid-cols-8 gap-4">
           <div className="col-span-4 xl:col-span-2">
             <div className="card rounded-xl p-6 flex items-center gap-5 bg-gradient-to-r from-primary-900 to-orange-900">
-              <BsFillPersonFill
-                fill="#FFFFFF"
-                size={40}
-              />
+              <BsFillPersonFill fill="#FFFFFF" size={40} />
               <div className="content">
                 <h4 className="!text-white">14</h4>
                 <p className="!text-white">Total Admin</p>
@@ -25,10 +34,7 @@ const Dashboard = () => {
           </div>
           <div className="col-span-4 xl:col-span-2">
             <div className="card rounded-xl p-6 flex items-center gap-5 bg-gradient-to-r from-primary-900 to-orange-900">
-              <FaBox
-                fill="#FFFFFF"
-                size={40}
-              />
+              <FaBox fill="#FFFFFF" size={40} />
               <div className="content">
                 <h4 className="!text-white">14</h4>
                 <p className="!text-white">Total Produksi</p>
@@ -37,10 +43,7 @@ const Dashboard = () => {
           </div>
           <div className="col-span-4 xl:col-span-2">
             <div className="card rounded-xl p-6 flex items-center gap-5 bg-gradient-to-r from-primary-900 to-orange-900">
-              <BsFillCartFill
-                fill="#FFFFFF"
-                size={40}
-              />
+              <BsFillCartFill fill="#FFFFFF" size={40} />
               <div className="content">
                 <h4 className="!text-white">14</h4>
                 <p className="!text-white">Total Pesanan</p>
@@ -50,10 +53,7 @@ const Dashboard = () => {
         </div>
 
         <h6 className="mt-10 mb-4">Tabel Admin</h6>
-        <article
-          id="tableAdmin"
-          className="mb-6"
-        >
+        <article id="tableAdmin" className="mb-6">
           <div className="overflow-x-auto">
             <table className="table-auto mb-4 w-full">
               <thead>
@@ -74,10 +74,7 @@ const Dashboard = () => {
               </thead>
               <tbody>
                 {[1, 2, 3, 4, 5].map((item, index) => (
-                  <tr
-                    className="border-b"
-                    key={index}
-                  >
+                  <tr className="border-b" key={index}>
                     <td className="text-center p-3">{index + 1}</td>
                     <td className="text-center p-3">Roikhatul Miskiyah</td>
                     <td className="text-center p-3">CS</td>
@@ -109,10 +106,7 @@ const Dashboard = () => {
           </nav>
         </article>
         <h6 className="mb-4">Tabel Produk</h6>
-        <article
-          id="tableProduk"
-          className="mb-6"
-        >
+        <article id="tableProduk" className="mb-6">
           <div className="overflow-x-auto">
             <table className="table-auto mb-4 w-full">
               <thead>
@@ -130,10 +124,7 @@ const Dashboard = () => {
               </thead>
               <tbody>
                 {[1, 2, 3, 4, 5].map((item) => (
-                  <tr
-                    className="border-b"
-                    key={item}
-                  >
+                  <tr className="border-b" key={item}>
                     <td className="text-center py-3">1</td>
                     <td className="text-center py-3">A1</td>
                     <td className="text-center py-3">Karton</td>
@@ -188,10 +179,7 @@ const Dashboard = () => {
               </thead>
               <tbody>
                 {[1, 2, 3, 4, 5].map((item, index) => (
-                  <tr
-                    className="border-b"
-                    key={index}
-                  >
+                  <tr className="border-b" key={index}>
                     <td className="text-center p-3">{index + 1}</td>
                     <td className="text-center p-3">001/BIKDK/O/VII/2022</td>
                     <td className="text-left p-3">Ikha Katering</td>

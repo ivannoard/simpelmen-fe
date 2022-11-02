@@ -86,6 +86,9 @@ p {
 .button-white-sm {
   @apply text-base text-dark font-semibold px-5 py-2 rounded-lg bg-white hover:text-primary-900 shadow-red;
 }
+.button-dark-sm {
+  @apply text-base text-white font-semibold px-5 py-2 rounded-lg bg-dark hover:bg-dark/80 shadow-gray;
+}
 
 /* form */
 .input-field {
@@ -107,6 +110,46 @@ p {
 }
 .input-field-icon-xs {
   @apply w-full bg-white py-3 pl-10 pr-4 rounded-lg text-sm border-secondary-800 border focus:outline-none focus:border-orange-900;
+}
+
+/* chat */
+#chatting *,
+#detailChat * {
+  scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+  scrollbar-width: thin;
+}
+.chat-wrapper-admin {
+  @apply relative;
+}
+.chat-field-admin {
+  @apply items-start relative flex flex-col mb-1;
+}
+.chat-wrapper-customer {
+  @apply relative;
+}
+.chat-field-customer {
+  @apply items-end relative flex flex-col mb-1;
+}
+.admin-chat-field {
+  @apply bg-orange-900 rounded-tl-[10px] rounded-br-[10px] rounded-bl-[10px];
+}
+.customer-chat-field {
+  @apply bg-primary-600 rounded-tr-[10px] rounded-br-[10px] rounded-bl-[10px];
+}
+.admin-chat-wrapper {
+  @apply p-[9px_10px_11px_12px];
+}
+.customer-chat-wrapper {
+  @apply p-[9px_12px_11px_10px];
+}
+.chat-space {
+  @apply inline-block align-middle w-12;
+}
+.time-chat-wrapper {
+  @apply float-right m-[-10px_0_-5px_4px] relative z-10;
+}
+.time-chat {
+  @apply inline-block align-top text-xs text-white/70 h-4 leading-4;
 }
 
 /* utilities */

@@ -1,5 +1,4 @@
 import React from "react";
-import { GoCheck } from "react-icons/go";
 
 const CartSkeleton = () => {
   return (

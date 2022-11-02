@@ -9,9 +9,9 @@ const PAD = () => {
     setIsOpen(false);
   };
 
-  const openModal = () => {
-    setIsOpen(true);
-  };
+  // const openModal = () => {
+  //   setIsOpen(true);
+  // };
 
   return (
     <>

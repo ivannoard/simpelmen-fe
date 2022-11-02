@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { BsCartPlus } from 'react-icons/bs';
-import { IoIosArrowDown } from 'react-icons/io';
-import { postProduct } from '../../../services/api';
+import React, { useState } from "react";
+import { IoIosArrowDown } from "react-icons/io";
+// import { postProduct } from '../../../services/api';
 
 const FormSticker = ({ setAlertSuccess, setAlertFail }) => {
   const [fields, setFields] = useState({});
@@ -11,7 +10,7 @@ const FormSticker = ({ setAlertSuccess, setAlertFail }) => {
     e.preventDefault();
     setFields({
       ...fields,
-      [e.target.getAttribute('name')]: e.target.value,
+      [e.target.getAttribute("name")]: e.target.value,
     });
   }
 

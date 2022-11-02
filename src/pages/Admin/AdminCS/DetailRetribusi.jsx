@@ -12,7 +12,7 @@ const DetailRetribusi = () => {
   const [data, setData] = useState();
   const disable = true;
   const [detailRetribution, setDetailRetribution] = useState();
-  const [totalRetribution, setTotalRetribution] = useState(0);
+  let totalRetribution = 0;
   useEffect(() => {
     const getData = async () => {
       await adminCS

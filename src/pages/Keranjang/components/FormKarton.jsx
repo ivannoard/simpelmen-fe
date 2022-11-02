@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { BsCartPlus } from 'react-icons/bs';
-import { postProduct } from '../../../services/api';
-import { IoIosArrowDown } from 'react-icons/io';
+import React, { useState } from "react";
+// import { postProduct } from '../../../services/api';
+import { IoIosArrowDown } from "react-icons/io";
 
 const FormKarton = ({ setAlertSuccess, setAlertFail }) => {
   const [fields, setFields] = useState({});
@@ -11,7 +10,7 @@ const FormKarton = ({ setAlertSuccess, setAlertFail }) => {
     e.preventDefault();
     setFields({
       ...fields,
-      [e.target.getAttribute('name')]: e.target.value,
+      [e.target.getAttribute("name")]: e.target.value,
     });
   }
 

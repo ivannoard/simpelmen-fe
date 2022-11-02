@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { BsCartPlus } from "react-icons/bs";
-import { postProduct } from "../../../services/api";
+// import { postProduct } from "../../../services/api";
 import { IoIosArrowDown } from "react-icons/io";
 
 const FormStandingPouch = ({ data }) => {

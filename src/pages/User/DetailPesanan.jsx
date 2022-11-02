@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { HiOutlineArrowSmLeft } from "react-icons/hi";
 import { useNavigate, useParams } from "react-router-dom";
-import { dummyImg } from "../../assets/image";
 import Modal from "../../components/Card/Modal";
 import { postOrder } from "../../services/api";
 

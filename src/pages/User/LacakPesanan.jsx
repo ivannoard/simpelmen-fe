@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import svg from "../../assets/svg";
 import { HiChevronRight, HiChevronLeft } from "react-icons/hi";
-import Stepper from "./components/Stepper";
 import { useEffect } from "react";
 import { postOrder } from "../../services/api";
 

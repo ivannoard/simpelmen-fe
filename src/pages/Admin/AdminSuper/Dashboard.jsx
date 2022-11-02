@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BsFillCartFill, BsFillPersonFill } from "react-icons/bs";
 import { FaBox } from "react-icons/fa";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
-import { adminSuper } from "../../../services/api";
+// import { adminSuper } from "../../../services/api";
 import jwt_decode from "jwt-decode";
 
 const Dashboard = () => {

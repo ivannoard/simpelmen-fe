@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { postProduct } from '../../../services/api';
-import { IoIosArrowDown } from 'react-icons/io';
+import React, { useState } from "react";
+// import { postProduct } from '../../../services/api';
+import { IoIosArrowDown } from "react-icons/io";
 
 const FormDus = ({ setAlertSuccess, setAlertFail, categoryName }) => {
   const [fields, setFields] = useState({});
@@ -10,7 +10,7 @@ const FormDus = ({ setAlertSuccess, setAlertFail, categoryName }) => {
     e.preventDefault();
     setFields({
       ...fields,
-      [e.target.getAttribute('name')]: e.target.value,
+      [e.target.getAttribute("name")]: e.target.value,
     });
   }
 
@@ -30,16 +30,13 @@ const FormDus = ({ setAlertSuccess, setAlertFail, categoryName }) => {
 
   return (
     <>
-      <form
-        onSubmit={(e) => handleSubmit(e)}
-        className="w-full"
-      >
+      <form onSubmit={(e) => handleSubmit(e)} className="w-full">
         <div>
           <label
             htmlFor="ukuran"
             className="block mb-2 text-sm font-medium text-gray-700"
           >
-            {categoryName === 'Slobokan' ? 'Ukuran Luar x Dalam' : 'Ukuran'}
+            {categoryName === "Slobokan" ? "Ukuran Luar x Dalam" : "Ukuran"}
           </label>
           <div className="grid grid-cols-3 gap-x-3 gap-y-4">
             <div className="relative col-span-3 xs:col-span-1">

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { FaTrash } from "react-icons/fa";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { adminCS } from "../../../services/api";

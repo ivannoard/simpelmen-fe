@@ -1,71 +1,50 @@
-import React, { useState } from 'react';
-import svg from '../../assets/svg';
-import { HiChevronRight, HiChevronLeft } from 'react-icons/hi';
-import Stepper from './components/Stepper';
+import React, { useState } from "react";
+import svg from "../../assets/svg";
+import { HiChevronRight, HiChevronLeft } from "react-icons/hi";
+import Stepper from "./components/Stepper";
+import { useEffect } from "react";
+import { postOrder } from "../../services/api";
 
 const EmptyState = () => {
   return (
     <>
       <div className="empty-state w-full pt-10 flex flex-col justify-center items-center text-center mb-12">
-        <img
-          src={svg.windTurbine}
-          alt="wind-turbine"
-          className="mb-4"
-        />
+        <img src={svg.windTurbine} alt="wind-turbine" className="mb-4" />
         <p className="text-secondary-900">Pilih produk yang ingin Anda lacak</p>
       </div>
     </>
   );
 };
-
 const LacakPesanan = () => {
+  const user = localStorage.getItem("user");
+  const parseUser = JSON.parse(user);
   const [toggleTracking, setToggleTracking] = useState(true);
   const [trackingOrder, setTrackingOrder] = useState();
+  const [trackingData, setTrackingData] = useState();
+  const [data, setData] = useState();
 
-  const dummyData = [
-    {
-      id: 1,
-      date: '2021-08-01',
-      pesanan: '001/BIKDK/O/VII/2022',
-      jenis: 'Bentuk Langsungan - Duplex 310gr - Laminasi Glosi',
-      status: 1,
-    },
-    {
-      id: 2,
-      date: '2021-09-04',
-      pesanan: '001/BIKDK/O/VII/2022',
-      jenis: 'Bentuk Langsungan - Duplex 310gr - Laminasi Glosi',
-      status: 2,
-    },
-    {
-      id: 3,
-      date: '2022-01-20',
-      pesanan: '001/BIKDK/O/VII/2022',
-      jenis: 'Bentuk Langsungan - Duplex 310gr - Laminasi Glosi',
-      status: 3,
-    },
-    {
-      id: 4,
-      date: '2022-01-22',
-      pesanan: '001/BIKDK/O/VII/2022',
-      jenis: 'Bentuk Langsungan - Duplex 310gr - Laminasi Glosi',
-      status: 4,
-    },
-    {
-      id: 5,
-      date: '2022-02-28',
-      pesanan: '001/BIKDK/O/VII/2022',
-      jenis: 'Bentuk Langsungan - Duplex 310gr - Laminasi Glosi',
-      status: 3,
-    },
-  ];
+  useEffect(() => {
+    const getTracking = async () => {
+      await postOrder
+        .get("/tracking", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setData(response.data));
+    };
+    getTracking();
+  }, [parseUser.data.token]);
 
   function showTracking(e, index) {
     e.preventDefault();
     setToggleTracking(false);
     setTrackingOrder(index);
   }
-  console.log(trackingOrder);
+
+  useEffect(() => {
+    setTrackingData(data?.filter((item) => item.order_id === trackingOrder)[0]);
+  }, [data, trackingOrder]);
 
   return (
     <>
@@ -77,33 +56,34 @@ const LacakPesanan = () => {
               alt="shipping-vehicle"
               className="w-full mb-8"
             />
-            <article
-              className="mb-8"
-              id="lacakPesanan"
-            >
+            <article className="mb-8" id="lacakPesanan">
               <div className="w-full grid grid-cols-4 gap-y-5 gap-x-6">
-                {dummyData?.map((item, index) => (
-                  <div
-                    className="col-span-4"
-                    key={item.id}
-                  >
+                {data?.map((item, index) => (
+                  <div className="col-span-4" key={item.order_id}>
                     <div className="w-full shadow-gray p-4 rounded-[10px] bg-white grid grid-cols-6 gap-x-3 gap-y-2 xs:gap-y-3 xl:items-center border border-secondary-700/40">
                       <div className="col-span-6 xl:col-span-2">
                         <p className="text-xs xs:text-sm font-medium mb-1 xs:mb-2 text-secondary-900">
                           No. Pesanan
                         </p>
-                        <p className="font-semibold truncate">{item.pesanan}</p>
+                        <p className="font-semibold truncate">
+                          {item.order_code}
+                        </p>
                       </div>
                       <div className="col-span-6 xl:col-span-2">
                         <p className="text-xs xs:text-sm font-medium mb-1 xs:mb-2 text-secondary-900">
                           Jenis Produk
                         </p>
-                        <p className="font-semibold">{item.jenis}</p>
+                        <p className="font-semibold">
+                          {
+                            item.order_products[0].products.jenis_products
+                              .jenis_product_name
+                          }{" "}
+                        </p>
                       </div>
                       <div className="xl:col-span-2 hidden xl:block">
                         <div className="flex justify-center">
                           <button
-                            onClick={(e) => showTracking(e, index)}
+                            onClick={(e) => showTracking(e, item.order_id)}
                             className="text-sm border border-secondary-800 rounded-full px-3 py-1 hover:border-primary-900 transition-200"
                           >
                             Lacak Pesanan
@@ -113,7 +93,7 @@ const LacakPesanan = () => {
                       <div className="col-span-6 xl:col-span-2 block xl:hidden">
                         <div className="flex xl:justify-center">
                           <button
-                            onClick={(e) => showTracking(e, index)}
+                            onClick={(e) => showTracking(e, item.order_id)}
                             className="text-sm border border-secondary-800 rounded-full px-3 py-1 hover:border-primary-900 transition-200"
                           >
                             Lacak Pesanan
@@ -148,7 +128,20 @@ const LacakPesanan = () => {
           </div>
           <div className="col-span-4 xl:border-l px-5">
             {toggleTracking && <EmptyState />}
-            {!toggleTracking && <Stepper trackingOrder={trackingOrder} />}
+            {!toggleTracking && (
+              <div className="flex flex-col gap-5">
+                {trackingData?.order_statuses.map((item) => (
+                  <>
+                    <div className="bg-white rounded-md shadow-md p-3">
+                      <p>{item.createdAt}</p>
+                      <h6 className="font-semibold">
+                        {item.order_status_description}
+                      </h6>
+                    </div>
+                  </>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>

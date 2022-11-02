@@ -88,10 +88,10 @@ const FormStandingPouch = ({ productId, setAlertSuccess, setAlertFail }) => {
   async function handleCart(e) {
     e.preventDefault();
     const finalSpesification = {
-      panjang_1: parseInt(fields.spesifikasi.split(" ")[0]),
-      lebar_1: parseInt(fields.spesifikasi.split(" ")[3]),
-      order_design: fields.desain,
-      order_quantity: parseInt(fields.jumlah),
+      panjang_1: parseInt(fields?.spesifikasi.split(" ")[0]),
+      lebar_1: parseInt(fields?.spesifikasi.split(" ")[3]),
+      order_design: fields?.desain,
+      order_quantity: parseInt(fields?.jumlah),
     };
 
     if (user) {
@@ -115,14 +115,17 @@ const FormStandingPouch = ({ productId, setAlertSuccess, setAlertFail }) => {
           className="block mb-2 text-sm font-medium text-gray-700"
         >
           Spesifikasi
+          <span className="text-primary-900 font-semibold">*</span>
         </label>
         <select
           id="spesifikasi"
           name="spesifikasi"
+          required
           onChange={(e) => handleChange(e)}
           className="input-field-select-xs"
+          defaultValue="Pilih Spesifikasi"
         >
-          <option>Pilih Spesifikasi</option>
+          <option value="pilih spesifikasi">Pilih Spesifikasi</option>
           {finalDummy.map((item, index) => (
             <option
               value={`${item.size.p} cm X ${item.size.l} cm ${item.lamination}`}
@@ -140,14 +143,16 @@ const FormStandingPouch = ({ productId, setAlertSuccess, setAlertFail }) => {
           className="block mb-2 text-sm font-medium text-gray-700"
         >
           Desain
+          <span className="text-primary-900 font-semibold">*</span>
         </label>
         <select
           id="desain"
           name="desain"
+          required
           onChange={(e) => handleChange(e)}
           className="input-field-select-xs"
         >
-          <option>Pilih Desain</option>
+          <option value="pilih desain">Pilih Desain</option>
           {dummyDesign.map((item, index) => (
             <option value={item} key={index}>
               {item}
@@ -181,6 +186,7 @@ const FormStandingPouch = ({ productId, setAlertSuccess, setAlertFail }) => {
           className="block mb-2 text-sm font-medium text-gray-700"
         >
           Jumlah Pesanan
+          <span className="text-primary-900 font-semibold">*</span>
         </label>
         <div className="relative">
           <input
@@ -196,7 +202,9 @@ const FormStandingPouch = ({ productId, setAlertSuccess, setAlertFail }) => {
         </div>
       </div>
       <div className="buttons flex justify-end mt-8 gap-5">
-        <button className="button-fill !py-4">Pesan Sekarang</button>
+        <button className="button-fill !py-4" onClick={(e) => handleCart(e)}>
+          Pesan Sekarang
+        </button>
         <button className="button-white !p-4" onClick={(e) => handleCart(e)}>
           <BsCartPlus size={20} className="mx-auto" />
         </button>

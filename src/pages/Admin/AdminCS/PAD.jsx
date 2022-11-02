@@ -1,37 +1,41 @@
-import React, { useState } from 'react';
-import { BsSearch } from 'react-icons/bs';
-import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
-import { IoIosArrowDown } from 'react-icons/io';
+import React, { useEffect, useState } from "react";
+import { BsSearch } from "react-icons/bs";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { IoIosArrowDown } from "react-icons/io";
+import { adminCS } from "../../../services/api";
 
 const PAD = () => {
+  const user = localStorage.getItem("admin");
+  const parseUser = JSON.parse(user);
+  const [data, setData] = useState();
   const [barang, setBarang] = useState([
     {
       id: 1,
-      noPesanan: '001/BIKDK/O/VII/2022',
-      namaIKM: 'Ikha Katering',
-      nominalTransaksi: 'Rp.150.000',
+      noPesanan: "001/BIKDK/O/VII/2022",
+      namaIKM: "Ikha Katering",
+      nominalTransaksi: "Rp.150.000",
       status: 3,
     },
     {
       id: 2,
-      noPesanan: '001/BIKDK/O/VII/2022',
-      nominalTransaksi: 'Rp.150.000',
+      noPesanan: "001/BIKDK/O/VII/2022",
+      nominalTransaksi: "Rp.150.000",
       status: 1,
-      namaIKM: 'Ikha Katering',
+      namaIKM: "Ikha Katering",
     },
     {
       id: 3,
-      noPesanan: '001/BIKDK/O/VII/2022',
-      nominalTransaksi: 'Rp.150.000',
+      noPesanan: "001/BIKDK/O/VII/2022",
+      nominalTransaksi: "Rp.150.000",
       status: 2,
-      namaIKM: 'Ikha Katering',
+      namaIKM: "Ikha Katering",
     },
     {
       id: 4,
-      noPesanan: '001/BIKDK/O/VII/2022',
-      nominalTransaksi: 'Rp.150.000',
+      noPesanan: "001/BIKDK/O/VII/2022",
+      nominalTransaksi: "Rp.150.000",
       status: 1,
-      namaIKM: 'Ikha Katering',
+      namaIKM: "Ikha Katering",
     },
   ]);
 
@@ -48,12 +52,32 @@ const PAD = () => {
     console.log(typeof barang[0].status);
   }
 
+  useEffect(() => {
+    const getData = async () => {
+      await adminCS
+        .get("/pad", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setData(response.data));
+    };
+    getData();
+  }, [parseUser.data.token]);
+
+  console.log(data);
+
   return (
     <section>
       <div className="border-b border-orange-900">
         <h3 className="font-semibold pb-3">PAD</h3>
       </div>
-      <h6 className="mt-10 mb-3">Tabel PAD</h6>
+      <h6 className="mt-10 mb-3">
+        Tabel PAD{" "}
+        <span className="text-primary-900 font-semibold">
+          Status belum bisa diganti (FE)
+        </span>
+      </h6>
       <div className="flex items-center justify-end gap-4 mb-4">
         <button className="button-success-sm !px-6 !rounded-full">
           Download
@@ -234,31 +258,32 @@ const PAD = () => {
               </tr>
             </thead>
             <tbody>
-              {barang.map((item, index) => (
-                <tr
-                  className="border-b"
-                  key={index}
-                >
+              {data?.map((item, index) => (
+                <tr className="border-b" key={index}>
                   <td className="text-center p-3">{index + 1}</td>
-                  <td className="text-center p-3">{item.noPesanan}</td>
-                  <td className="text-left p-3">{item.namaIKM}</td>
-                  <td className="text-center p-3">{item.nominalTransaksi}</td>
+                  <td className="text-center p-3">{item?.orders.order_code}</td>
+                  <td className="text-left p-3">
+                    {item?.orders.users.user_ikm}
+                  </td>
+                  <td className="text-center p-3">
+                    {item?.retribution_jasa_total}
+                  </td>
                   <td className="text-center py-3 px-4 flex justify-center">
                     <div className="relative">
                       <select
                         id="status"
                         name="status"
-                        defaultValue={item.status}
-                        // value={item.status}
+                        defaultValue={item?.retribution_pad_status}
+                        // value={item?.status}
                         onChange={(e) => handleChange(e, item)}
                         className={`${
-                          parseInt(item.status) === 1
-                            ? '!bg-gradient-to-bl !from-orange-900 !to-primary-900 hover:!from-primary-900 hover:!to-orange-900 !shadow-red'
-                            : parseInt(item.status) === 2
-                            ? '!bg-green-500'
-                            : parseInt(item.status) === 3
-                            ? '!bg-secondary-800'
-                            : ''
+                          item?.retribution_pad_status === null
+                            ? "!bg-gradient-to-bl !from-orange-900 !to-primary-900 hover:!from-primary-900 hover:!to-orange-900 !shadow-red"
+                            : parseInt(item?.retribution_pad_status) === 2
+                            ? "!bg-green-500"
+                            : parseInt(item?.retribution_pad_status) === 3
+                            ? "!bg-secondary-800"
+                            : ""
                         } input-field-select-xs !border-none !font-semibold !text-white !w-auto !pr-12`}
                       >
                         <option value="1">Status PO</option>

@@ -23,7 +23,7 @@ export const getUser = axios.create({
 });
 
 export const adminAuth = axios.create({
-  baseURL: "https://hookb.in/",
+  baseURL: "http://simpelmen.herokuapp.com/api/auth",
   headers: {
     "Content-Type": "application/json",
   },
@@ -38,6 +38,38 @@ export const postOrder = axios.create({
 
 export const postProduct = axios.create({
   baseURL: "https://hookb.in/",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+export const adminCS = axios.create({
+  baseURL: "http://simpelmen.herokuapp.com/api/admin/cs",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+export const adminKasir = axios.create({
+  baseURL: "http://simpelmen.herokuapp.com/api/admin/kasir",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+export const adminTU = axios.create({
+  baseURL: "http://simpelmen.herokuapp.com/api/admin/tu",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+export const adminGudang = axios.create({
+  baseURL: "http://simpelmen.herokuapp.com/api/admin/gudang",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+export const adminProduksi = axios.create({
+  baseURL: "http://simpelmen.herokuapp.com/api/admin/produksi",
   headers: {
     "Content-Type": "application/json",
   },

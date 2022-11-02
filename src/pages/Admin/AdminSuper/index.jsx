@@ -1,42 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import { BiChevronsLeft, BiChevronsRight } from 'react-icons/bi';
-import { useLocation, useNavigate } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Sidebar from './components/Sidebar';
-import svg from '../../../assets/svg';
-import Dashboard from './Dashboard';
-import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
-import Anggota from './Anggota';
-import Produk from './Produk';
-import Spesifikasi from './Spesifikasi';
-import Rekap from './Rekap';
-import Profil from './Profil';
-
+import React, { useEffect, useState } from "react";
+import { BiChevronsLeft, BiChevronsRight } from "react-icons/bi";
+import { useLocation, useNavigate } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
+import svg from "../../../assets/svg";
+import Dashboard from "./Dashboard";
+import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import Anggota from "./Anggota";
+import Produk from "./Produk";
+import Spesifikasi from "./Spesifikasi";
+import Rekap from "./Rekap";
+import Profil from "./Profil";
+import jwt_decode from "jwt-decode";
 const AdminSuper = () => {
   const [toggle, setToggle] = useState(true);
   const { pathname } = useLocation();
   const [content, setContent] = useState();
-
-  const adminRole = localStorage.getItem('admin');
-  console.log(adminRole);
+  const adminRole = localStorage.getItem("admin");
+  const decode_token = jwt_decode(JSON.parse(adminRole).data.token);
   const navigate = useNavigate();
   useEffect(() => {
-    if (parseInt(adminRole) !== 6) navigate('/admin/login');
-  }, [adminRole, navigate]);
+    if (decode_token.user_role_id !== 1) navigate("/admin/login");
+  }, [adminRole, decode_token.user_role_id, navigate]);
 
   useEffect(() => {
-    switch (pathname.split('/')[4]) {
-      case '':
+    switch (pathname.split("/")[4]) {
+      case "":
         return setContent(<Dashboard />);
-      case 'anggota':
+      case "anggota":
         return setContent(<Anggota />);
-      case 'produk':
+      case "produk":
         return setContent(<Produk />);
-      case 'spesifikasi':
+      case "spesifikasi":
         return setContent(<Spesifikasi />);
-      case 'rekap-pesanan':
+      case "rekap-pesanan":
         return setContent(<Rekap />);
-      case 'profil':
+      case "profil":
         return setContent(<Profil />);
       default:
         break;
@@ -51,7 +50,7 @@ const AdminSuper = () => {
           <div className="fixed rounded-tr-2xl rounded-br-2xl shadow-red left-0 inset-y-0 z-10 bg-orange-900">
             <div
               className={`flex flex-col overflow-y-auto overflow-x-hidden h-full whitespace-nowrap justify-between transition-all duration-500 ${
-                toggle ? 'w-[15rem] md:w-72' : 'w-[88px]'
+                toggle ? "w-[15rem] md:w-72" : "w-[88px]"
               }`}
             >
               <div className="mb-16 mt-10">
@@ -77,7 +76,7 @@ const AdminSuper = () => {
         {/* main content */}
         <div
           className={`relative top-0 float-right h-screen duration-500 min-h-full  ${
-            toggle ? 'maximize-admin-main' : 'minimize-admin-main'
+            toggle ? "maximize-admin-main" : "minimize-admin-main"
           }`}
         >
           <div className="pb-6 px-6 xs:px-9 pt-8 sm:pt-12">

@@ -1,8 +1,25 @@
-import React from 'react';
-import { BsSearch } from 'react-icons/bs';
-import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
+import React, { useEffect, useState } from "react";
+import { BsSearch } from "react-icons/bs";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { adminKasir } from "../../../services/api";
 
 const PAD = () => {
+  const user = localStorage.getItem("admin");
+  const parseUser = JSON.parse(user);
+  const [pad, setPad] = useState();
+  useEffect(() => {
+    const getData = async () => {
+      await adminKasir
+        .get("/pad", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setPad(response.data));
+    };
+    getData();
+  }, [parseUser.data.token]);
+  console.log(pad);
   return (
     <>
       <section>
@@ -36,72 +53,63 @@ const PAD = () => {
             <BsSearch className="absolute text-xl top-3 left-6 fill-secondary-800" />
           </div>
         </div>
-
-        <article id="tablePAD">
-          <div className="overflow-x-auto">
-            <table className="table-auto mb-4 w-full">
-              <thead>
-                <tr className="bg-orange-900">
-                  <th className="text-white p-3 text-center min-w-[54px]">
-                    No
-                  </th>
-                  <th className="text-white p-3 text-center min-w-[196px]">
-                    Nomor Pesanan
-                  </th>
-                  <th className="text-white p-3 text-left min-w-[150px]">
-                    Nama IKM
-                  </th>
-                  <th className="text-white p-3 text-center min-w-[180px]">
-                    Nominal Transaksi
-                  </th>
-                  <th className="text-white p-3 text-center min-w-[240px]">
-                    Status
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {[1, 2, 3, 4, 5].map((item, index) => (
-                  <tr
-                    className="border-b"
-                    key={item}
-                  >
-                    <td className="text-center p-3">{index + 1}</td>
-                    <td className="text-center p-3">001/BIKDK/O/VII/2022</td>
-                    <td className="text-left p-3">Ikha Katering</td>
-                    <td className="text-center p-3">Rp. 120.000</td>
-                    <td className="text-center p-3">
-                      <div className="flex justify-center">
-                        <div className="bg-[#21B630] text-white py-2 px-8 rounded-lg font-semibold">
-                          Sudah Setor
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <nav
-            className="flex justify-end items-center gap-x-[.375rem] py-2 mt-2"
-            aria-label="pagination"
-          >
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-              <HiChevronLeft className="!text-base xs:!text-xl" />
-            </button>
-            <button className="button-gradient-sm !text-xs xs:!text-base">
-              1
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-              2
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-              3
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-              <HiChevronRight className="!text-base xs:!text-xl" />
-            </button>
-          </nav>
-        </article>
+        {/*  */}
+        <table className="table-auto w-[1440px] lg:w-full mt-4">
+          <thead>
+            <tr className="bg-orange-900">
+              <th className="text-white py-3 text-center">No</th>
+              <th className="text-white py-3 text-center">Nomor Pesanan</th>
+              <th className="text-white py-3 text-center">Nama IKM</th>
+              <th className="text-white py-3 text-center">Nominal Transaksi</th>
+              <th className="text-white py-3 text-center">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {pad?.map((item, index) => (
+              <tr className="border-b" key={index}>
+                <td className="text-center py-3">{index + 1}</td>
+                <td className="text-center py-3">{item.orders.order_code}</td>
+                <td className="text-center py-3">
+                  {item.orders.users.user_ikm}
+                </td>
+                <td className="text-center py-3">
+                  Rp. {item.retribution_jasa_total}
+                </td>
+                <td className="text-center py-3">
+                  {item.retribution_pad_status === 2 ? (
+                    <div className="bg-[#21B630] text-white py-2 px-3 rounded-lg font-semibold">
+                      Disetujui
+                    </div>
+                  ) : (
+                    <div className="bg-primary-900 text-white py-2 px-3 rounded-lg font-semibold">
+                      Belum Disetujui
+                    </div>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <nav
+          className="flex justify-end items-center gap-x-[.375rem] py-2 mt-5"
+          aria-label="pagination"
+        >
+          <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
+            <HiChevronLeft className="!text-base xs:!text-xl" />
+          </button>
+          <button className="button-gradient-sm !text-xs xs:!text-base">
+            1
+          </button>
+          <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
+            2
+          </button>
+          <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
+            3
+          </button>
+          <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
+            <HiChevronRight className="!text-base xs:!text-xl" />
+          </button>
+        </nav>
       </section>
     </>
   );

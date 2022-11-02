@@ -1,47 +1,47 @@
-import React, { useEffect, useState } from 'react';
-import { BiChevronsLeft, BiChevronsRight } from 'react-icons/bi';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Sidebar from './components/Sidebar';
-import svg from '../../../assets/svg';
-import Dashboard from './Dashboard';
-import Retribusi from './Retribusi';
-import Status from './Status';
-import Rekap from './Rekap';
-import PAD from './PAD';
-import Profil from './Profil';
-import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
-import DetailRetribusi from './DetailRetribusi';
-import '../styles.css';
-
+import React, { useEffect, useState } from "react";
+import { BiChevronsLeft, BiChevronsRight } from "react-icons/bi";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
+import svg from "../../../assets/svg";
+import Dashboard from "./Dashboard";
+import Retribusi from "./Retribusi";
+import Status from "./Status";
+import Rekap from "./Rekap";
+import PAD from "./PAD";
+import Profil from "./Profil";
+import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import DetailRetribusi from "./DetailRetribusi";
+import "../styles.css";
+import jwt_decode from "jwt-decode";
 const AdminCS = () => {
   const [toggle, setToggle] = useState(true);
   const { pathname } = useLocation();
   const [content, setContent] = useState();
   const { retribusiId } = useParams();
-
-  const adminRole = localStorage.getItem('admin');
-  console.log(retribusiId);
+  const adminRole = localStorage.getItem("admin");
+  const decode_token = jwt_decode(JSON.parse(adminRole).data.token);
   const navigate = useNavigate();
+  // console.log(typeof decode_token.user_role_id);
   useEffect(() => {
-    if (parseInt(adminRole) !== 1) navigate('/admin/login');
-  }, [adminRole, navigate]);
+    if (decode_token.user_role_id !== 2) navigate("/admin/login");
+  }, [adminRole, decode_token.user_role_id, navigate]);
 
   useEffect(() => {
-    switch (pathname.split('/')[4]) {
-      case '':
+    switch (pathname.split("/")[4]) {
+      case "":
         return setContent(<Dashboard />);
-      case 'retribusi-pelanggan':
+      case "retribusi-pelanggan":
         return setContent(<Retribusi />);
-      case 'detail-retribusi-pelanggan':
+      case "detail-retribusi-pelanggan":
         return setContent(<DetailRetribusi />);
-      case 'status-po':
+      case "status-po":
         return setContent(<Status />);
-      case 'rekap-pesanan':
+      case "rekap-pesanan":
         return setContent(<Rekap />);
-      case 'pad':
+      case "pad":
         return setContent(<PAD />);
-      case 'profil':
+      case "profil":
         return setContent(<Profil />);
       default:
         break;
@@ -56,7 +56,7 @@ const AdminCS = () => {
           <div className="fixed rounded-tr-2xl rounded-br-2xl shadow-red left-0 inset-y-0 z-10 bg-orange-900">
             <div
               className={`flex flex-col overflow-y-auto overflow-x-hidden h-full whitespace-nowrap justify-between transition-all duration-500 ${
-                toggle ? 'w-[15rem] md:w-72' : 'w-[88px]'
+                toggle ? "w-[15rem] md:w-72" : "w-[88px]"
               }`}
             >
               <div className="mb-16 mt-10">
@@ -81,7 +81,7 @@ const AdminCS = () => {
         {/* main content */}
         <div
           className={`relative top-0 float-right h-screen duration-500 min-h-full  ${
-            toggle ? 'maximize-admin-main' : 'minimize-admin-main'
+            toggle ? "maximize-admin-main" : "minimize-admin-main"
           }`}
         >
           <div className="pb-6 px-6 xs:px-9 pt-8 sm:pt-12">

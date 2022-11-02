@@ -1,12 +1,38 @@
-import React from 'react';
-import { BsSearch } from 'react-icons/bs';
-import { FaTrash } from 'react-icons/fa';
-import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { BsSearch } from "react-icons/bs";
+import { FaTrash } from "react-icons/fa";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
+import { adminCS } from "../../../services/api";
 
 const Retribusi = () => {
+  const user = localStorage.getItem("admin");
+  const parseUser = JSON.parse(user);
   const navigate = useNavigate();
+  const [data, setData] = useState();
 
+  useEffect(() => {
+    const getData = async () => {
+      await adminCS
+        .get("/retributions", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setData(response.data));
+    };
+    getData();
+  }, [parseUser.data.token]);
+
+  // async function handleDelete(e, id) {
+  //   e.preventDefault();
+  //   await adminCS.delete(`/retributions/${id}`, {
+  //     headers: {
+  //       "x-access-token": `${parseUser.data.token}`,
+  //     },
+  //   });
+  // }
+  // console.log(data);
   return (
     <section>
       <div className="border-b border-orange-900">
@@ -62,33 +88,37 @@ const Retribusi = () => {
               </tr>
             </thead>
             <tbody>
-              {[1, 2, 3, 4, 5].map((item) => (
-                <tr
-                  className="border-b"
-                  key={item}
-                >
-                  <td className="text-center p-3">{item}</td>
-                  <td className="text-center p-3">001/BIKDK/O/VII/2022</td>
-                  <td className="text-left p-3">Ikha Katering</td>
-                  <td className="text-center p-3">Rp. 150000</td>
+              {data?.map((item, index) => (
+                <tr className="border-b" key={index}>
+                  <td className="text-center p-3">{index + 1}</td>
+                  <td className="text-center p-3">{item.orders.order_code}</td>
+                  <td className="text-left p-3">
+                    {item.orders.users.user_ikm}
+                  </td>
+                  <td className="text-center p-3">
+                    Rp.{" "}
+                    {item.retribution_jasa_total !== null
+                      ? item.retribution_jasa_total
+                      : 0}
+                  </td>
                   <td className="text-center p-3">
                     <div className="flex justify-center gap-3">
                       <button
                         onClick={() =>
                           navigate(
-                            `/admin/cs/dashboard/detail-retribusi-pelanggan/${item}`
+                            `/admin/cs/dashboard/detail-retribusi-pelanggan/${item.retribution_id}`
                           )
                         }
                         className="flex items-center justify-center rounded-lg py-2 px-5 border text-sm transition-200 hover:border-orange-900"
                       >
-                        Detail
-                      </button>
-                      <button className="flex items-center justify-center rounded-lg py-2 px-5 border text-sm transition-200 hover:border-orange-900">
                         Edit
                       </button>
-                      <button className="flex items-center justify-center rounded-lg py-2 px-3 bg-primary-900 transition-200 hover:bg-primary-900/70">
+                      {/* <button
+                        className="flex items-center justify-center rounded-lg py-2 px-3 bg-primary-900 transition-200 hover:bg-primary-900/70"
+                        onClick={(e) => handleDelete(e, item.retribution_id)}
+                      >
                         <FaTrash className="fill-white text-base" />
-                      </button>
+                      </button> */}
                     </div>
                   </td>
                 </tr>

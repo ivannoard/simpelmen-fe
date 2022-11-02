@@ -94,6 +94,7 @@ const FormStandingPouch = ({ data }) => {
             className="input-field-xs !pr-12"
             placeholder="Masukkan Jumlah Pesanan"
             required
+            disabled
             onChange={(e) => handleChange(e)}
             defaultValue={data.order_quantity}
           />

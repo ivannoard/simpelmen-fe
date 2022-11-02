@@ -1,36 +1,40 @@
-import React, { useState } from 'react';
-import { BsSearch } from 'react-icons/bs';
-import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
-import { IoIosArrowDown } from 'react-icons/io';
+import React, { useEffect, useState } from "react";
+import { BsSearch } from "react-icons/bs";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { IoIosArrowDown } from "react-icons/io";
+import { adminCS } from "../../../services/api";
 
 const Rekap = () => {
+  const user = localStorage.getItem("admin");
+  const parseUser = JSON.parse(user);
+  const [data, setData] = useState();
   const [barang, setBarang] = useState([
     {
       id: 1,
-      noPesanan: '001/BIKDK/O/VII/2022',
-      namaIKM: 'Ikha Katering',
+      noPesanan: "001/BIKDK/O/VII/2022",
+      namaIKM: "Ikha Katering",
       status: 3,
-      totalTransaksi: 'Rp.150.000',
+      totalTransaksi: "Rp.150.000",
     },
     {
       id: 2,
-      noPesanan: '001/BIKDK/O/VII/2022',
-      totalTransaksi: 'Rp.150.000',
-      namaIKM: 'Ikha Katering',
+      noPesanan: "001/BIKDK/O/VII/2022",
+      totalTransaksi: "Rp.150.000",
+      namaIKM: "Ikha Katering",
       status: 1,
     },
     {
       id: 3,
-      noPesanan: '001/BIKDK/O/VII/2022',
-      totalTransaksi: 'Rp.150.000',
-      namaIKM: 'Ikha Katering',
+      noPesanan: "001/BIKDK/O/VII/2022",
+      totalTransaksi: "Rp.150.000",
+      namaIKM: "Ikha Katering",
       status: 2,
     },
     {
       id: 4,
-      noPesanan: '001/BIKDK/O/VII/2022',
-      totalTransaksi: 'Rp.150.000',
-      namaIKM: 'Ikha Katering',
+      noPesanan: "001/BIKDK/O/VII/2022",
+      totalTransaksi: "Rp.150.000",
+      namaIKM: "Ikha Katering",
       status: 1,
     },
   ]);
@@ -47,12 +51,33 @@ const Rekap = () => {
     );
     console.log(typeof barang[0].status);
   }
+
+  useEffect(() => {
+    const getData = async () => {
+      await adminCS
+        .get("/rekap/order", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setData(response.data));
+    };
+    getData();
+  }, [parseUser.data.token]);
+
+  console.log(data);
+
   return (
     <section>
       <div className="border-b border-orange-900">
         <h3 className="font-semibold pb-3">Rekap Pesanan</h3>
       </div>
-      <h6 className="mt-10 mb-4">Tabel Rekap Pesanan</h6>
+      <h6 className="mt-10 mb-4">
+        Tabel Rekap Pesanan{" "}
+        <span className="text-primary-900 font-semibold">
+          Belum ada status final
+        </span>
+      </h6>
       <div className="flex items-center justify-between mb-4">
         <div className="flex gap-2 items-center mr-4">
           <label htmlFor="sorting">Menampilkan</label>
@@ -103,40 +128,69 @@ const Rekap = () => {
               </tr>
             </thead>
             <tbody>
-              {barang.map((item, index) => (
-                <tr
-                  className="border-b"
-                  key={index}
-                >
+              {data?.map((item, index) => (
+                <tr className="border-b" key={index}>
                   <td className="text-center p-3">{index + 1}</td>
-                  <td className="text-center p-3">{item.noPesanan}</td>
-                  <td className="text-left p-3">{item.namaIKM}</td>
+                  <td className="text-center p-3">{item?.order_code}</td>
+                  <td className="text-left p-3">{item?.users.user_ikm}</td>
                   <td className="text-center py-3 px-4 flex justify-center">
                     <div className="relative">
                       <select
                         id="status"
                         name="status"
-                        defaultValue={item.status}
+                        defaultValue={
+                          item?.order_statuses[0].order_status_admin_code
+                        }
                         // value={item.status}
-                        onChange={(e) => handleChange(e, item)}
+                        // onChange={(e) => handleChange(e, item)}
                         className={`${
-                          parseInt(item.status) === 1
-                            ? '!bg-gradient-to-bl !from-orange-900 !to-primary-900 hover:!from-primary-900 hover:!to-orange-900 !shadow-red'
-                            : '!bg-orange-600'
+                          item.order_statuses[0].order_status_admin_code === "8"
+                            ? "!bg-gradient-to-bl !from-orange-900 !to-primary-900 hover:!from-primary-900 hover:!to-orange-900 !shadow-red"
+                            : "!bg-orange-600"
                         } input-field-select-xs !border-none !font-semibold !w-auto !pr-12 !text-white`}
                       >
-                        <option value="1">Status Pesanan</option>
+                        <option
+                          value={
+                            item?.order_statuses[0].order_status_admin_code
+                          }
+                        >
+                          {item?.order_statuses[0].order_status_admin_code ===
+                          "8"
+                            ? "Status Pesanan"
+                            : item?.order_statuses[0]
+                                .order_status_admin_code === "2"
+                            ? "Admin CS"
+                            : item?.order_statuses[0]
+                                .order_status_admin_code === "3"
+                            ? "Admin Kasir"
+                            : item?.order_statuses[0]
+                                .order_status_admin_code === "4"
+                            ? "Admin TU"
+                            : item?.order_statuses[0]
+                                .order_status_admin_code === "5"
+                            ? "Admin Produksi"
+                            : item?.order_statuses[0]
+                                .order_status_admin_code === "6"
+                            ? "Admin Desain"
+                            : item?.order_statuses[0]
+                                .order_status_admin_code === "7"
+                            ? "Admin Gudang"
+                            : ""}
+                        </option>
+                        {/* <option value="1">Status Pesanan</option>
                         <option value="2">Admin CS</option>
                         <option value="3">Admin Kasir</option>
                         <option value="4">Admin TU</option>
                         <option value="5">Admin Produksi</option>
                         <option value="6">Admin Desain</option>
-                        <option value="7">Admin Gudang</option>
+                        <option value="7">Admin Gudang</option> */}
                       </select>
                       <IoIosArrowDown className="absolute right-4 top-[15px] text-base fill-white" />
                     </div>
                   </td>
-                  <td className="text-center py-3">{item.totalTransaksi}</td>
+                  <td className="text-center py-3">
+                    Rp. {item.retributions[0]?.retribution_jasa_total}
+                  </td>
                 </tr>
               ))}
             </tbody>

@@ -1,67 +1,156 @@
-import React, { useState } from 'react';
-import { BsSearch } from 'react-icons/bs';
-import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
-import { IoIosArrowDown } from 'react-icons/io';
+import React, { useEffect, useState } from "react";
+import { BsSearch } from "react-icons/bs";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { IoIosArrowDown } from "react-icons/io";
+import Alerts from "../../../components/Alerts";
+import { adminTU } from "../../../services/api";
 
 const Dashboard = () => {
-  const [data, setData] = useState([
-    {
-      id: 1,
-      nomorPesanan: '001/BIKDK/O/VII/2022',
-      tanggalPesanan: '12 September 2022',
-      namaIKM: 'Ikha cathering',
-      status: 2,
-    },
-    {
-      id: 2,
-      nomorPesanan: '001/BIKDK/O/VII/2022',
-      tanggalPesanan: '12 September 2022',
-      namaIKM: 'Ikha cathering',
-      status: 1,
-    },
-    {
-      id: 3,
-      nomorPesanan: '001/BIKDK/O/VII/2022',
-      tanggalPesanan: '12 September 2022',
-      namaIKM: 'Ikha cathering',
-      status: 3,
-    },
-    {
-      id: 4,
-      nomorPesanan: '001/BIKDK/O/VII/2022',
-      tanggalPesanan: '12 September 2022',
-      namaIKM: 'Ikha cathering',
-      status: 3,
-    },
-    {
-      id: 5,
-      nomorPesanan: '001/BIKDK/O/VII/2022',
-      tanggalPesanan: '12 September 2022',
-      namaIKM: 'Ikha cathering',
-      status: 2,
-    },
-  ]);
+  const user = localStorage.getItem("admin");
+  const parseUser = JSON.parse(user);
+  const [orderData, setOrderData] = useState();
+  const [alerts, setAlerts] = useState(false);
+  const [alertFail, setAlertFail] = useState(false);
+  const [failMessage, setFailMessage] = useState("");
+  // const [data, setData] = useState([
+  //   {
+  //     id: 1,
+  //     nomorPesanan: "001/BIKDK/O/VII/2022",
+  //     tanggalPesanan: "12 September 2022",
+  //     namaIKM: "Ikha cathering",
+  //     status: 2,
+  //   },
+  //   {
+  //     id: 2,
+  //     nomorPesanan: "001/BIKDK/O/VII/2022",
+  //     tanggalPesanan: "12 September 2022",
+  //     namaIKM: "Ikha cathering",
+  //     status: 1,
+  //   },
+  //   {
+  //     id: 3,
+  //     nomorPesanan: "001/BIKDK/O/VII/2022",
+  //     tanggalPesanan: "12 September 2022",
+  //     namaIKM: "Ikha cathering",
+  //     status: 3,
+  //   },
+  //   {
+  //     id: 4,
+  //     nomorPesanan: "001/BIKDK/O/VII/2022",
+  //     tanggalPesanan: "12 September 2022",
+  //     namaIKM: "Ikha cathering",
+  //     status: 3,
+  //   },
+  //   {
+  //     id: 5,
+  //     nomorPesanan: "001/BIKDK/O/VII/2022",
+  //     tanggalPesanan: "12 September 2022",
+  //     namaIKM: "Ikha cathering",
+  //     status: 2,
+  //   },
+  // ]);
+
+  async function accept(id) {
+    await adminTU
+      .put(
+        `/orders/approve/${id}`,
+        {
+          order_status: "2",
+        },
+        {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        }
+      )
+      .then((response) => setAlerts(true))
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
+  }
+
+  async function decline(id) {
+    await adminTU
+      .put(
+        `/orders/decline/${id}`,
+        {
+          order_status: "3",
+        },
+        {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        }
+      )
+      .then((response) => setAlerts(true))
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
+  }
 
   function handleChange(e, item) {
     e.preventDefault();
-    console.log(e.target.value);
-    const filtered = data.filter((brg) => brg.id === item.id)[0];
-    filtered.status = parseInt(e.target.value);
-    setData((prevState) =>
-      prevState.map((state) =>
-        state.id === filtered.id ? { ...state, status: filtered.status } : state
-      )
-    );
-    console.log(typeof data[0].status);
+    console.log(typeof e.target.value);
+    if (e.target.value === "2") {
+      accept(item.order_id);
+    } else if (e.target.value === "3") {
+      decline(item.order_id);
+    }
+    // const filtered = data.filter((brg) => brg.id === item.id)[0];
+    // filtered.status = parseInt(e.target.value);
+    // setData((prevState) =>
+    //   prevState.map((state) =>
+    //     state.id === filtered.id ? { ...state, status: filtered.status } : state
+    //   )
+    // );
   }
+
+  useEffect(() => {
+    const getData = async () => {
+      await adminTU
+        .get("/orders", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setOrderData(response.data));
+    };
+    getData();
+  }, [parseUser.data.token]);
+
+  console.log(orderData);
 
   return (
     <>
       <section>
+        {alerts && (
+          <Alerts
+            state="true"
+            background="bg-green-100"
+            textColor="text-green-600"
+            textContent="Status berhasil diubah!"
+          />
+        )}
+        {alertFail && (
+          <Alerts
+            state="true"
+            background="bg-red-100"
+            textColor="text-red-600"
+            textContent={`Ups, sepertinya ada yang salah: ${failMessage}`}
+            closeButton="true"
+          />
+        )}
         <div className="border-b border-orange-900">
           <h3 className="font-semibold pb-3">Dashboard TU</h3>
         </div>
-        <h6 className="mt-10 mb-4">Tabel Pesanan Pelanggan</h6>
+        <h6 className="mt-10 mb-4">
+          Tabel Pesanan Pelanggan{" "}
+          <span className="text-primary-900 font-semibold">
+            Belum implementasi put method
+          </span>
+        </h6>
         <div className="flex items-center justify-between mb-4">
           <div className="flex gap-2 items-center mr-4">
             <label htmlFor="sorting">Menampilkan</label>
@@ -111,34 +200,44 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => (
-                  <tr
-                    className="border-b"
-                    key={item.id}
-                  >
+                {orderData?.map((item, index) => (
+                  <tr className="border-b" key={item.id}>
                     <td className="text-center p-3">{index + 1}</td>
-                    <td className="text-center p-3">{item.nomorPesanan}</td>
-                    <td className="text-left p-3">{item.namaIKM}</td>
-                    <td className="text-center p-3">{item.tanggalPesanan}</td>
+                    <td className="text-center p-3">{item.order_code}</td>
+                    <td className="text-left p-3">{item.users.user_ikm}</td>
+                    <td className="text-center p-3">{item.createdAt}</td>
                     <td className="text-center p-3">
-                      <div className="flex items-center gap-4 justify-center">
+                      <div className="flex items-center gap-4 justify-center text-primary-900 font-semibold">
                         <div className="relative">
                           <select
                             id="status"
                             name="status"
-                            defaultValue={item.status}
-                            // value={item.status}
+                            defaultValue={item.order_status}
+                            // value={item.order_status}
                             onChange={(e) => handleChange(e, item)}
                             className={`${
-                              parseInt(item.status) === 1
-                                ? '!bg-gradient-to-bl !from-orange-900 !to-primary-900 hover:!from-primary-900 hover:!to-orange-900 !shadow-red'
-                                : parseInt(item.status) === 2
-                                ? '!bg-green-500 hover:!bg-green-500/80'
-                                : parseInt(item.status) === 3
-                                ? '!bg-secondary-800 hover:!bg-secondary-800/80'
-                                : ''
+                              item.order_status === null
+                                ? "!bg-gradient-to-bl !from-orange-900 !to-primary-900 hover:!from-primary-900 hover:!to-orange-900 !shadow-red"
+                                : item.order_status === 2
+                                ? "!bg-green-500 hover:!bg-green-500/80"
+                                : item.order_status === 3
+                                ? "!bg-secondary-800 hover:!bg-secondary-800/80"
+                                : ""
                             } input-field-select-xs !border-none !font-semibold !text-white !w-auto !pr-12`}
                           >
+                            <option
+                              value={
+                                item.order_status === null
+                                  ? "null"
+                                  : item.order_status
+                              }
+                            >
+                              {item.order_status === null
+                                ? "Status PO"
+                                : item.order_status === 2
+                                ? "Diterima"
+                                : "Belum Disetujui"}
+                            </option>
                             <option value="1">Status PO</option>
                             <option value="2">Diterima</option>
                             <option value="3">Belum Disetujui</option>

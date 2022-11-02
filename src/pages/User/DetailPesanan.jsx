@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
-import { HiOutlineArrowSmLeft } from 'react-icons/hi';
-import { useNavigate } from 'react-router-dom';
-import { dummyImg } from '../../assets/image';
-import Modal from '../../components/Card/Modal';
+import React, { useEffect, useState } from "react";
+import { HiOutlineArrowSmLeft } from "react-icons/hi";
+import { useNavigate, useParams } from "react-router-dom";
+import { dummyImg } from "../../assets/image";
+import Modal from "../../components/Card/Modal";
+import { postOrder } from "../../services/api";
 
 const DetailPesanan = () => {
+  const user = localStorage.getItem("user");
+  const parseUser = JSON.parse(user);
+  const { pesananId } = useParams();
   const [toggleConfirm, setToggleConfirm] = useState(false);
   const [toggleDelete, setToggleDelete] = useState(false);
+  const [data, setData] = useState();
 
   const closeModalConfirm = () => {
     setToggleConfirm(false);
@@ -17,12 +22,12 @@ const DetailPesanan = () => {
   };
 
   const handleConfirm = () => {
-    console.log('confirm');
+    console.log("confirm");
     setToggleConfirm(false);
   };
 
   const handleDelete = () => {
-    console.log('delete');
+    console.log("delete");
     setToggleDelete(false);
   };
 
@@ -30,17 +35,28 @@ const DetailPesanan = () => {
   function printInvoice(e) {
     e.preventDefault();
   }
+
+  useEffect(() => {
+    const getOrderDetail = async () => {
+      await postOrder
+        .get(`/list/${pesananId}`, {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setData(response.data));
+    };
+    getOrderDetail();
+  }, [parseUser.data.token, pesananId]);
+
+  console.log(data);
+
   return (
     <>
       <section className="w-full mb-6">
-        <div className="flex items-center mb-4">
+        <div className="flex items-center mb-4" onClick={() => navigate(-1)}>
           <HiOutlineArrowSmLeft className="text-2xl mr-3" />
-          <span
-            className="leading-10 cursor-pointer"
-            onClick={() => navigate(-1)}
-          >
-            Kembali
-          </span>
+          <span className="leading-10 cursor-pointer">Kembali</span>
         </div>
 
         {/* content detail pesanan */}
@@ -49,25 +65,29 @@ const DetailPesanan = () => {
             <h6 className="mb-5">Detail Pesanan</h6>
             <div className="mb-5 p-4 border rounded-lg border-orange-900/40">
               <img
-                src={dummyImg.kardus}
+                src={`data:image/jpg;base64,${data?.order_products[0].products.product_image}`}
                 alt="ini-gambar"
                 className="w-full object-cover"
               />
             </div>
             <div className="product-title mb-5">
-              <p className="mb-1 text-secondary-900">Dus Offset</p>
-              <p className="font-semibold">Bentuk Langsungan</p>
+              <p className="mb-1 text-secondary-900">
+                {data?.order_products[0].products.product_name}
+              </p>
+              <p className="font-semibold">
+                {data?.order_products[0].products.product_description}
+              </p>
             </div>
             <div className="product-order-number mb-5">
               <p className="mb-1 text-secondary-900">No. Pesanan</p>
               <p className="font-semibold pb-3 border-b border-orange-900">
-                001/BIKDK/O/VII/2022
+                {data?.order_code}
               </p>
             </div>
             <div className="product-order mb-5">
               <p className="mb-1 text-secondary-900">Tanggal Pesan</p>
               <p className="font-semibold pb-3 border-b border-orange-900">
-                1 Januari 2022
+                {data?.createdAt}
               </p>
             </div>
             <button
@@ -91,7 +111,7 @@ const DetailPesanan = () => {
                     </td>
                     <td className="w-[3%]">:</td>
                     <td className="pl-2 w-[50%]">
-                      Roikhiatul Miskiyah ijei hefiejf eiefjie feh fhue
+                      {data?.order_products[0].products.product_name}
                     </td>
                   </tr>
                   <tr>
@@ -99,35 +119,47 @@ const DetailPesanan = () => {
                       Bahan
                     </td>
                     <td className="w-[3%]">:</td>
-                    <td className="pl-2 w-[50%]">Duplex 350 gram</td>
+                    <td className="pl-2 w-[50%]">
+                      {
+                        data?.order_products[0].products.product_materials
+                          .product_material_name
+                      }
+                    </td>
                   </tr>
                   <tr>
                     <td className="text-secondary-900 pr-3 w-[47%] py-2">
                       Desain
                     </td>
                     <td className="w-[3%]">:</td>
-                    <td className="pl-2 w-[50%]">Swadesain</td>
+                    <td className="pl-2 w-[50%]">{data?.order_design}</td>
                   </tr>
                   <tr>
                     <td className="text-secondary-900 pr-3 w-[47%] py-2">
                       Laminasi
                     </td>
                     <td className="w-[3%]">:</td>
-                    <td className="pl-2 w-[50%]">Laminasi Doff</td>
+                    <td className="pl-2 w-[50%]">
+                      {
+                        data?.order_products[0].products.product_finishings
+                          .product_finishing_name
+                      }
+                    </td>
                   </tr>
                   <tr>
                     <td className="text-secondary-900 pr-3 w-[47%] py-2">
                       Jumlah Pesanan
                     </td>
                     <td className="w-[3%]">:</td>
-                    <td className="pl-2 w-[50%]">1000 pcs</td>
+                    <td className="pl-2 w-[50%]">{data?.order_quantity} pcs</td>
                   </tr>
                   <tr>
                     <td className="text-secondary-900 pr-3 w-[47%] py-2">
                       Retribusi
                     </td>
                     <td className="w-[3%]">:</td>
-                    <td className="pl-2 w-[50%]">Rp 125.000</td>
+                    <td className="pl-2 w-[50%]">
+                      {data?.retributions[0].retribution_jasa_total}
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -141,40 +173,37 @@ const DetailPesanan = () => {
                       Nama
                     </td>
                     <td className="w-[3%]">:</td>
-                    <td className="pl-2 w-[50%]">
-                      Roikhiatul Miskiyah ijei hefiejf eiefjie feh fhue
-                    </td>
+                    <td className="pl-2 w-[50%]">{data?.users.user_name}</td>
                   </tr>
                   <tr>
                     <td className="text-secondary-900 pr-3 w-[47%] py-2">
                       Nama IKM
                     </td>
                     <td className="w-[3%]">:</td>
-                    <td className="pl-2 w-[50%]">Ikha Catering</td>
+                    <td className="pl-2 w-[50%]">{data?.users.user_ikm}</td>
                   </tr>
                   <tr>
                     <td className="text-secondary-900 pr-3 w-[47%] py-2">
                       No. Handphone
                     </td>
                     <td className="w-[3%]">:</td>
-                    <td className="pl-2 w-[50%]">082312123434</td>
+                    <td className="pl-2 w-[50%]">{data?.users.user_contact}</td>
                   </tr>
                   <tr>
                     <td className="text-secondary-900 pr-3 w-[47%] py-2">
                       Alamat
                     </td>
                     <td className="w-[3%]">:</td>
-                    <td className="pl-2 w-[50%]">
-                      Jl. Bukit Raya No. 1, Banyumanik, Kota Semarang, Jawa
-                      Tengah 123456
-                    </td>
+                    <td className="pl-2 w-[50%]">{data?.users.user_address}</td>
                   </tr>
                   <tr>
                     <td className="text-secondary-900 pr-3 w-[47%] py-2">
                       Pengiriman
                     </td>
                     <td className="w-[3%]">:</td>
-                    <td className="pl-2 w-[50%]">Dikirm</td>
+                    <td className="pl-2 w-[50%]">
+                      {data?.delivery_details[0].delivery_detail_courier}
+                    </td>
                   </tr>
                 </tbody>
               </table>

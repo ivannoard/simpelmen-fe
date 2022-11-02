@@ -4,10 +4,12 @@ import { IoIosArrowDown } from "react-icons/io";
 import { getUser } from "../../services/api";
 import useGeoLocation from "../../hooks/useGeoLocation";
 import Alerts from "../../components/Alerts";
+import jwt_decode from "jwt-decode";
 
 const Profile = () => {
   const currentUser = localStorage.getItem("user");
   const parseUser = JSON.parse(currentUser);
+  const decodedToken = jwt_decode(parseUser.data.token);
   const [alertSuccess, setAlertSuccess] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
   const [failMessage, setFailMessage] = useState("");
@@ -83,10 +85,21 @@ const Profile = () => {
     e.preventDefault();
     setTogglePwdConfirm(true);
     console.log(pwdFields);
+    console.log("post new pwd");
   }
-  const handlePwdEdit = () => {
-    console.log("edit");
+  const handlePwdEdit = async () => {
     setTogglePwdConfirm(false);
+    await getUser
+      .put(`/changepassword/${decodedToken.user_id}`, pwdFields, {
+        headers: {
+          "x-access-token": `${parseUser.data.token}`,
+        },
+      })
+      .then((response) => setAlertSuccess(true))
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
   };
 
   useEffect(() => {
@@ -435,7 +448,7 @@ const Profile = () => {
             <div className="col-span-4">
               <div className="">
                 <label
-                  htmlFor="newPwd"
+                  htmlFor="user_password_new"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Kata Sandi Baru
@@ -444,8 +457,8 @@ const Profile = () => {
                   type="password"
                   className="input-field-xs"
                   placeholder="Masukkan Kata Sandi Baru"
-                  name="newPwd"
-                  id="newPwd"
+                  name="user_password_new"
+                  id="user_password_new"
                   required
                   disabled={togglePwdDisabled}
                   autoComplete="on"
@@ -456,17 +469,17 @@ const Profile = () => {
             <div className="col-span-4">
               <div className="">
                 <label
-                  htmlFor="newConfirmPwd"
+                  htmlFor="user_confirm_password"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
-                  Kata Sandi Baru
+                  Konfirmasi Kata Sandi Baru
                 </label>
                 <input
                   type="password"
                   className="input-field-xs"
                   placeholder="Masukkan Konfirmasi Kata Sandi Baru"
-                  name="newConfirmPwd"
-                  id="newConfirmPwd"
+                  name="user_confirm_password"
+                  id="user_confirm_password"
                   required
                   disabled={togglePwdDisabled}
                   autoComplete="on"
@@ -484,7 +497,7 @@ const Profile = () => {
             <div className="col-span-4">
               <div className="md:mt-4">
                 <label
-                  htmlFor="oldPwd"
+                  htmlFor="user_password_old"
                   className="block mb-2 text-sm font-medium text-gray-700"
                 >
                   Kata Sandi Lama
@@ -493,8 +506,8 @@ const Profile = () => {
                   type="password"
                   className="input-field-xs"
                   placeholder="Masukkan Kata Sandi Lama"
-                  name="oldPwd"
-                  id="oldPwd"
+                  name="user_password_old"
+                  id="user_password_old"
                   required
                   disabled={togglePwdDisabled}
                   autoComplete="on"

@@ -80,6 +80,7 @@ const Profil = () => {
             user_id: response.data.data.user_id,
             user_name: response.data.data.user_name,
             user_email: response.data.data.user_email,
+            user_role: response.data.data.roles.role_name,
           })
         );
     };
@@ -149,7 +150,7 @@ const Profil = () => {
                   required
                   onChange={handleChangeProfile}
                   autoComplete="on"
-                  value="GAADA RESPONSE"
+                  defaultValue={fieldsProfile.user_role}
                 />
               </div>
               <div className="relative w-full flex flex-col mb-4">

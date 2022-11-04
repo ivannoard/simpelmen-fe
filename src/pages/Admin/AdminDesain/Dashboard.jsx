@@ -20,8 +20,6 @@ const Dashboard = () => {
     getData();
   }, [parseUser.data.token]);
 
-  console.log(data);
-
   return (
     <>
       <section>

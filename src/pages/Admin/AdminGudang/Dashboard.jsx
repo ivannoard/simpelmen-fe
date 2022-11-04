@@ -43,7 +43,6 @@ const Dashboard = () => {
 
   const handleChange = (e, item) => {
     e.preventDefault();
-    console.log(e.target.value);
     shipping(item.order_id, e.target.value);
     // const filtered = data.filter((brg) => brg.id === item.id)[0];
     // filtered.status = parseInt(e.target.value);
@@ -69,7 +68,6 @@ const Dashboard = () => {
   const resiSaveHandling = async (e) => {
     e.preventDefault();
     setIsOpenModal(false);
-    console.log(resiField);
     await adminGudang
       .put(`/orders/resi/${idPesanan}`, resiField, {
         headers: {
@@ -91,8 +89,6 @@ const Dashboard = () => {
     };
     getData();
   }, [parseUser.data.token]);
-
-  console.log(warehouseData);
 
   useEffect(() => {
     setTimeout(() => {

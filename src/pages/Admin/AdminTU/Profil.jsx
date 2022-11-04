@@ -30,7 +30,6 @@ const Profil = () => {
 
   const handleSubmitProfile = async (e) => {
     e.preventDefault();
-    // console.log(fieldsProfile);
     await adminTU
       .put(`/profile/${fieldsProfile?.user_id}`, {
         headers: {
@@ -85,8 +84,6 @@ const Profil = () => {
     };
     getData();
   }, [parseUser.data.token]);
-
-  // console.log(data.data.user_name);
 
   useEffect(() => {
     setTimeout(() => {

@@ -54,7 +54,6 @@ const Konfirmasi = () => {
 
   function handleChangeStatus(e, item) {
     e.preventDefault();
-    console.log(e.target.value);
     if (e.target.value === "2") {
       approveDesign(item.order_id, parseInt(e.target.value));
     } else if (e.target.value === "3") {

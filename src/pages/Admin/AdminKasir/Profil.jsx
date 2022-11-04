@@ -86,8 +86,6 @@ const Profil = () => {
     getAdmin();
   }, [parseUser.data.token]);
 
-  console.log(fieldsProfile);
-
   useEffect(() => {
     setTimeout(() => {
       if (alerts || alertFail === true) setAlertFail(false) || setAlerts(false);

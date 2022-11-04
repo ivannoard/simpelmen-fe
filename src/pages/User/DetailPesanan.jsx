@@ -21,12 +21,10 @@ const DetailPesanan = () => {
   };
 
   const handleConfirm = () => {
-    console.log("confirm");
     setToggleConfirm(false);
   };
 
   const handleDelete = () => {
-    console.log("delete");
     setToggleDelete(false);
   };
 
@@ -47,8 +45,6 @@ const DetailPesanan = () => {
     };
     getOrderDetail();
   }, [parseUser.data.token, pesananId]);
-
-  console.log(data);
 
   return (
     <>

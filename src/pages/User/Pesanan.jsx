@@ -23,8 +23,6 @@ const Pesanan = () => {
     getOrder();
   }, [parseUser.data.token]);
 
-  console.log(data);
-
   return (
     <>
       <section>

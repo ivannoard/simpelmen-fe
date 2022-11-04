@@ -31,7 +31,6 @@ const Profil = () => {
 
   const handleSubmitProfile = async (e) => {
     e.preventDefault();
-    // console.log(fieldsProfile);
     await adminDesain
       .put(`/profile/${fieldsProfile?.user_id}`, {
         headers: {

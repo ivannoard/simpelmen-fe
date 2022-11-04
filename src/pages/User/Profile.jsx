@@ -84,8 +84,6 @@ const Profile = () => {
   function handlePwdSubmit(e) {
     e.preventDefault();
     setTogglePwdConfirm(true);
-    console.log(pwdFields);
-    console.log("post new pwd");
   }
   const handlePwdEdit = async () => {
     setTogglePwdConfirm(false);

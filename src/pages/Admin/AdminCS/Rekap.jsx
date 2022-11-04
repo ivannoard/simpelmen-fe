@@ -35,8 +35,6 @@ const Rekap = () => {
     getData();
   }, [parseUser.data.token]);
 
-  console.log(data);
-
   return (
     <section>
       <div className="border-b border-orange-900">

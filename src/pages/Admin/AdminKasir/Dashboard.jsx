@@ -34,7 +34,6 @@ const Dashboard = () => {
     getData();
   }, [parseUser.data.token]);
 
-  console.log(pad);
   return (
     <>
       <section>

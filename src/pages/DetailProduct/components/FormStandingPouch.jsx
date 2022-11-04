@@ -71,7 +71,6 @@ const FormStandingPouch = ({ productId, setAlertSuccess, setAlertFail }) => {
   const finalDummy = [];
 
   for (let i = 0; i < dummySize.length; i++) {
-    // console.log(dummySize[i]);
     for (let j = 0; j < dummyLamination.length; j++) {
       finalDummy.push({ size: dummySize[i], lamination: dummyLamination[j] });
     }

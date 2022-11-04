@@ -1,55 +1,55 @@
-import React, { useState } from 'react';
-import { BsSearch } from 'react-icons/bs';
-import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
-import { IoIosArrowDown } from 'react-icons/io';
-import Modals from './components/Modals';
+import React, { useState } from "react";
+import { BsSearch } from "react-icons/bs";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { IoIosArrowDown } from "react-icons/io";
+import Modals from "./components/Modals";
 
 const Riwayat = () => {
   const [data, setData] = useState([
     {
       id: 1,
-      nomorPesanan: '001/BIKDK/O/VII/2022',
-      tanggalPesanan: '12 September 2022',
-      namaIKM: 'Ikha cathering',
+      nomorPesanan: "001/BIKDK/O/VII/2022",
+      tanggalPesanan: "12 September 2022",
+      namaIKM: "Ikha cathering",
       status: 1,
       ongkir: 120000,
-      bentukProduk: 'Bulat',
+      bentukProduk: "Bulat",
     },
     {
       id: 2,
-      nomorPesanan: '002/BIKDK/O/VII/2022',
-      tanggalPesanan: '12 September 2022',
-      namaIKM: 'Ikha cathering',
+      nomorPesanan: "002/BIKDK/O/VII/2022",
+      tanggalPesanan: "12 September 2022",
+      namaIKM: "Ikha cathering",
       status: 2,
       ongkir: 120000,
-      bentukProduk: 'Oval',
+      bentukProduk: "Oval",
     },
     {
       id: 3,
-      nomorPesanan: '003/BIKDK/O/VII/2022',
-      tanggalPesanan: '12 September 2022',
-      namaIKM: 'Ikha cathering',
+      nomorPesanan: "003/BIKDK/O/VII/2022",
+      tanggalPesanan: "12 September 2022",
+      namaIKM: "Ikha cathering",
       status: 3,
       ongkir: 120000,
-      bentukProduk: 'Kotak',
+      bentukProduk: "Kotak",
     },
     {
       id: 4,
-      nomorPesanan: '004/BIKDK/O/VII/2022',
-      tanggalPesanan: '12 September 2022',
-      namaIKM: 'Ikha cathering',
+      nomorPesanan: "004/BIKDK/O/VII/2022",
+      tanggalPesanan: "12 September 2022",
+      namaIKM: "Ikha cathering",
       status: 1,
       ongkir: 120000,
-      bentukProduk: 'Bulat',
+      bentukProduk: "Bulat",
     },
     {
       id: 5,
-      nomorPesanan: '005/BIKDK/O/VII/2022',
-      tanggalPesanan: '12 September 2022',
-      namaIKM: 'Ikha cathering',
+      nomorPesanan: "005/BIKDK/O/VII/2022",
+      tanggalPesanan: "12 September 2022",
+      namaIKM: "Ikha cathering",
       status: 2,
       ongkir: 120000,
-      bentukProduk: 'Kostum',
+      bentukProduk: "Kostum",
     },
   ]);
   const [toggleId, setToggleId] = useState();
@@ -76,7 +76,6 @@ const Riwayat = () => {
 
   function handleChangeStatus(e, item) {
     e.preventDefault();
-    console.log(e.target.value);
     // samakan api data id dengan item index
     // post data setelah get
     const filtered = data.filter((brg) => brg.id === item.id)[0];
@@ -91,7 +90,6 @@ const Riwayat = () => {
 
   const submitChatHandler = (e) => {
     e.preventDefault();
-    console.log('submit chat');
   };
 
   return (
@@ -154,10 +152,7 @@ const Riwayat = () => {
               </thead>
               <tbody>
                 {data.map((item, index) => (
-                  <tr
-                    className="border-b"
-                    key={index}
-                  >
+                  <tr className="border-b" key={index}>
                     <td className="text-center p-3">{index + 1}</td>
                     <td className="text-center p-3">{item.nomorPesanan}</td>
                     <td className="text-left p-3">{item.namaIKM}</td>
@@ -174,12 +169,12 @@ const Riwayat = () => {
                             onChange={(e) => handleChangeStatus(e, item)}
                             className={`${
                               parseInt(item.status) === 1
-                                ? '!bg-gradient-to-bl !from-orange-900 !to-primary-900 hover:!from-primary-900 hover:!to-orange-900 !shadow-red'
+                                ? "!bg-gradient-to-bl !from-orange-900 !to-primary-900 hover:!from-primary-900 hover:!to-orange-900 !shadow-red"
                                 : parseInt(item.status) === 2
-                                ? '!bg-green-500 hover:!bg-green-500/80'
+                                ? "!bg-green-500 hover:!bg-green-500/80"
                                 : parseInt(item.status) === 3
-                                ? '!bg-secondary-800 hover:!bg-secondary-800/80'
-                                : ''
+                                ? "!bg-secondary-800 hover:!bg-secondary-800/80"
+                                : ""
                             } input-field-select-xs !border-none !font-semibold !text-white !w-auto !pr-12`}
                           >
                             <option value="1">Status Desain</option>

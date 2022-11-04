@@ -11,53 +11,6 @@ const Pembayaran = () => {
   const [alerts, setAlerts] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
   const [failMessage, setFailMessage] = useState("");
-  // const [data, setData] = useState([
-  //   {
-  //     id: 1,
-  //     nomorPesanan: "001/BIKDK/O/VII/2022",
-  //     tanggalPesanan: "12 September 2022",
-  //     namaIKM: "Ikha cathering",
-  //     statusPembayaran: 2,
-  //     status: 1,
-  //     ongkir: 120000,
-  //   },
-  //   {
-  //     id: 2,
-  //     nomorPesanan: "001/BIKDK/O/VII/2022",
-  //     tanggalPesanan: "12 September 2022",
-  //     namaIKM: "Ikha cathering",
-  //     statusPembayaran: 1,
-  //     status: 2,
-  //     ongkir: 120000,
-  //   },
-  //   {
-  //     id: 3,
-  //     nomorPesanan: "001/BIKDK/O/VII/2022",
-  //     tanggalPesanan: "12 September 2022",
-  //     namaIKM: "Ikha cathering",
-  //     statusPembayaran: 3,
-  //     status: 3,
-  //     ongkir: 120000,
-  //   },
-  //   {
-  //     id: 4,
-  //     nomorPesanan: "001/BIKDK/O/VII/2022",
-  //     tanggalPesanan: "12 September 2022",
-  //     namaIKM: "Ikha cathering",
-  //     statusPembayaran: 3,
-  //     status: 1,
-  //     ongkir: 120000,
-  //   },
-  //   {
-  //     id: 5,
-  //     nomorPesanan: "001/BIKDK/O/VII/2022",
-  //     tanggalPesanan: "12 September 2022",
-  //     namaIKM: "Ikha cathering",
-  //     statusPembayaran: 2,
-  //     status: 2,
-  //     ongkir: 120000,
-  //   },
-  // ]);
 
   async function dpOrder(id) {
     await adminKasir
@@ -101,8 +54,6 @@ const Pembayaran = () => {
 
   function handleChangePembayaran(e, item) {
     e.preventDefault();
-    console.log(item);
-
     if (e.target.value === "DP") {
       dpOrder(item.order_id);
     } else if (e.target.value === "Langsung") {
@@ -162,8 +113,6 @@ const Pembayaran = () => {
 
   function handleChangeStatus(e, item) {
     e.preventDefault();
-    console.log(e.target.value);
-
     if (e.target.value === "Lunas") {
       lunasOrder(item.order_id);
     } else if (e.target.value === "Belum Lunas") {
@@ -191,8 +140,6 @@ const Pembayaran = () => {
     };
     getData();
   }, [parseUser.data.token]);
-
-  console.log(sellData);
 
   useEffect(() => {
     setTimeout(() => {

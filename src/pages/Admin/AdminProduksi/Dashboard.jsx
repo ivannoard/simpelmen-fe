@@ -91,7 +91,6 @@ const Dashboard = () => {
 
   function handleChange(e, item) {
     e.preventDefault();
-    console.log(e.target.value);
     if (parseInt(e.target.value) === 2) {
       belumProduksi(parseInt(e.target.value), item.order_id);
     } else if (parseInt(e.target.value) === 3) {
@@ -121,8 +120,6 @@ const Dashboard = () => {
     };
     getData();
   }, [parseUser.data.token]);
-
-  console.log(productData);
 
   useEffect(() => {
     setTimeout(() => {

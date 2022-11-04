@@ -12,43 +12,6 @@ const Dashboard = () => {
   const [alerts, setAlerts] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
   const [failMessage, setFailMessage] = useState("");
-  // const [data, setData] = useState([
-  //   {
-  //     id: 1,
-  //     nomorPesanan: "001/BIKDK/O/VII/2022",
-  //     tanggalPesanan: "12 September 2022",
-  //     namaIKM: "Ikha cathering",
-  //     status: 2,
-  //   },
-  //   {
-  //     id: 2,
-  //     nomorPesanan: "001/BIKDK/O/VII/2022",
-  //     tanggalPesanan: "12 September 2022",
-  //     namaIKM: "Ikha cathering",
-  //     status: 1,
-  //   },
-  //   {
-  //     id: 3,
-  //     nomorPesanan: "001/BIKDK/O/VII/2022",
-  //     tanggalPesanan: "12 September 2022",
-  //     namaIKM: "Ikha cathering",
-  //     status: 3,
-  //   },
-  //   {
-  //     id: 4,
-  //     nomorPesanan: "001/BIKDK/O/VII/2022",
-  //     tanggalPesanan: "12 September 2022",
-  //     namaIKM: "Ikha cathering",
-  //     status: 3,
-  //   },
-  //   {
-  //     id: 5,
-  //     nomorPesanan: "001/BIKDK/O/VII/2022",
-  //     tanggalPesanan: "12 September 2022",
-  //     namaIKM: "Ikha cathering",
-  //     status: 2,
-  //   },
-  // ]);
 
   async function accept(id) {
     await adminTU
@@ -92,7 +55,6 @@ const Dashboard = () => {
 
   function handleChange(e, item) {
     e.preventDefault();
-    console.log(typeof e.target.value);
     if (e.target.value === "2") {
       accept(item.order_id);
     } else if (e.target.value === "3") {
@@ -119,8 +81,6 @@ const Dashboard = () => {
     };
     getData();
   }, [parseUser.data.token]);
-
-  console.log(orderData);
 
   useEffect(() => {
     setTimeout(() => {

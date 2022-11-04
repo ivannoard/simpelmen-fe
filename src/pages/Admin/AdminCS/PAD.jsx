@@ -35,7 +35,6 @@ const PAD = () => {
 
   function handleChange(e, item) {
     e.preventDefault();
-    console.log(item.retribution_id);
     padStatus(e.target.value, item.retribution_id);
   }
 

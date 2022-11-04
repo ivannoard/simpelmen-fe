@@ -122,6 +122,12 @@ const Dashboard = () => {
 
   console.log(orderData);
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (alerts || alertFail === true) setAlertFail(false) || setAlerts(false);
+    }, 2000);
+  }, [alertFail, alerts]);
+
   return (
     <>
       <section>

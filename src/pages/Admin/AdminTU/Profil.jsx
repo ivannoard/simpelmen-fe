@@ -88,6 +88,12 @@ const Profil = () => {
 
   // console.log(data.data.user_name);
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (alerts || alertFail === true) setAlertFail(false) || setAlerts(false);
+    }, 2000);
+  }, [alertFail, alerts]);
+
   return (
     <>
       <section>

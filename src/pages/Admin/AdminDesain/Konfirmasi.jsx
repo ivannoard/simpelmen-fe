@@ -83,6 +83,12 @@ const Konfirmasi = () => {
     getData();
   }, [parseUser.data.token]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (alerts || alertFail === true) setAlertFail(false) || setAlerts(false);
+    }, 2000);
+  }, [alertFail, alerts]);
+
   return (
     <>
       <section>

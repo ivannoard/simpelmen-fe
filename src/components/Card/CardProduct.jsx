@@ -12,9 +12,7 @@ const CardProduct = (props) => {
             className="w-full object-cover object-center"
           />
         </div>
-        <p className="text-center text-xs xs:text-base">
-          {props.product_categories.product_category_name}
-        </p>
+        <p className="text-center text-xs xs:text-base">{props.product_name}</p>
         <p className="font-bold text-base xs:text-xl md:text-2xl text-center mb-3 line-clamp-2">
           {props.product_finishings.product_finishing_name}
         </p>

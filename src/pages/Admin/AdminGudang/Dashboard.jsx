@@ -26,7 +26,7 @@ const Dashboard = () => {
       .put(
         `/orders/dikirim/${id}`,
         {
-          order_status: status,
+          order_status: parseInt(status),
         },
         {
           headers: {
@@ -93,6 +93,12 @@ const Dashboard = () => {
   }, [parseUser.data.token]);
 
   console.log(warehouseData);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (alerts || alertFail === true) setAlertFail(false) || setAlerts(false);
+    }, 2000);
+  }, [alertFail, alerts]);
 
   return (
     <>
@@ -189,7 +195,7 @@ const Dashboard = () => {
                             // value={item.status}
                             onChange={(e) => handleChange(e, item)}
                             className={`${
-                              item.order_status === null
+                              item.order_status === 4
                                 ? "!bg-gradient-to-bl !from-orange-900 !to-primary-900 hover:!from-primary-900 hover:!to-orange-900 !shadow-red"
                                 : item.order_status === 2
                                 ? "!bg-green-500 hover:!bg-green-500/80"
@@ -200,18 +206,16 @@ const Dashboard = () => {
                           >
                             <option
                               value={
-                                item.order_status === null
-                                  ? "null"
-                                  : item.order_status
+                                item.order_status === 4 ? 4 : item.order_status
                               }
                             >
-                              {item.order_status === null
+                              {item.order_status === 4
                                 ? "Status PO"
                                 : item.order_status === 2
                                 ? "Diterima"
                                 : "Belum Disetujui"}
                             </option>
-                            <option value="1">Status PO</option>
+                            <option value="4">Status PO</option>
                             <option value="2">Dikirm</option>
                             <option value="3">Belum Dikirim</option>
                           </select>

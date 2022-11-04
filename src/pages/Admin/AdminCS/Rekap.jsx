@@ -121,23 +121,23 @@ const Rekap = () => {
                           "8"
                             ? "Status Pesanan"
                             : item?.order_statuses[0]
-                                .order_status_admin_code === "2"
+                                .order_status_admin_code === 2
                             ? "Admin CS"
                             : item?.order_statuses[0]
-                                .order_status_admin_code === "3"
+                                .order_status_admin_code === 3
                             ? "Admin Kasir"
                             : item?.order_statuses[0]
-                                .order_status_admin_code === "4"
-                            ? "Admin TU"
-                            : item?.order_statuses[0]
-                                .order_status_admin_code === "5"
-                            ? "Admin Produksi"
-                            : item?.order_statuses[0]
-                                .order_status_admin_code === "6"
+                                .order_status_admin_code === 4
                             ? "Admin Desain"
                             : item?.order_statuses[0]
-                                .order_status_admin_code === "7"
+                                .order_status_admin_code === 5
                             ? "Admin Gudang"
+                            : item?.order_statuses[0]
+                                .order_status_admin_code === 6
+                            ? "Admin Produksi"
+                            : item?.order_statuses[0]
+                                .order_status_admin_code === 7
+                            ? "Admin TU"
                             : ""}
                         </option>
                         {/* <option value="1">Status Pesanan</option>

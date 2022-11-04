@@ -90,15 +90,15 @@ const Dashboard = () => {
                   <td className="text-center px-3 py-2">
                     Rp. {item.retribution_jasa_total || 0}
                   </td>
-                  <td className="text-center py-2 px-4 [#21B630]">
+                  <td className="text-center py-2 px-4">
                     <div
-                      className={`bg-${
+                      className={`${
                         item.retribution_status === "0"
-                          ? "[#6D6061]"
+                          ? "bg-[#6D6061]"
                           : item.retribution_status === "1"
-                          ? "[#21B630]"
+                          ? "bg-[#21B630]"
                           : item.retribution_status === "2"
-                          ? "primary-900"
+                          ? "bg-primary-900"
                           : ""
                       } text-white py-2 rounded-lg font-semibold text-sm`}
                     >
@@ -167,10 +167,9 @@ const Dashboard = () => {
                     {item?.delivery_details[0]?.delivery_detail_ikm}
                   </td>
                   <td className="text-center px-4 py-2">
-                    {item?.order_statuses[0]?.order_status_admin_code ===
-                    "2" ? (
-                      <div className="bg-primary-900 text-white py-2 rounded-lg font-semibold text-sm truncate px-2">
-                        Belum Disetujui
+                    {item?.order_status === null ? (
+                      <div className="bg-[#6D6061] text-white py-2 rounded-lg font-semibold text-sm truncate px-2">
+                        Belum Diproses
                       </div>
                     ) : (
                       ""

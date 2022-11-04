@@ -88,17 +88,27 @@ const Dashboard = () => {
                     {item.orders.users.user_ikm}
                   </td>
                   <td className="text-center px-3 py-2">
-                    Rp.{item.retribution_jasa_total}
+                    Rp. {item.retribution_jasa_total || 0}
                   </td>
                   <td className="text-center py-2 px-4 [#21B630]">
                     <div
                       className={`bg-${
-                        item.retribution_status === "Disetujui"
+                        item.retribution_status === "0"
+                          ? "[#6D6061]"
+                          : item.retribution_status === "1"
                           ? "[#21B630]"
-                          : "primary-900"
+                          : item.retribution_status === "2"
+                          ? "primary-900"
+                          : ""
                       } text-white py-2 rounded-lg font-semibold text-sm`}
                     >
-                      {item.retribution_status}
+                      {item.retribution_status === "0"
+                        ? "Belum Diproses"
+                        : item.retribution_status === "1"
+                        ? "Disetujui"
+                        : item.retribution_status === "2"
+                        ? "Belum Disetujui"
+                        : ""}
                     </div>
                   </td>
                 </tr>
@@ -194,12 +204,7 @@ const Dashboard = () => {
       </article>
 
       <article id="rekapPesanan">
-        <h6 className="mt-5 mb-4">
-          Tabel Rekap Pesanan{" "}
-          <span className="text-primary-900 font-semibold">
-            Kurang Status Admin
-          </span>
-        </h6>
+        <h6 className="mt-5 mb-4">Tabel Rekap Pesanan </h6>
         <div className="overflow-x-auto">
           <table className="table-auto mb-4 w-full">
             <thead>
@@ -228,10 +233,24 @@ const Dashboard = () => {
                   <td className="text-center p-3">{item.order_code}</td>
                   <td className="text-left p-3">{item.users.user_ikm}</td>
                   <td className="text-center p-3">
-                    {item.order_statuses[0].order_status_admin_code}
+                    {item.order_statuses[0]?.order_status_admin_code === 1
+                      ? "Super Admin"
+                      : item.order_statuses[0]?.order_status_admin_code === 2
+                      ? "Admin CS"
+                      : item.order_statuses[0]?.order_status_admin_code === 3
+                      ? "Admin Kasir"
+                      : item.order_statuses[0]?.order_status_admin_code === 4
+                      ? "Admin Desain"
+                      : item.order_statuses[0]?.order_status_admin_code === 5
+                      ? "Admin Gudang"
+                      : item.order_statuses[0]?.order_status_admin_code === 6
+                      ? "Admin Produksi"
+                      : item.order_statuses[0]?.order_status_admin_code === 7
+                      ? "Admin TU"
+                      : ""}
                   </td>
                   <td className="text-center p-3">
-                    Rp. {item.retributions[0]?.retribution_jasa_total}
+                    Rp. {item.retributions[0]?.retribution_jasa_total || 0}
                   </td>
                 </tr>
               ))}

@@ -266,7 +266,11 @@ const Pembayaran = () => {
               <tr className="border-b" key={index}>
                 <td className="text-center py-3">{index + 1}</td>
                 <td className="text-center py-3">{item.order_code}</td>
-                <td className="text-center py-3">{item.createdAt}</td>
+                <td className="text-center py-3">{`${new Date(
+                  item.createdAt
+                ).getDate()} - ${
+                  new Date(item.createdAt).getMonth() + 1
+                } - ${new Date(item.createdAt).getFullYear()}`}</td>
                 <td className="text-center py-3">{item.users.user_ikm}</td>
                 <td className="text-center py-3 text-primary-900 font-semibold">
                   {" "}

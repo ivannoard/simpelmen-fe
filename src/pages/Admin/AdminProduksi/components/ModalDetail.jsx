@@ -46,7 +46,13 @@ const ModalDetail = ({ isOpen, closeModal, detailData }) => {
                   <hr className="mb-6" />
                   <div className="mb-6">
                     <p className="mb-1">
-                      Pesanan: {detailData?.createdAt}/ {detailData?.order_code}
+                      Pesanan:{" "}
+                      {`${new Date(detailData?.createdAt).getDate()} - ${
+                        new Date(detailData?.createdAt).getMonth() + 1
+                      } - ${new Date(
+                        detailData?.createdAt
+                      ).getFullYear()}`}{" "}
+                      / {detailData?.order_code}
                     </p>
                     <p className="mb-1">
                       {

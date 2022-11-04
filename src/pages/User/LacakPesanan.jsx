@@ -74,7 +74,7 @@ const LacakPesanan = () => {
                         </p>
                         <p className="font-semibold">
                           {
-                            item.order_products[0].products.jenis_products
+                            item.order_products[0]?.products.jenis_products
                               .jenis_product_name
                           }{" "}
                         </p>
@@ -129,10 +129,15 @@ const LacakPesanan = () => {
             {toggleTracking && <EmptyState />}
             {!toggleTracking && (
               <div className="flex flex-col gap-5">
-                {trackingData?.order_statuses.map((item) => (
+                {trackingData?.order_statuses.map((item, index) => (
                   <>
-                    <div className="bg-white rounded-md shadow-md p-3">
-                      <p>{item.createdAt}</p>
+                    <div
+                      className="bg-white rounded-md shadow-md p-3"
+                      key={index}
+                    >
+                      <p>{`${new Date(item.createdAt).getDate()} - ${
+                        new Date(item.createdAt).getMonth() + 1
+                      } - ${new Date(item.createdAt).getFullYear()}`}</p>
                       <h6 className="font-semibold">
                         {item.order_status_description}
                       </h6>

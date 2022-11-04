@@ -123,13 +123,37 @@ const Keranjang = () => {
         </div>
         {/* dummy condition */}
         {/* if data !== null */}
-        {!finalCartItem ? (
-          <div className="flex flex-col gap-5">
-            {[1, 2, 3].map((item) => (
-              <CartSkeleton key={item} />
-            ))}
-          </div>
-        ) : finalCartItem.length > 0 ? (
+        {!user && (
+          // <div className="flex flex-col gap-5">
+          //   {[1, 2, 3].map((item) => (
+          //     <CartSkeleton key={item} />
+          //   ))}
+          // </div>
+          <section className="pt-9 pb-12 2xsm:pb-28 xmd:pb-40">
+            <div className="w-4/5 md:w-[33.75rem] mx-auto">
+              <div className="w-full px-9">
+                <img
+                  src={svg.emptyKeranjang}
+                  alt="empty-keranjang"
+                  className="w-full mb-10"
+                />
+              </div>
+              <h3 className="text-center mb-10">
+                Keranjang Anda masih kosong!
+              </h3>
+              <div className="flex justify-center">
+                <button
+                  className="button-fill"
+                  onClick={() => navigate("/produk-kemasan")}
+                >
+                  Pesan Sekarang
+                </button>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {user && finalCartItem?.length > 0 ? (
           <>
             <section id="cart" className="mb-10">
               {finalCartItem?.map((item) => {
@@ -196,7 +220,7 @@ const Keranjang = () => {
                     <div className="absolute top-6 md:top-8 right-6 md:right-8">
                       <div className="w-full flex justify-end">
                         <button
-                          onClick={(e) => openModal(e, item.order_user_id)}
+                          onClick={(e) => openModal(e, item.order_id)}
                           type="button"
                           disabled={isNext}
                         >
@@ -221,7 +245,13 @@ const Keranjang = () => {
               </button>
             </div>
           </>
-        ) : (
+        ) : user && !finalCartItem ? (
+          <div className="flex flex-col gap-5">
+            {[1, 2, 3].map((item) => (
+              <CartSkeleton key={item} />
+            ))}
+          </div>
+        ) : user && finalCartItem?.length <= 0 ? (
           // Cart Empty State
           <section className="pt-9 pb-12 2xsm:pb-28 xmd:pb-40">
             <div className="w-4/5 md:w-[33.75rem] mx-auto">
@@ -245,6 +275,8 @@ const Keranjang = () => {
               </div>
             </div>
           </section>
+        ) : (
+          ""
         )}
         {/* <Modal /> */}
         {/* state from product trach icon */}

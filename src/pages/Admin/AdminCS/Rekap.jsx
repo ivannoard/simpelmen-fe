@@ -42,12 +42,7 @@ const Rekap = () => {
       <div className="border-b border-orange-900">
         <h3 className="font-semibold pb-3">Rekap Pesanan</h3>
       </div>
-      <h6 className="mt-10 mb-4">
-        Tabel Rekap Pesanan{" "}
-        <span className="text-primary-900 font-semibold">
-          Belum ada status final
-        </span>
-      </h6>
+      <h6 className="mt-10 mb-4">Tabel Rekap Pesanan </h6>
       <div className="flex items-center justify-between mb-4">
         <div className="flex gap-2 items-center mr-4">
           <label htmlFor="sorting">Menampilkan</label>

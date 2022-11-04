@@ -40,7 +40,11 @@ const Pesanan = () => {
                         <p className="text-xs xs:text-sm font-medium mb-1 xs:mb-2 text-secondary-900">
                           Tanggal Pesanan
                         </p>
-                        <p className="font-semibold">{item.createdAt}</p>
+                        <p className="font-semibold">{`${new Date(
+                          item.createdAt
+                        ).getDate()} - ${
+                          new Date(item.createdAt).getMonth() + 1
+                        } - ${new Date(item.createdAt).getFullYear()}`}</p>
                       </div>
                       <div className="col-span-5 xl:col-span-2 block xl:hidden">
                         <div className="flex xl:justify-center">
@@ -70,12 +74,12 @@ const Pesanan = () => {
                         </p>
                         <p className="font-semibold">
                           {
-                            item.order_products[0].products.jenis_products
+                            item.order_products[0]?.products.jenis_products
                               .jenis_product_name
                           }{" "}
                           -{" "}
                           {
-                            item.order_products[0].products.jenis_products
+                            item.order_products[0]?.products.jenis_products
                               .jenis_product_description
                           }
                         </p>

@@ -83,13 +83,17 @@ const Pembayaran = () => {
                         <p className="text-xs xs:text-sm font-medium mb-1 xs:mb-2 text-secondary-900">
                           Tanggal Pesanan
                         </p>
-                        <p className="font-semibold">{item.createdAt}</p>
+                        <p className="font-semibold">{`${new Date(
+                          item.createdAt
+                        ).getDate()} - ${
+                          new Date(item.createdAt).getMonth() + 1
+                        } - ${new Date(item.createdAt).getFullYear()}`}</p>
                       </div>
                       <div className="col-span-5 xl:col-span-2 block xl:hidden">
                         <div className="flex xl:justify-center">
                           {badge(
-                            item.order_statuses[0].order_status_description,
-                            item.order_statuses[0].order_status_admin_code
+                            item.order_statuses[0]?.order_status_description,
+                            item.order_statuses[0]?.order_status_admin_code
                           )}
                         </div>
                       </div>
@@ -107,12 +111,12 @@ const Pembayaran = () => {
                         </p>
                         <p className="font-semibold">
                           {
-                            item.order_products[0].products.jenis_products
+                            item.order_products[0]?.products.jenis_products
                               .jenis_product_name
                           }{" "}
                           -
                           {
-                            item.order_products[0].products.jenis_products
+                            item.order_products[0]?.products.jenis_products
                               .jenis_product_description
                           }
                         </p>
@@ -120,8 +124,8 @@ const Pembayaran = () => {
                       <div className="xl:col-span-2 hidden xl:block">
                         <div className="flex justify-center">
                           {badge(
-                            item.order_statuses[0].order_status_description,
-                            item.order_statuses[0].order_status_admin_code
+                            item.order_statuses[0]?.order_status_description,
+                            item.order_statuses[0]?.order_status_admin_code
                           )}
                         </div>
                       </div>

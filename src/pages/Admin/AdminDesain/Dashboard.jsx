@@ -1,7 +1,27 @@
-import React from 'react';
-import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
+import React, { useEffect, useState } from "react";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { adminDesain } from "../../../services/api";
 
 const Dashboard = () => {
+  const user = localStorage.getItem("admin");
+  const parseUser = JSON.parse(user);
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    const getData = async () => {
+      await adminDesain
+        .get("/orders", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setData(response.data));
+    };
+    getData();
+  }, [parseUser.data.token]);
+
+  console.log(data);
+
   return (
     <>
       <section>
@@ -32,16 +52,17 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {[1, 2, 3, 4, 5].map((item) => (
-                  <tr
-                    className="border-b"
-                    key={item}
-                  >
-                    <td className="text-center p-3">{item}</td>
-                    <td className="text-center p-">001/BIKDK/O/VII/2022</td>
-                    <td className="text-left p-3">Ikha Katering</td>
-                    <td className="text-center p-3">A1</td>
-                    <td className="text-center p-3">12 September 2022</td>
+                {data?.map((item, index) => (
+                  <tr className="border-b" key={index}>
+                    <td className="text-center p-3">{index + 1}</td>
+                    <td className="text-center p-">{item.order_code}</td>
+                    <td className="text-left p-3">belum ada</td>
+                    <td className="text-center p-3">belum ada</td>
+                    <td className="text-center p-3">{`${new Date(
+                      item.createdAt
+                    ).getDate()} - ${
+                      new Date(item.createdAt).getMonth() + 1
+                    } - ${new Date(item.createdAt).getFullYear()}`}</td>
                   </tr>
                 ))}
               </tbody>
@@ -94,10 +115,7 @@ const Dashboard = () => {
               </thead>
               <tbody>
                 {[1, 2, 3, 4, 5].map((item) => (
-                  <tr
-                    className="border-b"
-                    key={item}
-                  >
+                  <tr className="border-b" key={item}>
                     <td className="text-center p-3">{item}</td>
                     <td className="text-center p-3">001/BIKDK/O/VII/2022</td>
                     <td className="text-center p-3">12 September 2022</td>

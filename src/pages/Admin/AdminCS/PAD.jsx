@@ -18,7 +18,7 @@ const PAD = () => {
       .put(
         `/pad/${id}`,
         {
-          retribution_pad_status: parseInt(status),
+          retribution_pad: parseInt(status),
         },
         {
           headers: {
@@ -80,12 +80,7 @@ const PAD = () => {
       <div className="border-b border-orange-900">
         <h3 className="font-semibold pb-3">PAD</h3>
       </div>
-      <h6 className="mt-10 mb-3">
-        Tabel PAD{" "}
-        <span className="text-primary-900 font-semibold">
-          Status belum bisa diganti (FE)
-        </span>
-      </h6>
+      <h6 className="mt-10 mb-3">Tabel PAD </h6>
       <div className="flex items-center justify-end gap-4 mb-4">
         <button className="button-success-sm !px-6 !rounded-full">
           Download

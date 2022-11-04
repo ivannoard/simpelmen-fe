@@ -61,11 +61,43 @@ const Dashboard = () => {
                 <td className="text-center py-3">{item.users.user_ikm}</td>
                 <td className="text-center py-3">
                   <div className="flex gap-2 w-full justify-center">
-                    <div className="bg-[#21B630] text-white py-2 px-3 rounded-lg font-semibold">
-                      {item.order_payment_method}
+                    <div
+                      className={`bg-${
+                        item.order_payment_method === null
+                          ? "[#6D6061]"
+                          : item.order_payment_method === "DP"
+                          ? "[#21B630]"
+                          : item.order_payment_method === "Langsung"
+                          ? "[#21B630]"
+                          : ""
+                      } text-white py-2 px-3 rounded-lg font-semibold`}
+                    >
+                      {item.order_payment_method === null
+                        ? "Belum Diproses"
+                        : item.order_payment_method === "DP"
+                        ? "DP"
+                        : item.order_payment_method === "Langsung"
+                        ? "Langsung"
+                        : ""}
                     </div>
-                    <div className="bg-[#6D6061] text-white py-2 px-3 rounded-lg font-semibold">
-                      {item.order_payment_status}
+                    <div
+                      className={`bg-${
+                        item.order_payment_status === null
+                          ? "[#6D6061]"
+                          : item.order_payment_status === "Lunas"
+                          ? "[#21B630]"
+                          : item.order_payment_status === "Belum Lunas"
+                          ? "[#21B630]"
+                          : ""
+                      } text-white py-2 px-3 rounded-lg font-semibold`}
+                    >
+                      {item.order_payment_status === null
+                        ? "Belum Diproses"
+                        : item.order_payment_status === "Lunas"
+                        ? "Lunas"
+                        : item.order_payment_status === "Belum Lunas"
+                        ? "Belum Lunas"
+                        : ""}
                     </div>
                   </div>
                 </td>

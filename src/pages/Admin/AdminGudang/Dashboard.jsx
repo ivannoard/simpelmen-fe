@@ -171,7 +171,11 @@ const Dashboard = () => {
                   <tr className="border-b" key={index}>
                     <td className="text-center p-3">{index + 1}</td>
                     <td className="text-center p-3">{item.order_code}</td>
-                    <td className="text-center p-3">{item.createdAt}</td>
+                    <td className="text-center p-3">{`${new Date(
+                      item.createdAt
+                    ).getDate()} - ${
+                      new Date(item.createdAt).getMonth() + 1
+                    } - ${new Date(item.createdAt).getFullYear()}`}</td>
                     <td className="text-left p-3">
                       {item.delivery_details[0].delivery_detail_ikm}
                     </td>
@@ -208,8 +212,8 @@ const Dashboard = () => {
                                 : "Belum Disetujui"}
                             </option>
                             <option value="1">Status PO</option>
-                            <option value="2">Diterima</option>
-                            <option value="3">Belum Disetujui</option>
+                            <option value="2">Dikirm</option>
+                            <option value="3">Belum Dikirim</option>
                           </select>
                           <IoIosArrowDown className="absolute right-4 top-[15px] text-base fill-white" />
                         </div>

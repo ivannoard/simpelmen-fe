@@ -1,68 +1,108 @@
-import React, { useState } from 'react';
-import { BsSearch } from 'react-icons/bs';
-import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
-import { IoIosArrowDown } from 'react-icons/io';
+import React, { useEffect, useState } from "react";
+import { BsSearch } from "react-icons/bs";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { IoIosArrowDown } from "react-icons/io";
+import Alerts from "../../../components/Alerts";
+import { adminDesain } from "../../../services/api";
 
 const Konfirmasi = () => {
-  const [data, setData] = useState([
-    {
-      id: 1,
-      nomorPesanan: '001/BIKDK/O/VII/2022',
-      tanggalPesanan: '12 September 2022',
-      namaIKM: 'Ikha cathering',
-      status: 1,
-      ongkir: 120000,
-    },
-    {
-      id: 2,
-      nomorPesanan: '002/BIKDK/O/VII/2022',
-      tanggalPesanan: '15 September 2022',
-      namaIKM: 'Ikha cathering',
-      status: 2,
-      ongkir: 120000,
-    },
-    {
-      id: 3,
-      nomorPesanan: '003/BIKDK/O/VII/2022',
-      tanggalPesanan: '17 September 2022',
-      namaIKM: 'Ikha cathering',
-      status: 3,
-      ongkir: 120000,
-    },
-    {
-      id: 4,
-      nomorPesanan: '004/BIKDK/O/VII/2022',
-      tanggalPesanan: '19 September 2022',
-      namaIKM: 'Ikha cathering',
-      status: 1,
-      ongkir: 120000,
-    },
-    {
-      id: 5,
-      nomorPesanan: '004/BIKDK/O/VII/2022',
-      tanggalPesanan: '27 September 2022',
-      namaIKM: 'Ikha cathering',
-      status: 2,
-      ongkir: 120000,
-    },
-  ]);
+  const user = localStorage.getItem("admin");
+  const parseUser = JSON.parse(user);
+  const [data, setData] = useState();
+  const [alerts, setAlerts] = useState(false);
+  const [alertFail, setAlertFail] = useState(false);
+  const [failMessage, setFailMessage] = useState("");
+
+  async function approveDesign(id, status) {
+    await adminDesain
+      .put(
+        `/orders/approve/${id}`,
+        {
+          order_status: parseInt(status),
+        },
+        {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        }
+      )
+      .then((response) => setAlerts(true))
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
+  }
+  async function declineDesign(id, status) {
+    await adminDesain
+      .put(
+        `/orders/decline/${id}`,
+        {
+          order_status: parseInt(status),
+        },
+        {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        }
+      )
+      .then((response) => setAlerts(true))
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
+  }
 
   function handleChangeStatus(e, item) {
     e.preventDefault();
     console.log(e.target.value);
-    const filtered = data.filter((brg) => brg.id === item.id)[0];
-    filtered.status = parseInt(e.target.value);
-    setData((prevState) =>
-      prevState.map((state) =>
-        state.id === filtered.id ? { ...state, status: filtered.status } : state
-      )
-    );
-    console.log(typeof data[0].status);
+    if (e.target.value === "2") {
+      approveDesign(item.order_id, parseInt(e.target.value));
+    } else if (e.target.value === "3") {
+      declineDesign(item.order_id, parseInt(e.target.value));
+    }
+    // const filtered = data.filter((brg) => brg.id === item.id)[0];
+    // filtered.status = parseInt(e.target.value);
+    // setData((prevState) =>
+    //   prevState.map((state) =>
+    //     state.id === filtered.id ? { ...state, status: filtered.status } : state
+    //   )
+    // );
+    // console.log(typeof data[0].status);
   }
+
+  useEffect(() => {
+    const getData = async () => {
+      await adminDesain
+        .get("/orders", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setData(response.data));
+    };
+    getData();
+  }, [parseUser.data.token]);
 
   return (
     <>
       <section>
+        {alerts && (
+          <Alerts
+            state="true"
+            background="bg-green-100"
+            textColor="text-green-600"
+            textContent="Status pesanan telah diubah!"
+          />
+        )}
+        {alertFail && (
+          <Alerts
+            state="true"
+            background="bg-red-100"
+            textColor="text-red-600"
+            textContent={`Ups, sepertinya ada yang salah: ${failMessage}`}
+            closeButton="true"
+          />
+        )}
         <div className="border-b border-orange-900">
           <h3 className="font-semibold pb-3">Konfirmasi Desain</h3>
         </div>
@@ -119,27 +159,38 @@ const Konfirmasi = () => {
                 {data?.map((item, index) => (
                   <tr className="border-b">
                     <td className="text-center p-3">{index + 1}</td>
-                    <td className="text-center p-3">{item.nomorPesanan}</td>
-                    <td className="text-center p-3">{item.tanggalPesanan}</td>
+                    <td className="text-center p-3">{item.order_code}</td>
+                    <td className="text-center p-3">{`${new Date(
+                      item.createdAt
+                    ).getDate()} - ${
+                      new Date(item.createdAt).getMonth() + 1
+                    } - ${new Date(item.createdAt).getFullYear()}`}</td>
                     <td className="text-left p-3">{item.namaIKM}</td>
                     <td className="text-center py-3 px-4 flex justify-center">
                       <div className="relative">
                         <select
                           id="status"
                           name="status"
-                          defaultValue={item.status}
-                          // value={item.status}
+                          defaultValue={item.order_status}
+                          // value={item.order_status}
                           onChange={(e) => handleChangeStatus(e, item)}
                           className={`${
-                            parseInt(item.status) === 1
-                              ? '!bg-gradient-to-bl !from-orange-900 !to-primary-900 hover:!from-primary-900 hover:!to-orange-900 !shadow-red'
-                              : parseInt(item.status) === 2
-                              ? '!bg-green-500 hover:!bg-green-500/80'
-                              : parseInt(item.status) === 3
-                              ? '!bg-secondary-800 hover:!bg-secondary-800/80'
-                              : ''
+                            parseInt(item.order_status) === 1
+                              ? "!bg-gradient-to-bl !from-orange-900 !to-primary-900 hover:!from-primary-900 hover:!to-orange-900 !shadow-red"
+                              : parseInt(item.order_status) === 3
+                              ? "!bg-green-500 hover:!bg-green-500/80"
+                              : parseInt(item.order_status) === 2
+                              ? "!bg-secondary-800 hover:!bg-secondary-800/80"
+                              : ""
                           } input-field-select-xs !border-none !font-semibold !text-white !w-auto !pr-12`}
                         >
+                          <option value={item.order_status}>
+                            {item.order_status === 2
+                              ? "Belum Disetujui"
+                              : item.order_status === 3
+                              ? "Disetujui"
+                              : "Status Pesanan"}
+                          </option>
                           <option value="1">Status Desain</option>
                           <option value="2">Disetujui</option>
                           <option value="3">Belum Disetujui</option>

@@ -14,7 +14,7 @@ const CardProduct = (props) => {
         </div>
         <p className="text-center text-xs xs:text-base">{props.product_name}</p>
         <p className="font-bold text-base xs:text-xl md:text-2xl text-center mb-3 line-clamp-2">
-          {props.product_finishings.product_finishing_name}
+          {props.product_finishings?.product_finishing_name}
         </p>
         <div className="flex flex-col items-center">
           <Link

@@ -166,7 +166,11 @@ const Dashboard = () => {
                     <td className="text-center p-3">{index + 1}</td>
                     <td className="text-center p-3">{item.order_code}</td>
                     <td className="text-left p-3">{item.users.user_ikm}</td>
-                    <td className="text-center p-3">{item.createdAt}</td>
+                    <td className="text-center p-3">{`${new Date(
+                      item.createdAt
+                    ).getDate()} - ${
+                      new Date(item.createdAt).getMonth() + 1
+                    } - ${new Date(item.createdAt).getFullYear()}`}</td>
                     <td className="text-center p-3">
                       <div className="flex items-center gap-4 justify-center text-primary-900 font-semibold">
                         <div className="relative">

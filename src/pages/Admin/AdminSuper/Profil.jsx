@@ -33,7 +33,7 @@ const Profil = () => {
     e.preventDefault();
     // console.log(fieldsProfile);
     await adminSuper
-      .put(`/profile/${fieldsProfile?.user_id}`, {
+      .put(`/profile/`, {
         headers: {
           "x-access-token": `${parseUser.data.token}`,
         },
@@ -86,7 +86,12 @@ const Profil = () => {
     };
     getAdmin();
   }, [parseUser.data.token]);
-  console.log(fieldsProfile);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (alerts || alertFail === true) setAlertFail(false) || setAlerts(false);
+    }, 2000);
+  }, [alertFail, alerts]);
 
   return (
     <>

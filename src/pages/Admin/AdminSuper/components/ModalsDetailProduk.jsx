@@ -1,21 +1,12 @@
-import React, { Fragment } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
-import { MdClose } from 'react-icons/md';
-import { dummyImg } from '../../../../assets/image';
+import React, { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { MdClose } from "react-icons/md";
 
-const ModalsDetailProduk = ({ isOpen, closeModal, idProduk }) => {
+const ModalsDetailProduk = ({ isOpen, closeModal, detailData }) => {
   return (
     <>
-      <Transition
-        appear
-        show={isOpen}
-        as={Fragment}
-      >
-        <Dialog
-          as="div"
-          className="relative z-10"
-          onClose={closeModal}
-        >
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -48,18 +39,20 @@ const ModalsDetailProduk = ({ isOpen, closeModal, idProduk }) => {
                     as="h3"
                     className="text-2xl font-bold pt-10 mb-6 text-center"
                   >
-                    Detail Produk {idProduk}
+                    Detail Produk
                   </Dialog.Title>
                   <figure className="w-[80%] mx-auto mb-6">
                     <img
-                      src={dummyImg.boxTentengan}
+                      src={`data:image/jpg;base64,${detailData?.product_image}`}
                       alt={`nama`}
                       className="w-full"
                     />
                   </figure>
                   <div className="text-center mb-6">
-                    <p className="mb-2">Karton (Nama Produk)</p>
-                    <p className="mb-0">Box A1 (Jenis Produk)</p>
+                    <p className="mb-2">{detailData?.product_name}</p>
+                    <p className="mb-0">
+                      {detailData?.jenis_products.jenis_product_name}
+                    </p>
                   </div>
                   <div className="w-full bg-orange-600 rounded-lg p-4 text-center">
                     <h6 className="text-white mb-3">Spesifikasi Produk</h6>

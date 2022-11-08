@@ -1,16 +1,48 @@
-import React, { useState } from 'react';
-import { BsSearch, BsPlus } from 'react-icons/bs';
-import { FaTrash } from 'react-icons/fa';
-import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
-import ModalsDetailProduk from './components/ModalsDetailProduk';
-import ModalsAddProduk from './components/ModalsAddProduk';
-import ModalsEditProduk from './components/ModalsEditProduk';
+import React, { useEffect, useState } from "react";
+import { BsSearch, BsPlus } from "react-icons/bs";
+import { FaTrash } from "react-icons/fa";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import ModalsDetailProduk from "./components/ModalsDetailProduk";
+import ModalsAddProduk from "./components/ModalsAddProduk";
+import ModalsEditProduk from "./components/ModalsEditProduk";
+import { commonAPI } from "../../../services/api";
+import Alerts from "../../../components/Alerts";
 
 const Produk = () => {
+  const user = localStorage.getItem("admin");
+  const parseUser = JSON.parse(user);
   const [isOpenModalAdd, setIsOpenModalAdd] = useState(false);
   const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
   const [isOpenModalDetail, setIsOpenModalDetail] = useState(false);
-  const [idProduk, setIdProduk] = useState();
+  const [detailData, setDetailData] = useState();
+  const [dataProduct, setDataProduct] = useState();
+  const [postProduct, setPostProduct] = useState();
+  const [alerts, setAlerts] = useState(false);
+  const [alertFail, setAlertFail] = useState(false);
+  const [failMessage, setFailMessage] = useState("");
+
+  const handleChangeProduct = (e) => {
+    e.preventDefault();
+    setPostProduct({
+      ...postProduct,
+      [e.target.getAttribute("name")]: e.target.value,
+    });
+  };
+
+  async function handleDelete(e, id) {
+    e.preventDefault();
+    await commonAPI
+      .delete(`/product/${id}`, {
+        headers: {
+          "x-access-token": `${parseUser.data.token}`,
+        },
+      })
+      .then((response) => setAlerts(true))
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
+  }
 
   const closeModalAdd = () => {
     setIsOpenModalAdd(false);
@@ -30,24 +62,70 @@ const Produk = () => {
 
   const modalEditHandling = (id) => {
     setIsOpenModalEdit(true);
-    setIdProduk(id);
   };
 
-  const modalDetailHandling = (id) => {
+  const modalDetailHandling = async (id) => {
     setIsOpenModalDetail(true);
-    setIdProduk(id);
+    await commonAPI
+      .get(`/product/${id}`)
+      .then((response) => setDetailData(response.data));
   };
 
-  const submitProdukHandler = (e) => {};
-  const submitEditProdukHandler = (e) => {};
+  const submitProdukHandler = (e) => {
+    e.preventDefault();
+  };
+  const submitEditProdukHandler = (e) => {
+    e.preventDefault();
+  };
+
+  // get product data
+  useEffect(() => {
+    const getProduct = async () => {
+      await commonAPI
+        .get("/product")
+        .then((response) => setDataProduct(response.data));
+    };
+    getProduct();
+  }, []);
+
+  console.log(dataProduct);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (alerts || alertFail === true) setAlertFail(false) || setAlerts(false);
+    }, 2000);
+  }, [alertFail, alerts]);
+
   return (
     <>
+      {alerts && (
+        <Alerts
+          state="true"
+          background="bg-green-100"
+          textColor="text-green-600"
+          textContent="Status berhasil diubah!"
+        />
+      )}
+      {alertFail && (
+        <Alerts
+          state="true"
+          background="bg-red-100"
+          textColor="text-red-600"
+          textContent={`Ups, sepertinya ada yang salah: ${failMessage}`}
+          closeButton="true"
+        />
+      )}
       <section>
         <div className="border-b border-orange-900 mb-6">
           <h3 className="font-semibold pb-3">Produk</h3>
         </div>
         <div className="flex flex-col gap-y-4 xs:gap-y-0 xs:flex-row xs:items-center justify-between mb-4">
-          <h6 className="">Tabel Produk</h6>
+          <h6 className="">
+            Tabel Produk{" "}
+            <span className="text-primary-900 font-semibold">
+              GAADA SPESIFIKASI + METHOD PUT GA JELAS
+            </span>
+          </h6>
           <div>
             <button
               onClick={modalAddHandling}
@@ -106,29 +184,31 @@ const Produk = () => {
                 </tr>
               </thead>
               <tbody>
-                {[1, 2, 3, 4, 5].map((item, index) => (
-                  <tr
-                    className="border-b"
-                    key={index}
-                  >
+                {dataProduct?.map((item, index) => (
+                  <tr className="border-b" key={index}>
                     <td className="text-center p-3">{index + 1}</td>
-                    <td className="text-center p-3">A1</td>
-                    <td className="text-center p-3">Karton</td>
+                    <td className="text-center p-3">{item.product_name}</td>
+                    <td className="text-center p-3">
+                      {item.product_categories.product_category_name}
+                    </td>
                     <td className="text-center p-3">
                       <div className="flex items-center justify-center gap-2">
                         <button
                           className="bg-white border py-3 px-4 rounded-lg text-sm transition-200 hover:border-orange-900"
-                          onClick={() => modalDetailHandling(item)}
+                          onClick={() => modalDetailHandling(item.product_id)}
                         >
                           Detail
                         </button>
                         <button
                           className="bg-white border py-3 px-4 rounded-lg text-sm transition-200 hover:border-orange-900"
-                          onClick={() => modalEditHandling(item)}
+                          onClick={() => modalEditHandling(item.product_id)}
                         >
                           Edit
                         </button>
-                        <div className="button-fill !p-[15px]">
+                        <div
+                          className="button-fill !p-[15px]"
+                          onClick={(e) => handleDelete(e, item.product_id)}
+                        >
                           <FaTrash className="fill-white text-base" />
                         </div>
                       </div>
@@ -166,6 +246,7 @@ const Produk = () => {
         isOpen={isOpenModalAdd}
         closeModal={closeModalAdd}
         submitHandler={submitProdukHandler}
+        handleChangeProduct={handleChangeProduct}
       />
 
       {/* Modal Edit Produk */}
@@ -173,14 +254,14 @@ const Produk = () => {
         isOpen={isOpenModalEdit}
         closeModal={closeModalEdit}
         submitHandler={submitEditProdukHandler}
-        idProduk={idProduk}
+        detailData={detailData}
       />
 
       {/* Modal Detail Produk */}
       <ModalsDetailProduk
         isOpen={isOpenModalDetail}
         closeModal={closeModalDetail}
-        idProduk={idProduk}
+        detailData={detailData}
       />
     </>
   );

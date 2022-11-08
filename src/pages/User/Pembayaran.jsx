@@ -76,8 +76,8 @@ const Pembayaran = () => {
         <article id="statusPesanan" className="mb-8">
           <div className="w-full grid grid-cols-4 gap-y-5 gap-x-6">
             {data
-              ? data?.map((item) => (
-                  <div className="col-span-4" key={item.id}>
+              ? data?.map((item, index) => (
+                  <div className="col-span-4" key={index}>
                     <div className="w-full shadow-gray p-4 rounded-[10px] bg-white grid grid-cols-8 gap-x-3 gap-y-2 xs:gap-y-3 xl:items-center border border-secondary-700/40">
                       <div className="col-span-3 xl:col-span-2">
                         <p className="text-xs xs:text-sm font-medium mb-1 xs:mb-2 text-secondary-900">
@@ -111,12 +111,12 @@ const Pembayaran = () => {
                         </p>
                         <p className="font-semibold">
                           {
-                            item.order_products[0]?.products.jenis_products
+                            item.order_details[0]?.products.jenis_products
                               .jenis_product_name
                           }{" "}
                           -
                           {
-                            item.order_products[0]?.products.jenis_products
+                            item.order_details[0]?.products.jenis_products
                               .jenis_product_description
                           }
                         </p>

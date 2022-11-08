@@ -1,21 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BsFillCartFill, BsFillPersonFill } from "react-icons/bs";
 import { FaBox } from "react-icons/fa";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
-// import { adminSuper } from "../../../services/api";
-import jwt_decode from "jwt-decode";
+import { adminSuper, commonAPI } from "../../../services/api";
 
 const Dashboard = () => {
   const user = localStorage.getItem("admin");
   const parseUser = JSON.parse(user);
-  const decodeToken = jwt_decode(parseUser.data.token);
-  console.log(decodeToken);
-  // const [dataAdmin,setDataAdmin]=useState()
-  // useEffect(()=>{
-  //   const getDataAdmin=async()=>{
-  //     await adminSuper.get('/data/admin',{})
-  //   }
-  // })
+  const [dataAdmin, setDataAdmin] = useState();
+  const [dataProduct, setDataProduct] = useState();
+
+  useEffect(() => {
+    const getDataAdmin = async () => {
+      await adminSuper
+        .get(`/data/admin`, {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setDataAdmin(response.data.data));
+    };
+    getDataAdmin();
+  }, [parseUser.data.token, parseUser.data.user_status]);
+
+  useEffect(() => {
+    const getDataProduct = async () => {
+      await commonAPI
+        .get(`/product`, {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setDataProduct(response.data));
+    };
+    getDataProduct();
+  }, [parseUser.data.token, parseUser.data.user_status]);
+
   return (
     <>
       <section>
@@ -27,7 +47,7 @@ const Dashboard = () => {
             <div className="card rounded-xl p-6 flex items-center gap-5 bg-gradient-to-r from-primary-900 to-orange-900">
               <BsFillPersonFill fill="#FFFFFF" size={40} />
               <div className="content">
-                <h4 className="!text-white">14</h4>
+                <h4 className="!text-white">{dataAdmin?.length}</h4>
                 <p className="!text-white">Total Admin</p>
               </div>
             </div>
@@ -73,12 +93,12 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {[1, 2, 3, 4, 5].map((item, index) => (
+                {dataAdmin?.map((item, index) => (
                   <tr className="border-b" key={index}>
                     <td className="text-center p-3">{index + 1}</td>
-                    <td className="text-center p-3">Roikhatul Miskiyah</td>
-                    <td className="text-center p-3">CS</td>
-                    <td className="text-center p-3">r.miskiyah@gmail.com</td>
+                    <td className="text-center p-3">{item.user_name}</td>
+                    <td className="text-center p-3">{item.roles?.role_name}</td>
+                    <td className="text-center p-3">{item.user_email}</td>
                   </tr>
                 ))}
               </tbody>
@@ -105,6 +125,7 @@ const Dashboard = () => {
             </button>
           </nav>
         </article>
+
         <h6 className="mb-4">Tabel Produk</h6>
         <article id="tableProduk" className="mb-6">
           <div className="overflow-x-auto">
@@ -123,11 +144,13 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {[1, 2, 3, 4, 5].map((item) => (
-                  <tr className="border-b" key={item}>
-                    <td className="text-center py-3">1</td>
-                    <td className="text-center py-3">A1</td>
-                    <td className="text-center py-3">Karton</td>
+                {dataProduct?.map((item, index) => (
+                  <tr className="border-b" key={index}>
+                    <td className="text-center py-3">{index + 1}</td>
+                    <td className="text-center py-3">{item.product_name}</td>
+                    <td className="text-center py-3">
+                      {item.product_categories.product_category_name}
+                    </td>
                   </tr>
                 ))}
               </tbody>

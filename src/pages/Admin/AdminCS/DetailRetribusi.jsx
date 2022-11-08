@@ -188,8 +188,8 @@ const DetailRetribusi = () => {
                     disabled={disable}
                     onChange={(e) => handleChange(e)}
                     defaultValue={
-                      data?.orders.order_details[0].order_products.products
-                        .product_finishings.product_finishing_name
+                      data?.orders.order_details[0]?.products.product_finishings
+                        .product_finishing_name
                     }
                   />
                 </div>
@@ -358,7 +358,9 @@ const DetailRetribusi = () => {
                   required
                   disabled
                   onChange={(e) => handleChange(e)}
-                  defaultValue={data?.orders.order_quantity}
+                  defaultValue={
+                    data?.orders.order_details[0]?.order_detail_quantity
+                  }
                 />
               </div>
             </div>

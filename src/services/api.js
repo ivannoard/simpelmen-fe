@@ -86,3 +86,9 @@ export const adminSuper = axios.create({
     "Content-Type": "application/json",
   },
 });
+export const commonAPI = axios.create({
+  baseURL: "https://simpelmen.herokuapp.com/api",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});

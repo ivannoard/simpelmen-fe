@@ -1,21 +1,18 @@
-import React, { Fragment } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
-import { MdClose } from 'react-icons/md';
-import { IoIosArrowDown } from 'react-icons/io';
+import React, { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { MdClose } from "react-icons/md";
+import { IoIosArrowDown } from "react-icons/io";
 
-const ModalsEditProduk = ({ isOpen, closeModal, submitHandler, idProduk }) => {
+const ModalsEditProduk = ({
+  isOpen,
+  closeModal,
+  submitHandler,
+  detailData,
+}) => {
   return (
     <>
-      <Transition
-        appear
-        show={isOpen}
-        as={Fragment}
-      >
-        <Dialog
-          as="div"
-          className="relative z-10"
-          onClose={closeModal}
-        >
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -48,14 +45,11 @@ const ModalsEditProduk = ({ isOpen, closeModal, submitHandler, idProduk }) => {
                     as="h3"
                     className="text-2xl font-bold pt-8 mb-3"
                   >
-                    Edit Produk {idProduk}
+                    Edit Produk
                   </Dialog.Title>
                   <hr className="mb-6 border-orange-900" />
 
-                  <form
-                    className="mb-2"
-                    onSubmit={submitHandler}
-                  >
+                  <form className="mb-2" onSubmit={submitHandler}>
                     <div className="grid grid-cols-2 2xsm:grid-cols-4 gap-x-5">
                       <div className="col-span-2">
                         <div className="mb-4 relative">
@@ -87,7 +81,7 @@ const ModalsEditProduk = ({ isOpen, closeModal, submitHandler, idProduk }) => {
                             htmlFor="kategori"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
-                            Kategori Produk{' '}
+                            Kategori Produk{" "}
                             <span className="text-red-600">*</span>
                           </label>
                           <select
@@ -154,7 +148,7 @@ const ModalsEditProduk = ({ isOpen, closeModal, submitHandler, idProduk }) => {
                             htmlFor="ukuranProduk"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
-                            Ukuran Produk{' '}
+                            Ukuran Produk{" "}
                             <span className="text-red-600">*</span>
                           </label>
                           <select
@@ -203,7 +197,7 @@ const ModalsEditProduk = ({ isOpen, closeModal, submitHandler, idProduk }) => {
                             htmlFor="finishingProduk"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
-                            Finishing Produk{' '}
+                            Finishing Produk{" "}
                             <span className="text-red-600">*</span>
                           </label>
                           <select
@@ -245,7 +239,7 @@ const ModalsEditProduk = ({ isOpen, closeModal, submitHandler, idProduk }) => {
                             htmlFor="deskripsiProduk"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
-                            Deskripsi Produk{' '}
+                            Deskripsi Produk{" "}
                             <span className="text-red-600">*</span>
                           </label>
                           <textarea
@@ -262,10 +256,7 @@ const ModalsEditProduk = ({ isOpen, closeModal, submitHandler, idProduk }) => {
                     </div>
 
                     <div className="flex justify-end">
-                      <button
-                        className="button-fill"
-                        type="submit"
-                      >
+                      <button className="button-fill" type="submit">
                         Perbarui
                       </button>
                     </div>

@@ -1,25 +1,37 @@
-import React, { useState } from 'react';
-import { BsSearch, BsPlus } from 'react-icons/bs';
-import { FaTrash } from 'react-icons/fa';
-import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
-import ModalsEditSpesifikasi from './components/ModalsEditSpesifikasi';
-import ModalsSpesifikasi from './components/ModalsSpesifikasi';
+import React, { useEffect, useState } from "react";
+import { BsSearch, BsPlus } from "react-icons/bs";
+import { FaTrash } from "react-icons/fa";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import Alerts from "../../../components/Alerts";
+import { commonAPI } from "../../../services/api";
+import ModalsEditSpesifikasi from "./components/ModalsEditSpesifikasi";
+import ModalsSpesifikasi from "./components/ModalsSpesifikasi";
 
 const Spesifikasi = () => {
+  const user = localStorage.getItem("admin");
+  const parseUser = JSON.parse(user);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
-  const [modalContent, setModalContent] = useState({
-    type: '',
-    placeholder: '',
-    label: '',
-  });
-  const [modalEditContent, setModalEditContent] = useState({
-    type: '',
-    placeholder: '',
-    label: '',
-    id: '',
-    kategori: '',
-  });
+  const [modalContent, setModalContent] = useState({});
+  const [modalEditContent, setModalEditContent] = useState({});
+  const [categoryProduct, setCategoryProduct] = useState();
+  const [productMaterial, setProductMaterial] = useState();
+  const [productSize, setProductSize] = useState();
+  const [productFinishing, setProductFinishing] = useState();
+  const [bentukProduk, setBentukProduk] = useState();
+  const [postProduct, setPostProduct] = useState();
+  const [alerts, setAlerts] = useState(false);
+  const [alertFail, setAlertFail] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [failMessage, setFailMessage] = useState("");
+
+  const handleChangeProduct = (e) => {
+    e.preventDefault();
+    setPostProduct({
+      ...postProduct,
+      [e.target.getAttribute("name")]: e.target.value,
+    });
+  };
 
   const closeModal = () => {
     setIsOpenModal(false);
@@ -29,41 +41,88 @@ const Spesifikasi = () => {
     setIsOpenModalEdit(false);
   };
 
+  const handleDelete = async (e, type, id) => {
+    e.preventDefault();
+    await commonAPI
+      .delete(`/${type}/${id}`, {
+        headers: {
+          "x-access-token": `${parseUser.data.token}`,
+        },
+      })
+      .then((response) => {
+        setSuccessMessage("Spesifikasi berhasil dihapus!");
+        setAlerts(true);
+      })
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
+  };
+
   const handleModal = (type) => {
     switch (type) {
-      case 'kategori':
+      case "kategori":
         setModalContent({
-          type: 'kategori',
-          label: 'Kategori',
-          placeholder: 'Masukkan Kategori Produk',
+          type: "kategori",
+          label: "Kategori",
+          placeholder: "Masukkan Kategori Produk",
+          path: "/category",
+          html: "name",
+          name: "name",
+          id: "name",
+          kode: "id",
         });
         break;
-      case 'bahan':
+      case "bahan":
         setModalContent({
-          type: 'bahan',
-          label: 'Bahan',
-          placeholder: 'Masukkan Bahan Produk',
+          type: "bahan",
+          label: "Bahan",
+          placeholder: "Masukkan Bahan Produk",
+          path: "/material",
+          html: "name",
+          name: "name",
+          id: "name",
         });
         break;
-      case 'bentuk':
+      case "bentuk":
         setModalContent({
-          type: 'bentuk',
-          label: 'Bentuk',
-          placeholder: 'Masukkan Bentuk Produk',
+          type: "bentuk",
+          label: "Bentuk",
+          placeholder: "Masukkan Bentuk Produk",
+          path: "/jenisproducts",
+          html: "name",
+          name: "name",
+          id: "name",
         });
         break;
-      case 'ukuran':
+      case "ukuran":
         setModalContent({
-          type: 'ukuran',
-          label: 'Deskripsi',
-          placeholder: 'Masukkan Deskripsi Produk',
+          type: "ukuran",
+          label: "Deskripsi",
+          placeholder: "Masukkan Deskripsi Produk",
+          path: "/size",
+          html: "name",
+          name: "name",
+          id: "name",
+          length1: "length",
+          width1: "width",
+          height1: "height",
+          length2: "length2",
+          width2: "width2",
+          height2: "height2",
+          shape: "shape",
+          description: "description",
         });
         break;
-      case 'finishing':
+      case "finishing":
         setModalContent({
-          type: 'finishing',
-          label: 'Finishing',
-          placeholder: 'Masukkan Finishing Produk',
+          type: "finishing",
+          label: "Finishing",
+          placeholder: "Masukkan Finishing Produk",
+          path: "/finishing",
+          html: "name",
+          name: "name",
+          id: "name",
         });
         break;
       default:
@@ -72,51 +131,56 @@ const Spesifikasi = () => {
     setIsOpenModal(true);
   };
 
-  const handleModalEdit = (type, id, kategori) => {
+  const handleModalEdit = async (type, id, productName) => {
     switch (type) {
-      case 'kategori':
+      case "category":
         setModalEditContent({
-          type: 'kategori',
-          label: 'Kategori',
-          placeholder: 'Masukkan Kategori Produk',
           id: id,
-          kategori: kategori,
+          type: "kategori",
+          label: "Kategori",
+          placeholder: "Masukkan Kategori Produk",
+          path: "/category",
+          specificationName: productName,
         });
         break;
-      case 'bahan':
+      case "material":
         setModalEditContent({
-          type: 'bahan',
-          label: 'Bahan',
-          placeholder: 'Masukkan Bahan Produk',
           id: id,
-          kategori: kategori,
+          type: "bahan",
+          label: "Bahan",
+          placeholder: "Masukkan Bahan Produk",
+          path: "/material",
+          specificationName: productName,
         });
         break;
-      case 'bentuk':
+      case "jenisproducts":
         setModalEditContent({
-          type: 'bentuk',
-          label: 'Bentuk',
-          placeholder: 'Masukkan Bentuk Produk',
           id: id,
-          kategori: kategori,
+          type: "bentuk",
+          label: "Bentuk",
+          placeholder: "Masukkan Bentuk Produk",
+          path: "/jenisproducts",
+          specificationName: productName,
         });
         break;
-      case 'ukuran':
+      case "size":
         setModalEditContent({
-          type: 'ukuran',
-          label: 'Deskripsi',
-          placeholder: 'Masukkan Deskripsi Produk',
           id: id,
-          kategori: kategori,
+          type: "ukuran",
+          label: "Deskripsi",
+          placeholder: "Masukkan Deskripsi Produk",
+          path: "/size",
+          specificationName: productName,
         });
         break;
-      case 'finishing':
+      case "finishing":
         setModalEditContent({
-          type: 'finishing',
-          label: 'Finishing',
-          placeholder: 'Masukkan Finishing Produk',
           id: id,
-          kategori: kategori,
+          type: "finishing",
+          label: "Finishing",
+          placeholder: "Masukkan Finishing Produk",
+          path: "/finishing",
+          specificationName: productName,
         });
         break;
       default:
@@ -125,16 +189,123 @@ const Spesifikasi = () => {
     setIsOpenModalEdit(true);
   };
 
-  const submitModalHandler = (e) => {
+  const submitModalHandler = async (e) => {
     e.preventDefault();
+    await commonAPI
+      .post(modalContent.path, postProduct, {
+        headers: {
+          "x-access-token": `${parseUser.data.token}`,
+        },
+      })
+      .then((response) => {
+        setSuccessMessage("Spesifikasi berhasil ditambahkan!");
+        setAlerts(true);
+      })
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
   };
 
   const submitEditModalHandler = (e) => {
     e.preventDefault();
   };
 
+  // category
+  useEffect(() => {
+    const getCategoryProduct = async () => {
+      await commonAPI
+        .get("/category", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setCategoryProduct(response.data.data));
+    };
+    getCategoryProduct();
+  }, [parseUser.data.token]);
+
+  // material
+  useEffect(() => {
+    const getMaterialProduct = async () => {
+      await commonAPI
+        .get("/material", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setProductMaterial(response.data.data));
+    };
+    getMaterialProduct();
+  }, [parseUser.data.token]);
+
+  // size
+  useEffect(() => {
+    const getSizeProduct = async () => {
+      await commonAPI
+        .get("/size", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setProductSize(response.data.data));
+    };
+    getSizeProduct();
+  }, [parseUser.data.token]);
+
+  // finishing
+  useEffect(() => {
+    const getFinsihingProduct = async () => {
+      await commonAPI
+        .get("/finishing", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setProductFinishing(response.data.data));
+    };
+    getFinsihingProduct();
+  }, [parseUser.data.token]);
+
+  // bentuk
+  useEffect(() => {
+    const getBentukProduct = async () => {
+      await commonAPI
+        .get("/jenisproducts", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setBentukProduk(response.data.data));
+    };
+    getBentukProduct();
+  }, [parseUser.data.token]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (alerts || alertFail === true) setAlertFail(false) || setAlerts(false);
+    }, 2000);
+  }, [alertFail, alerts]);
+
   return (
     <>
+      {alerts && (
+        <Alerts
+          state="true"
+          background="bg-green-100"
+          textColor="text-green-600"
+          textContent={successMessage}
+        />
+      )}
+      {alertFail && (
+        <Alerts
+          state="true"
+          background="bg-red-100"
+          textColor="text-red-600"
+          textContent={`Ups, sepertinya ada yang salah: ${failMessage}`}
+          closeButton="true"
+        />
+      )}
       <section>
         <div className="border-b border-orange-900 mb-6">
           <h3 className="font-semibold pb-3">Spesifikasi</h3>
@@ -147,7 +318,7 @@ const Spesifikasi = () => {
             <h6>Kategori Produk</h6>
             <div>
               <button
-                onClick={() => handleModal('kategori')}
+                onClick={() => handleModal("kategori")}
                 className="button-fill !pl-4 flex items-center"
               >
                 <BsPlus className="text-2xl mr-2 fill-white" />
@@ -199,24 +370,36 @@ const Spesifikasi = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {[1, 2, 3, 4, 5].map((item, index) => (
-                    <tr
-                      className="border-b"
-                      key={index}
-                    >
+                  {categoryProduct?.map((item, index) => (
+                    <tr className="border-b" key={index}>
                       <td className="text-center p-3">{index + 1}</td>
-                      <td className="text-center p-3">karton</td>
+                      <td className="text-center p-3">
+                        {item.product_category_name}
+                      </td>
                       <td className="text-center p-3">
                         <div className="flex items-center justify-center gap-2">
                           <button
                             className="bg-white border py-3 px-4 rounded-lg text-sm transition-200 hover:border-orange-900"
                             onClick={() =>
-                              handleModalEdit('kategori', item, 'Karton')
+                              handleModalEdit(
+                                "category",
+                                item.product_category_id,
+                                item.product_category_name
+                              )
                             }
                           >
                             Edit
                           </button>
-                          <button className="button-fill !p-[15px]">
+                          <button
+                            className="button-fill !p-[15px]"
+                            onClick={(e) =>
+                              handleDelete(
+                                e,
+                                "category",
+                                item.product_category_id
+                              )
+                            }
+                          >
                             <FaTrash className="fill-white text-base" />
                           </button>
                         </div>
@@ -256,7 +439,7 @@ const Spesifikasi = () => {
             <h6>Bahan Produk</h6>
             <div>
               <button
-                onClick={() => handleModal('bahan')}
+                onClick={() => handleModal("bahan")}
                 className="button-fill !pl-4 flex items-center"
               >
                 <BsPlus className="text-2xl mr-2 fill-white" />
@@ -308,24 +491,36 @@ const Spesifikasi = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {[1, 2, 3, 4, 5].map((item, index) => (
-                    <tr
-                      className="border-b"
-                      key={index}
-                    >
+                  {productMaterial?.map((item, index) => (
+                    <tr className="border-b" key={index}>
                       <td className="text-center p-3">{index + 1}</td>
-                      <td className="text-center p-3">Duplex</td>
+                      <td className="text-center p-3">
+                        {item.product_material_name}
+                      </td>
                       <td className="text-center p-3">
                         <div className="flex items-center justify-center gap-2">
                           <button
                             className="bg-white border py-3 px-4 rounded-lg text-sm transition-200 hover:border-orange-900"
                             onClick={() =>
-                              handleModalEdit('bahan', item, 'Karton')
+                              handleModalEdit(
+                                "material",
+                                item.product_material_id,
+                                item.product_material_name
+                              )
                             }
                           >
                             Edit
                           </button>
-                          <button className="button-fill !p-[15px]">
+                          <button
+                            className="button-fill !p-[15px]"
+                            onClick={(e) =>
+                              handleDelete(
+                                e,
+                                "material",
+                                item.product_material_id
+                              )
+                            }
+                          >
                             <FaTrash className="fill-white text-base" />
                           </button>
                         </div>
@@ -365,7 +560,7 @@ const Spesifikasi = () => {
             <h6>Bentuk Produk</h6>
             <div>
               <button
-                onClick={() => handleModal('bentuk')}
+                onClick={() => handleModal("bentuk")}
                 className="button-fill !pl-4 flex items-center"
               >
                 <BsPlus className="text-2xl mr-2 fill-white" />
@@ -417,24 +612,36 @@ const Spesifikasi = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {[1, 2, 3, 4, 5].map((item, index) => (
-                    <tr
-                      className="border-b"
-                      key={index}
-                    >
+                  {bentukProduk?.map((item, index) => (
+                    <tr className="border-b" key={index}>
                       <td className="text-center p-3">{index + 1}</td>
-                      <td className="text-center p-3">karton</td>
+                      <td className="text-center p-3">
+                        {item.jenis_product_name}
+                      </td>
                       <td className="text-center p-3">
                         <div className="flex items-center justify-center gap-2">
                           <button
                             className="bg-white border py-3 px-4 rounded-lg text-sm transition-200 hover:border-orange-900"
                             onClick={() =>
-                              handleModalEdit('bentuk', item, 'Karton')
+                              handleModalEdit(
+                                "jenisproducts",
+                                item.jenis_product_id,
+                                item.jenis_product_name
+                              )
                             }
                           >
                             Edit
                           </button>
-                          <button className="button-fill !p-[15px]">
+                          <button
+                            className="button-fill !p-[15px]"
+                            onClick={(e) =>
+                              handleDelete(
+                                e,
+                                "jenisproducts",
+                                item.jenis_product_id
+                              )
+                            }
+                          >
                             <FaTrash className="fill-white text-base" />
                           </button>
                         </div>
@@ -474,7 +681,7 @@ const Spesifikasi = () => {
             <h6>Ukuran Produk</h6>
             <div>
               <button
-                onClick={() => handleModal('ukuran')}
+                onClick={() => handleModal("ukuran")}
                 className="button-fill !pl-4 flex items-center"
               >
                 <BsPlus className="text-2xl mr-2 fill-white" />
@@ -529,29 +736,33 @@ const Spesifikasi = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {[1, 2, 3, 4, 5].map((item, index) => (
-                    <tr
-                      className="border-b align-baseline"
-                      key={index}
-                    >
+                  {productSize?.map((item, index) => (
+                    <tr className="border-b align-baseline" key={index}>
                       <td className="text-center p-3">{index + 1}</td>
-                      <td className="text-center p-3">karton</td>
-                      <td className="p-3">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Quia illo nobis ipsam doloremque cumque, pariatur
-                        ut commodi voluptatibus reiciendis fugit.
+                      <td className="text-center p-3">
+                        {item.product_size_shape}
                       </td>
+                      <td className="p-3">{item.product_size_description}</td>
                       <td className="text-center p-3">
                         <div className="flex items-center justify-center gap-2">
                           <button
                             className="bg-white border py-3 px-4 rounded-lg text-sm transition-200 hover:border-orange-900"
                             onClick={() =>
-                              handleModalEdit('ukuran', item, 'Karton')
+                              handleModalEdit(
+                                "size",
+                                item.product_size_id,
+                                item.product_size_shape
+                              )
                             }
                           >
                             Edit
                           </button>
-                          <button className="button-fill !p-[15px]">
+                          <button
+                            className="button-fill !p-[15px]"
+                            onClick={(e) =>
+                              handleDelete(e, "size", item.product_size_id)
+                            }
+                          >
                             <FaTrash className="fill-white text-base" />
                           </button>
                         </div>
@@ -591,7 +802,7 @@ const Spesifikasi = () => {
             <h6>Finishing Kemasan</h6>
             <div>
               <button
-                onClick={() => handleModal('finishing')}
+                onClick={() => handleModal("finishing")}
                 className="button-fill !pl-4 flex items-center"
               >
                 <BsPlus className="text-2xl mr-2 fill-white" />
@@ -643,24 +854,36 @@ const Spesifikasi = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {[1, 2, 3, 4, 5].map((item, index) => (
-                    <tr
-                      className="border-b"
-                      key={index}
-                    >
+                  {productFinishing?.map((item, index) => (
+                    <tr className="border-b" key={index}>
                       <td className="text-center p-3">{index + 1}</td>
-                      <td className="text-center p-3">karton</td>
+                      <td className="text-center p-3">
+                        {item.product_finishing_name}
+                      </td>
                       <td className="text-center p-3">
                         <div className="flex items-center justify-center gap-2">
                           <button
                             className="bg-white border py-3 px-4 rounded-lg text-sm transition-200 hover:border-orange-900"
                             onClick={() =>
-                              handleModalEdit('finishing', item, 'Karton')
+                              handleModalEdit(
+                                "finishing",
+                                item.product_finishing_id,
+                                item.product_finishing_name
+                              )
                             }
                           >
                             Edit
                           </button>
-                          <button className="button-fill !p-[15px]">
+                          <button
+                            className="button-fill !p-[15px]"
+                            onClick={(e) =>
+                              handleDelete(
+                                e,
+                                "finishing",
+                                item.product_finishing_id
+                              )
+                            }
+                          >
                             <FaTrash className="fill-white text-base" />
                           </button>
                         </div>
@@ -700,6 +923,7 @@ const Spesifikasi = () => {
         closeModal={closeModal}
         submitHandler={submitModalHandler}
         content={modalContent}
+        handleChangeProduct={handleChangeProduct}
       />
 
       {/* Modal Edit Spesifikasi */}

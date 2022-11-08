@@ -1,22 +1,14 @@
-import React, { Fragment } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
-import { MdClose } from 'react-icons/md';
+import React, { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { MdClose } from "react-icons/md";
 
-const ModalsEditAdmin = ({ isOpen, closeModal, submitHandler, idAdmin }) => {
+const ModalsEditAdmin = ({ isOpen, closeModal, submitHandler, data }) => {
   const isDisabled = true;
 
   return (
     <>
-      <Transition
-        appear
-        show={isOpen}
-        as={Fragment}
-      >
-        <Dialog
-          as="div"
-          className="relative z-10"
-          onClose={closeModal}
-        >
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -49,14 +41,11 @@ const ModalsEditAdmin = ({ isOpen, closeModal, submitHandler, idAdmin }) => {
                     as="h3"
                     className="text-2xl font-bold pt-8 mb-3"
                   >
-                    Edit Admin {idAdmin}
+                    Edit Admin
                   </Dialog.Title>
                   <hr className="mb-6 border-orange-900" />
 
-                  <form
-                    className="mb-2"
-                    onSubmit={submitHandler}
-                  >
+                  <form className="mb-2" onSubmit={submitHandler}>
                     <div className="mb-5">
                       <label
                         htmlFor="namaAdmin"
@@ -69,10 +58,11 @@ const ModalsEditAdmin = ({ isOpen, closeModal, submitHandler, idAdmin }) => {
                         name="namaAdmin"
                         id="namaAdmin"
                         className={`input-field-xs ${
-                          isDisabled ? '!bg-secondary-600' : '!bg-white'
+                          isDisabled ? "!bg-secondary-600" : "!bg-white"
                         }`}
                         placeholder="Masukkan Nama Admin"
                         disabled={isDisabled}
+                        defaultValue={data?.user_name}
                       />
                     </div>
                     <div className="mb-5">
@@ -87,10 +77,11 @@ const ModalsEditAdmin = ({ isOpen, closeModal, submitHandler, idAdmin }) => {
                         name="posisiAdmin"
                         id="posisiAdmin"
                         className={`input-field-xs ${
-                          isDisabled ? '!bg-secondary-600' : '!bg-white'
+                          isDisabled ? "!bg-secondary-600" : "!bg-white"
                         }`}
                         placeholder="Masukkan Posisi Admin"
                         disabled={isDisabled}
+                        defaultValue={data?.roles.role_name}
                       />
                     </div>
                     <div className="mb-5">
@@ -105,10 +96,11 @@ const ModalsEditAdmin = ({ isOpen, closeModal, submitHandler, idAdmin }) => {
                         name="emailAdmin"
                         id="emailAdmin"
                         className={`input-field-xs ${
-                          isDisabled ? '!bg-secondary-600' : '!bg-white'
+                          isDisabled ? "!bg-secondary-600" : "!bg-white"
                         }`}
                         placeholder="Masukkan Email"
                         disabled={isDisabled}
+                        defaultValue={data?.user_email}
                       />
                     </div>
                     <div className="mb-5">
@@ -160,10 +152,7 @@ const ModalsEditAdmin = ({ isOpen, closeModal, submitHandler, idAdmin }) => {
                       />
                     </div>
                     <div className="flex justify-end">
-                      <button
-                        className="button-fill"
-                        type="submit"
-                      >
+                      <button className="button-fill" type="submit">
                         Perbarui
                       </button>
                     </div>

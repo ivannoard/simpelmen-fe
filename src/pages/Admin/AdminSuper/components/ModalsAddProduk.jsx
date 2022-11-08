@@ -1,21 +1,18 @@
-import React, { Fragment } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
-import { MdClose } from 'react-icons/md';
-import { IoIosArrowDown } from 'react-icons/io';
+import React, { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { MdClose } from "react-icons/md";
+import { IoIosArrowDown } from "react-icons/io";
 
-const ModalsAddProduk = ({ isOpen, closeModal, submitHandler }) => {
+const ModalsAddProduk = ({
+  isOpen,
+  closeModal,
+  submitHandler,
+  handleChangeProduct,
+}) => {
   return (
     <>
-      <Transition
-        appear
-        show={isOpen}
-        as={Fragment}
-      >
-        <Dialog
-          as="div"
-          className="relative z-10"
-          onClose={closeModal}
-        >
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -52,24 +49,22 @@ const ModalsAddProduk = ({ isOpen, closeModal, submitHandler }) => {
                   </Dialog.Title>
                   <hr className="mb-6 border-orange-900" />
 
-                  <form
-                    className="mb-2"
-                    onSubmit={submitHandler}
-                  >
+                  <form className="mb-2" onSubmit={submitHandler}>
                     <div className="grid grid-cols-2 2xsm:grid-cols-4 gap-x-5">
                       <div className="col-span-2">
                         <div className="mb-4 relative">
                           <label
-                            htmlFor="namaProduk"
+                            htmlFor="product_name"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
                             Nama Produk <span className="text-red-600">*</span>
                           </label>
                           <select
-                            id="namaProduk"
+                            id="product_name"
                             name="namaProduk"
                             className="input-field-select-xs"
                             required
+                            onChange={handleChangeProduct}
                           >
                             <option>Pilih Produk</option>
                             <option value="1">Produk 1</option>
@@ -84,15 +79,15 @@ const ModalsAddProduk = ({ isOpen, closeModal, submitHandler }) => {
                       <div className="col-span-2">
                         <div className="mb-4 relative">
                           <label
-                            htmlFor="kategori"
+                            htmlFor="product_category_id"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
-                            Kategori Produk{' '}
+                            Kategori Produk{" "}
                             <span className="text-red-600">*</span>
                           </label>
                           <select
-                            id="kategori"
-                            name="kategori"
+                            id="product_category_id"
+                            name="product_category_id"
                             className="input-field-select-xs"
                             required
                           >
@@ -109,14 +104,14 @@ const ModalsAddProduk = ({ isOpen, closeModal, submitHandler }) => {
                       <div className="col-span-2">
                         <div className="mb-4 relative">
                           <label
-                            htmlFor="jenisProduk"
+                            htmlFor="jenis_product_id"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
                             Jenis Produk <span className="text-red-600">*</span>
                           </label>
                           <select
-                            id="jenisProduk"
-                            name="jenisProduk"
+                            id="jenis_product_id"
+                            name="jenis_product_id"
                             className="input-field-select-xs"
                             required
                           >
@@ -133,15 +128,15 @@ const ModalsAddProduk = ({ isOpen, closeModal, submitHandler }) => {
                       <div className="col-span-2">
                         <div className="mb-4">
                           <label
-                            htmlFor="beratProduk"
+                            htmlFor="product_weight"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
                             Berat Produk <span className="text-red-600">*</span>
                           </label>
                           <input
                             type="text"
-                            name="beratProduk"
-                            id="beratProduk"
+                            name="product_weight"
+                            id="product_weight"
                             className="input-field-xs"
                             placeholder="Masukkan Berat Produk"
                             required
@@ -151,15 +146,15 @@ const ModalsAddProduk = ({ isOpen, closeModal, submitHandler }) => {
                       <div className="col-span-2">
                         <div className="mb-4 relative">
                           <label
-                            htmlFor="ukuranProduk"
+                            htmlFor="product_size_id"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
-                            Ukuran Produk{' '}
+                            Ukuran Produk{" "}
                             <span className="text-red-600">*</span>
                           </label>
                           <select
-                            id="ukuranProduk"
-                            name="ukuranProduk"
+                            id="product_size_id"
+                            name="product_size_id"
                             className="input-field-select-xs"
                             required
                           >
@@ -176,14 +171,14 @@ const ModalsAddProduk = ({ isOpen, closeModal, submitHandler }) => {
                       <div className="col-span-2">
                         <div className="mb-4 relative">
                           <label
-                            htmlFor="bahanProduk"
+                            htmlFor="product_material_id"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
                             Bahan Produk <span className="text-red-600">*</span>
                           </label>
                           <select
-                            id="bahanProduk"
-                            name="bahanProduk"
+                            id="product_material_id"
+                            name="product_material_id"
                             className="input-field-select-xs"
                             required
                           >
@@ -200,15 +195,15 @@ const ModalsAddProduk = ({ isOpen, closeModal, submitHandler }) => {
                       <div className="col-span-2">
                         <div className="mb-4 relative">
                           <label
-                            htmlFor="finishingProduk"
+                            htmlFor="product_finishing_id"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
-                            Finishing Produk{' '}
+                            Finishing Produk{" "}
                             <span className="text-red-600">*</span>
                           </label>
                           <select
-                            id="finishingProduk"
-                            name="finishingProduk"
+                            id="product_finishing_id"
+                            name="product_finishing_id"
                             className="input-field-select-xs"
                             required
                           >
@@ -225,15 +220,15 @@ const ModalsAddProduk = ({ isOpen, closeModal, submitHandler }) => {
                       <div className="col-span-2">
                         <div className="mb-4">
                           <label
-                            htmlFor="fotoProduk"
+                            htmlFor="product_image"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
                             Foto Produk <span className="text-red-600">*</span>
                           </label>
                           <input
                             type="file"
-                            name="fotoProduk"
-                            id="fotoProduk"
+                            name="product_image"
+                            id="product_image"
                             className="input-field-xs"
                             required
                           />
@@ -242,15 +237,15 @@ const ModalsAddProduk = ({ isOpen, closeModal, submitHandler }) => {
                       <div className="col-span-2">
                         <div className="mb-4">
                           <label
-                            htmlFor="deskripsiProduk"
+                            htmlFor="product_description"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
-                            Deskripsi Produk{' '}
+                            Deskripsi Produk{" "}
                             <span className="text-red-600">*</span>
                           </label>
                           <textarea
-                            name="deskripsiProduk"
-                            id="deskripsiProduk"
+                            name="product_description"
+                            id="product_description"
                             className="input-field-xs"
                             placeholder="Masukkan Deskripsi Produk"
                             required
@@ -262,10 +257,7 @@ const ModalsAddProduk = ({ isOpen, closeModal, submitHandler }) => {
                     </div>
 
                     <div className="flex justify-end">
-                      <button
-                        className="button-fill"
-                        type="submit"
-                      >
+                      <button className="button-fill" type="submit">
                         Tambahkan
                       </button>
                     </div>

@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
-import { MdClose } from 'react-icons/md';
+import React, { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { MdClose } from "react-icons/md";
 
 const ModalsEditSpesifikasi = ({
   isOpen,
@@ -10,16 +10,8 @@ const ModalsEditSpesifikasi = ({
 }) => {
   return (
     <>
-      <Transition
-        appear
-        show={isOpen}
-        as={Fragment}
-      >
-        <Dialog
-          as="div"
-          className="relative z-10"
-          onClose={closeModal}
-        >
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -55,14 +47,9 @@ const ModalsEditSpesifikasi = ({
                     Edit Spesifikasi
                   </Dialog.Title>
                   <hr className="mb-4 border-orange-900" />
-                  <p className="mb-6">
-                    Produk : {content.id} / {content.kategori}
-                  </p>
-                  <form
-                    className="mb-2"
-                    onSubmit={submitHandler}
-                  >
-                    {content.type === 'ukuran' ? (
+                  <p className="mb-6">Produk : {content.specificationName}</p>
+                  <form className="mb-2" onSubmit={submitHandler}>
+                    {content.type === "ukuran" ? (
                       <>
                         <div className="mb-5">
                           <label
@@ -192,7 +179,7 @@ const ModalsEditSpesifikasi = ({
                         />
                       </div>
                     )}
-                    {content.type === 'kategori' ? (
+                    {content.type === "kategori" ? (
                       <div className="mb-8">
                         <label
                           htmlFor="kodeProduk"
@@ -215,7 +202,7 @@ const ModalsEditSpesifikasi = ({
                     <div className="flex justify-end">
                       <button
                         className={`button-fill ${
-                          content.type === 'kategori' ? null : 'mt-3'
+                          content.type === "kategori" ? null : "mt-3"
                         }`}
                         type="submit"
                       >

@@ -69,14 +69,14 @@ const ModalsAddAdmin = ({
                     </div>
                     <div className="mb-5">
                       <label
-                        htmlFor="user_role"
+                        htmlFor="user_role_id"
                         className="block mb-2 text-sm font-medium text-gray-700"
                       >
                         Posisi Admin
                       </label>
                       <select
-                        name="user_role"
-                        id="user_role"
+                        name="user_role_id"
+                        id="user_role_id"
                         className="input-field-xs"
                         onChange={handleChangeAddAdmin}
                       >

@@ -81,7 +81,7 @@ const Anggota = () => {
           user_name: addAdmin.user_name,
           user_email: addAdmin.user_email,
           user_password: addAdmin.user_password,
-          user_role: addAdmin.user_role,
+          user_role_id: addAdmin.user_role_id,
         },
         {
           headers: {

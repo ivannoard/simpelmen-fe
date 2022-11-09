@@ -120,7 +120,7 @@ const Spesifikasi = () => {
           width2: "width2",
           height2: "height2",
           shape: "shape",
-          description: "description",
+          description: "product_size_description",
         });
         break;
       case "finishing":

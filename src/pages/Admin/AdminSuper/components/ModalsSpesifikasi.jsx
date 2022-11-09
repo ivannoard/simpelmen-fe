@@ -67,6 +67,7 @@ const ModalsSpesifikasi = ({
                                 className="input-field-xs !pr-12"
                                 placeholder="Panjang"
                                 required
+                                onChange={handleChangeProduct}
                               />
                               <span className="text-gray-400 absolute right-3 top-[11px]">
                                 cm
@@ -79,6 +80,7 @@ const ModalsSpesifikasi = ({
                                 className="input-field-xs !pr-12"
                                 placeholder="Lebar"
                                 required
+                                onChange={handleChangeProduct}
                               />
                               <span className="text-gray-400 absolute right-3 top-[11px]">
                                 cm
@@ -91,6 +93,7 @@ const ModalsSpesifikasi = ({
                                 className="input-field-xs !pr-12"
                                 placeholder="Tinggi"
                                 required
+                                onChange={handleChangeProduct}
                               />
                               <span className="text-gray-400 absolute right-3 top-[11px]">
                                 cm
@@ -125,6 +128,7 @@ const ModalsSpesifikasi = ({
                                 className="input-field-xs !pr-12"
                                 placeholder="Lebar"
                                 required
+                                onChange={handleChangeProduct}
                               />
                               <span className="text-gray-400 absolute right-3 top-[11px]">
                                 cm
@@ -137,6 +141,7 @@ const ModalsSpesifikasi = ({
                                 className="input-field-xs !pr-12"
                                 placeholder="Tinggi"
                                 required
+                                onChange={handleChangeProduct}
                               />
                               <span className="text-gray-400 absolute right-3 top-[11px]">
                                 cm
@@ -159,6 +164,7 @@ const ModalsSpesifikasi = ({
                             className="input-field-xs"
                             placeholder="Masukkan Deskripsi Produk"
                             required
+                            onChange={handleChangeProduct}
                           ></textarea>
                         </div>
                       </>

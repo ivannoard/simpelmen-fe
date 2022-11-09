@@ -152,14 +152,14 @@ const ModalsEditSpesifikasi = ({
                         </div>
                         <div className="mb-5">
                           <label
-                            htmlFor="description"
+                            htmlFor="product_size_description"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
                             Deskripsi Produk
                           </label>
                           <textarea
-                            name="description"
-                            id="description"
+                            name="product_size_description"
+                            id="product_size_description"
                             cols="30"
                             rows="4"
                             className="input-field-xs"

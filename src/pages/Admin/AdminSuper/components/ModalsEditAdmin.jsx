@@ -2,8 +2,15 @@ import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { MdClose } from "react-icons/md";
 
-const ModalsEditAdmin = ({ isOpen, closeModal, submitHandler, data }) => {
+const ModalsEditAdmin = ({
+  isOpen,
+  closeModal,
+  submitHandler,
+  data,
+  handleChangeEditAdmin,
+}) => {
   const isDisabled = true;
+  console.log(data);
 
   return (
     <>
@@ -48,15 +55,15 @@ const ModalsEditAdmin = ({ isOpen, closeModal, submitHandler, data }) => {
                   <form className="mb-2" onSubmit={submitHandler}>
                     <div className="mb-5">
                       <label
-                        htmlFor="namaAdmin"
+                        htmlFor="user_name"
                         className="block mb-2 text-sm font-medium text-gray-700"
                       >
                         Nama Admin
                       </label>
                       <input
                         type="text"
-                        name="namaAdmin"
-                        id="namaAdmin"
+                        name="user_name"
+                        id="user_name"
                         className={`input-field-xs ${
                           isDisabled ? "!bg-secondary-600" : "!bg-white"
                         }`}
@@ -72,7 +79,20 @@ const ModalsEditAdmin = ({ isOpen, closeModal, submitHandler, data }) => {
                       >
                         Posisi Admin
                       </label>
-                      <input
+                      <select
+                        name="user_role_id"
+                        id="user_role_id"
+                        className="input-field-xs"
+                        // onChange={handleChangeAddAdmin}
+                      >
+                        <option
+                          value={data?.roles.role_name}
+                          key={data?.roles.role_name}
+                        >
+                          {data?.roles.role_name}
+                        </option>
+                      </select>
+                      {/* <input
                         type="text"
                         name="posisiAdmin"
                         id="posisiAdmin"
@@ -82,19 +102,19 @@ const ModalsEditAdmin = ({ isOpen, closeModal, submitHandler, data }) => {
                         placeholder="Masukkan Posisi Admin"
                         disabled={isDisabled}
                         defaultValue={data?.roles.role_name}
-                      />
+                      /> */}
                     </div>
                     <div className="mb-5">
                       <label
-                        htmlFor="emailAdmin"
+                        htmlFor="user_email"
                         className="block mb-2 text-sm font-medium text-gray-700"
                       >
                         Email
                       </label>
                       <input
                         type="email"
-                        name="emailAdmin"
-                        id="emailAdmin"
+                        name="user_email"
+                        id="user_email"
                         className={`input-field-xs ${
                           isDisabled ? "!bg-secondary-600" : "!bg-white"
                         }`}
@@ -121,18 +141,19 @@ const ModalsEditAdmin = ({ isOpen, closeModal, submitHandler, data }) => {
                     </div>
                     <div className="mb-5">
                       <label
-                        htmlFor="pwdNewAdmin"
+                        htmlFor="user_password"
                         className="block mb-2 text-sm font-medium text-gray-700"
                       >
                         Password Baru
                       </label>
                       <input
                         type="password"
-                        name="pwdNewAdmin"
-                        id="pwdNewAdmin"
+                        name="user_password"
+                        id="user_password"
                         className="input-field-xs"
                         placeholder="Masukkan Password Baru"
                         required
+                        onChange={handleChangeEditAdmin}
                       />
                     </div>
                     <div className="mb-8">

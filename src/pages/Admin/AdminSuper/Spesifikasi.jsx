@@ -20,6 +20,7 @@ const Spesifikasi = () => {
   const [productFinishing, setProductFinishing] = useState();
   const [bentukProduk, setBentukProduk] = useState();
   const [postProduct, setPostProduct] = useState();
+  const [putProduct, setPutProduct] = useState();
   const [alerts, setAlerts] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -29,6 +30,14 @@ const Spesifikasi = () => {
     e.preventDefault();
     setPostProduct({
       ...postProduct,
+      [e.target.getAttribute("name")]: e.target.value,
+    });
+  };
+
+  const handleChangePutProduct = (e) => {
+    e.preventDefault();
+    setPutProduct({
+      ...putProduct,
       [e.target.getAttribute("name")]: e.target.value,
     });
   };
@@ -132,6 +141,7 @@ const Spesifikasi = () => {
   };
 
   const handleModalEdit = async (type, id, productName) => {
+    console.log(id);
     switch (type) {
       case "category":
         setModalEditContent({
@@ -141,6 +151,7 @@ const Spesifikasi = () => {
           placeholder: "Masukkan Kategori Produk",
           path: "/category",
           specificationName: productName,
+          putKey: "product_category_name",
         });
         break;
       case "material":
@@ -151,6 +162,7 @@ const Spesifikasi = () => {
           placeholder: "Masukkan Bahan Produk",
           path: "/material",
           specificationName: productName,
+          putKey: "product_material_name",
         });
         break;
       case "jenisproducts":
@@ -161,6 +173,7 @@ const Spesifikasi = () => {
           placeholder: "Masukkan Bentuk Produk",
           path: "/jenisproducts",
           specificationName: productName,
+          putKey: "name",
         });
         break;
       case "size":
@@ -181,6 +194,7 @@ const Spesifikasi = () => {
           placeholder: "Masukkan Finishing Produk",
           path: "/finishing",
           specificationName: productName,
+          putKey: "product_finishing_name",
         });
         break;
       default:
@@ -198,8 +212,12 @@ const Spesifikasi = () => {
         },
       })
       .then((response) => {
-        setSuccessMessage("Spesifikasi berhasil ditambahkan!");
-        setAlerts(true);
+        setTimeout(() => {
+          setModalContent({});
+          setSuccessMessage("Spesifikasi berhasil ditambahkan!");
+          setAlerts(true);
+        }, 2000);
+        setIsOpenModal(false);
       })
       .catch((e) => {
         setFailMessage(e.message);
@@ -207,8 +225,26 @@ const Spesifikasi = () => {
       });
   };
 
-  const submitEditModalHandler = (e) => {
+  const submitEditModalHandler = async (e) => {
     e.preventDefault();
+    await commonAPI
+      .put(`${modalEditContent.path}/${modalEditContent.id}`, putProduct, {
+        headers: {
+          "x-access-token": `${parseUser.data.token}`,
+        },
+      })
+      .then((response) => {
+        setTimeout(() => {
+          setModalEditContent({});
+          setSuccessMessage("Spesifikasi berhasil diubah!");
+          setAlerts(true);
+        }, 2000);
+        setIsOpenModalEdit(false);
+      })
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
   };
 
   // category
@@ -932,6 +968,7 @@ const Spesifikasi = () => {
         closeModal={closeModalEdit}
         submitHandler={submitEditModalHandler}
         content={modalEditContent}
+        handleChangePutProduct={handleChangePutProduct}
       />
     </>
   );

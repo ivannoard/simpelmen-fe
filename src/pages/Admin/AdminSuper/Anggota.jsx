@@ -21,7 +21,9 @@ const Anggota = () => {
   const [detailAdmin, setDetailAdmin] = useState();
   const [dataAdmin, setDataAdmin] = useState();
   const [addAdmin, setAddAdmin] = useState();
+  const [editAdmin, setEditAdmin] = useState();
   const [adminRole, setAdminRole] = useState();
+  const [updateId, setUpdateId] = useState();
 
   const closeModal = () => {
     setIsOpenModal(false);
@@ -38,6 +40,7 @@ const Anggota = () => {
   // get detail admin
   const detailModalHandlingEdit = async (id) => {
     setIsOpenModalEdit(true);
+    setUpdateId(id);
     await adminSuper
       .get(`/data/admin/${id}?id=${id}`, {
         headers: {
@@ -70,6 +73,14 @@ const Anggota = () => {
     });
   };
 
+  const handleChangeEditAdmin = (e) => {
+    e.preventDefault();
+    setEditAdmin({
+      ...editAdmin,
+      [e.target.getAttribute("name")]: e.target.value,
+    });
+  };
+
   // post new admin
   const submitAdminHandler = async (e) => {
     e.preventDefault();
@@ -81,7 +92,7 @@ const Anggota = () => {
           user_name: addAdmin.user_name,
           user_email: addAdmin.user_email,
           user_password: addAdmin.user_password,
-          user_role_id: addAdmin.user_role_id,
+          user_role_id: parseInt(addAdmin.user_role_id),
         },
         {
           headers: {
@@ -104,8 +115,38 @@ const Anggota = () => {
         setIsOpenModal(false);
       });
   };
-  const submitEditAdminHandler = (e) => {
+
+  const submitEditAdminHandler = async (e) => {
     e.preventDefault();
+    await adminSuper
+      .put(
+        `/update/admin/${updateId}`,
+        {
+          user_name: detailAdmin.user_name,
+          user_email: detailAdmin.user_email,
+          user_password: editAdmin.user_password,
+          user_role_id: parseInt(detailAdmin.user_role_id),
+        },
+        {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        }
+      )
+      .then((response) => {
+        setTimeout(() => {
+          setAlertAdd(true);
+          setAlertAddMessage("Admin Berhasil Ditambahkan!");
+        }, 2000);
+        setIsOpenModal(false);
+      })
+      .catch((e) => {
+        setTimeout(() => {
+          setAlertFail(true);
+          setFailMessage(e.message);
+        }, 2000);
+        setIsOpenModal(false);
+      });
   };
 
   // get data admin
@@ -157,7 +198,7 @@ const Anggota = () => {
           <h6 className="">
             Tabel Admin{" "}
             <span className="text-primary-900 font-semibold">
-              POSISI GAK KEDETECT + NO ENDPOINT FOR PUT & DELETE
+              NO ENDPOINT DELETE + ERROR 500
             </span>
           </h6>
           <div>
@@ -283,6 +324,7 @@ const Anggota = () => {
         closeModal={closeModalEdit}
         submitHandler={submitEditAdminHandler}
         data={detailAdmin}
+        handleChangeEditAdmin={handleChangeEditAdmin}
         // idAdmin={idAdmin}
       />
     </>

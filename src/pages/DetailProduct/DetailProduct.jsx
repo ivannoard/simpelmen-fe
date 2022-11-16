@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { HiOutlineArrowSmLeft } from "react-icons/hi";
 import FormKarton from "./components/FormKarton";
 import Alerts from "../../components/Alerts";
@@ -13,6 +13,7 @@ import FormSkeleton from "../../components/Skeletons/FormSkeleton";
 
 const DetailProduct = () => {
   const { productId } = useParams();
+  const navigate = useNavigate();
   const [form, setForm] = useState();
   const [alertSuccess, setAlertSuccess] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
@@ -33,6 +34,7 @@ const DetailProduct = () => {
       case "K":
         return setForm(
           <FormKarton
+            productId={productId}
             setAlertSuccess={setAlertSuccess}
             setAlertFail={setAlertFail}
           />
@@ -48,6 +50,7 @@ const DetailProduct = () => {
       case "S":
         return setForm(
           <FormSablon
+            productId={productId}
             setAlertSuccess={setAlertSuccess}
             setAlertFail={setAlertFail}
           />
@@ -100,10 +103,13 @@ const DetailProduct = () => {
         )}
         <section className="containers">
           <div className="mb-5 mt-0 xs:mt-7 flex">
-            <Link to="/" className="flex items-center mb-3">
+            <div
+              className="flex items-center mb-3 cursor-pointer"
+              onClick={() => navigate(-1)}
+            >
               <HiOutlineArrowSmLeft className="text-2xl mr-3" />
               <span className="leading-10">Kembali</span>
-            </Link>
+            </div>
           </div>
           <div className="grid grid-systems gap-8 ">
             <div className="col-span-4 2xsm:col-span-8 2md:col-span-6">

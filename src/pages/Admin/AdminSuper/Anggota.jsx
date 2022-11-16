@@ -118,6 +118,7 @@ const Anggota = () => {
 
   const submitEditAdminHandler = async (e) => {
     e.preventDefault();
+    console.log(detailAdmin);
     await adminSuper
       .put(
         `/update/admin/${updateId}`,
@@ -136,16 +137,16 @@ const Anggota = () => {
       .then((response) => {
         setTimeout(() => {
           setAlertAdd(true);
-          setAlertAddMessage("Admin Berhasil Ditambahkan!");
+          setAlertAddMessage("Admin Berhasil Diupdate!");
         }, 2000);
-        setIsOpenModal(false);
+        setIsOpenModalEdit(false);
       })
       .catch((e) => {
         setTimeout(() => {
           setAlertFail(true);
           setFailMessage(e.message);
         }, 2000);
-        setIsOpenModal(false);
+        setIsOpenModalEdit(false);
       });
   };
 

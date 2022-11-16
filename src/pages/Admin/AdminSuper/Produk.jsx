@@ -20,6 +20,11 @@ const Produk = () => {
   const [alerts, setAlerts] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
   const [failMessage, setFailMessage] = useState("");
+  const [categoryProduct, setCategoryProduct] = useState();
+  const [productMaterial, setProductMaterial] = useState();
+  const [productSize, setProductSize] = useState();
+  const [productFinishing, setProductFinishing] = useState();
+  const [bentukProduk, setBentukProduk] = useState();
 
   const handleChangeProduct = (e) => {
     e.preventDefault();
@@ -71,8 +76,20 @@ const Produk = () => {
       .then((response) => setDetailData(response.data));
   };
 
-  const submitProdukHandler = (e) => {
+  const submitProdukHandler = async (e) => {
     e.preventDefault();
+    console.log(postProduct);
+    await commonAPI
+      .post("/product", postProduct, {
+        headers: {
+          "x-access-token": `${parseUser.data.token}`,
+        },
+      })
+      .then((response) => setAlerts(true))
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
   };
   const submitEditProdukHandler = (e) => {
     e.preventDefault();
@@ -88,7 +105,75 @@ const Produk = () => {
     getProduct();
   }, []);
 
-  console.log(dataProduct);
+  // category
+  useEffect(() => {
+    const getCategoryProduct = async () => {
+      await commonAPI
+        .get("/category", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setCategoryProduct(response.data.data));
+    };
+    getCategoryProduct();
+  }, [parseUser.data.token]);
+
+  // material
+  useEffect(() => {
+    const getMaterialProduct = async () => {
+      await commonAPI
+        .get("/material", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setProductMaterial(response.data.data));
+    };
+    getMaterialProduct();
+  }, [parseUser.data.token]);
+
+  // size
+  useEffect(() => {
+    const getSizeProduct = async () => {
+      await commonAPI
+        .get("/size", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setProductSize(response.data.data));
+    };
+    getSizeProduct();
+  }, [parseUser.data.token]);
+
+  // finishing
+  useEffect(() => {
+    const getFinsihingProduct = async () => {
+      await commonAPI
+        .get("/finishing", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setProductFinishing(response.data.data));
+    };
+    getFinsihingProduct();
+  }, [parseUser.data.token]);
+
+  // bentuk
+  useEffect(() => {
+    const getBentukProduct = async () => {
+      await commonAPI
+        .get("/jenisproducts", {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        })
+        .then((response) => setBentukProduk(response.data.data));
+    };
+    getBentukProduct();
+  }, [parseUser.data.token]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -189,7 +274,7 @@ const Produk = () => {
                     <td className="text-center p-3">{index + 1}</td>
                     <td className="text-center p-3">{item.product_name}</td>
                     <td className="text-center p-3">
-                      {item.product_categories.product_category_name}
+                      {item?.product_categories?.product_category_name}
                     </td>
                     <td className="text-center p-3">
                       <div className="flex items-center justify-center gap-2">
@@ -247,6 +332,11 @@ const Produk = () => {
         closeModal={closeModalAdd}
         submitHandler={submitProdukHandler}
         handleChangeProduct={handleChangeProduct}
+        categoryProduct={categoryProduct}
+        productMaterial={productMaterial}
+        productSize={productSize}
+        productFinishing={productFinishing}
+        bentukProduk={bentukProduk}
       />
 
       {/* Modal Edit Produk */}

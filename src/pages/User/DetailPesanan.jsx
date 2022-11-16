@@ -60,17 +60,17 @@ const DetailPesanan = () => {
             <h6 className="mb-5">Detail Pesanan</h6>
             <div className="mb-5 p-4 border rounded-lg border-orange-900/40">
               <img
-                src={`data:image/jpg;base64,${data?.order_products[0].products.product_image}`}
+                src={`data:image/jpg;base64,${data?.order_details[0]?.products.product_image}`}
                 alt="ini-gambar"
                 className="w-full object-cover"
               />
             </div>
             <div className="product-title mb-5">
               <p className="mb-1 text-secondary-900">
-                {data?.order_products[0].products.product_name}
+                {data?.order_details[0]?.products.product_name}
               </p>
               <p className="font-semibold">
-                {data?.order_products[0].products.product_description}
+                {data?.order_details[0]?.products.product_description}
               </p>
             </div>
             <div className="product-order-number mb-5">
@@ -106,7 +106,7 @@ const DetailPesanan = () => {
                     </td>
                     <td className="w-[3%]">:</td>
                     <td className="pl-2 w-[50%]">
-                      {data?.order_products[0].products.product_name}
+                      {data?.order_details[0]?.products.product_name}
                     </td>
                   </tr>
                   <tr>
@@ -116,7 +116,7 @@ const DetailPesanan = () => {
                     <td className="w-[3%]">:</td>
                     <td className="pl-2 w-[50%]">
                       {
-                        data?.order_products[0].products.product_materials
+                        data?.order_details[0]?.products.product_materials
                           .product_material_name
                       }
                     </td>
@@ -135,7 +135,7 @@ const DetailPesanan = () => {
                     <td className="w-[3%]">:</td>
                     <td className="pl-2 w-[50%]">
                       {
-                        data?.order_products[0].products.product_finishings
+                        data?.order_details[0]?.products.product_finishings
                           .product_finishing_name
                       }
                     </td>
@@ -153,7 +153,7 @@ const DetailPesanan = () => {
                     </td>
                     <td className="w-[3%]">:</td>
                     <td className="pl-2 w-[50%]">
-                      {data?.retributions[0].retribution_jasa_total}
+                      {data?.retributions[0]?.retribution_jasa_total}
                     </td>
                   </tr>
                 </tbody>
@@ -197,7 +197,7 @@ const DetailPesanan = () => {
                     </td>
                     <td className="w-[3%]">:</td>
                     <td className="pl-2 w-[50%]">
-                      {data?.delivery_details[0].delivery_detail_courier}
+                      {data?.delivery_details[0]?.delivery_detail_courier}
                     </td>
                   </tr>
                 </tbody>

@@ -80,6 +80,7 @@ const ModalsAddAdmin = ({
                         className="input-field-xs"
                         onChange={handleChangeAddAdmin}
                       >
+                        <option>Pilih Posisi Admin</option>
                         {adminRole?.map((item, index) => (
                           <option value={item.role_id} key={index}>
                             {item.role_name}

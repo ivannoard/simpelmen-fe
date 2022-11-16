@@ -9,6 +9,7 @@ const Dashboard = () => {
   const parseUser = JSON.parse(user);
   const [dataAdmin, setDataAdmin] = useState();
   const [dataProduct, setDataProduct] = useState();
+  const [data, setData] = useState();
 
   useEffect(() => {
     const getDataAdmin = async () => {
@@ -35,6 +36,19 @@ const Dashboard = () => {
     };
     getDataProduct();
   }, [parseUser.data.token, parseUser.data.user_status]);
+
+  useEffect(() => {
+    const getData = async () => {
+      await adminSuper
+        .get("/rekap/pesanan", {
+          headers: {
+            "x-access-token": `${JSON.parse(user).data.token}`,
+          },
+        })
+        .then((response) => setData(response.data));
+    };
+    getData();
+  }, [user]);
 
   return (
     <>
@@ -149,7 +163,7 @@ const Dashboard = () => {
                     <td className="text-center py-3">{index + 1}</td>
                     <td className="text-center py-3">{item.product_name}</td>
                     <td className="text-center py-3">
-                      {item.product_categories.product_category_name}
+                      {item?.product_categories?.product_category_name}
                     </td>
                   </tr>
                 ))}
@@ -201,13 +215,20 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {[1, 2, 3, 4, 5].map((item, index) => (
+                {data?.map((item, index) => (
                   <tr className="border-b" key={index}>
                     <td className="text-center p-3">{index + 1}</td>
-                    <td className="text-center p-3">001/BIKDK/O/VII/2022</td>
-                    <td className="text-left p-3">Ikha Katering</td>
-                    <td className="text-center p-3">Status</td>
-                    <td className="text-center p-3">Rp. 250.000</td>
+                    <td className="text-center p-3">{item.order_code}</td>
+                    <td className="text-left p-3">{item.users.user_ikm}</td>
+                    <td className="text-center p-3">
+                      {item.order_statuses[0]?.order_status_admin_code}
+                    </td>
+                    <td className="text-center p-3">
+                      Rp.{" "}
+                      {item.retributions[0]?.retribution_jasa_total !== null
+                        ? item.retributions[0]?.retribution_jasa_total
+                        : "0"}
+                    </td>
                   </tr>
                 ))}
               </tbody>

@@ -54,8 +54,21 @@ const ModalsSpesifikasi = ({
                       <>
                         <div className="mb-5">
                           <label
-                            htmlFor="ukuranLA"
+                            htmlFor="shape"
                             className="block mb-2 text-sm font-medium text-gray-700"
+                          >
+                            Bentuk Produk
+                          </label>
+                          <input
+                            type="text"
+                            className="input-field-xs !pr-12"
+                            placeholder="Bentuk"
+                            onChange={handleChangeProduct}
+                            name="shape"
+                          />
+                          <label
+                            htmlFor="ukuranLA"
+                            className="block mb-2 text-sm font-medium text-gray-700 mt-5"
                           >
                             Ukuran Produk (Luar / Atas)
                           </label>
@@ -66,7 +79,6 @@ const ModalsSpesifikasi = ({
                                 name={content.length1}
                                 className="input-field-xs !pr-12"
                                 placeholder="Panjang"
-                                required
                                 onChange={handleChangeProduct}
                               />
                               <span className="text-gray-400 absolute right-3 top-[11px]">
@@ -79,7 +91,6 @@ const ModalsSpesifikasi = ({
                                 name={content.width1}
                                 className="input-field-xs !pr-12"
                                 placeholder="Lebar"
-                                required
                                 onChange={handleChangeProduct}
                               />
                               <span className="text-gray-400 absolute right-3 top-[11px]">
@@ -92,7 +103,6 @@ const ModalsSpesifikasi = ({
                                 name={content.heigth1}
                                 className="input-field-xs !pr-12"
                                 placeholder="Tinggi"
-                                required
                                 onChange={handleChangeProduct}
                               />
                               <span className="text-gray-400 absolute right-3 top-[11px]">
@@ -115,7 +125,6 @@ const ModalsSpesifikasi = ({
                                 name={content.length2}
                                 className="input-field-xs !pr-12"
                                 placeholder="Panjang"
-                                required
                               />
                               <span className="text-gray-400 absolute right-3 top-[11px]">
                                 cm
@@ -127,7 +136,6 @@ const ModalsSpesifikasi = ({
                                 name={content.width2}
                                 className="input-field-xs !pr-12"
                                 placeholder="Lebar"
-                                required
                                 onChange={handleChangeProduct}
                               />
                               <span className="text-gray-400 absolute right-3 top-[11px]">
@@ -140,7 +148,6 @@ const ModalsSpesifikasi = ({
                                 name={content.height2}
                                 className="input-field-xs !pr-12"
                                 placeholder="Tinggi"
-                                required
                                 onChange={handleChangeProduct}
                               />
                               <span className="text-gray-400 absolute right-3 top-[11px]">

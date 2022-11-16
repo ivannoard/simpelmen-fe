@@ -10,7 +10,7 @@ const ModalsEditAdmin = ({
   handleChangeEditAdmin,
 }) => {
   const isDisabled = true;
-  console.log(data);
+  // console.log(data);
 
   return (
     <>

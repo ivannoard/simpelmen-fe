@@ -48,11 +48,24 @@ const ModalsEditSpesifikasi = ({
                     Edit Spesifikasi
                   </Dialog.Title>
                   <hr className="mb-4 border-orange-900" />
-                  <p className="mb-6">Produk : {content.specificationName}</p>
                   <form className="mb-2" onSubmit={submitHandler}>
                     {content.type === "ukuran" ? (
                       <>
                         <div className="mb-5">
+                          <label
+                            htmlFor="shape"
+                            className="block mb-2 text-sm font-medium text-gray-700"
+                          >
+                            Bentuk Produk
+                          </label>
+                          <input
+                            type="text"
+                            className="input-field-xs !pr-12 mb-5"
+                            placeholder="Bentuk"
+                            onChange={handleChangePutProduct}
+                            name="shape"
+                            defaultValue={content.specificationName}
+                          />
                           <label
                             htmlFor="ukuranLA"
                             className="block mb-2 text-sm font-medium text-gray-700"
@@ -68,6 +81,7 @@ const ModalsEditSpesifikasi = ({
                                 placeholder="Panjang"
                                 required
                                 onChange={handleChangePutProduct}
+                                defaultValue={content.p1}
                               />
                               <span className="text-gray-400 absolute right-3 top-[11px]">
                                 cm
@@ -81,6 +95,7 @@ const ModalsEditSpesifikasi = ({
                                 placeholder="Lebar"
                                 required
                                 onChange={handleChangePutProduct}
+                                defaultValue={content.l1}
                               />
                               <span className="text-gray-400 absolute right-3 top-[11px]">
                                 cm
@@ -94,6 +109,7 @@ const ModalsEditSpesifikasi = ({
                                 placeholder="Tinggi"
                                 required
                                 onChange={handleChangePutProduct}
+                                defaultValue={content.t1}
                               />
                               <span className="text-gray-400 absolute right-3 top-[11px]">
                                 cm
@@ -117,6 +133,7 @@ const ModalsEditSpesifikasi = ({
                                 placeholder="Panjang"
                                 required
                                 onChange={handleChangePutProduct}
+                                defaultValue={content.p2}
                               />
                               <span className="text-gray-400 absolute right-3 top-[11px]">
                                 cm
@@ -130,6 +147,7 @@ const ModalsEditSpesifikasi = ({
                                 placeholder="Lebar"
                                 required
                                 onChange={handleChangePutProduct}
+                                defaultValue={content.l2}
                               />
                               <span className="text-gray-400 absolute right-3 top-[11px]">
                                 cm
@@ -143,6 +161,7 @@ const ModalsEditSpesifikasi = ({
                                 placeholder="Tinggi"
                                 required
                                 onChange={handleChangePutProduct}
+                                defaultValue={content.t2}
                               />
                               <span className="text-gray-400 absolute right-3 top-[11px]">
                                 cm
@@ -166,6 +185,7 @@ const ModalsEditSpesifikasi = ({
                             placeholder="Masukkan Deskripsi Produk"
                             required
                             onChange={handleChangePutProduct}
+                            defaultValue={content.description}
                           ></textarea>
                         </div>
                       </>

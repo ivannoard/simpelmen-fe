@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
-import { BsSearch } from 'react-icons/bs';
-import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
-import ModalsRekap from './components/ModalsRekap';
+import React, { useEffect, useState } from "react";
+import { BsSearch } from "react-icons/bs";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { adminSuper } from "../../../services/api";
+import ModalsRekap from "./components/ModalsRekap";
 
 const Rekap = () => {
+  const user = localStorage.getItem("admin");
   const [toggleId, setToggleId] = useState();
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [data, setData] = useState();
 
   const closeModal = () => {
     setIsOpenModal(false);
@@ -13,8 +16,21 @@ const Rekap = () => {
 
   const detailModalHandling = (id) => {
     setIsOpenModal(true);
-    setToggleId(id);
+    // setToggleId(id);
   };
+
+  useEffect(() => {
+    const getData = async () => {
+      await adminSuper
+        .get("/rekap/pesanan", {
+          headers: {
+            "x-access-token": `${JSON.parse(user).data.token}`,
+          },
+        })
+        .then((response) => setData(response.data));
+    };
+    getData();
+  }, [user]);
 
   return (
     <>
@@ -22,7 +38,10 @@ const Rekap = () => {
         <div className="border-b border-orange-900">
           <h3 className="font-semibold pb-3">Rekap Pesanan</h3>
         </div>
-        <h6 className="mt-6 mb-4">Tabel Rekap Pesanan</h6>
+        <h6 className="mt-6 mb-4">
+          Tabel Rekap Pesanan{" "}
+          <span className="text-primary-900">NO DETAIL</span>
+        </h6>
         <div className="flex items-center justify-between mb-4">
           <div className="flex gap-2 items-center mr-4">
             <label htmlFor="sorting">Menampilkan</label>
@@ -76,16 +95,20 @@ const Rekap = () => {
                 </tr>
               </thead>
               <tbody>
-                {[1, 2, 3, 4, 5].map((item, index) => (
-                  <tr
-                    className="border-b"
-                    key={index}
-                  >
+                {data?.map((item, index) => (
+                  <tr className="border-b" key={index}>
                     <td className="text-center p-3">{index + 1}</td>
-                    <td className="text-center p-3">001/BIKDK/O/VII/2022</td>
-                    <td className="text-left p-3">Ikha Katering</td>
-                    <td className="text-center p-3">Admin Gudang</td>
-                    <td className="text-center p-3">Rp. 250.000</td>
+                    <td className="text-center p-3">{item.order_code}</td>
+                    <td className="text-left p-3">{item.users.user_ikm}</td>
+                    <td className="text-center p-3">
+                      {item.order_statuses[0]?.order_status_admin_code}
+                    </td>
+                    <td className="text-center p-3">
+                      Rp.{" "}
+                      {item.retributions[0]?.retribution_jasa_total !== null
+                        ? item.retributions[0]?.retribution_jasa_total
+                        : "0"}
+                    </td>
                     <td className="text-center p-3">
                       <div className="flex justify-center">
                         <button
@@ -128,7 +151,7 @@ const Rekap = () => {
       <ModalsRekap
         isOpen={isOpenModal}
         closeModal={closeModal}
-        idPesanan={toggleId}
+        // idPesanan={toggleId}
       />
     </>
   );

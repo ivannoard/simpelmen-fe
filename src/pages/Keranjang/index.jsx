@@ -70,8 +70,8 @@ const Keranjang = () => {
   // Set Dynamic Form
   const formProduct = (product, data) => {
     switch (product) {
-      case 1:
-        return <FormKarton />;
+      case "K":
+        return <FormKarton data={data} />;
       case 2:
         return <FormDus categoryName="Slobokan" />;
       case 3:
@@ -196,8 +196,8 @@ const Keranjang = () => {
                       </div>
                       <p className="text-xs xs:text-base">
                         {
-                          item?.order_details[0]?.products?.produk_categories
-                            ?.product_category_description
+                          item?.order_details[0]?.products?.product_categories
+                            ?.product_category_name
                         }
                       </p>
                       <p className="font-bold text-base xs:text-xl md:text-2xl mb-3 line-clamp-2">

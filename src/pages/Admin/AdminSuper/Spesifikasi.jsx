@@ -140,7 +140,18 @@ const Spesifikasi = () => {
     setIsOpenModal(true);
   };
 
-  const handleModalEdit = async (type, id, productName) => {
+  const handleModalEdit = async (
+    type,
+    id,
+    productName,
+    p1,
+    l1,
+    t1,
+    p2,
+    l2,
+    t2,
+    description
+  ) => {
     console.log(id);
     switch (type) {
       case "category":
@@ -184,6 +195,13 @@ const Spesifikasi = () => {
           placeholder: "Masukkan Deskripsi Produk",
           path: "/size",
           specificationName: productName,
+          p1: p1,
+          l1: l1,
+          t1: t1,
+          p2: p2,
+          l2: l2,
+          t2: t2,
+          description: description,
         });
         break;
       case "finishing":
@@ -761,7 +779,7 @@ const Spesifikasi = () => {
                       No
                     </th>
                     <th className="text-white text-center p-3 min-w-[160px] w-[22%]">
-                      Ukuran Produk
+                      Bentuk Ukuran
                     </th>
                     <th className="text-white text-center p-3 min-w-[180px] w-[45%]">
                       Deskripsi Produk
@@ -787,7 +805,14 @@ const Spesifikasi = () => {
                               handleModalEdit(
                                 "size",
                                 item.product_size_id,
-                                item.product_size_shape
+                                item.product_size_shape,
+                                item.product_size_length,
+                                item.product_size_width,
+                                item.product_size_height,
+                                item.product_size_length2,
+                                item.product_size_width2,
+                                item.product_size_height2,
+                                item.product_size_description
                               )
                             }
                           >

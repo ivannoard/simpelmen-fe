@@ -26,6 +26,52 @@ const Spesifikasi = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [failMessage, setFailMessage] = useState("");
 
+  const getCategoryProduct = async (token) => {
+    await commonAPI
+      .get("/category", {
+        headers: {
+          "x-access-token": `${token}`,
+        },
+      })
+      .then((response) => setCategoryProduct(response.data.data));
+  };
+  const getMaterialProduct = async (token) => {
+    await commonAPI
+      .get("/material", {
+        headers: {
+          "x-access-token": `${token}`,
+        },
+      })
+      .then((response) => setProductMaterial(response.data.data));
+  };
+  const getSizeProduct = async (token) => {
+    await commonAPI
+      .get("/size", {
+        headers: {
+          "x-access-token": `${token}`,
+        },
+      })
+      .then((response) => setProductSize(response.data.data));
+  };
+  const getFinsihingProduct = async (token) => {
+    await commonAPI
+      .get("/finishing", {
+        headers: {
+          "x-access-token": `${token}`,
+        },
+      })
+      .then((response) => setProductFinishing(response.data.data));
+  };
+  const getBentukProduct = async (token) => {
+    await commonAPI
+      .get("/jenisproducts", {
+        headers: {
+          "x-access-token": `${token}`,
+        },
+      })
+      .then((response) => setBentukProduk(response.data.data));
+  };
+
   const handleChangeProduct = (e) => {
     e.preventDefault();
     setPostProduct({
@@ -152,7 +198,6 @@ const Spesifikasi = () => {
     t2,
     description
   ) => {
-    console.log(id);
     switch (type) {
       case "category":
         setModalEditContent({
@@ -221,7 +266,7 @@ const Spesifikasi = () => {
     setIsOpenModalEdit(true);
   };
 
-  const submitModalHandler = async (e) => {
+  const submitModalHandler = async (e, type) => {
     e.preventDefault();
     await commonAPI
       .post(modalContent.path, postProduct, {
@@ -234,6 +279,20 @@ const Spesifikasi = () => {
           setModalContent({});
           setSuccessMessage("Spesifikasi berhasil ditambahkan!");
           setAlerts(true);
+          switch (type) {
+            case "kategori":
+              return getCategoryProduct(parseUser.data.token);
+            case "bahan":
+              return getMaterialProduct(parseUser.data.token);
+            case "bentuk":
+              return getBentukProduct(parseUser.data.token);
+            case "ukuran":
+              return getSizeProduct(parseUser.data.token);
+            case "finishing":
+              return getFinsihingProduct(parseUser.data.token);
+            default:
+              break;
+          }
         }, 2000);
         setIsOpenModal(false);
       })
@@ -243,7 +302,7 @@ const Spesifikasi = () => {
       });
   };
 
-  const submitEditModalHandler = async (e) => {
+  const submitEditModalHandler = async (e, type) => {
     e.preventDefault();
     await commonAPI
       .put(`${modalEditContent.path}/${modalEditContent.id}`, putProduct, {
@@ -256,6 +315,20 @@ const Spesifikasi = () => {
           setModalEditContent({});
           setSuccessMessage("Spesifikasi berhasil diubah!");
           setAlerts(true);
+          switch (type) {
+            case "kategori":
+              return getCategoryProduct(parseUser.data.token);
+            case "bahan":
+              return getMaterialProduct(parseUser.data.token);
+            case "bentuk":
+              return getBentukProduct(parseUser.data.token);
+            case "ukuran":
+              return getSizeProduct(parseUser.data.token);
+            case "finishing":
+              return getFinsihingProduct(parseUser.data.token);
+            default:
+              break;
+          }
         }, 2000);
         setIsOpenModalEdit(false);
       })
@@ -267,72 +340,27 @@ const Spesifikasi = () => {
 
   // category
   useEffect(() => {
-    const getCategoryProduct = async () => {
-      await commonAPI
-        .get("/category", {
-          headers: {
-            "x-access-token": `${parseUser.data.token}`,
-          },
-        })
-        .then((response) => setCategoryProduct(response.data.data));
-    };
-    getCategoryProduct();
+    getCategoryProduct(parseUser.data.token);
   }, [parseUser.data.token]);
 
   // material
   useEffect(() => {
-    const getMaterialProduct = async () => {
-      await commonAPI
-        .get("/material", {
-          headers: {
-            "x-access-token": `${parseUser.data.token}`,
-          },
-        })
-        .then((response) => setProductMaterial(response.data.data));
-    };
-    getMaterialProduct();
+    getMaterialProduct(parseUser.data.token);
   }, [parseUser.data.token]);
 
   // size
   useEffect(() => {
-    const getSizeProduct = async () => {
-      await commonAPI
-        .get("/size", {
-          headers: {
-            "x-access-token": `${parseUser.data.token}`,
-          },
-        })
-        .then((response) => setProductSize(response.data.data));
-    };
-    getSizeProduct();
+    getSizeProduct(parseUser.data.token);
   }, [parseUser.data.token]);
 
   // finishing
   useEffect(() => {
-    const getFinsihingProduct = async () => {
-      await commonAPI
-        .get("/finishing", {
-          headers: {
-            "x-access-token": `${parseUser.data.token}`,
-          },
-        })
-        .then((response) => setProductFinishing(response.data.data));
-    };
-    getFinsihingProduct();
+    getFinsihingProduct(parseUser.data.token);
   }, [parseUser.data.token]);
 
   // bentuk
   useEffect(() => {
-    const getBentukProduct = async () => {
-      await commonAPI
-        .get("/jenisproducts", {
-          headers: {
-            "x-access-token": `${parseUser.data.token}`,
-          },
-        })
-        .then((response) => setBentukProduk(response.data.data));
-    };
-    getBentukProduct();
+    getBentukProduct(parseUser.data.token);
   }, [parseUser.data.token]);
 
   useEffect(() => {

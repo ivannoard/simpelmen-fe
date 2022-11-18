@@ -48,7 +48,10 @@ const ModalsEditSpesifikasi = ({
                     Edit Spesifikasi
                   </Dialog.Title>
                   <hr className="mb-4 border-orange-900" />
-                  <form className="mb-2" onSubmit={submitHandler}>
+                  <form
+                    className="mb-2"
+                    onSubmit={(e) => submitHandler(e, content.type)}
+                  >
                     {content.type === "ukuran" ? (
                       <>
                         <div className="mb-5">

@@ -25,6 +25,16 @@ const Anggota = () => {
   const [adminRole, setAdminRole] = useState();
   const [updateId, setUpdateId] = useState();
 
+  const getDataAdmin = async (token) => {
+    await adminSuper
+      .get(`/data/admin`, {
+        headers: {
+          "x-access-token": `${token}`,
+        },
+      })
+      .then((response) => setDataAdmin(response.data.data));
+  };
+
   const closeModal = () => {
     setIsOpenModal(false);
   };
@@ -104,6 +114,7 @@ const Anggota = () => {
         setTimeout(() => {
           setAlertAdd(true);
           setAlertAddMessage("Admin Berhasil Ditambahkan!");
+          getDataAdmin(parseUser.data.token);
         }, 2000);
         setIsOpenModal(false);
       })
@@ -138,6 +149,7 @@ const Anggota = () => {
         setTimeout(() => {
           setAlertAdd(true);
           setAlertAddMessage("Admin Berhasil Diupdate!");
+          getDataAdmin(parseUser.data.token);
         }, 2000);
         setIsOpenModalEdit(false);
       })
@@ -152,17 +164,8 @@ const Anggota = () => {
 
   // get data admin
   useEffect(() => {
-    const getDataAdmin = async () => {
-      await adminSuper
-        .get(`/data/admin`, {
-          headers: {
-            "x-access-token": `${parseUser.data.token}`,
-          },
-        })
-        .then((response) => setDataAdmin(response.data.data));
-    };
-    getDataAdmin();
-  }, [parseUser.data.token, parseUser.data.user_status]);
+    getDataAdmin(parseUser.data.token);
+  }, [parseUser.data.token]);
 
   // alert state
   useEffect(() => {

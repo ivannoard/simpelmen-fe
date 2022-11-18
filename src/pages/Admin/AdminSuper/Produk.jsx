@@ -26,6 +26,12 @@ const Produk = () => {
   const [productFinishing, setProductFinishing] = useState();
   const [bentukProduk, setBentukProduk] = useState();
 
+  const getProduct = async () => {
+    await commonAPI
+      .get("/product")
+      .then((response) => setDataProduct(response.data));
+  };
+
   const handleChangeProduct = (e) => {
     e.preventDefault();
     setPostProduct({
@@ -33,21 +39,6 @@ const Produk = () => {
       [e.target.getAttribute("name")]: e.target.value,
     });
   };
-
-  async function handleDelete(e, id) {
-    e.preventDefault();
-    await commonAPI
-      .delete(`/product/${id}`, {
-        headers: {
-          "x-access-token": `${parseUser.data.token}`,
-        },
-      })
-      .then((response) => setAlerts(true))
-      .catch((e) => {
-        setFailMessage(e.message);
-        setAlertFail(true);
-      });
-  }
 
   const closeModalAdd = () => {
     setIsOpenModalAdd(false);
@@ -85,7 +76,11 @@ const Produk = () => {
           "x-access-token": `${parseUser.data.token}`,
         },
       })
-      .then((response) => setAlerts(true))
+      .then((response) => {
+        setIsOpenModalAdd(false);
+        setAlerts(true);
+        getProduct();
+      })
       .catch((e) => {
         setFailMessage(e.message);
         setAlertFail(true);
@@ -95,13 +90,26 @@ const Produk = () => {
     e.preventDefault();
   };
 
+  async function handleDelete(e, id) {
+    e.preventDefault();
+    await commonAPI
+      .delete(`/product/${id}`, {
+        headers: {
+          "x-access-token": `${parseUser.data.token}`,
+        },
+      })
+      .then((response) => {
+        setAlerts(true);
+        getProduct();
+      })
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
+  }
+
   // get product data
   useEffect(() => {
-    const getProduct = async () => {
-      await commonAPI
-        .get("/product")
-        .then((response) => setDataProduct(response.data));
-    };
     getProduct();
   }, []);
 

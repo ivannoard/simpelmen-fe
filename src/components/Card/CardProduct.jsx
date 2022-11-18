@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const CardProduct = (props) => {
-  console.log(props);
   return (
     <>
       <div className="w-full h-full py-4 2xsm:py-6 px-3 2xsm:px-5 rounded-2xl shadow-gray bg-white transition-all-200 hover:-translate-y-3">

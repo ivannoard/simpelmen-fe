@@ -5,6 +5,7 @@ import { getUser } from "../../services/api";
 import useGeoLocation from "../../hooks/useGeoLocation";
 import Alerts from "../../components/Alerts";
 import jwt_decode from "jwt-decode";
+import { VscEye, VscEyeClosed } from "react-icons/vsc";
 
 const Profile = () => {
   const currentUser = localStorage.getItem("user");
@@ -31,6 +32,13 @@ const Profile = () => {
     user_district: "",
     user_postal_code: "",
   });
+  const [passwordState, setPasswordState] = useState({
+    confirmChange: false,
+    newPassword: false,
+    confirmNewPassword: false,
+    confirmChangePassword: false,
+  });
+  // const [showPassword, setShowPassword] = useState(true);
   const { data: provinceData } = useGeoLocation(
     `https://simpelmen.herokuapp.com/api/province`
   );
@@ -51,6 +59,31 @@ const Profile = () => {
       [e.target.getAttribute("name")]: e.target.value,
     });
   }
+
+  const handleShowPassword = (type) => {
+    if (type === "confirmChange") {
+      setPasswordState({
+        ...passwordState,
+        confirmChange: !passwordState.confirmChange,
+      });
+    } else if (type === "newPassword") {
+      setPasswordState({
+        ...passwordState,
+        newPassword: !passwordState.newPassword,
+      });
+    } else if (type === "confirmNewPassword") {
+      setPasswordState({
+        ...passwordState,
+        confirmNewPassword: !passwordState.confirmNewPassword,
+      });
+    } else if (type === "confirmChangePassword") {
+      setPasswordState({
+        ...passwordState,
+        confirmChangePassword: !passwordState.confirmChangePassword,
+      });
+    }
+  };
+
   function handleSubmit(e) {
     e.preventDefault();
     setToggleConfirm(true);
@@ -393,7 +426,7 @@ const Profile = () => {
               </p>
             </div>
             <div className="col-span-4">
-              <div className="md:mt-4">
+              <div className="md:mt-4 relative">
                 <label
                   htmlFor="katasandi"
                   className="block mb-2 text-sm font-medium text-gray-700"
@@ -401,7 +434,7 @@ const Profile = () => {
                   Kata Sandi
                 </label>
                 <input
-                  type="password"
+                  type={passwordState.confirmChange ? "text" : "password"}
                   className="input-field-xs"
                   placeholder="Masukkan Kata Sandi"
                   name="katasandi"
@@ -411,6 +444,17 @@ const Profile = () => {
                   autoComplete="on"
                   onChange={handleChange}
                 />
+                {passwordState.confirmChange ? (
+                  <VscEyeClosed
+                    className="absolute text-xl top-11 right-4 fill-secondary-800 cursor-pointer"
+                    onClick={() => handleShowPassword("confirmChange")}
+                  />
+                ) : (
+                  <VscEye
+                    className="absolute text-xl top-11 right-4 fill-secondary-800 cursor-pointer"
+                    onClick={() => handleShowPassword("confirmChange")}
+                  />
+                )}
               </div>
             </div>
 
@@ -444,7 +488,7 @@ const Profile = () => {
               </h4>
             </div>
             <div className="col-span-4">
-              <div className="">
+              <div className="relative">
                 <label
                   htmlFor="user_password_new"
                   className="block mb-2 text-sm font-medium text-gray-700"
@@ -452,7 +496,7 @@ const Profile = () => {
                   Kata Sandi Baru
                 </label>
                 <input
-                  type="password"
+                  type={passwordState.newPassword ? "text" : "password"}
                   className="input-field-xs"
                   placeholder="Masukkan Kata Sandi Baru"
                   name="user_password_new"
@@ -462,10 +506,21 @@ const Profile = () => {
                   autoComplete="on"
                   onChange={handlePwdChange}
                 />
+                {passwordState.newPassword ? (
+                  <VscEyeClosed
+                    className="absolute text-xl top-11 right-4 fill-secondary-800 cursor-pointer"
+                    onClick={() => handleShowPassword("newPassword")}
+                  />
+                ) : (
+                  <VscEye
+                    className="absolute text-xl top-11 right-4 fill-secondary-800 cursor-pointer"
+                    onClick={() => handleShowPassword("newPassword")}
+                  />
+                )}
               </div>
             </div>
             <div className="col-span-4">
-              <div className="">
+              <div className="relative">
                 <label
                   htmlFor="user_confirm_password"
                   className="block mb-2 text-sm font-medium text-gray-700"
@@ -473,7 +528,7 @@ const Profile = () => {
                   Konfirmasi Kata Sandi Baru
                 </label>
                 <input
-                  type="password"
+                  type={passwordState.confirmNewPassword ? "text" : "password"}
                   className="input-field-xs"
                   placeholder="Masukkan Konfirmasi Kata Sandi Baru"
                   name="user_confirm_password"
@@ -483,6 +538,17 @@ const Profile = () => {
                   autoComplete="on"
                   onChange={handlePwdChange}
                 />
+                {passwordState.confirmNewPassword ? (
+                  <VscEyeClosed
+                    className="absolute text-xl top-11 right-4 fill-secondary-800 cursor-pointer"
+                    onClick={() => handleShowPassword("confirmNewPassword")}
+                  />
+                ) : (
+                  <VscEye
+                    className="absolute text-xl top-11 right-4 fill-secondary-800 cursor-pointer"
+                    onClick={() => handleShowPassword("confirmNewPassword")}
+                  />
+                )}
               </div>
             </div>
             <div className="col-span-4 md:col-span-8">
@@ -493,7 +559,7 @@ const Profile = () => {
               </p>
             </div>
             <div className="col-span-4">
-              <div className="md:mt-4">
+              <div className="md:mt-4 relative">
                 <label
                   htmlFor="user_password_old"
                   className="block mb-2 text-sm font-medium text-gray-700"
@@ -501,7 +567,9 @@ const Profile = () => {
                   Kata Sandi Lama
                 </label>
                 <input
-                  type="password"
+                  type={
+                    passwordState.confirmChangePassword ? "text" : "password"
+                  }
                   className="input-field-xs"
                   placeholder="Masukkan Kata Sandi Lama"
                   name="user_password_old"
@@ -511,6 +579,17 @@ const Profile = () => {
                   autoComplete="on"
                   onChange={handlePwdChange}
                 />
+                {passwordState.confirmChangePassword ? (
+                  <VscEyeClosed
+                    className="absolute text-xl top-11 right-4 fill-secondary-800 cursor-pointer"
+                    onClick={() => handleShowPassword("confirmChangePassword")}
+                  />
+                ) : (
+                  <VscEye
+                    className="absolute text-xl top-11 right-4 fill-secondary-800 cursor-pointer"
+                    onClick={() => handleShowPassword("confirmChangePassword")}
+                  />
+                )}
               </div>
             </div>
 

@@ -13,6 +13,16 @@ const Dashboard = () => {
   const [alertFail, setAlertFail] = useState(false);
   const [failMessage, setFailMessage] = useState("");
 
+  const getData = async (token) => {
+    await adminTU
+      .get("/orders", {
+        headers: {
+          "x-access-token": `${token}`,
+        },
+      })
+      .then((response) => setOrderData(response.data));
+  };
+
   async function accept(id) {
     await adminTU
       .put(
@@ -26,7 +36,10 @@ const Dashboard = () => {
           },
         }
       )
-      .then((response) => setAlerts(true))
+      .then((response) => {
+        setAlerts(true);
+        getData(parseUser.data.token);
+      })
       .catch((e) => {
         setFailMessage(e.message);
         setAlertFail(true);
@@ -46,7 +59,10 @@ const Dashboard = () => {
           },
         }
       )
-      .then((response) => setAlerts(true))
+      .then((response) => {
+        setAlerts(true);
+        getData(parseUser.data.token);
+      })
       .catch((e) => {
         setFailMessage(e.message);
         setAlertFail(true);
@@ -70,16 +86,7 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    const getData = async () => {
-      await adminTU
-        .get("/orders", {
-          headers: {
-            "x-access-token": `${parseUser.data.token}`,
-          },
-        })
-        .then((response) => setOrderData(response.data));
-    };
-    getData();
+    getData(parseUser.data.token);
   }, [parseUser.data.token]);
 
   useEffect(() => {

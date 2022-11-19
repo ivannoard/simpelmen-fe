@@ -56,7 +56,11 @@ const Dashboard = () => {
               <tr className=" border-b" key={index}>
                 <td className="text-center py-3">{index + 1}</td>
                 <td className="text-center py-3">{item.order_code}</td>
-                <td className="text-center py-3">{item.createdAt}</td>
+                <td className="text-center py-3">{`${new Date(
+                  item.createdAt
+                ).getDate()} - ${
+                  new Date(item.createdAt).getMonth() + 1
+                } - ${new Date(item.createdAt).getFullYear()}`}</td>
                 <td className="text-center py-3">{item.users.user_ikm}</td>
                 <td className="text-center py-3">
                   <div className="flex gap-2 w-full justify-center">
@@ -145,7 +149,10 @@ const Dashboard = () => {
                   {item.orders.users.user_ikm}
                 </td>
                 <td className="text-center py-3">
-                  Rp. {item.retribution_jasa_total}
+                  Rp.{" "}
+                  {item.retribution_jasa_total
+                    ? item.retribution_jasa_total
+                    : "0"}
                 </td>
                 <td className="text-center py-3">
                   {item.retribution_pad_status === 2 ? (

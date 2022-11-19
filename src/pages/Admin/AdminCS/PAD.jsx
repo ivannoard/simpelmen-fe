@@ -292,9 +292,9 @@ const PAD = () => {
                             : ""
                         } input-field-select-xs !border-none !font-semibold !text-white !w-auto !pr-12`}
                       >
-                        <option value="1">Status PO</option>
-                        <option value="2">Diterima</option>
-                        <option value="3">Belum Disetujui</option>
+                        <option value="1">Status PAD</option>
+                        <option value="2">Setor</option>
+                        <option value="3">Belum Setor</option>
                       </select>
                       <IoIosArrowDown className="absolute right-4 top-[15px] text-base fill-white" />
                     </div>

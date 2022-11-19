@@ -12,6 +12,16 @@ const Pembayaran = () => {
   const [alertFail, setAlertFail] = useState(false);
   const [failMessage, setFailMessage] = useState("");
 
+  const getData = async (token) => {
+    await adminKasir
+      .get("/orders", {
+        headers: {
+          "x-access-token": `${token}`,
+        },
+      })
+      .then((response) => setSellData(response.data));
+  };
+
   async function dpOrder(id) {
     await adminKasir
       .put(
@@ -25,7 +35,10 @@ const Pembayaran = () => {
           },
         }
       )
-      .then((response) => setAlerts(true))
+      .then((response) => {
+        setAlerts(true);
+        getData(parseUser.data.token);
+      })
       .catch((e) => {
         setFailMessage(e.message);
         setAlertFail(true);
@@ -45,7 +58,10 @@ const Pembayaran = () => {
           },
         }
       )
-      .then((response) => setAlerts(true))
+      .then((response) => {
+        setAlerts(true);
+        getData(parseUser.data.token);
+      })
       .catch((e) => {
         setFailMessage(e.message);
         setAlertFail(true);
@@ -84,7 +100,10 @@ const Pembayaran = () => {
           },
         }
       )
-      .then((response) => setAlerts(true))
+      .then((response) => {
+        setAlerts(true);
+        getData(parseUser.data.token);
+      })
       .catch((e) => {
         setFailMessage(e.message);
         setAlertFail(true);
@@ -104,7 +123,10 @@ const Pembayaran = () => {
           },
         }
       )
-      .then((response) => setAlerts(true))
+      .then((response) => {
+        setAlerts(true);
+        getData(parseUser.data.token);
+      })
       .catch((e) => {
         setFailMessage(e.message);
         setAlertFail(true);
@@ -129,16 +151,7 @@ const Pembayaran = () => {
   }
 
   useEffect(() => {
-    const getData = async () => {
-      await adminKasir
-        .get("/orders", {
-          headers: {
-            "x-access-token": `${parseUser.data.token}`,
-          },
-        })
-        .then((response) => setSellData(response.data));
-    };
-    getData();
+    getData(parseUser.data.token);
   }, [parseUser.data.token]);
 
   useEffect(() => {

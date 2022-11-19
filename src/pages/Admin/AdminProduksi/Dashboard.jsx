@@ -16,6 +16,16 @@ const Dashboard = () => {
   const [alertFail, setAlertFail] = useState(false);
   const [failMessage, setFailMessage] = useState("");
 
+  const getData = async (token) => {
+    await adminProduksi
+      .get("/orders", {
+        headers: {
+          "x-access-token": `${token}`,
+        },
+      })
+      .then((response) => setProductData(response.data));
+  };
+
   const closeModal = () => {
     setIsOpenModal(false);
   };
@@ -44,7 +54,10 @@ const Dashboard = () => {
           },
         }
       )
-      .then((response) => setAlerts(true))
+      .then((response) => {
+        setAlerts(true);
+        getData(parseUser.data.token);
+      })
       .catch((e) => {
         setFailMessage(e.message);
         setAlertFail(true);
@@ -63,7 +76,10 @@ const Dashboard = () => {
           },
         }
       )
-      .then((response) => setAlerts(true))
+      .then((response) => {
+        setAlerts(true);
+        getData(parseUser.data.token);
+      })
       .catch((e) => {
         setFailMessage(e.message);
         setAlertFail(true);
@@ -82,7 +98,10 @@ const Dashboard = () => {
           },
         }
       )
-      .then((response) => setAlerts(true))
+      .then((response) => {
+        setAlerts(true);
+        getData(parseUser.data.token);
+      })
       .catch((e) => {
         setFailMessage(e.message);
         setAlertFail(true);
@@ -109,16 +128,7 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    const getData = async () => {
-      await adminProduksi
-        .get("/orders", {
-          headers: {
-            "x-access-token": `${parseUser.data.token}`,
-          },
-        })
-        .then((response) => setProductData(response.data));
-    };
-    getData();
+    getData(parseUser.data.token);
   }, [parseUser.data.token]);
 
   useEffect(() => {
@@ -150,10 +160,7 @@ const Dashboard = () => {
         <div className="border-b border-orange-900">
           <h3 className="font-semibold pb-3">Dashboard Produksi </h3>
         </div>
-        <h6 className="mt-10 mb-4">
-          Tabel Status Produksi{" "}
-          <span className="text-primary-900 font-semibold">GAADA IKM</span>
-        </h6>
+        <h6 className="mt-10 mb-4">Tabel Status Produksi</h6>
         <div className="flex items-center justify-between mb-4">
           <div className="flex gap-2 items-center mr-4">
             <label htmlFor="sorting">Menampilkan</label>
@@ -215,9 +222,7 @@ const Dashboard = () => {
                     ).getDate()} - ${
                       new Date(item.createdAt).getMonth() + 1
                     } - ${new Date(item.createdAt).getFullYear()}`}</td>
-                    <td className="text-left p-3 text-primary-900 font-semibold">
-                      IKM GAADA
-                    </td>
+                    <td className="text-left p-3">{item.users.user_ikm}</td>
                     <td className="text-center p-3">
                       <div className="relative">
                         <select

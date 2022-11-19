@@ -21,6 +21,16 @@ const Dashboard = () => {
     delivery_detail_estimate: "",
   });
 
+  const getData = async (token) => {
+    await adminGudang
+      .get("/orders", {
+        headers: {
+          "x-access-token": `${token}`,
+        },
+      })
+      .then((response) => setWarehouseData(response.data));
+  };
+
   async function shipping(id, status) {
     await adminGudang
       .put(
@@ -34,7 +44,10 @@ const Dashboard = () => {
           },
         }
       )
-      .then((response) => setAlerts(true))
+      .then((response) => {
+        setAlerts(true);
+        getData(parseUser.data.token);
+      })
       .catch((e) => {
         setFailMessage(e.message);
         setAlertFail(true);
@@ -78,16 +91,7 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    const getData = async () => {
-      await adminGudang
-        .get("/orders", {
-          headers: {
-            "x-access-token": `${parseUser.data.token}`,
-          },
-        })
-        .then((response) => setWarehouseData(response.data));
-    };
-    getData();
+    getData(parseUser.data.token);
   }, [parseUser.data.token]);
 
   useEffect(() => {
@@ -208,11 +212,11 @@ const Dashboard = () => {
                               {item.order_status === 4
                                 ? "Status PO"
                                 : item.order_status === 2
-                                ? "Diterima"
-                                : "Belum Disetujui"}
+                                ? "Dikirim"
+                                : "Belum Dikirim"}
                             </option>
                             <option value="4">Status PO</option>
-                            <option value="2">Dikirm</option>
+                            <option value="2">Dikirim</option>
                             <option value="3">Belum Dikirim</option>
                           </select>
                           <IoIosArrowDown className="absolute right-4 top-[15px] text-base fill-white" />

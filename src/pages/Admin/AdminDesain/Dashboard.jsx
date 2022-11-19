@@ -88,7 +88,7 @@ const Dashboard = () => {
           </nav>
         </article>
 
-        <h6 className="mt-10 mb-4">Tabel Status Desain</h6>
+        {/* <h6 className="mt-10 mb-4">Tabel Status Desain</h6>
         <article id="tableStatusDesain">
           <div className="overflow-x-auto">
             <table className="table-auto mb-4 w-full">
@@ -125,21 +125,6 @@ const Dashboard = () => {
                     <td>belum</td>
                   </tr>
                 ))}
-                {/* {[1, 2, 3, 4, 5].map((item) => (
-                  <tr className="border-b" key={item}>
-                    <td className="text-center p-3">{item}</td>
-                    <td className="text-center p-3">001/BIKDK/O/VII/2022</td>
-                    <td className="text-center p-3">12 September 2022</td>
-                    <td className="text-left p-3">Ikha Katering</td>
-                    <td className="text-center p-3">
-                      <div className="flex justify-center">
-                        <div className="bg-[#21B630] text-white py-2 px-3 rounded-lg font-semibold">
-                          Disetujui
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                ))} */}
               </tbody>
             </table>
           </div>
@@ -163,7 +148,7 @@ const Dashboard = () => {
               <HiChevronRight className="!text-base xs:!text-xl" />
             </button>
           </nav>
-        </article>
+        </article> */}
       </section>
     </>
   );

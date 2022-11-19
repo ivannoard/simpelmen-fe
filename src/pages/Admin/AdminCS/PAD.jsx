@@ -13,6 +13,16 @@ const PAD = () => {
   const [alertFail, setAlertFail] = useState(false);
   const [failMessage, setFailMessage] = useState("");
 
+  const getData = async (token) => {
+    await adminCS
+      .get("/pad", {
+        headers: {
+          "x-access-token": `${token}`,
+        },
+      })
+      .then((response) => setData(response.data));
+  };
+
   async function padStatus(status, id) {
     await adminCS
       .put(
@@ -26,7 +36,10 @@ const PAD = () => {
           },
         }
       )
-      .then((response) => setAlerts(true))
+      .then((response) => {
+        setAlerts(true);
+        getData(parseUser.data.token);
+      })
       .catch((e) => {
         setFailMessage(e.message);
         setAlertFail(true);
@@ -39,16 +52,7 @@ const PAD = () => {
   }
 
   useEffect(() => {
-    const getData = async () => {
-      await adminCS
-        .get("/pad", {
-          headers: {
-            "x-access-token": `${parseUser.data.token}`,
-          },
-        })
-        .then((response) => setData(response.data));
-    };
-    getData();
+    getData(parseUser.data.token);
   }, [parseUser.data.token]);
 
   useEffect(() => {

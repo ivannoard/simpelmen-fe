@@ -13,6 +13,16 @@ const Status = () => {
   const [alertFail, setAlertFail] = useState(false);
   const [failMessage, setFailMessage] = useState("");
 
+  const getData = async (token) => {
+    await adminCS
+      .get("/orders", {
+        headers: {
+          "x-access-token": `${token}`,
+        },
+      })
+      .then((response) => setData(response.data));
+  };
+
   const declineStatus = async (id, status) => {
     await adminCS
       .put(
@@ -24,7 +34,10 @@ const Status = () => {
           },
         }
       )
-      .then((response) => setAlerts(true))
+      .then((response) => {
+        setAlerts(true);
+        getData(parseUser.data.token);
+      })
       .catch((e) => {
         setFailMessage(e.message);
         setAlertFail(true);
@@ -41,7 +54,10 @@ const Status = () => {
           },
         }
       )
-      .then((response) => setAlerts(true))
+      .then((response) => {
+        setAlerts(true);
+        getData(parseUser.data.token);
+      })
       .catch((e) => {
         setFailMessage(e.message);
         setAlertFail(true);
@@ -69,16 +85,7 @@ const Status = () => {
   }
 
   useEffect(() => {
-    const getData = async () => {
-      await adminCS
-        .get("/orders", {
-          headers: {
-            "x-access-token": `${parseUser.data.token}`,
-          },
-        })
-        .then((response) => setData(response.data));
-    };
-    getData();
+    getData(parseUser.data.token);
   }, [parseUser.data.token]);
 
   useEffect(() => {

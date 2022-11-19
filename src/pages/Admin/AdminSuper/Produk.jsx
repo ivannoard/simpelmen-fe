@@ -17,6 +17,7 @@ const Produk = () => {
   const [detailData, setDetailData] = useState();
   const [dataProduct, setDataProduct] = useState();
   const [postProduct, setPostProduct] = useState();
+  const [putProduct, setPutProduct] = useState();
   const [alerts, setAlerts] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
   const [failMessage, setFailMessage] = useState("");
@@ -31,11 +32,63 @@ const Produk = () => {
       .get("/product")
       .then((response) => setDataProduct(response.data));
   };
+  const getCategoryProduct = async (token) => {
+    await commonAPI
+      .get("/category", {
+        headers: {
+          "x-access-token": `${token}`,
+        },
+      })
+      .then((response) => setCategoryProduct(response.data.data));
+  };
+  const getMaterialProduct = async (token) => {
+    await commonAPI
+      .get("/material", {
+        headers: {
+          "x-access-token": `${token}`,
+        },
+      })
+      .then((response) => setProductMaterial(response.data.data));
+  };
+  const getSizeProduct = async (token) => {
+    await commonAPI
+      .get("/size", {
+        headers: {
+          "x-access-token": `${token}`,
+        },
+      })
+      .then((response) => setProductSize(response.data.data));
+  };
+  const getFinsihingProduct = async (token) => {
+    await commonAPI
+      .get("/finishing", {
+        headers: {
+          "x-access-token": `${token}`,
+        },
+      })
+      .then((response) => setProductFinishing(response.data.data));
+  };
+  const getBentukProduct = async (token) => {
+    await commonAPI
+      .get("/jenisproducts", {
+        headers: {
+          "x-access-token": `${token}`,
+        },
+      })
+      .then((response) => setBentukProduk(response.data.data));
+  };
 
   const handleChangeProduct = (e) => {
     e.preventDefault();
     setPostProduct({
       ...postProduct,
+      [e.target.getAttribute("name")]: e.target.value,
+    });
+  };
+  const handleChangePutProduct = (e) => {
+    e.preventDefault();
+    setPutProduct({
+      ...putProduct,
       [e.target.getAttribute("name")]: e.target.value,
     });
   };
@@ -56,8 +109,11 @@ const Produk = () => {
     setIsOpenModalAdd(true);
   };
 
-  const modalEditHandling = (id) => {
+  const modalEditHandling = async (id) => {
     setIsOpenModalEdit(true);
+    await commonAPI
+      .get(`/product/${id}`)
+      .then((response) => setDetailData(response.data));
   };
 
   const modalDetailHandling = async (id) => {
@@ -69,7 +125,6 @@ const Produk = () => {
 
   const submitProdukHandler = async (e) => {
     e.preventDefault();
-    console.log(postProduct);
     await commonAPI
       .post("/product", postProduct, {
         headers: {
@@ -86,8 +141,23 @@ const Produk = () => {
         setAlertFail(true);
       });
   };
-  const submitEditProdukHandler = (e) => {
+  const submitEditProdukHandler = async (e) => {
     e.preventDefault();
+    await commonAPI
+      .put(`/product/${detailData.product_id}`, putProduct, {
+        headers: {
+          "x-access-token": `${parseUser.data.token}`,
+        },
+      })
+      .then((response) => {
+        setIsOpenModalEdit(false);
+        setAlerts(true);
+        getProduct();
+      })
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
   };
 
   async function handleDelete(e, id) {
@@ -111,76 +181,11 @@ const Produk = () => {
   // get product data
   useEffect(() => {
     getProduct();
-  }, []);
-
-  // category
-  useEffect(() => {
-    const getCategoryProduct = async () => {
-      await commonAPI
-        .get("/category", {
-          headers: {
-            "x-access-token": `${parseUser.data.token}`,
-          },
-        })
-        .then((response) => setCategoryProduct(response.data.data));
-    };
-    getCategoryProduct();
-  }, [parseUser.data.token]);
-
-  // material
-  useEffect(() => {
-    const getMaterialProduct = async () => {
-      await commonAPI
-        .get("/material", {
-          headers: {
-            "x-access-token": `${parseUser.data.token}`,
-          },
-        })
-        .then((response) => setProductMaterial(response.data.data));
-    };
-    getMaterialProduct();
-  }, [parseUser.data.token]);
-
-  // size
-  useEffect(() => {
-    const getSizeProduct = async () => {
-      await commonAPI
-        .get("/size", {
-          headers: {
-            "x-access-token": `${parseUser.data.token}`,
-          },
-        })
-        .then((response) => setProductSize(response.data.data));
-    };
-    getSizeProduct();
-  }, [parseUser.data.token]);
-
-  // finishing
-  useEffect(() => {
-    const getFinsihingProduct = async () => {
-      await commonAPI
-        .get("/finishing", {
-          headers: {
-            "x-access-token": `${parseUser.data.token}`,
-          },
-        })
-        .then((response) => setProductFinishing(response.data.data));
-    };
-    getFinsihingProduct();
-  }, [parseUser.data.token]);
-
-  // bentuk
-  useEffect(() => {
-    const getBentukProduct = async () => {
-      await commonAPI
-        .get("/jenisproducts", {
-          headers: {
-            "x-access-token": `${parseUser.data.token}`,
-          },
-        })
-        .then((response) => setBentukProduk(response.data.data));
-    };
-    getBentukProduct();
+    getCategoryProduct(parseUser.data.token);
+    getMaterialProduct(parseUser.data.token);
+    getSizeProduct(parseUser.data.token);
+    getFinsihingProduct(parseUser.data.token);
+    getBentukProduct(parseUser.data.token);
   }, [parseUser.data.token]);
 
   useEffect(() => {
@@ -213,12 +218,7 @@ const Produk = () => {
           <h3 className="font-semibold pb-3">Produk</h3>
         </div>
         <div className="flex flex-col gap-y-4 xs:gap-y-0 xs:flex-row xs:items-center justify-between mb-4">
-          <h6 className="">
-            Tabel Produk{" "}
-            <span className="text-primary-900 font-semibold">
-              GAADA SPESIFIKASI + METHOD PUT GA JELAS
-            </span>
-          </h6>
+          <h6 className="">Tabel Produk</h6>
           <div>
             <button
               onClick={modalAddHandling}
@@ -353,6 +353,12 @@ const Produk = () => {
         closeModal={closeModalEdit}
         submitHandler={submitEditProdukHandler}
         detailData={detailData}
+        handleChangePutProduct={handleChangePutProduct}
+        categoryProduct={categoryProduct}
+        productMaterial={productMaterial}
+        productSize={productSize}
+        productFinishing={productFinishing}
+        bentukProduk={bentukProduk}
       />
 
       {/* Modal Detail Produk */}

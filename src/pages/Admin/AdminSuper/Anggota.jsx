@@ -202,7 +202,7 @@ const Anggota = () => {
           <h6 className="">
             Tabel Admin{" "}
             <span className="text-primary-900 font-semibold">
-              NO ENDPOINT DELETE + ERROR 500
+              NO ENDPOINT DELETE
             </span>
           </h6>
           <div>

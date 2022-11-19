@@ -8,7 +8,14 @@ const ModalsEditProduk = ({
   closeModal,
   submitHandler,
   detailData,
+  handleChangePutProduct,
+  categoryProduct,
+  productMaterial,
+  productSize,
+  productFinishing,
+  bentukProduk,
 }) => {
+  console.log(detailData);
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -45,7 +52,7 @@ const ModalsEditProduk = ({
                     as="h3"
                     className="text-2xl font-bold pt-8 mb-3"
                   >
-                    Edit Produk
+                    Tambah Produk
                   </Dialog.Title>
                   <hr className="mb-6 border-orange-900" />
 
@@ -54,16 +61,25 @@ const ModalsEditProduk = ({
                       <div className="col-span-2">
                         <div className="mb-4 relative">
                           <label
-                            htmlFor="namaProduk"
+                            htmlFor="product_name"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
                             Nama Produk <span className="text-red-600">*</span>
                           </label>
-                          <select
-                            id="namaProduk"
+                          <input
+                            type="text"
+                            className="input-field-xs"
+                            name="product_name"
+                            id="product_name"
+                            onChange={handleChangePutProduct}
+                            defaultValue={detailData?.product_name}
+                          />
+                          {/* <select
+                            id="product_name"
                             name="namaProduk"
                             className="input-field-select-xs"
                             required
+                            onChange={handleChangePutProduct}
                           >
                             <option>Pilih Produk</option>
                             <option value="1">Produk 1</option>
@@ -72,30 +88,41 @@ const ModalsEditProduk = ({
                             <option value="4">Produk 4</option>
                             <option value="5">Produk 5</option>
                           </select>
-                          <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
+                          <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" /> */}
                         </div>
                       </div>
                       <div className="col-span-2">
                         <div className="mb-4 relative">
                           <label
-                            htmlFor="kategori"
+                            htmlFor="product_category_id"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
                             Kategori Produk{" "}
                             <span className="text-red-600">*</span>
                           </label>
                           <select
-                            id="kategori"
-                            name="kategori"
+                            id="product_category_id"
+                            name="product_category_id"
                             className="input-field-select-xs"
                             required
+                            onChange={handleChangePutProduct}
                           >
-                            <option>Pilih Kategori</option>
-                            <option value="1">Kategori 1</option>
-                            <option value="2">Kategori 2</option>
-                            <option value="3">Kategori 3</option>
-                            <option value="4">Kategori 4</option>
-                            <option value="5">Kategori 5</option>
+                            <option
+                              value={
+                                detailData?.product_categories
+                                  .product_category_id
+                              }
+                            >
+                              {
+                                detailData?.product_categories
+                                  .product_category_name
+                              }
+                            </option>
+                            {categoryProduct?.map((item) => (
+                              <option value={item.product_category_id}>
+                                {item.product_category_name}
+                              </option>
+                            ))}
                           </select>
                           <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
                         </div>
@@ -103,23 +130,30 @@ const ModalsEditProduk = ({
                       <div className="col-span-2">
                         <div className="mb-4 relative">
                           <label
-                            htmlFor="jenisProduk"
+                            htmlFor="jenis_product_id"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
                             Jenis Produk <span className="text-red-600">*</span>
                           </label>
                           <select
-                            id="jenisProduk"
-                            name="jenisProduk"
+                            id="jenis_product_id"
+                            name="jenis_product_id"
                             className="input-field-select-xs"
                             required
+                            onChange={handleChangePutProduct}
                           >
-                            <option>Pilih Jenis Produk</option>
-                            <option value="1">Jenis Produk 1</option>
-                            <option value="2">Jenis Produk 2</option>
-                            <option value="3">Jenis Produk 3</option>
-                            <option value="4">Jenis Produk 4</option>
-                            <option value="5">Jenis Produk 5</option>
+                            <option
+                              value={
+                                detailData?.jenis_products.jenis_product_id
+                              }
+                            >
+                              {detailData?.jenis_products.jenis_product_name}
+                            </option>
+                            {bentukProduk?.map((item) => (
+                              <option value={item.jenis_product_id}>
+                                {item.jenis_product_name}
+                              </option>
+                            ))}
                           </select>
                           <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
                         </div>
@@ -127,42 +161,48 @@ const ModalsEditProduk = ({
                       <div className="col-span-2">
                         <div className="mb-4">
                           <label
-                            htmlFor="beratProduk"
+                            htmlFor="product_weight"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
                             Berat Produk <span className="text-red-600">*</span>
                           </label>
                           <input
                             type="text"
-                            name="beratProduk"
-                            id="beratProduk"
+                            name="product_weight"
+                            id="product_weight"
                             className="input-field-xs"
                             placeholder="Masukkan Berat Produk"
                             required
+                            onChange={handleChangePutProduct}
+                            defaultValue={detailData?.product_weight}
                           />
                         </div>
                       </div>
                       <div className="col-span-2">
                         <div className="mb-4 relative">
                           <label
-                            htmlFor="ukuranProduk"
+                            htmlFor="product_size_id"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
                             Ukuran Produk{" "}
                             <span className="text-red-600">*</span>
                           </label>
                           <select
-                            id="ukuranProduk"
-                            name="ukuranProduk"
+                            id="product_size_id"
+                            name="product_size_id"
                             className="input-field-select-xs"
                             required
+                            onChange={handleChangePutProduct}
                           >
-                            <option>Pilih Ukuran Produk</option>
-                            <option value="1">Ukuran Produk 1</option>
-                            <option value="2">Ukuran Produk 2</option>
-                            <option value="3">Ukuran Produk 3</option>
-                            <option value="4">Ukuran Produk 4</option>
-                            <option value="5">Ukuran Produk 5</option>
+                            <option
+                              value={detailData?.product_sizes.product_size_id}
+                            >
+                              {detailData?.product_sizes.product_size_length} x{" "}
+                              {detailData?.product_sizes.product_size_width}
+                            </option>
+                            {productSize?.map((item) => (
+                              <option value="1">Ukuran Produk 1</option>
+                            ))}
                           </select>
                           <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
                         </div>
@@ -170,23 +210,34 @@ const ModalsEditProduk = ({
                       <div className="col-span-2">
                         <div className="mb-4 relative">
                           <label
-                            htmlFor="bahanProduk"
+                            htmlFor="product_material_id"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
                             Bahan Produk <span className="text-red-600">*</span>
                           </label>
                           <select
-                            id="bahanProduk"
-                            name="bahanProduk"
+                            id="product_material_id"
+                            name="product_material_id"
                             className="input-field-select-xs"
                             required
+                            onChange={handleChangePutProduct}
                           >
-                            <option>Pilih Bahan Produk</option>
-                            <option value="1">Bahan Produk 1</option>
-                            <option value="2">Bahan Produk 2</option>
-                            <option value="3">Bahan Produk 3</option>
-                            <option value="4">Bahan Produk 4</option>
-                            <option value="5">Bahan Produk 5</option>
+                            <option
+                              value={
+                                detailData?.product_materials
+                                  .product_material_id
+                              }
+                            >
+                              {
+                                detailData?.product_materials
+                                  .product_material_name
+                              }
+                            </option>
+                            {productMaterial?.map((item) => (
+                              <option value={item.product_material_id}>
+                                {item.product_material_name}
+                              </option>
+                            ))}
                           </select>
                           <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
                         </div>
@@ -194,24 +245,35 @@ const ModalsEditProduk = ({
                       <div className="col-span-2">
                         <div className="mb-4 relative">
                           <label
-                            htmlFor="finishingProduk"
+                            htmlFor="product_finishing_id"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
                             Finishing Produk{" "}
                             <span className="text-red-600">*</span>
                           </label>
                           <select
-                            id="finishingProduk"
-                            name="finishingProduk"
+                            id="product_finishing_id"
+                            name="product_finishing_id"
                             className="input-field-select-xs"
                             required
+                            onChange={handleChangePutProduct}
                           >
-                            <option>Pilih Finishing Produk</option>
-                            <option value="1">Finishing Produk 1</option>
-                            <option value="2">Finishing Produk 2</option>
-                            <option value="3">Finishing Produk 3</option>
-                            <option value="4">Finishing Produk 4</option>
-                            <option value="5">Finishing Produk 5</option>
+                            <option
+                              value={
+                                detailData?.product_finishings
+                                  .product_finishing_id
+                              }
+                            >
+                              {
+                                detailData?.product_finishings
+                                  .product_finishing_name
+                              }
+                            </option>
+                            {productFinishing?.map((item) => (
+                              <option value={item.product_finishing_id}>
+                                {item.product_finishing_name}
+                              </option>
+                            ))}
                           </select>
                           <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
                         </div>
@@ -219,45 +281,69 @@ const ModalsEditProduk = ({
                       <div className="col-span-2">
                         <div className="mb-4">
                           <label
-                            htmlFor="fotoProduk"
+                            htmlFor="product_image"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
                             Foto Produk <span className="text-red-600">*</span>
                           </label>
                           <input
                             type="file"
-                            name="fotoProduk"
-                            id="fotoProduk"
+                            name="product_image"
+                            id="product_image"
                             className="input-field-xs"
                             required
+                            onChange={handleChangePutProduct}
+                            // defaultValue={detailData?.product_image}
                           />
                         </div>
                       </div>
                       <div className="col-span-2">
                         <div className="mb-4">
                           <label
-                            htmlFor="deskripsiProduk"
+                            htmlFor="product_description"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
                             Deskripsi Produk{" "}
                             <span className="text-red-600">*</span>
                           </label>
                           <textarea
-                            name="deskripsiProduk"
-                            id="deskripsiProduk"
+                            name="product_description"
+                            id="product_description"
                             className="input-field-xs"
                             placeholder="Masukkan Deskripsi Produk"
                             required
                             cols="30"
                             rows="4"
+                            onChange={handleChangePutProduct}
+                            defaultValue={detailData?.product_description}
                           ></textarea>
+                        </div>
+                      </div>
+                      <div className="col-span-2">
+                        <div className="mb-4">
+                          <label
+                            htmlFor="product_price"
+                            className="block mb-2 text-sm font-medium text-gray-700"
+                          >
+                            Harga Produk <span className="text-red-600">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            name="product_price"
+                            id="product_price"
+                            className="input-field-xs"
+                            placeholder="Masukkan Harga Produk"
+                            required
+                            onChange={handleChangePutProduct}
+                            defaultValue={detailData?.product_price}
+                          />
                         </div>
                       </div>
                     </div>
 
                     <div className="flex justify-end">
                       <button className="button-fill" type="submit">
-                        Perbarui
+                        Tambahkan
                       </button>
                     </div>
                   </form>

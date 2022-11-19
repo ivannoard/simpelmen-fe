@@ -107,6 +107,20 @@ const Spesifikasi = () => {
       .then((response) => {
         setSuccessMessage("Spesifikasi berhasil dihapus!");
         setAlerts(true);
+        switch (type) {
+          case "category":
+            return getCategoryProduct(parseUser.data.token);
+          case "material":
+            return getMaterialProduct(parseUser.data.token);
+          case "jenisproducts":
+            return getBentukProduct(parseUser.data.token);
+          case "size":
+            return getSizeProduct(parseUser.data.token);
+          case "finishing":
+            return getFinsihingProduct(parseUser.data.token);
+          default:
+            break;
+        }
       })
       .catch((e) => {
         setFailMessage(e.message);
@@ -341,25 +355,9 @@ const Spesifikasi = () => {
   // category
   useEffect(() => {
     getCategoryProduct(parseUser.data.token);
-  }, [parseUser.data.token]);
-
-  // material
-  useEffect(() => {
     getMaterialProduct(parseUser.data.token);
-  }, [parseUser.data.token]);
-
-  // size
-  useEffect(() => {
     getSizeProduct(parseUser.data.token);
-  }, [parseUser.data.token]);
-
-  // finishing
-  useEffect(() => {
     getFinsihingProduct(parseUser.data.token);
-  }, [parseUser.data.token]);
-
-  // bentuk
-  useEffect(() => {
     getBentukProduct(parseUser.data.token);
   }, [parseUser.data.token]);
 

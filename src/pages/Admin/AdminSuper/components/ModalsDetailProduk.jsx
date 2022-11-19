@@ -3,6 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { MdClose } from "react-icons/md";
 
 const ModalsDetailProduk = ({ isOpen, closeModal, detailData }) => {
+  console.log(detailData);
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -44,22 +45,20 @@ const ModalsDetailProduk = ({ isOpen, closeModal, detailData }) => {
                   <figure className="w-[80%] mx-auto mb-6">
                     <img
                       src={`data:image/jpg;base64,${detailData?.product_image}`}
-                      alt={`nama`}
+                      alt={`product_image`}
                       className="w-full"
                     />
                   </figure>
                   <div className="text-center mb-6">
                     <p className="mb-2">{detailData?.product_name}</p>
                     <p className="mb-0">
-                      {detailData?.jenis_products.jenis_product_name}
+                      {detailData?.product_categories.product_category_name}
                     </p>
                   </div>
                   <div className="w-full bg-orange-600 rounded-lg p-4 text-center">
                     <h6 className="text-white mb-3">Spesifikasi Produk</h6>
                     <p className="text-white">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Accusantium quod hic nemo rerum fugit quaerat eaque
-                      molestias laboriosam neque tempora!
+                      {detailData?.product_description}
                     </p>
                   </div>
                 </Dialog.Panel>

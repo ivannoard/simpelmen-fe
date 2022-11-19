@@ -208,6 +208,7 @@ const ModalsEditSpesifikasi = ({
                           placeholder={content.placeholder}
                           required
                           onChange={handleChangePutProduct}
+                          defaultValue={content.specificationName}
                         />
                       </div>
                     )}
@@ -227,6 +228,7 @@ const ModalsEditSpesifikasi = ({
                           placeholder="Masukkan Kode Produk"
                           required
                           onChange={handleChangePutProduct}
+                          // defaultValue={content.specificationName}
                         />
                       </div>
                     ) : (

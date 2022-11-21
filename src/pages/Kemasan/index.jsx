@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CardProduct from "../../components/Card/CardProduct";
 import { HiOutlineArrowSmLeft } from "react-icons/hi";
@@ -8,6 +8,7 @@ import CardSkeleton from "../../components/Skeletons/CardSkeleton";
 
 const Kemasan = () => {
   const [active, setActive] = useState("Semua Kemasan");
+  const [productData, setProductData] = useState();
   const type = [
     "Semua Kemasan",
     "Karton",
@@ -21,7 +22,18 @@ const Kemasan = () => {
   );
   function handleActive(type) {
     setActive(type);
+    if (type === "Semua Kemasan") {
+      setProductData(data);
+    } else {
+      const filteredData = data.filter(
+        (item) => item.jenis_products.jenis_product_name === type
+      );
+      setProductData(filteredData);
+    }
   }
+  useEffect(() => {
+    if (!isLoading) setProductData(data);
+  }, [data, isLoading]);
   return (
     <>
       <main className="containers">
@@ -59,7 +71,7 @@ const Kemasan = () => {
                     <CardSkeleton />
                   </div>
                 ))
-              : data?.map((item, index) => {
+              : productData?.map((item, index) => {
                   return (
                     <div className="col-span-4 lg:col-span-3" key={index}>
                       <CardProduct {...item} />

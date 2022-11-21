@@ -71,12 +71,12 @@ const ModalsAddProduk = ({
                             name="product_name"
                             id="product_name"
                             onChange={handleChangeProduct}
+                            required
                           />
                           {/* <select
                             id="product_name"
                             name="namaProduk"
                             className="input-field-select-xs"
-                            required
                             onChange={handleChangeProduct}
                           >
                             <option>Pilih Produk</option>
@@ -102,8 +102,8 @@ const ModalsAddProduk = ({
                             id="product_category_id"
                             name="product_category_id"
                             className="input-field-select-xs"
-                            required
                             onChange={handleChangeProduct}
+                            required
                           >
                             <option>Pilih Kategori</option>
                             {categoryProduct?.map((item) => (
@@ -127,8 +127,8 @@ const ModalsAddProduk = ({
                             id="jenis_product_id"
                             name="jenis_product_id"
                             className="input-field-select-xs"
-                            required
                             onChange={handleChangeProduct}
+                            required
                           >
                             <option>Pilih Jenis Produk</option>
                             {bentukProduk?.map((item) => (
@@ -154,8 +154,8 @@ const ModalsAddProduk = ({
                             id="product_weight"
                             className="input-field-xs"
                             placeholder="Masukkan Berat Produk"
-                            required
                             onChange={handleChangeProduct}
+                            required
                           />
                         </div>
                       </div>
@@ -166,13 +166,11 @@ const ModalsAddProduk = ({
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
                             Ukuran Produk{" "}
-                            <span className="text-red-600">*</span>
                           </label>
                           <select
                             id="product_size_id"
                             name="product_size_id"
                             className="input-field-select-xs"
-                            required
                             onChange={handleChangeProduct}
                           >
                             <option>Pilih Ukuran Produk</option>
@@ -189,13 +187,12 @@ const ModalsAddProduk = ({
                             htmlFor="product_material_id"
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
-                            Bahan Produk <span className="text-red-600">*</span>
+                            Bahan Produk
                           </label>
                           <select
                             id="product_material_id"
                             name="product_material_id"
                             className="input-field-select-xs"
-                            required
                             onChange={handleChangeProduct}
                           >
                             <option>Pilih Bahan Produk</option>
@@ -215,13 +212,11 @@ const ModalsAddProduk = ({
                             className="block mb-2 text-sm font-medium text-gray-700"
                           >
                             Finishing Produk{" "}
-                            <span className="text-red-600">*</span>
                           </label>
                           <select
                             id="product_finishing_id"
                             name="product_finishing_id"
                             className="input-field-select-xs"
-                            required
                             onChange={handleChangeProduct}
                           >
                             <option>Pilih Finishing Produk</option>
@@ -247,8 +242,8 @@ const ModalsAddProduk = ({
                             name="product_image"
                             id="product_image"
                             className="input-field-xs"
-                            required
                             onChange={handleChangeProduct}
+                            required
                           />
                         </div>
                       </div>
@@ -266,10 +261,10 @@ const ModalsAddProduk = ({
                             id="product_description"
                             className="input-field-xs"
                             placeholder="Masukkan Deskripsi Produk"
-                            required
                             cols="30"
                             rows="4"
                             onChange={handleChangeProduct}
+                            required
                           ></textarea>
                         </div>
                       </div>
@@ -287,7 +282,6 @@ const ModalsAddProduk = ({
                             id="product_price"
                             className="input-field-xs"
                             placeholder="Masukkan Harga Produk"
-                            required
                             onChange={handleChangeProduct}
                           />
                         </div>

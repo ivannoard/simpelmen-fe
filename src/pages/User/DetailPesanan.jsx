@@ -82,7 +82,9 @@ const DetailPesanan = () => {
             <div className="product-order mb-5">
               <p className="mb-1 text-secondary-900">Tanggal Pesan</p>
               <p className="font-semibold pb-3 border-b border-orange-900">
-                {data?.createdAt}
+                {`${new Date(data?.createdAt).getDate()} - ${
+                  new Date(data?.createdAt).getMonth() + 1
+                } - ${new Date(data?.createdAt).getFullYear()}`}
               </p>
             </div>
             <button
@@ -126,7 +128,9 @@ const DetailPesanan = () => {
                       Desain
                     </td>
                     <td className="w-[3%]">:</td>
-                    <td className="pl-2 w-[50%]">{data?.order_design}</td>
+                    <td className="pl-2 w-[50%]">
+                      {data?.order_details[0]?.order_detail_design}
+                    </td>
                   </tr>
                   <tr>
                     <td className="text-secondary-900 pr-3 w-[47%] py-2">
@@ -145,7 +149,9 @@ const DetailPesanan = () => {
                       Jumlah Pesanan
                     </td>
                     <td className="w-[3%]">:</td>
-                    <td className="pl-2 w-[50%]">{data?.order_quantity} pcs</td>
+                    <td className="pl-2 w-[50%]">
+                      {data?.order_details[0]?.order_detail_quantity} pcs
+                    </td>
                   </tr>
                   <tr>
                     <td className="text-secondary-900 pr-3 w-[47%] py-2">

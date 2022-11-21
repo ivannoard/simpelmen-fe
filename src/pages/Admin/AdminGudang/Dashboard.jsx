@@ -53,10 +53,36 @@ const Dashboard = () => {
         setAlertFail(true);
       });
   }
+  async function notAccept(id, status) {
+    await adminGudang
+      .put(
+        `/orders/belum-dikirim/${id}`,
+        {
+          order_status: parseInt(status),
+        },
+        {
+          headers: {
+            "x-access-token": `${parseUser.data.token}`,
+          },
+        }
+      )
+      .then((response) => {
+        setAlerts(true);
+        getData(parseUser.data.token);
+      })
+      .catch((e) => {
+        setFailMessage(e.message);
+        setAlertFail(true);
+      });
+  }
 
   const handleChange = (e, item) => {
     e.preventDefault();
-    shipping(item.order_id, e.target.value);
+    if (parseInt(e.target.value) === parseInt(2)) {
+      shipping(item.order_id, e.target.value);
+    } else if (parseInt(e.target.value) === 3) {
+      notAccept(item.order_id, e.target.value);
+    }
     // const filtered = data.filter((brg) => brg.id === item.id)[0];
     // filtered.status = parseInt(e.target.value);
     // setData((prevState) =>
@@ -87,7 +113,21 @@ const Dashboard = () => {
           "x-access-token": `${parseUser.data.token}`,
         },
       })
-      .then((response) => console.log(response));
+      .then((response) => {
+        setTimeout(() => {
+          setAlerts(true);
+          getData(parseUser.data.token);
+        }, 2000);
+        setIsOpenModal(false);
+      })
+      .catch((e) => {
+        setTimeout(() => {
+          setAlertFail(true);
+          setFailMessage(e.message);
+          getData(parseUser.data.token);
+        }, 2000);
+        setIsOpenModal(false);
+      });
   };
 
   useEffect(() => {
@@ -167,6 +207,9 @@ const Dashboard = () => {
                   <th className="text-white p-3 w-[16%] min-w-[140px] text-left">
                     Nama IKM
                   </th>
+                  <th className="text-white p-3 w-[16%] text-left">
+                    Resi Pelanggan
+                  </th>
                   <th className="text-white p-3 w-[34%] min-w-[234px] text-center">
                     Aksi
                   </th>
@@ -183,7 +226,10 @@ const Dashboard = () => {
                       new Date(item.createdAt).getMonth() + 1
                     } - ${new Date(item.createdAt).getFullYear()}`}</td>
                     <td className="text-left p-3">
-                      {item.delivery_details[0].delivery_detail_ikm}
+                      {item.delivery_details[0]?.delivery_detail_ikm}
+                    </td>
+                    <td className="text-left p-3">
+                      {item.delivery_details[0]?.delivery_detail_receipt}
                     </td>
                     <td className="text-center p-3">
                       <div className="flex items-center gap-4 justify-center">

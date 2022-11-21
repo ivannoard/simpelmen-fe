@@ -311,6 +311,7 @@ const Spesifikasi = () => {
         setIsOpenModal(false);
       })
       .catch((e) => {
+        setIsOpenModal(false);
         setFailMessage(e.message);
         setAlertFail(true);
       });
@@ -347,6 +348,7 @@ const Spesifikasi = () => {
         setIsOpenModalEdit(false);
       })
       .catch((e) => {
+        setIsOpenModalEdit(false);
         setFailMessage(e.message);
         setAlertFail(true);
       });

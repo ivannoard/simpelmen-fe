@@ -20,7 +20,6 @@ const DetailProduct = () => {
   const { data, isLoading } = useProductDetail(
     `https://simpelmen.herokuapp.com/api/product/${productId}`
   );
-
   // Use Custom Hook
   // useEffect(()=>{
   //   const getItem = async()=>{
@@ -63,6 +62,7 @@ const DetailProduct = () => {
           />
         );
       case "O":
+        // standing pouch, dus offset, stiker
         return setForm(
           <FormStandingPouch
             productId={productId}
@@ -159,7 +159,7 @@ const DetailProduct = () => {
                   <h2 className="text-orange-900 mb-2">
                     {data?.jenis_products.jenis_product_name}
                   </h2>
-                  {/* <p>{data?.product_materials.product_material_description}</p> */}
+                  <p>{data?.product_description}</p>
                 </>
               )}
             </div>

@@ -3,6 +3,7 @@ import svg from "../../assets/svg";
 import { HiChevronRight, HiChevronLeft } from "react-icons/hi";
 import { useEffect } from "react";
 import { postOrder } from "../../services/api";
+import Alerts from "../../components/Alerts";
 
 const EmptyState = () => {
   return (
@@ -21,6 +22,9 @@ const LacakPesanan = () => {
   const [trackingOrder, setTrackingOrder] = useState();
   const [trackingData, setTrackingData] = useState();
   const [data, setData] = useState();
+  const [alerts, setAlerts] = useState(false);
+  const [alertFail, setAlertFail] = useState(false);
+  const [failMessage, setFailMessage] = useState("");
 
   useEffect(() => {
     const getTracking = async () => {
@@ -41,12 +45,46 @@ const LacakPesanan = () => {
     setTrackingOrder(index);
   }
 
+  async function handleApprove(e, id) {
+    e.preventDefault();
+    await postOrder
+      .put(`/accept/${id}`)
+      .then((resp) => setAlerts(true))
+      .catch((e) => {
+        setAlertFail(true);
+        setFailMessage(e.message);
+      });
+  }
+
   useEffect(() => {
     setTrackingData(data?.filter((item) => item.order_id === trackingOrder)[0]);
   }, [data, trackingOrder]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (alerts || alertFail === true) setAlertFail(false) || setAlerts(false);
+    }, 2000);
+  }, [alertFail, alerts]);
+
   return (
     <>
+      {alerts && (
+        <Alerts
+          state="true"
+          background="bg-green-100"
+          textColor="text-green-600"
+          textContent="Login Berhasil"
+        />
+      )}
+      {alertFail && (
+        <Alerts
+          state="true"
+          background="bg-red-100"
+          textColor="text-red-600"
+          textContent={`Ups, sepertinya ada yang salah: ${failMessage}`}
+          closeButton="true"
+        />
+      )}
       <section>
         <div className="grid grid-cols-4 xl:grid-cols-10 gap-x-5 gap-y-12 xl:gap-y-0">
           <div className="col-span-4 xl:col-span-6 pr-4">
@@ -141,6 +179,37 @@ const LacakPesanan = () => {
                       <h6 className="font-semibold">
                         {item.order_status_description}
                       </h6>
+                      {item.order_status_description ===
+                        "Pesanan telah dikirim" && (
+                        <div>
+                          <p>
+                            {
+                              trackingData.delivery_details[0]
+                                ?.delivery_detail_courier
+                            }
+                          </p>
+                          <p>
+                            {
+                              trackingData.delivery_details[0]
+                                ?.delivery_detail_receipt
+                            }
+                          </p>
+                          <p>
+                            {
+                              trackingData.delivery_details[0]
+                                ?.delivery_detail_estimate
+                            }
+                          </p>
+                        </div>
+                      )}
+                      {item.order_status_description === "Pesanan Diterima" && (
+                        <button
+                          className="bg-primary-900 text-white font-semibold rounded-md py-2 px-7"
+                          onClick={(e) => handleApprove(e, item.order_id)}
+                        >
+                          Pesanan Selesai
+                        </button>
+                      )}
                     </div>
                   </>
                 ))}

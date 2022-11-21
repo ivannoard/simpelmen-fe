@@ -173,7 +173,6 @@ const ModalsSpesifikasi = ({
                             rows="4"
                             className="input-field-xs"
                             placeholder="Masukkan Deskripsi Produk"
-                            required
                             onChange={handleChangeProduct}
                           ></textarea>
                         </div>

@@ -249,7 +249,6 @@ const Produk = () => {
               className="input-field !rounded-full !py-2 !pl-14"
               placeholder="Cari"
               name="search"
-              required
               autoComplete="on"
               // onChange={handleChange}
             />
@@ -266,7 +265,7 @@ const Produk = () => {
                     No
                   </th>
                   <th className="text-white text-center p-3 min-w-[120px]">
-                    Bentuk Produk
+                    Nama Produk
                   </th>
                   <th className="text-white text-center p-3 min-w-[120px]">
                     Kategori Produk

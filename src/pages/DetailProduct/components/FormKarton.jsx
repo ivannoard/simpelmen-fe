@@ -165,7 +165,7 @@ const FormKarton = ({ productId, setAlertSuccess, setAlertFail }) => {
         <button onClick={(e) => handleSubmit(e)} className="button-fill !py-4">
           Pesan Sekarang
         </button>
-        <button className="button-white !p-4">
+        <button className="button-white !p-4" onClick={(e) => handleSubmit(e)}>
           <BsCartPlus size={20} className="mx-auto" />
         </button>
       </div>

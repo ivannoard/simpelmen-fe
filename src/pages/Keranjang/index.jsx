@@ -74,8 +74,8 @@ const Keranjang = () => {
         return <FormKarton data={data} />;
       case 2:
         return <FormDus categoryName="Slobokan" />;
-      case 3:
-        return <FormSablon />;
+      case "S":
+        return <FormSablon data={data} />;
       case 4:
         return <FormSticker />;
       case "O":

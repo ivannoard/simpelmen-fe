@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { HiOutlineArrowSmLeft } from "react-icons/hi";
 import FormKarton from "./components/FormKarton";
 import Alerts from "../../components/Alerts";

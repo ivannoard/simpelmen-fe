@@ -14,7 +14,7 @@ const Kemasan = () => {
     "Karton",
     "Dus Offset",
     "Sablon Plastik, Pouch, Dus",
-    "Sticker",
+    "Stiker",
     "Standing Pouch",
   ];
   const { data, isLoading } = useProducts(

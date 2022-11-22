@@ -221,7 +221,29 @@ const Dashboard = () => {
                     <td className="text-center p-3">{item.order_code}</td>
                     <td className="text-left p-3">{item.users.user_ikm}</td>
                     <td className="text-center p-3">
-                      {item.order_statuses[0]?.order_status_admin_code}
+                      <div className="text-white bg-orange-600 rounded-md py-2 px-7">
+                        {item?.order_statuses[0].order_status_admin_code === "8"
+                          ? "Status Pesanan"
+                          : item?.order_statuses[0].order_status_admin_code ===
+                            2
+                          ? "Admin CS"
+                          : item?.order_statuses[0].order_status_admin_code ===
+                            3
+                          ? "Admin Kasir"
+                          : item?.order_statuses[0].order_status_admin_code ===
+                            4
+                          ? "Admin Desain"
+                          : item?.order_statuses[0].order_status_admin_code ===
+                            5
+                          ? "Admin Gudang"
+                          : item?.order_statuses[0].order_status_admin_code ===
+                            6
+                          ? "Admin Produksi"
+                          : item?.order_statuses[0].order_status_admin_code ===
+                            7
+                          ? "Admin TU"
+                          : ""}
+                      </div>
                     </td>
                     <td className="text-center p-3">
                       Rp.{" "}

@@ -1,20 +1,10 @@
 import React, { useState } from "react";
-import { BsCartPlus } from "react-icons/bs";
-import { postOrder } from "../../../services/api";
 import { IoIosArrowDown } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+// import { postProduct } from '../../../services/api';
 
-const FormSablon = ({ data, productId, setAlertSuccess, setAlertFail }) => {
+const FormSticker = ({ setAlertSuccess, setAlertFail }) => {
   const [fields, setFields] = useState({});
-  const user = localStorage.getItem("user");
-  const navigate = useNavigate();
-
-  const dummyDesign = [
-    "Lama (Diambil dari data pesanan file pesanan sebelumnya)",
-    "Baru (Dibuatkan oleh desainer BIKDK)",
-    "Swadesign (File desain dari konsumen)",
-    "Re-design (Desain ulang dari pesanan sebelumnya)",
-  ];
+  // const user = localStorage.getItem('user');
 
   function handleChange(e) {
     e.preventDefault();
@@ -26,42 +16,40 @@ const FormSablon = ({ data, productId, setAlertSuccess, setAlertFail }) => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log("tes");
-    const finalPostProduct = {
-      panjang_1: fields?.panjang_1,
-      lebar_1: fields?.lebar_1,
-      tinggi_1: fields?.tinggi_1,
-      // sablon:'gatau fields mana?'
-      order_design: fields?.order_design,
-      order_quantity: fields?.order_quantity,
-    };
-    if (user) {
-      await postOrder.post(`/cart/${productId}`, finalPostProduct, {
-        headers: {
-          "x-access-token": `${JSON.parse(user).data.token}`,
-        },
-      });
-      setAlertSuccess(true);
-    } else {
-      setAlertFail(true);
-    }
-  }
-
-  function handleGetNow(e) {
-    e.preventDefault();
-    if (user) {
-      navigate("/pesan-sekarang", {
-        state: { data: data, formData: fields },
-      });
-    } else {
-      setAlertFail(true);
-      console.log("no user");
-    }
+    // if (user) {
+    //   await postProduct
+    //     .post('/Xk17j2l08BHDkmwD3lgW')
+    //     .then((response) => console.log(response));
+    //   setAlertSuccess(true);
+    //   console.log(fields);
+    // } else {
+    //   setAlertFail(true);
+    //   console.log('no user');
+    // }
   }
 
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
-      <div>
+      <div className="relative">
+        <label
+          htmlFor="bentuk"
+          className="block mb-2 text-sm font-medium text-gray-700"
+        >
+          Bentuk
+        </label>
+        <select
+          id="desain"
+          name="desain"
+          onChange={(e) => handleChange(e)}
+          className="input-field-select-xs"
+        >
+          <option>Pilih Bentuk</option>
+          <option value="1">Jasa Bentuk</option>
+          <option value="2">Tanpa Bentuk</option>
+        </select>
+        <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
+      </div>
+      <div className="mt-4">
         <label
           htmlFor="ukuran"
           className="block mb-2 text-sm font-medium text-gray-700"
@@ -73,7 +61,7 @@ const FormSablon = ({ data, productId, setAlertSuccess, setAlertFail }) => {
             <input
               type="text"
               id="ukuran"
-              name="panjang_1"
+              name="panjang"
               className="input-field-xs !pr-12"
               placeholder="Panjang"
               required
@@ -87,7 +75,7 @@ const FormSablon = ({ data, productId, setAlertSuccess, setAlertFail }) => {
             <input
               type="text"
               id="ukuran"
-              name="lebar_1"
+              name="lebar"
               className="input-field-xs !pr-12"
               placeholder="Lebar"
               required
@@ -101,7 +89,7 @@ const FormSablon = ({ data, productId, setAlertSuccess, setAlertFail }) => {
             <input
               type="text"
               id="ukuran"
-              name="tinggi_1"
+              name="tinggi"
               className="input-field-xs !pr-12"
               placeholder="Tinggi"
               required
@@ -122,16 +110,13 @@ const FormSablon = ({ data, productId, setAlertSuccess, setAlertFail }) => {
         </label>
         <select
           id="desain"
-          name="order_design"
+          name="desain"
           onChange={(e) => handleChange(e)}
           className="input-field-select-xs"
         >
           <option>Pilih Desain</option>
-          {dummyDesign.map((item, index) => (
-            <option value={item} key={index}>
-              {item}
-            </option>
-          ))}
+          <option value="1">Jasa Desain</option>
+          <option value="2">Tanpa Desain</option>
         </select>
         <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
       </div>
@@ -146,7 +131,7 @@ const FormSablon = ({ data, productId, setAlertSuccess, setAlertFail }) => {
           <input
             type="text"
             id="jumlah"
-            name="order_quantity"
+            name="jumlah"
             className="input-field-xs !pr-12"
             placeholder="Masukkan Jumlah Pesanan"
             required
@@ -155,16 +140,8 @@ const FormSablon = ({ data, productId, setAlertSuccess, setAlertFail }) => {
           <span className="text-gray-400 absolute right-3 top-[11px]">pcs</span>
         </div>
       </div>
-      <div className="buttons flex justify-end mt-8 gap-5">
-        <button className="button-fill !py-4" onClick={(e) => handleGetNow(e)}>
-          Pesan Sekarang
-        </button>
-        <button className="button-white !p-4" type="submit">
-          <BsCartPlus size={20} className="mx-auto" />
-        </button>
-      </div>
     </form>
   );
 };
 
-export default FormSablon;
+export default FormSticker;

@@ -33,6 +33,7 @@ const DetailProduct = () => {
       case "K":
         return setForm(
           <FormKarton
+            data={data}
             productId={productId}
             setAlertSuccess={setAlertSuccess}
             setAlertFail={setAlertFail}
@@ -41,6 +42,7 @@ const DetailProduct = () => {
       case 2:
         return setForm(
           <FormDus
+            data={data}
             categoryName="Slobokan"
             setAlertSuccess={setAlertSuccess}
             setAlertFail={setAlertFail}
@@ -49,6 +51,7 @@ const DetailProduct = () => {
       case "S":
         return setForm(
           <FormSablon
+            data={data}
             productId={productId}
             setAlertSuccess={setAlertSuccess}
             setAlertFail={setAlertFail}
@@ -57,6 +60,7 @@ const DetailProduct = () => {
       case 4:
         return setForm(
           <FormSticker
+            data={data}
             setAlertSuccess={setAlertSuccess}
             setAlertFail={setAlertFail}
           />
@@ -65,6 +69,7 @@ const DetailProduct = () => {
         // standing pouch, dus offset, stiker
         return setForm(
           <FormStandingPouch
+            data={data}
             productId={productId}
             setAlertSuccess={setAlertSuccess}
             setAlertFail={setAlertFail}

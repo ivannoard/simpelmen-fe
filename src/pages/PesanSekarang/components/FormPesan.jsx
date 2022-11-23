@@ -8,7 +8,7 @@ import svg from "../../../assets/svg";
 
 const dummy = true;
 
-const FormPesan = ({ productId }) => {
+const FormPesan = ({ productId, formFields }) => {
   const currentUser = localStorage.getItem("user");
   const parseUser = JSON.parse(currentUser);
   const navigate = useNavigate();
@@ -56,10 +56,10 @@ const FormPesan = ({ productId }) => {
   // post product checkout api
   const handleCheckout = async () => {
     await postOrder
-      .put(
-        `/checkout?order_id=${productId}`,
+      .post(
+        `/buy`,
         {
-          order_id: [productId],
+          product_id: parseInt(productId),
           delivery_detail_name: fields.user_name,
           delivery_detail_ikm: fields.user_ikm,
           delivery_detail_email: fields.user_email,
@@ -70,10 +70,11 @@ const FormPesan = ({ productId }) => {
           delivery_detail_postal_code: fields.postal_code,
           delivery_detail_courier: fields.user_courier,
           delivery_detail_note: fields.user_note,
+          ...formFields,
         },
         {
           headers: {
-            "x-access-token": parseUser.data.token,
+            "x-access-token": `${parseUser.data.token}`,
           },
         }
       )

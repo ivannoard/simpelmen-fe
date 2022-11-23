@@ -3,13 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { HiOutlineArrowSmLeft } from "react-icons/hi";
 import FormKarton from "./components/FormKarton";
 import Alerts from "../../components/Alerts";
-import FormDus from "./components/FormDus";
 import FormSablon from "./components/FormSablon";
-import FormSticker from "./components/FormSticker";
-import FormStandingPouch from "./components/FormStandingPouch";
 import useProductDetail from "../../hooks/useProductDetail";
 import SkeletonImage from "../../components/Skeletons/SkeletonImage";
 import FormSkeleton from "../../components/Skeletons/FormSkeleton";
+import FormSpecial from "./components/FormSpecial";
 
 const DetailProduct = () => {
   const { productId } = useParams();
@@ -39,15 +37,6 @@ const DetailProduct = () => {
             setAlertFail={setAlertFail}
           />
         );
-      case 2:
-        return setForm(
-          <FormDus
-            data={data}
-            categoryName="Slobokan"
-            setAlertSuccess={setAlertSuccess}
-            setAlertFail={setAlertFail}
-          />
-        );
       case "S":
         return setForm(
           <FormSablon
@@ -57,18 +46,10 @@ const DetailProduct = () => {
             setAlertFail={setAlertFail}
           />
         );
-      case 4:
-        return setForm(
-          <FormSticker
-            data={data}
-            setAlertSuccess={setAlertSuccess}
-            setAlertFail={setAlertFail}
-          />
-        );
       case "O":
         // standing pouch, dus offset, stiker
         return setForm(
-          <FormStandingPouch
+          <FormSpecial
             data={data}
             productId={productId}
             setAlertSuccess={setAlertSuccess}

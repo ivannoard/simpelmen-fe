@@ -1,44 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 // import { postProduct } from '../../../services/api';
 import { IoIosArrowDown } from "react-icons/io";
 
-const FormDus = ({ setAlertSuccess, setAlertFail, categoryName }) => {
-  const [fields, setFields] = useState({});
-  // const user = localStorage.getItem('user');
-
-  function handleChange(e) {
-    e.preventDefault();
-    setFields({
-      ...fields,
-      [e.target.getAttribute("name")]: e.target.value,
-    });
-  }
-
-  async function handleSubmit(e) {
-    // e.preventDefault();
-    // if (user) {
-    //   await postProduct
-    //     .post('/Xk17j2l08BHDkmwD3lgW')
-    //     .then((response) => console.log(response));
-    //   setAlertSuccess(true);
-    //   console.log(fields);
-    // } else {
-    //   setAlertFail(true);
-    //   console.log('no user');
-    // }
-  }
-
+const FormDus = ({ formData }) => {
   return (
     <>
-      <form onSubmit={(e) => handleSubmit(e)} className="w-full">
+      <form className="w-full">
         <div>
           <label
             htmlFor="ukuran"
             className="block mb-2 text-sm font-medium text-gray-700"
-          >
-            {categoryName === "Slobokan" ? "Ukuran Luar x Dalam" : "Ukuran"}
-          </label>
-          <div className="grid grid-cols-3 gap-x-3 gap-y-4">
+          ></label>
+          <div className="grid grid-cols-3 gap-x-3 gap-y-4 mb-2">
             <div className="relative col-span-3 xs:col-span-1">
               <input
                 type="text"
@@ -46,8 +19,8 @@ const FormDus = ({ setAlertSuccess, setAlertFail, categoryName }) => {
                 name="panjang"
                 className="input-field-xs !pr-12"
                 placeholder="Panjang"
-                required
-                onChange={(e) => handleChange(e)}
+                disabled
+                defaultValue={formData?.panjang_1}
               />
               <span className="text-gray-400 absolute right-3 top-[11px]">
                 cm
@@ -60,8 +33,8 @@ const FormDus = ({ setAlertSuccess, setAlertFail, categoryName }) => {
                 name="lebar"
                 className="input-field-xs !pr-12"
                 placeholder="Lebar"
-                required
-                onChange={(e) => handleChange(e)}
+                disabled
+                defaultValue={formData?.lebar_1}
               />
               <span className="text-gray-400 absolute right-3 top-[11px]">
                 cm
@@ -74,8 +47,52 @@ const FormDus = ({ setAlertSuccess, setAlertFail, categoryName }) => {
                 name="tinggi"
                 className="input-field-xs !pr-12"
                 placeholder="Tinggi"
-                required
-                onChange={(e) => handleChange(e)}
+                disabled
+                defaultValue={formData?.tinggi_1}
+              />
+              <span className="text-gray-400 absolute right-3 top-[11px]">
+                cm
+              </span>
+            </div>
+          </div>
+          <div className="grid grid-cols-3 gap-x-3 gap-y-4">
+            <div className="relative col-span-3 xs:col-span-1">
+              <input
+                type="text"
+                id="ukuran"
+                name="panjang"
+                className="input-field-xs !pr-12"
+                placeholder="Panjang"
+                disabled
+                defaultValue={formData?.panjang_2}
+              />
+              <span className="text-gray-400 absolute right-3 top-[11px]">
+                cm
+              </span>
+            </div>
+            <div className="relative col-span-3 xs:col-span-1">
+              <input
+                type="text"
+                id="ukuran"
+                name="lebar"
+                className="input-field-xs !pr-12"
+                placeholder="Lebar"
+                disabled
+                defaultValue={formData?.lebar_2}
+              />
+              <span className="text-gray-400 absolute right-3 top-[11px]">
+                cm
+              </span>
+            </div>
+            <div className="relative col-span-3 xs:col-span-1">
+              <input
+                type="text"
+                id="ukuran"
+                name="tinggi"
+                className="input-field-xs !pr-12"
+                placeholder="Tinggi"
+                disabled
+                defaultValue={formData?.tinggi_2}
               />
               <span className="text-gray-400 absolute right-3 top-[11px]">
                 cm
@@ -90,15 +107,8 @@ const FormDus = ({ setAlertSuccess, setAlertFail, categoryName }) => {
           >
             Bahan
           </label>
-          <select
-            id="bahan"
-            name="bahan"
-            onChange={(e) => handleChange(e)}
-            className="input-field-select-xs"
-          >
-            <option>Pilih Bahan</option>
-            <option value="1">Jasa Bahan</option>
-            <option value="2">Tanpa Bahan</option>
+          <select id="bahan" name="bahan" className="input-field-select-xs">
+            <option>{formData.order_material_id}</option>
           </select>
           <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
         </div>
@@ -109,15 +119,8 @@ const FormDus = ({ setAlertSuccess, setAlertFail, categoryName }) => {
           >
             Desain
           </label>
-          <select
-            id="desain"
-            name="desain"
-            onChange={(e) => handleChange(e)}
-            className="input-field-select-xs"
-          >
-            <option>Pilih Desain</option>
-            <option value="1">Jasa Desain</option>
-            <option value="2">Tanpa Desain</option>
+          <select id="desain" name="desain" className="input-field-select-xs">
+            <option>{formData.order_design}</option>
           </select>
           <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
         </div>
@@ -131,12 +134,9 @@ const FormDus = ({ setAlertSuccess, setAlertFail, categoryName }) => {
           <select
             id="laminasi"
             name="laminasi"
-            onChange={(e) => handleChange(e)}
             className="input-field-select-xs"
           >
-            <option>Pilih Laminasi</option>
-            <option value="1">Jasa Laminasi</option>
-            <option value="2">Tanpa Laminasi</option>
+            <option>{formData.order_finishing_id}</option>
           </select>
           <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
         </div>
@@ -154,8 +154,8 @@ const FormDus = ({ setAlertSuccess, setAlertFail, categoryName }) => {
               name="jumlah"
               className="input-field-xs !pr-12"
               placeholder="Masukkan Jumlah Pesanan"
-              required
-              onChange={(e) => handleChange(e)}
+              disabled
+              defaultValue={formData.order_quantity}
             />
             <span className="text-gray-400 absolute right-3 top-[11px]">
               pcs

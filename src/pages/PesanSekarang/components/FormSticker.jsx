@@ -1,35 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { IoIosArrowDown } from "react-icons/io";
 // import { postProduct } from '../../../services/api';
 
-const FormSticker = ({ setAlertSuccess, setAlertFail }) => {
-  const [fields, setFields] = useState({});
-  // const user = localStorage.getItem('user');
-
-  function handleChange(e) {
-    e.preventDefault();
-    setFields({
-      ...fields,
-      [e.target.getAttribute("name")]: e.target.value,
-    });
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    // if (user) {
-    //   await postProduct
-    //     .post('/Xk17j2l08BHDkmwD3lgW')
-    //     .then((response) => console.log(response));
-    //   setAlertSuccess(true);
-    //   console.log(fields);
-    // } else {
-    //   setAlertFail(true);
-    //   console.log('no user');
-    // }
-  }
-
+const FormSticker = ({ formData }) => {
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
+    <form>
       <div className="relative">
         <label
           htmlFor="bentuk"
@@ -37,15 +12,10 @@ const FormSticker = ({ setAlertSuccess, setAlertFail }) => {
         >
           Bentuk
         </label>
-        <select
-          id="desain"
-          name="desain"
-          onChange={(e) => handleChange(e)}
-          className="input-field-select-xs"
-        >
-          <option>Pilih Bentuk</option>
-          <option value="1">Jasa Bentuk</option>
-          <option value="2">Tanpa Bentuk</option>
+        <select id="desain" name="desain" className="input-field-select-xs">
+          <option>{formData?.bentuk}</option>
+          {/* <option value="1">Jasa Bentuk</option>
+          <option value="2">Tanpa Bentuk</option> */}
         </select>
         <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
       </div>
@@ -65,7 +35,8 @@ const FormSticker = ({ setAlertSuccess, setAlertFail }) => {
               className="input-field-xs !pr-12"
               placeholder="Panjang"
               required
-              onChange={(e) => handleChange(e)}
+              disabled
+              defaultValue={formData?.panjang_1}
             />
             <span className="text-gray-400 absolute right-3 top-[11px]">
               cm
@@ -79,7 +50,8 @@ const FormSticker = ({ setAlertSuccess, setAlertFail }) => {
               className="input-field-xs !pr-12"
               placeholder="Lebar"
               required
-              onChange={(e) => handleChange(e)}
+              disabled
+              defaultValue={formData?.lebar_1}
             />
             <span className="text-gray-400 absolute right-3 top-[11px]">
               cm
@@ -93,7 +65,8 @@ const FormSticker = ({ setAlertSuccess, setAlertFail }) => {
               className="input-field-xs !pr-12"
               placeholder="Tinggi"
               required
-              onChange={(e) => handleChange(e)}
+              disabled
+              defaultValue={formData?.tinggi_1}
             />
             <span className="text-gray-400 absolute right-3 top-[11px]">
               cm
@@ -110,13 +83,10 @@ const FormSticker = ({ setAlertSuccess, setAlertFail }) => {
         </label>
         <select
           id="desain"
-          name="desain"
-          onChange={(e) => handleChange(e)}
+          name="order_design"
           className="input-field-select-xs"
         >
-          <option>Pilih Desain</option>
-          <option value="1">Jasa Desain</option>
-          <option value="2">Tanpa Desain</option>
+          <option>{formData?.order_design}</option>
         </select>
         <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
       </div>
@@ -134,8 +104,8 @@ const FormSticker = ({ setAlertSuccess, setAlertFail }) => {
             name="jumlah"
             className="input-field-xs !pr-12"
             placeholder="Masukkan Jumlah Pesanan"
-            required
-            onChange={(e) => handleChange(e)}
+            disabled
+            defaultValue={formData?.order_quantity}
           />
           <span className="text-gray-400 absolute right-3 top-[11px]">pcs</span>
         </div>

@@ -100,7 +100,9 @@ const FormKarton = ({ data }) => {
           // onChange={(e) => handleChange(e)}
           className="input-field-select-xs"
         >
-          <option>{parseInt(data?.sablon) === 1 ? "Polos" : "Sablon"}</option>
+          <option>
+            {parseInt(data?.order_detail_sablon) === 1 ? "Polos" : "Sablon"}
+          </option>
         </select>
         <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
       </div>

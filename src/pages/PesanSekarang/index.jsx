@@ -1,29 +1,28 @@
 import React from "react";
 import { HiOutlineArrowSmLeft } from "react-icons/hi";
 import { Link, useLocation } from "react-router-dom";
-import FormDus from "./components/FormDus";
 import FormKarton from "./components/FormKarton";
 import FormPesan from "./components/FormPesan";
 import FormSablon from "./components/FormSablon";
-import FormStandingPouch from "./components/FormStandingPouch";
-import FormSticker from "./components/FormSticker";
+import FormSpecial from "./components/FormSpecial";
 
 const PesanSekarang = () => {
   const location = useLocation();
   const productData = location.state;
-  console.log(productData.data.product_id);
+  console.log(productData.formData);
   const formProduct = (product) => {
     switch (product) {
       case "K":
         return <FormKarton data={productData.formData} />;
-      case 2:
-        return <FormDus categoryName="Slobokan" />;
       case "S":
         return <FormSablon data={productData.formData} />;
-      case 4:
-        return <FormSticker />;
       case "O":
-        return <FormStandingPouch data={productData.formData} />;
+        return (
+          <FormSpecial
+            data={productData.formData}
+            type={productData.formType}
+          />
+        );
       default:
         break;
     }
@@ -58,10 +57,14 @@ const PesanSekarang = () => {
           </div>
 
           <div className="lg:col-start-7 col-span-4 2xsm:col-span-8 2md:col-span-12 lg:col-span-5">
+            {/* just view */}
             {formProduct(productData.data?.product_category)}
           </div>
         </article>
-        <FormPesan productId={productData.data.product_id} />
+        <FormPesan
+          productId={productData.data.product_id}
+          formFields={productData.formData}
+        />
       </main>
     </>
   );

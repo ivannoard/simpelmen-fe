@@ -31,7 +31,7 @@ const FormSablon = ({ data, productId, setAlertSuccess, setAlertFail }) => {
       panjang_1: fields?.panjang_1,
       lebar_1: fields?.lebar_1,
       tinggi_1: fields?.tinggi_1,
-      // sablon:'gatau fields mana?'
+      order_detail_sablon: fields.order_detail_sablon,
       order_design: fields?.order_design,
       order_quantity: fields?.order_quantity,
     };

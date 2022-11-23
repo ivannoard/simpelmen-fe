@@ -1,0 +1,18 @@
+Aduan masyarakat v2:
+
+1. template html email (RAKA & IRUL)
+
+*landing page & user
+1. Filter, unduh PAD (NANTI)
+2. Filter kategori produk (OTW)
+3. Deskripsi produk (OTW)
+4. Swadesain (IRUL)
+6. Pesan sekarang (susah)
+7. Pilih jasa kirim masih error (IRUL)
+9. tombol pada detail pesanan (fe & be)
+10. PRODUK TOLONG FORMNYA DISESUAIKAN DENGAN EXCEL ALUR SIMPELMENOKE
+
+
+*super admin
+1. validasi konfirmasi password di tambah admin belum bisa (irul)
+2. detail rekapan pesan belum ambil data dari user (WAHYU)

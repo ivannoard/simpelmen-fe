@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CardProduct from "../../components/Card/CardProduct";
 import { HiOutlineArrowSmLeft } from "react-icons/hi";
-import { HiChevronRight, HiChevronLeft } from "react-icons/hi";
 import useProducts from "../../hooks/useProductDetail";
 import CardSkeleton from "../../components/Skeletons/CardSkeleton";
 import Pagination from "../../components/Pagination";

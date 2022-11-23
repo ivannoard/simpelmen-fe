@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { BsSearch, BsPlus } from "react-icons/bs";
 import { FaTrash } from "react-icons/fa";
-import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import Alerts from "../../../components/Alerts";
+import Pagination from "../../../components/Pagination";
 import { commonAPI } from "../../../services/api";
 import ModalsEditSpesifikasi from "./components/ModalsEditSpesifikasi";
 import ModalsSpesifikasi from "./components/ModalsSpesifikasi";
@@ -25,6 +25,57 @@ const Spesifikasi = () => {
   const [alertFail, setAlertFail] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [failMessage, setFailMessage] = useState("");
+  // pagination
+  const [currentPage, setCurrentPage] = useState({
+    kategori: 1,
+    bahan: 1,
+    bentuk: 1,
+    ukuran: 1,
+    finishing: 1,
+  });
+  const postPerPage = 5;
+
+  const indexLastPostKategori = currentPage.kategori * postPerPage;
+  const indexFirstPostKategori = indexLastPostKategori - postPerPage;
+  const indexLastPostBahan = currentPage.bahan * postPerPage;
+  const indexFirstPostBahan = indexLastPostBahan - postPerPage;
+  const indexLastPostBentuk = currentPage.bentuk * postPerPage;
+  const indexFirstPostBentuk = indexLastPostBentuk - postPerPage;
+  const indexLastPostUkuran = currentPage.ukuran * postPerPage;
+  const indexFirstPostUkuran = indexLastPostUkuran - postPerPage;
+  const indexLastPostFinishing = currentPage.finishing * postPerPage;
+  const indexFirstPostFinishing = indexLastPostFinishing - postPerPage;
+  const currentDataKategori = categoryProduct?.slice(
+    indexFirstPostKategori,
+    indexLastPostKategori
+  );
+  const currentDataBahan = productMaterial?.slice(
+    indexFirstPostBahan,
+    indexLastPostBahan
+  );
+  const currentDataBentuk = bentukProduk?.slice(
+    indexFirstPostBentuk,
+    indexLastPostBentuk
+  );
+  const currentDataUkuran = productSize?.slice(
+    indexFirstPostUkuran,
+    indexLastPostUkuran
+  );
+  const currentDataFinishing = productFinishing?.slice(
+    indexFirstPostFinishing,
+    indexLastPostFinishing
+  );
+  const paginateKategori = (pageNumber) =>
+    setCurrentPage({ ...currentPage, kategori: pageNumber });
+  const paginateBahan = (pageNumber) =>
+    setCurrentPage({ ...currentPage, bahan: pageNumber });
+  const paginateBentuk = (pageNumber) =>
+    setCurrentPage({ ...currentPage, bentuk: pageNumber });
+  const paginateUkuran = (pageNumber) =>
+    setCurrentPage({ ...currentPage, ukuran: pageNumber });
+  const paginateFinishing = (pageNumber) =>
+    setCurrentPage({ ...currentPage, finishing: pageNumber });
+  console.log(currentDataUkuran);
 
   const getCategoryProduct = async (token) => {
     await commonAPI
@@ -452,7 +503,7 @@ const Spesifikasi = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {categoryProduct?.map((item, index) => (
+                  {currentDataKategori?.map((item, index) => (
                     <tr className="border-b" key={index}>
                       <td className="text-center p-3">{index + 1}</td>
                       <td className="text-center p-3">
@@ -491,26 +542,13 @@ const Spesifikasi = () => {
                 </tbody>
               </table>
             </div>
-            <nav
-              className="flex justify-end items-center gap-x-[.375rem] py-2 mt-2"
-              aria-label="pagination"
-            >
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-                <HiChevronLeft className="!text-base xs:!text-xl" />
-              </button>
-              <button className="button-gradient-sm !text-xs xs:!text-base">
-                1
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-                2
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-                3
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-                <HiChevronRight className="!text-base xs:!text-xl" />
-              </button>
-            </nav>
+            <Pagination
+              type="dashboard"
+              currentPage={currentPage.kategori}
+              postsPerPage={postPerPage}
+              totalPosts={categoryProduct?.length}
+              paginate={paginateKategori}
+            />
           </div>
         </article>
         <article
@@ -573,7 +611,7 @@ const Spesifikasi = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {productMaterial?.map((item, index) => (
+                  {currentDataBahan?.map((item, index) => (
                     <tr className="border-b" key={index}>
                       <td className="text-center p-3">{index + 1}</td>
                       <td className="text-center p-3">
@@ -612,26 +650,13 @@ const Spesifikasi = () => {
                 </tbody>
               </table>
             </div>
-            <nav
-              className="flex justify-end items-center gap-x-[.375rem] py-2 mt-2"
-              aria-label="pagination"
-            >
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-                <HiChevronLeft className="!text-base xs:!text-xl" />
-              </button>
-              <button className="button-gradient-sm !text-xs xs:!text-base">
-                1
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-                2
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-                3
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-                <HiChevronRight className="!text-base xs:!text-xl" />
-              </button>
-            </nav>
+            <Pagination
+              type="dashboard"
+              currentPage={currentPage.bahan}
+              postsPerPage={postPerPage}
+              totalPosts={productMaterial?.length}
+              paginate={paginateBahan}
+            />
           </div>
         </article>
         <article
@@ -694,7 +719,7 @@ const Spesifikasi = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {bentukProduk?.map((item, index) => (
+                  {currentDataBentuk?.map((item, index) => (
                     <tr className="border-b" key={index}>
                       <td className="text-center p-3">{index + 1}</td>
                       <td className="text-center p-3">
@@ -733,26 +758,13 @@ const Spesifikasi = () => {
                 </tbody>
               </table>
             </div>
-            <nav
-              className="flex justify-end items-center gap-x-[.375rem] py-2 mt-2"
-              aria-label="pagination"
-            >
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-                <HiChevronLeft className="!text-base xs:!text-xl" />
-              </button>
-              <button className="button-gradient-sm !text-xs xs:!text-base">
-                1
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-                2
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-                3
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-                <HiChevronRight className="!text-base xs:!text-xl" />
-              </button>
-            </nav>
+            <Pagination
+              type="dashboard"
+              currentPage={currentPage.bentuk}
+              postsPerPage={postPerPage}
+              totalPosts={bentukProduk?.length}
+              paginate={paginateBentuk}
+            />
           </div>
         </article>
         <article
@@ -818,13 +830,15 @@ const Spesifikasi = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {productSize?.map((item, index) => (
+                  {currentDataUkuran?.map((item, index) => (
                     <tr className="border-b align-baseline" key={index}>
                       <td className="text-center p-3">{index + 1}</td>
                       <td className="text-center p-3">
                         {item.product_size_shape}
                       </td>
-                      <td className="p-3">{item.product_size_description}</td>
+                      <td className="p-3 text-center">
+                        {item.product_size_description}
+                      </td>
                       <td className="text-center p-3">
                         <div className="flex items-center justify-center gap-2">
                           <button
@@ -861,26 +875,13 @@ const Spesifikasi = () => {
                 </tbody>
               </table>
             </div>
-            <nav
-              className="flex justify-end items-center gap-x-[.375rem] py-2 mt-2"
-              aria-label="pagination"
-            >
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-                <HiChevronLeft className="!text-base xs:!text-xl" />
-              </button>
-              <button className="button-gradient-sm !text-xs xs:!text-base">
-                1
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-                2
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-                3
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-                <HiChevronRight className="!text-base xs:!text-xl" />
-              </button>
-            </nav>
+            <Pagination
+              type="dashboard"
+              currentPage={currentPage.ukuran}
+              postsPerPage={postPerPage}
+              totalPosts={productSize?.length}
+              paginate={paginateUkuran}
+            />
           </div>
         </article>
         <article
@@ -943,7 +944,7 @@ const Spesifikasi = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {productFinishing?.map((item, index) => (
+                  {currentDataFinishing?.map((item, index) => (
                     <tr className="border-b" key={index}>
                       <td className="text-center p-3">{index + 1}</td>
                       <td className="text-center p-3">
@@ -982,26 +983,13 @@ const Spesifikasi = () => {
                 </tbody>
               </table>
             </div>
-            <nav
-              className="flex justify-end items-center gap-x-[.375rem] py-2 mt-2"
-              aria-label="pagination"
-            >
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-                <HiChevronLeft className="!text-base xs:!text-xl" />
-              </button>
-              <button className="button-gradient-sm !text-xs xs:!text-base">
-                1
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-                2
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-                3
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-                <HiChevronRight className="!text-base xs:!text-xl" />
-              </button>
-            </nav>
+            <Pagination
+              type="dashboard"
+              currentPage={currentPage.finishing}
+              postsPerPage={postPerPage}
+              totalPosts={productFinishing?.length}
+              paginate={paginateFinishing}
+            />
           </div>
         </article>
       </section>

@@ -1,7 +1,13 @@
 import React from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 
-const Pagination = ({ currentPage, postsPerPage, totalPosts, paginate }) => {
+const Pagination = ({
+  type,
+  currentPage,
+  postsPerPage,
+  totalPosts,
+  paginate,
+}) => {
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
@@ -22,7 +28,9 @@ const Pagination = ({ currentPage, postsPerPage, totalPosts, paginate }) => {
   return (
     <>
       <nav
-        className="flex justify-center items-center gap-x-[.375rem] py-2 mt-10"
+        className={`flex ${
+          type === "dashboard" ? "justify-end" : "justify-center"
+        } items-center gap-x-[.375rem] py-2 mt-10`}
         aria-label="pagination"
       >
         <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">

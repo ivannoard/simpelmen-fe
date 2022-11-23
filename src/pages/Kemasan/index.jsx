@@ -5,6 +5,7 @@ import { HiOutlineArrowSmLeft } from "react-icons/hi";
 import { HiChevronRight, HiChevronLeft } from "react-icons/hi";
 import useProducts from "../../hooks/useProductDetail";
 import CardSkeleton from "../../components/Skeletons/CardSkeleton";
+import Pagination from "../../components/Pagination";
 
 const Kemasan = () => {
   const [active, setActive] = useState("Semua Kemasan");
@@ -20,6 +21,14 @@ const Kemasan = () => {
   const { data, isLoading } = useProducts(
     "https://simpelmen.herokuapp.com/api/product"
   );
+  const [currentPage, setCurrentPage] = useState(1);
+  const postPerPage = 8;
+
+  const indexLastPost = currentPage * postPerPage;
+  const indexFirstPost = indexLastPost - postPerPage;
+  const currentData = productData?.slice(indexFirstPost, indexLastPost);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   function handleActive(type) {
     setActive(type);
     if (type === "Semua Kemasan") {
@@ -71,7 +80,7 @@ const Kemasan = () => {
                     <CardSkeleton />
                   </div>
                 ))
-              : productData?.map((item, index) => {
+              : currentData?.map((item, index) => {
                   return (
                     <div className="col-span-4 lg:col-span-3" key={index}>
                       <CardProduct {...item} />
@@ -79,26 +88,12 @@ const Kemasan = () => {
                   );
                 })}
           </div>
-          <nav
-            className="flex justify-center items-center gap-x-[.375rem] py-2"
-            aria-label="pagination"
-          >
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-              <HiChevronLeft className="!text-base xs:!text-xl" />
-            </button>
-            <button className="button-gradient-sm !text-xs xs:!text-base">
-              1
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-              2
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-              3
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-              <HiChevronRight className="!text-base xs:!text-xl" />
-            </button>
-          </nav>
+          <Pagination
+            currentPage={currentPage}
+            postsPerPage={postPerPage}
+            totalPosts={data?.length}
+            paginate={paginate}
+          />
         </section>
       </main>
     </>

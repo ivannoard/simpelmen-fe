@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { MdClose } from "react-icons/md";
-import { dummyImg } from "../../../../assets/image";
 import { adminSuper } from "../../../../services/api";
 import { useEffect } from "react";
 

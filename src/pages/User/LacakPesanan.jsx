@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import svg from "../../assets/svg";
-import { HiChevronRight, HiChevronLeft } from "react-icons/hi";
 import { useEffect } from "react";
 import { postOrder } from "../../services/api";
 import Alerts from "../../components/Alerts";
+import Pagination from "../../components/Pagination";
 
 const EmptyState = () => {
   return (
@@ -25,6 +25,13 @@ const LacakPesanan = () => {
   const [alerts, setAlerts] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
   const [failMessage, setFailMessage] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const postPerPage = 10;
+
+  const indexLastPost = currentPage * postPerPage;
+  const indexFirstPost = indexLastPost - postPerPage;
+  const currentData = data?.slice(indexFirstPost, indexLastPost);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     const getTracking = async () => {
@@ -95,7 +102,7 @@ const LacakPesanan = () => {
             />
             <article className="mb-8" id="lacakPesanan">
               <div className="w-full grid grid-cols-4 gap-y-5 gap-x-6">
-                {data?.map((item, index) => (
+                {currentData?.map((item, index) => (
                   <div className="col-span-4" key={index}>
                     <div className="w-full shadow-gray p-4 rounded-[10px] bg-white grid grid-cols-6 gap-x-3 gap-y-2 xs:gap-y-3 xl:items-center border border-secondary-700/40">
                       <div className="col-span-6 xl:col-span-2">
@@ -142,26 +149,12 @@ const LacakPesanan = () => {
                 ))}
               </div>
             </article>
-            <nav
-              className="flex justify-center items-center gap-x-[.375rem] py-2 mt-10"
-              aria-label="pagination"
-            >
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-                <HiChevronLeft className="!text-base xs:!text-xl" />
-              </button>
-              <button className="button-gradient-sm !text-xs xs:!text-base">
-                1
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-                2
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-                3
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-                <HiChevronRight className="!text-base xs:!text-xl" />
-              </button>
-            </nav>
+            <Pagination
+              currentPage={currentPage}
+              postsPerPage={postPerPage}
+              totalPosts={data?.length}
+              paginate={paginate}
+            />
           </div>
           <div className="col-span-4 xl:border-l px-5">
             {toggleTracking && <EmptyState />}

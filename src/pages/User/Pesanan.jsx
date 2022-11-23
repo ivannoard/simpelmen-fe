@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { HiChevronRight, HiChevronLeft } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import { postOrder } from "../../services/api";
+import Pagination from "../../components/Pagination";
 
 const Pesanan = () => {
   const navigate = useNavigate();
   const user = localStorage.getItem("user");
   const parseUser = JSON.parse(user);
   const [data, setData] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const postPerPage = 10;
+
+  const indexLastPost = currentPage * postPerPage;
+  const indexFirstPost = indexLastPost - postPerPage;
+  const currentData = data?.slice(indexFirstPost, indexLastPost);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     const getOrder = async () => {
@@ -31,7 +38,7 @@ const Pesanan = () => {
         <article id="pesanan" className="mb-8">
           <div className="w-full grid grid-cols-4 gap-y-5 gap-x-6">
             {data
-              ? data?.map((item) => (
+              ? currentData?.map((item) => (
                   <div className="col-span-4" key={item.order_id}>
                     <div className="w-full shadow-gray p-4 rounded-[10px] bg-white grid grid-cols-8 gap-x-3 gap-y-2 xs:gap-y-3 xl:items-center border border-secondary-700/40">
                       <div className="col-span-3 xl:col-span-2">
@@ -102,27 +109,12 @@ const Pesanan = () => {
               : "loading"}
           </div>
         </article>
-
-        <nav
-          className="flex justify-center items-center gap-x-[.375rem] py-2 mt-10"
-          aria-label="pagination"
-        >
-          <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-            <HiChevronLeft className="!text-base xs:!text-xl" />
-          </button>
-          <button className="button-gradient-sm !text-xs xs:!text-base">
-            1
-          </button>
-          <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-            2
-          </button>
-          <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-            3
-          </button>
-          <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-            <HiChevronRight className="!text-base xs:!text-xl" />
-          </button>
-        </nav>
+        <Pagination
+          currentPage={currentPage}
+          postsPerPage={postPerPage}
+          totalPosts={data?.length}
+          paginate={paginate}
+        />
       </section>
     </>
   );

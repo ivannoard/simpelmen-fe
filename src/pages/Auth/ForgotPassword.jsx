@@ -3,7 +3,6 @@ import AuthLayout from './components/AuthLayout';
 import svg from '../../assets/svg';
 import regex from '../../services/regex';
 import { MdEmail } from 'react-icons/md';
-import { BsExclamationCircleFill } from 'react-icons/bs';
 import { CgSpinner } from 'react-icons/cg';
 import { userAuth } from '../../services/api';
 import Alerts from '../../components/Alerts';

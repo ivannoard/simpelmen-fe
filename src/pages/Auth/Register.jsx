@@ -6,7 +6,7 @@ import AuthLayout from './components/AuthLayout';
 import svg from '../../assets/svg';
 import regex from '../../services/regex';
 import { MdEmail, MdLock } from 'react-icons/md';
-import { BsFillPersonFill, BsExclamationCircleFill } from 'react-icons/bs';
+import { BsFillPersonFill } from 'react-icons/bs';
 import { AiFillPhone } from 'react-icons/ai';
 import { VscEye, VscEyeClosed } from 'react-icons/vsc';
 import { CgSpinner } from 'react-icons/cg';
@@ -152,7 +152,7 @@ const Register = () => {
             status="true"
             background="bg-red-100"
             textColor="text-red-600"
-            textContent={`Ups, sepertinya ada yang salah: ${failMessage}`}
+            textContent={`${failMessage}`}
             closeButton="true"
           />
         )}
@@ -321,7 +321,9 @@ const Register = () => {
               )}
             </div>
             <button
-              className="button-fill transition-200 mt-4 flex items-center justify-center"
+              className={`button-fill transition-200 mt-4 flex items-center justify-center ${
+                isLoading ? '!bg-primary-600' : ''
+              }`}
               disabled={isLoading ? true : false}
             >
               {isLoading ? (

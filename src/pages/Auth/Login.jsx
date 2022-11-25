@@ -7,9 +7,9 @@ import svg from '../../assets/svg';
 import regex from '../../services/regex';
 import { MdEmail, MdLock } from 'react-icons/md';
 import { VscEye, VscEyeClosed } from 'react-icons/vsc';
-import { BsExclamationCircleFill } from 'react-icons/bs';
 import { CgSpinner } from 'react-icons/cg';
 import { userAuth } from '../../services/api';
+import ErrorMessage from '../../components/Alerts/ErrorMessage';
 
 const { email: EMAIL_REGEX } = regex;
 
@@ -51,13 +51,12 @@ const Login = () => {
         localStorage.setItem('user', JSON.stringify(response.data));
         setTimeout(() => {
           if (localStorage.getItem('user')) navigate('/');
-          // window.location.replace("https://www.google.com");
         }, 1000);
         setAlerts(true);
         setIsLoading(false);
       })
       .catch((e) => {
-        setFailMessage(e.message);
+        setFailMessage(e.response.data.message);
         setAlertFail(true);
         setIsLoading(false);
       });
@@ -88,7 +87,7 @@ const Login = () => {
             state="true"
             background="bg-red-100"
             textColor="text-red-600"
-            textContent={`Ups, sepertinya ada yang salah: ${failMessage}`}
+            textContent={`${failMessage}`}
             closeButton="true"
           />
         )}
@@ -115,15 +114,11 @@ const Login = () => {
               />
               <MdEmail className="absolute text-xl top-4 left-4 fill-secondary-800" />
               {fields.email && !validEmail && (
-                <p
-                  id="emailField"
-                  className="flex items-center ml-1 mt-1"
-                >
-                  <BsExclamationCircleFill className="text-base mr-2 fill-red-500" />
-                  <span className="error-inputs">
-                    Mohon masukkan email dengan benar.
-                  </span>
-                </p>
+                <ErrorMessage
+                  referenceId="emailField"
+                  message="Mohon masukkan email dengan benar."
+                  isPasswordField={false}
+                />
               )}
             </div>
             <div className="relative w-full flex flex-col mb-4">
@@ -158,7 +153,12 @@ const Login = () => {
                 Klik disini
               </Link>
             </p>
-            <button className="button-fill transition-200 flex items-center justify-center">
+            <button
+              className={`button-fill transition-200 flex items-center justify-center ${
+                isLoading ? '!bg-primary-600' : ''
+              }`}
+              disabled={isLoading ? true : false}
+            >
               {isLoading ? (
                 <>
                   <CgSpinner className="animate-spin text-xl mr-2 icon-white" />

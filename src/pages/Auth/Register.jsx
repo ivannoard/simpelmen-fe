@@ -11,6 +11,7 @@ import { AiFillPhone } from 'react-icons/ai';
 import { VscEye, VscEyeClosed } from 'react-icons/vsc';
 import { CgSpinner } from 'react-icons/cg';
 import { userAuth } from '../../services/api';
+import ErrorMessage from '../../components/Alerts/ErrorMessage';
 
 const {
   name: NAME_REGEX,
@@ -26,7 +27,6 @@ const Register = () => {
   const [alertFail, setAlertFail] = useState(false);
   const [failMessage, setFailMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [tooltip, showTooltip] = useState(true);
 
   const [fields, setFields] = useState({
     name: '',
@@ -44,24 +44,43 @@ const Register = () => {
     confirmPassword: false,
   });
 
-  useEffect(() => {
-    setValidFields({
-      ...validFields,
-      name: NAME_REGEX.test(fields.name),
-      email: EMAIL_REGEX.test(fields.email),
-      phone: PHONE_REGEX.test(fields.phone),
-      password: PASSWORD_REGEX.test(fields.password),
-      confirmPassword:
-        fields.confirmPassword !== '' &&
-        fields.confirmPassword === fields.password,
-    });
-  }, [
-    fields.email,
-    fields.name,
-    fields.password,
-    fields.confirmPassword,
-    fields.phone,
-  ]);
+  const validateFieldsHandler = (e) => {
+    const { name, value } = e.target;
+    switch (name) {
+      case 'name':
+        setValidFields({
+          ...validFields,
+          name: NAME_REGEX.test(value),
+        });
+        break;
+      case 'email':
+        setValidFields({
+          ...validFields,
+          email: EMAIL_REGEX.test(value),
+        });
+        break;
+      case 'phone':
+        setValidFields({
+          ...validFields,
+          phone: PHONE_REGEX.test(value),
+        });
+        break;
+      case 'password':
+        setValidFields({
+          ...validFields,
+          password: PASSWORD_REGEX.test(value),
+        });
+        break;
+      case 'confirmPassword':
+        setValidFields({
+          ...validFields,
+          confirmPassword: value !== '' && value === fields.password,
+        });
+        break;
+      default:
+        break;
+    }
+  };
 
   function handleChange(e) {
     e.preventDefault();
@@ -148,7 +167,10 @@ const Register = () => {
               <input
                 type="text"
                 name="name"
-                onChange={handleChange}
+                onChange={(e) => {
+                  handleChange(e);
+                  validateFieldsHandler(e);
+                }}
                 required
                 autoComplete="off"
                 placeholder="Nama Lengkap"
@@ -160,15 +182,11 @@ const Register = () => {
               />
               <BsFillPersonFill className="absolute text-xl top-4 left-4 fill-secondary-800" />
               {fields.name && !validFields.name && (
-                <p
-                  id="nameField"
-                  className="flex items-center ml-1 mt-1"
-                >
-                  <BsExclamationCircleFill className="text-base mr-2 fill-red-500" />
-                  <span className="error-inputs">
-                    Mohon masukkan nama dengan benar.
-                  </span>
-                </p>
+                <ErrorMessage
+                  referenceId="nameField"
+                  message="Mohon masukkan nama dengan benar."
+                  isPasswordField={false}
+                />
               )}
             </div>
             <div className="relative">
@@ -177,7 +195,10 @@ const Register = () => {
                 name="email"
                 required
                 autoComplete="off"
-                onChange={handleChange}
+                onChange={(e) => {
+                  handleChange(e);
+                  validateFieldsHandler(e);
+                }}
                 placeholder="Email"
                 className={`input-field ${
                   fields.email && !validFields.email && 'field-error'
@@ -187,15 +208,11 @@ const Register = () => {
               />
               <MdEmail className="absolute text-xl top-4 left-4 fill-secondary-800" />
               {fields.email && !validFields.email && (
-                <p
-                  id="emailField"
-                  className="flex items-center ml-1 mt-1"
-                >
-                  <BsExclamationCircleFill className="text-base mr-2 fill-red-500" />
-                  <span className="error-inputs">
-                    Mohon masukkan email sesuai format.
-                  </span>
-                </p>
+                <ErrorMessage
+                  referenceId="emailField"
+                  message="Mohon masukkan email sesuai format."
+                  isPasswordField={false}
+                />
               )}
             </div>
             <div className="relative">
@@ -204,7 +221,10 @@ const Register = () => {
                 name="phone"
                 required
                 autoComplete="off"
-                onChange={handleChange}
+                onChange={(e) => {
+                  handleChange(e);
+                  validateFieldsHandler(e);
+                }}
                 placeholder="No. Handphone"
                 className={`input-field ${
                   fields.phone && !validFields.phone && 'field-error'
@@ -214,22 +234,21 @@ const Register = () => {
               />
               <AiFillPhone className="absolute text-xl top-4 left-4 fill-secondary-800" />
               {fields.phone && !validFields.phone && (
-                <p
-                  id="phoneField"
-                  className="flex items-center ml-1 mt-1"
-                >
-                  <BsExclamationCircleFill className="text-base mr-2 fill-red-500" />
-                  <span className="error-inputs">
-                    Masukkan telepon harus berupa angka.
-                  </span>
-                </p>
+                <ErrorMessage
+                  referenceId="phoneField"
+                  message="Masukkan telepon harus berupa angka."
+                  isPasswordField={false}
+                />
               )}
             </div>
             <div className="relative">
               <input
                 type={!togglePassword ? 'password' : 'text'}
                 name="password"
-                onChange={handleChange}
+                onChange={(e) => {
+                  handleChange(e);
+                  validateFieldsHandler(e);
+                }}
                 required
                 autoComplete="off"
                 placeholder="Kata Sandi"
@@ -252,76 +271,20 @@ const Register = () => {
                 />
               )}
               {fields.password && !validFields.password && (
-                <>
-                  <p
-                    id="passwordField"
-                    className="flex items-center ml-1 mt-1"
-                  >
-                    <BsExclamationCircleFill className="text-base mr-2 fill-red-500" />
-                    <div>
-                      <span className="error-inputs mr-1">
-                        Mohon masukkan kata sandi dengan benar.
-                      </span>
-                      <span
-                        className="error-inputs underline underline-offset-1 cursor-pointer inline-block relative"
-                        onMouseEnter={() => showTooltip(true)}
-                        onMouseLeave={() => showTooltip(false)}
-                      >
-                        Tips
-                        {tooltip && (
-                          <span className="absolute p-3 bg-dark text-white top-7 right-0 z-50 w-52 rounded-lg translate-x-1/2">
-                            <span className="text-white bg-dark !text-center">
-                              Berisikan 8 sampai dengan 24 karakter.
-                              <br />
-                              Harus mengandung huruf besar, huruf kecil, angka,
-                              dan karakter khusus.
-                              <br />
-                              Karakter khusus yang diperbolehkan adalah:
-                              <br />
-                              <span
-                                className="text-sm text-red-500"
-                                aria-label="exclamation mark"
-                              >
-                                !
-                              </span>{' '}
-                              <span
-                                className="text-sm text-red-500"
-                                aria-label="at symbol"
-                              >
-                                @
-                              </span>{' '}
-                              <span
-                                className="text-sm text-red-500"
-                                aria-label="hashtag"
-                              >
-                                #
-                              </span>{' '}
-                              <span
-                                className="text-sm text-red-500"
-                                aria-label="dollar sign"
-                              >
-                                $
-                              </span>{' '}
-                              <span
-                                className="text-sm text-red-500"
-                                aria-label="percent"
-                              >
-                                %
-                              </span>
-                            </span>
-                          </span>
-                        )}
-                      </span>
-                    </div>
-                  </p>
-                </>
+                <ErrorMessage
+                  referenceId="passwordField"
+                  isPasswordField={true}
+                />
               )}
             </div>
             <div className="relative">
               <input
                 type={!toggleConfirmPassword ? 'password' : 'text'}
                 name="confirmPassword"
-                onChange={handleChange}
+                onChange={(e) => {
+                  handleChange(e);
+                  validateFieldsHandler(e);
+                }}
                 required
                 autoComplete="off"
                 placeholder="Konfirmasi Kata Sandi"
@@ -350,18 +313,17 @@ const Register = () => {
                 />
               )}
               {fields.confirmPassword && !validFields.confirmPassword && (
-                <p
-                  id="confirmPasswordField"
-                  className="flex items-center ml-1 mt-1"
-                >
-                  <BsExclamationCircleFill className="text-base mr-2 fill-red-500" />
-                  <span className="error-inputs">
-                    Konfirmasi kata sandi harus sama dengan kata sandi.
-                  </span>
-                </p>
+                <ErrorMessage
+                  referenceId="confirmPasswordField"
+                  message="Konfirmasi kata sandi harus sama dengan kata sandi."
+                  isPasswordField={false}
+                />
               )}
             </div>
-            <button className="button-fill transition-200 mt-4 flex items-center justify-center">
+            <button
+              className="button-fill transition-200 mt-4 flex items-center justify-center"
+              disabled={isLoading ? true : false}
+            >
               {isLoading ? (
                 <>
                   <CgSpinner className="animate-spin text-xl mr-2 icon-white" />

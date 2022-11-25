@@ -7,6 +7,7 @@ const regex = {
   name: /^[a-zA-Z ']{3,50}$/,
   username: /^[a-zA-Z][a-zA-Z0-9-_]{3,20}$/,
   phoneNumber: /^\+*[0-9]{11,15}$/,
+  postCode: /^\+*[0-9]{5}$/,
 };
 
 export default regex;

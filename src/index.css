@@ -169,3 +169,7 @@ svg.icon-white,
 svg.icon-white path {
   @apply text-white fill-white border-white;
 }
+svg.icon-primary,
+svg.icon-primary path {
+  @apply text-primary-900 fill-primary-900 border-primary-900;
+}

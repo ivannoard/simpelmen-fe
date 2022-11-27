@@ -29,6 +29,10 @@ const FormKarton = ({ productId, setAlertSuccess, setAlertFail }) => {
   const user = localStorage.getItem('user');
 
   const dummyDesign = [
+    {
+      value: 'lama',
+      desc: 'Lama (Diambil dari data pesanan file pesanan sebelumnya)',
+    },
     { value: 'baru', desc: 'Baru (Dibuatkan oleh desainer BIKDK)' },
     { value: 'swadesign', desc: 'Swadesign (File desain dari konsumen)' },
     {
@@ -165,11 +169,12 @@ const FormKarton = ({ productId, setAlertSuccess, setAlertFail }) => {
               'x-access-token': `${JSON.parse(user).data.token}`,
             },
           })
-          .then((res) => {
+          .then(() => {
             setAlertSuccess(true);
             setIsLoading(false);
             setIsLetterBtnLoading(false);
             setIsIconBtnLoading(false);
+            setFields({});
           })
           .catch((err) => {
             console.log(err);
@@ -195,18 +200,19 @@ const FormKarton = ({ productId, setAlertSuccess, setAlertFail }) => {
 
   return (
     <form>
+      {/* ukuran */}
       <div>
         <label
           htmlFor="ukuran"
           className="block mb-2 text-sm font-medium text-gray-700"
         >
-          Ukuran
+          Ukuran<span className="text-primary-900 font-semibold">*</span>
         </label>
         <div className="grid grid-cols-3 gap-x-3 gap-y-4">
           <div className="relative col-span-3 xs:col-span-1">
             <input
               type="text"
-              id="ukuran"
+              id="panjang_1"
               name="panjang_1"
               placeholder="Panjang"
               required
@@ -218,7 +224,7 @@ const FormKarton = ({ productId, setAlertSuccess, setAlertFail }) => {
                 fields.panjang_1 && !validFields.panjang_1 && 'field-error'
               }`}
               aria-invalid={validFields.panjang_1 ? 'false' : 'true'}
-              aria-describedby="ukuranField"
+              aria-describedby="panjangField"
             />
             <span className="text-gray-400 absolute right-3 top-[11px]">
               cm
@@ -236,7 +242,7 @@ const FormKarton = ({ productId, setAlertSuccess, setAlertFail }) => {
           <div className="relative col-span-3 xs:col-span-1">
             <input
               type="text"
-              id="ukuran"
+              id="lebar_1"
               name="lebar_1"
               placeholder="Lebar"
               required
@@ -248,7 +254,7 @@ const FormKarton = ({ productId, setAlertSuccess, setAlertFail }) => {
                 fields.lebar_1 && !validFields.lebar_1 && 'field-error'
               }`}
               aria-invalid={validFields.lebar_1 ? 'false' : 'true'}
-              aria-describedby="ukuranField"
+              aria-describedby="lebarField"
             />
             <span className="text-gray-400 absolute right-3 top-[11px]">
               cm
@@ -266,7 +272,7 @@ const FormKarton = ({ productId, setAlertSuccess, setAlertFail }) => {
           <div className="relative col-span-3 xs:col-span-1">
             <input
               type="text"
-              id="ukuran"
+              id="tinggi_1"
               name="tinggi_1"
               placeholder="Tinggi"
               required
@@ -278,7 +284,7 @@ const FormKarton = ({ productId, setAlertSuccess, setAlertFail }) => {
                 fields.tinggi_1 && !validFields.tinggi_1 && 'field-error'
               }`}
               aria-invalid={validFields.tinggi_1 ? 'false' : 'true'}
-              aria-describedby="ukuranField"
+              aria-describedby="tinggiField"
             />
             <span className="text-gray-400 absolute right-3 top-[11px]">
               cm
@@ -308,12 +314,13 @@ const FormKarton = ({ productId, setAlertSuccess, setAlertFail }) => {
           ''
         )}
       </div>
+      {/* order sablon */}
       <div className="mt-4 relative">
         <label
           htmlFor="sablon"
           className="block mb-2 text-sm font-medium text-gray-700"
         >
-          Sablon
+          Sablon<span className="text-primary-900 font-semibold">*</span>
         </label>
         <select
           id="order_detail_sablon"
@@ -347,12 +354,13 @@ const FormKarton = ({ productId, setAlertSuccess, setAlertFail }) => {
           />
         )}
       </div>
+      {/* order design */}
       <div className="mt-4 relative">
         <label
           htmlFor="desain"
           className="block mb-2 text-sm font-medium text-gray-700"
         >
-          Desain
+          Desain<span className="text-primary-900 font-semibold">*</span>
         </label>
         <select
           id="desain"
@@ -397,6 +405,7 @@ const FormKarton = ({ productId, setAlertSuccess, setAlertFail }) => {
             className="block mb-2 text-sm font-medium text-gray-700"
           >
             Unggah Desain
+            <span className="text-primary-900 font-semibold">*</span>
           </label>
           <div className="w-full p-12 border-2 border-gray-500 border-dashed rounded-lg flex items-center justify-center bg-gray-100">
             <div>
@@ -454,12 +463,14 @@ const FormKarton = ({ productId, setAlertSuccess, setAlertFail }) => {
           )}
         </div>
       )}
+      {/* order quantity */}
       <div className="mt-4">
         <label
           htmlFor="jumlah"
           className="block mb-2 text-sm font-medium text-gray-700"
         >
           Jumlah Pesanan
+          <span className="text-primary-900 font-semibold">*</span>
         </label>
         <div className="relative">
           <input
@@ -490,6 +501,7 @@ const FormKarton = ({ productId, setAlertSuccess, setAlertFail }) => {
           )}
         </div>
       </div>
+      {/* button */}
       <div className="buttons flex justify-end mt-8 gap-5">
         <button
           onClick={(e) => handleSubmit(e, true, false)}

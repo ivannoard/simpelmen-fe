@@ -8,6 +8,7 @@ import { postOrder } from '../../../services/api';
 import ErrorMessage from '../../../components/Alerts/ErrorMessage';
 
 import regex from '../../../services/regex';
+import dummyData from './dummyDataForm';
 
 const { number: NUMBER_REGEX } = regex;
 
@@ -27,19 +28,6 @@ const FormKarton = ({ productId, setAlertSuccess, setAlertFail }) => {
   const [isLetterBtnLoading, setIsLetterBtnLoading] = useState(false);
   const [isIconBtnLoading, setIsIconBtnLoading] = useState(false);
   const user = localStorage.getItem('user');
-
-  const dummyDesign = [
-    {
-      value: 'lama',
-      desc: 'Lama (Diambil dari data pesanan file pesanan sebelumnya)',
-    },
-    { value: 'baru', desc: 'Baru (Dibuatkan oleh desainer BIKDK)' },
-    { value: 'swadesign', desc: 'Swadesign (File desain dari konsumen)' },
-    {
-      value: 'redesign',
-      desc: 'Re-design (Desain ulang dari pesanan sebelumnya)',
-    },
-  ];
 
   function handleChange(e) {
     e.preventDefault();
@@ -174,7 +162,6 @@ const FormKarton = ({ productId, setAlertSuccess, setAlertFail }) => {
             setIsLoading(false);
             setIsLetterBtnLoading(false);
             setIsIconBtnLoading(false);
-            setFields({});
           })
           .catch((err) => {
             console.log(err);
@@ -380,7 +367,7 @@ const FormKarton = ({ productId, setAlertSuccess, setAlertFail }) => {
           aria-describedby="orderDesignField"
         >
           <option value="0">Pilih Desain</option>
-          {dummyDesign.map((item, index) => (
+          {dummyData.dummyDesign.map((item, index) => (
             <option
               value={item.value}
               key={index}

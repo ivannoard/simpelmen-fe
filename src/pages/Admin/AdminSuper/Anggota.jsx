@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { BsSearch, BsPlus } from "react-icons/bs";
 import { FaTrash } from "react-icons/fa";
-import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import Alerts from "../../../components/Alerts";
+import Pagination from "../../../components/Pagination";
 import { adminSuper } from "../../../services/api";
 import ModalsAddAdmin from "./components/ModalsAddAdmin";
 import ModalsEditAdmin from "./components/ModalsEditAdmin";
@@ -24,6 +24,14 @@ const Anggota = () => {
   const [editAdmin, setEditAdmin] = useState();
   const [adminRole, setAdminRole] = useState();
   const [updateId, setUpdateId] = useState();
+  // pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const postPerPage = 5;
+
+  const indexLastPost = currentPage * postPerPage;
+  const indexFirstPost = indexLastPost - postPerPage;
+  const currentData = dataAdmin?.slice(indexFirstPost, indexLastPost);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const getDataAdmin = async (token) => {
     await adminSuper
@@ -266,7 +274,7 @@ const Anggota = () => {
                 </tr>
               </thead>
               <tbody>
-                {dataAdmin?.map((item, index) => (
+                {currentData?.map((item, index) => (
                   <tr className="border-b" key={index}>
                     <td className="text-center p-3">{index + 1}</td>
                     <td className="text-center p-3">{item.user_name}</td>
@@ -290,26 +298,13 @@ const Anggota = () => {
               </tbody>
             </table>
           </div>
-          <nav
-            className="flex justify-end items-center gap-x-[.375rem] py-2 mt-2"
-            aria-label="pagination"
-          >
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-              <HiChevronLeft className="!text-base xs:!text-xl" />
-            </button>
-            <button className="button-gradient-sm !text-xs xs:!text-base">
-              1
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-              2
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-              3
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-              <HiChevronRight className="!text-base xs:!text-xl" />
-            </button>
-          </nav>
+          <Pagination
+            type="dashboard"
+            currentPage={currentPage}
+            postsPerPage={postPerPage}
+            totalPosts={dataAdmin?.length}
+            paginate={paginate}
+          />
         </article>
       </section>
 

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import ModalResi from "./components/ModalResi";
 import { IoIosArrowDown } from "react-icons/io";
 import { BiPlus } from "react-icons/bi";
 import { adminGudang } from "../../../services/api";
 import Alerts from "../../../components/Alerts";
+import Pagination from "../../../components/Pagination";
 
 const Dashboard = () => {
   const user = localStorage.getItem("admin");
@@ -20,6 +20,14 @@ const Dashboard = () => {
     delivery_detail_receipt: "",
     delivery_detail_estimate: "",
   });
+  // pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const postPerPage = 5;
+
+  const indexLastPost = currentPage * postPerPage;
+  const indexFirstPost = indexLastPost - postPerPage;
+  const currentData = warehouseData?.slice(indexFirstPost, indexLastPost);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const getData = async (token) => {
     await adminGudang
@@ -216,7 +224,7 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {warehouseData?.map((item, index) => (
+                {currentData?.map((item, index) => (
                   <tr className="border-b" key={index}>
                     <td className="text-center p-3">{index + 1}</td>
                     <td className="text-center p-3">{item.order_code}</td>
@@ -281,26 +289,13 @@ const Dashboard = () => {
               </tbody>
             </table>
           </div>
-          <nav
-            className="flex justify-end items-center gap-x-[.375rem] py-2 mt-5"
-            aria-label="pagination"
-          >
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-              <HiChevronLeft className="!text-base xs:!text-xl" />
-            </button>
-            <button className="button-gradient-sm !text-xs xs:!text-base">
-              1
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-              2
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-              3
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-              <HiChevronRight className="!text-base xs:!text-xl" />
-            </button>
-          </nav>
+          <Pagination
+            type="dashboard"
+            currentPage={currentPage}
+            postsPerPage={postPerPage}
+            totalPosts={warehouseData?.length}
+            paginate={paginate}
+          />
         </article>
       </section>
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BsFillCartFill, BsFillPersonFill } from "react-icons/bs";
 import { FaBox } from "react-icons/fa";
-import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import Pagination from "../../../components/Pagination";
 import { adminSuper, commonAPI } from "../../../services/api";
 
 const Dashboard = () => {
@@ -9,7 +9,35 @@ const Dashboard = () => {
   const parseUser = JSON.parse(user);
   const [dataAdmin, setDataAdmin] = useState();
   const [dataProduct, setDataProduct] = useState();
-  const [data, setData] = useState();
+  const [data, setData] = useState(); //rekap pesanan
+  const [currentPage, setCurrentPage] = useState({
+    admin: 1,
+    produk: 1,
+    rekap: 1,
+  });
+  const postPerPage = 5;
+
+  const indexLastPostAdmin = currentPage.admin * postPerPage;
+  const indexFirstPostAdmin = indexLastPostAdmin - postPerPage;
+  const indexLastPostProduk = currentPage.produk * postPerPage;
+  const indexFirstPostProduk = indexLastPostProduk - postPerPage;
+  const indexLastPostRekap = currentPage.rekap * postPerPage;
+  const indexFirstPostRekap = indexLastPostRekap - postPerPage;
+  const currentDataAdmin = dataAdmin?.slice(
+    indexFirstPostAdmin,
+    indexLastPostAdmin
+  );
+  const currentDataProduk = dataProduct?.slice(
+    indexFirstPostProduk,
+    indexLastPostProduk
+  );
+  const currentDataRekap = data?.slice(indexFirstPostRekap, indexLastPostRekap);
+  const paginateAdmin = (pageNumber) =>
+    setCurrentPage({ ...currentPage, admin: pageNumber });
+  const paginateProduct = (pageNumber) =>
+    setCurrentPage({ ...currentPage, produk: pageNumber });
+  const paginateRekap = (pageNumber) =>
+    setCurrentPage({ ...currentPage, rekap: pageNumber });
 
   useEffect(() => {
     const getDataAdmin = async () => {
@@ -107,7 +135,7 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {dataAdmin?.map((item, index) => (
+                {currentDataAdmin?.map((item, index) => (
                   <tr className="border-b" key={index}>
                     <td className="text-center p-3">{index + 1}</td>
                     <td className="text-center p-3">{item.user_name}</td>
@@ -118,26 +146,13 @@ const Dashboard = () => {
               </tbody>
             </table>
           </div>
-          <nav
-            className="flex justify-end items-center gap-x-[.375rem] py-2 mt-2"
-            aria-label="pagination"
-          >
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-              <HiChevronLeft className="!text-base xs:!text-xl" />
-            </button>
-            <button className="button-gradient-sm !text-xs xs:!text-base">
-              1
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-              2
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-              3
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-              <HiChevronRight className="!text-base xs:!text-xl" />
-            </button>
-          </nav>
+          <Pagination
+            type="dashboard"
+            currentPage={currentPage.admin}
+            postsPerPage={postPerPage}
+            totalPosts={dataAdmin?.length}
+            paginate={paginateAdmin}
+          />
         </article>
 
         <h6 className="mb-4">Tabel Produk</h6>
@@ -158,7 +173,7 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {dataProduct?.map((item, index) => (
+                {currentDataProduk?.map((item, index) => (
                   <tr className="border-b" key={index}>
                     <td className="text-center py-3">{index + 1}</td>
                     <td className="text-center py-3">{item.product_name}</td>
@@ -170,26 +185,13 @@ const Dashboard = () => {
               </tbody>
             </table>
           </div>
-          <nav
-            className="flex justify-end items-center gap-x-[.375rem] py-2 mt-2"
-            aria-label="pagination"
-          >
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-              <HiChevronLeft className="!text-base xs:!text-xl" />
-            </button>
-            <button className="button-gradient-sm !text-xs xs:!text-base">
-              1
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-              2
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-              3
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-              <HiChevronRight className="!text-base xs:!text-xl" />
-            </button>
-          </nav>
+          <Pagination
+            type="dashboard"
+            currentPage={currentPage.produk}
+            postsPerPage={postPerPage}
+            totalPosts={dataProduct?.length}
+            paginate={paginateProduct}
+          />
         </article>
         <h6 className="mb-4">Rekap Pesanan</h6>
         <article id="tableRekapPesanan">
@@ -215,13 +217,35 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {data?.map((item, index) => (
+                {currentDataRekap?.map((item, index) => (
                   <tr className="border-b" key={index}>
                     <td className="text-center p-3">{index + 1}</td>
                     <td className="text-center p-3">{item.order_code}</td>
                     <td className="text-left p-3">{item.users.user_ikm}</td>
                     <td className="text-center p-3">
-                      {item.order_statuses[0]?.order_status_admin_code}
+                      <div className="text-white bg-orange-600 rounded-md py-2 px-7">
+                        {item?.order_statuses[0].order_status_admin_code === "8"
+                          ? "Status Pesanan"
+                          : item?.order_statuses[0].order_status_admin_code ===
+                            2
+                          ? "Admin CS"
+                          : item?.order_statuses[0].order_status_admin_code ===
+                            3
+                          ? "Admin Kasir"
+                          : item?.order_statuses[0].order_status_admin_code ===
+                            4
+                          ? "Admin Desain"
+                          : item?.order_statuses[0].order_status_admin_code ===
+                            5
+                          ? "Admin Gudang"
+                          : item?.order_statuses[0].order_status_admin_code ===
+                            6
+                          ? "Admin Produksi"
+                          : item?.order_statuses[0].order_status_admin_code ===
+                            7
+                          ? "Admin TU"
+                          : ""}
+                      </div>
                     </td>
                     <td className="text-center p-3">
                       Rp.{" "}
@@ -234,26 +258,13 @@ const Dashboard = () => {
               </tbody>
             </table>
           </div>
-          <nav
-            className="flex justify-end items-center gap-x-[.375rem] py-2 mt-2"
-            aria-label="pagination"
-          >
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-              <HiChevronLeft className="!text-base xs:!text-xl" />
-            </button>
-            <button className="button-gradient-sm !text-xs xs:!text-base">
-              1
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-              2
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-              3
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-              <HiChevronRight className="!text-base xs:!text-xl" />
-            </button>
-          </nav>
+          <Pagination
+            type="dashboard"
+            currentPage={currentPage.rekap}
+            postsPerPage={postPerPage}
+            totalPosts={data?.length}
+            paginate={paginateRekap}
+          />
         </article>
       </section>
     </>

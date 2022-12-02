@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import Pagination from "../../../components/Pagination";
 import { adminSuper } from "../../../services/api";
 import ModalsRekap from "./components/ModalsRekap";
 
 const Rekap = () => {
   const user = localStorage.getItem("admin");
-  // const [toggleId, setToggleId] = useState();
+  const [toggleId, setToggleId] = useState();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [data, setData] = useState();
+  // pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const postPerPage = 5;
+
+  const indexLastPost = currentPage * postPerPage;
+  const indexFirstPost = indexLastPost - postPerPage;
+  const currentData = data?.slice(indexFirstPost, indexLastPost);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const closeModal = () => {
     setIsOpenModal(false);
@@ -16,7 +24,7 @@ const Rekap = () => {
 
   const detailModalHandling = (id) => {
     setIsOpenModal(true);
-    // setToggleId(id);
+    setToggleId(id);
   };
 
   useEffect(() => {
@@ -38,10 +46,7 @@ const Rekap = () => {
         <div className="border-b border-orange-900">
           <h3 className="font-semibold pb-3">Rekap Pesanan</h3>
         </div>
-        <h6 className="mt-6 mb-4">
-          Tabel Rekap Pesanan{" "}
-          <span className="text-primary-900">NO DETAIL</span>
-        </h6>
+        <h6 className="mt-6 mb-4">Tabel Rekap Pesanan </h6>
         <div className="flex items-center justify-between mb-4">
           <div className="flex gap-2 items-center mr-4">
             <label htmlFor="sorting">Menampilkan</label>
@@ -95,13 +100,35 @@ const Rekap = () => {
                 </tr>
               </thead>
               <tbody>
-                {data?.map((item, index) => (
+                {currentData?.map((item, index) => (
                   <tr className="border-b" key={index}>
                     <td className="text-center p-3">{index + 1}</td>
                     <td className="text-center p-3">{item.order_code}</td>
                     <td className="text-left p-3">{item.users.user_ikm}</td>
                     <td className="text-center p-3">
-                      {item.order_statuses[0]?.order_status_admin_code}
+                      <div className="text-white bg-orange-600 rounded-md py-2 px-7">
+                        {item?.order_statuses[0].order_status_admin_code === "8"
+                          ? "Status Pesanan"
+                          : item?.order_statuses[0].order_status_admin_code ===
+                            2
+                          ? "Admin CS"
+                          : item?.order_statuses[0].order_status_admin_code ===
+                            3
+                          ? "Admin Kasir"
+                          : item?.order_statuses[0].order_status_admin_code ===
+                            4
+                          ? "Admin Desain"
+                          : item?.order_statuses[0].order_status_admin_code ===
+                            5
+                          ? "Admin Gudang"
+                          : item?.order_statuses[0].order_status_admin_code ===
+                            6
+                          ? "Admin Produksi"
+                          : item?.order_statuses[0].order_status_admin_code ===
+                            7
+                          ? "Admin TU"
+                          : ""}
+                      </div>
                     </td>
                     <td className="text-center p-3">
                       Rp.{" "}
@@ -112,7 +139,7 @@ const Rekap = () => {
                     <td className="text-center p-3">
                       <div className="flex justify-center">
                         <button
-                          onClick={() => detailModalHandling(item)}
+                          onClick={() => detailModalHandling(item.order_id)}
                           className="bg-white border py-3 px-4 rounded-lg text-sm transition-200 hover:border-orange-900"
                         >
                           Detail
@@ -124,26 +151,13 @@ const Rekap = () => {
               </tbody>
             </table>
           </div>
-          <nav
-            className="flex justify-end items-center gap-x-[.375rem] py-2 mt-2"
-            aria-label="pagination"
-          >
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-              <HiChevronLeft className="!text-base xs:!text-xl" />
-            </button>
-            <button className="button-gradient-sm !text-xs xs:!text-base">
-              1
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-              2
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-              3
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-              <HiChevronRight className="!text-base xs:!text-xl" />
-            </button>
-          </nav>
+          <Pagination
+            type="dashboard"
+            currentPage={currentPage}
+            postsPerPage={postPerPage}
+            totalPosts={data?.length}
+            paginate={paginate}
+          />
         </article>
       </section>
 
@@ -151,7 +165,7 @@ const Rekap = () => {
       <ModalsRekap
         isOpen={isOpenModal}
         closeModal={closeModal}
-        // idPesanan={toggleId}
+        idPesanan={toggleId}
       />
     </>
   );

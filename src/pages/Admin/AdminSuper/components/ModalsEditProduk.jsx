@@ -15,7 +15,6 @@ const ModalsEditProduk = ({
   productFinishing,
   bentukProduk,
 }) => {
-  console.log(detailData);
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -195,10 +194,10 @@ const ModalsEditProduk = ({
                             onChange={handleChangePutProduct}
                           >
                             <option
-                              value={detailData?.product_sizes.product_size_id}
+                              value={detailData?.product_sizes?.product_size_id}
                             >
-                              {detailData?.product_sizes.product_size_length} x{" "}
-                              {detailData?.product_sizes.product_size_width}
+                              {detailData?.product_sizes?.product_size_length} x{" "}
+                              {detailData?.product_sizes?.product_size_width}
                             </option>
                             {productSize?.map((item) => (
                               <option value="1">Ukuran Produk 1</option>
@@ -225,12 +224,12 @@ const ModalsEditProduk = ({
                             <option
                               value={
                                 detailData?.product_materials
-                                  .product_material_id
+                                  ?.product_material_id
                               }
                             >
                               {
                                 detailData?.product_materials
-                                  .product_material_name
+                                  ?.product_material_name
                               }
                             </option>
                             {productMaterial?.map((item) => (
@@ -261,12 +260,12 @@ const ModalsEditProduk = ({
                             <option
                               value={
                                 detailData?.product_finishings
-                                  .product_finishing_id
+                                  ?.product_finishing_id
                               }
                             >
                               {
                                 detailData?.product_finishings
-                                  .product_finishing_name
+                                  ?.product_finishing_name
                               }
                             </option>
                             {productFinishing?.map((item) => (

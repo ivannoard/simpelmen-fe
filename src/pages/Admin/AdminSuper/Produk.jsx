@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { BsSearch, BsPlus } from "react-icons/bs";
 import { FaTrash } from "react-icons/fa";
-import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import ModalsDetailProduk from "./components/ModalsDetailProduk";
 import ModalsAddProduk from "./components/ModalsAddProduk";
 import ModalsEditProduk from "./components/ModalsEditProduk";
 import { commonAPI } from "../../../services/api";
 import Alerts from "../../../components/Alerts";
+import Pagination from "../../../components/Pagination";
 
 const Produk = () => {
   const user = localStorage.getItem("admin");
@@ -26,6 +26,14 @@ const Produk = () => {
   const [productSize, setProductSize] = useState();
   const [productFinishing, setProductFinishing] = useState();
   const [bentukProduk, setBentukProduk] = useState();
+  // pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const postPerPage = 5;
+
+  const indexLastPost = currentPage * postPerPage;
+  const indexFirstPost = indexLastPost - postPerPage;
+  const currentData = dataProduct?.slice(indexFirstPost, indexLastPost);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const getProduct = async () => {
     await commonAPI
@@ -276,7 +284,7 @@ const Produk = () => {
                 </tr>
               </thead>
               <tbody>
-                {dataProduct?.map((item, index) => (
+                {currentData?.map((item, index) => (
                   <tr className="border-b" key={index}>
                     <td className="text-center p-3">{index + 1}</td>
                     <td className="text-center p-3">{item.product_name}</td>
@@ -310,26 +318,13 @@ const Produk = () => {
               </tbody>
             </table>
           </div>
-          <nav
-            className="flex justify-end items-center gap-x-[.375rem] py-2 mt-2"
-            aria-label="pagination"
-          >
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-              <HiChevronLeft className="!text-base xs:!text-xl" />
-            </button>
-            <button className="button-gradient-sm !text-xs xs:!text-base">
-              1
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-              2
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-              3
-            </button>
-            <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-              <HiChevronRight className="!text-base xs:!text-xl" />
-            </button>
-          </nav>
+          <Pagination
+            type="dashboard"
+            currentPage={currentPage}
+            postsPerPage={postPerPage}
+            totalPosts={dataProduct?.length}
+            paginate={paginate}
+          />
         </article>
       </section>
 

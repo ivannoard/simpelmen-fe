@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { HiChevronRight, HiChevronLeft } from 'react-icons/hi';
-import { Player } from '@lottiefiles/react-lottie-player';
-import { postOrder } from '../../services/api';
-import Alerts from '../../components/Alerts';
-import animationData from '../../assets/lotties/plane-loading.json';
-import svg from '../../assets/svg';
+import React, { useState } from "react";
+import svg from "../../assets/svg";
+import { useEffect } from "react";
+import { postOrder } from "../../services/api";
+import Alerts from "../../components/Alerts";
+import Pagination from "../../components/Pagination";
 
 const EmptyState = () => {
   return (
@@ -29,7 +28,14 @@ const LacakPesanan = () => {
   const [data, setData] = useState();
   const [alerts, setAlerts] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
-  const [failMessage, setFailMessage] = useState('');
+  const [failMessage, setFailMessage] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const postPerPage = 10;
+
+  const indexLastPost = currentPage * postPerPage;
+  const indexFirstPost = indexLastPost - postPerPage;
+  const currentData = data?.slice(indexFirstPost, indexLastPost);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     const getTracking = async () => {
@@ -103,20 +109,36 @@ const LacakPesanan = () => {
               id="lacakPesanan"
             >
               <div className="w-full grid grid-cols-4 gap-y-5 gap-x-6">
-                {data ? (
-                  data?.map((item, index) => (
-                    <div
-                      className="col-span-4"
-                      key={index}
-                    >
-                      <div className="w-full shadow-gray p-4 rounded-[10px] bg-white grid grid-cols-6 gap-x-3 gap-y-2 xs:gap-y-3 xl:items-center border border-secondary-700/40">
-                        <div className="col-span-6 xl:col-span-2">
-                          <p className="text-xs xs:text-sm font-medium mb-1 xs:mb-2 text-secondary-900">
-                            No. Pesanan
-                          </p>
-                          <p className="font-semibold truncate">
-                            {item.order_code}
-                          </p>
+                {currentData?.map((item, index) => (
+                  <div className="col-span-4" key={index}>
+                    <div className="w-full shadow-gray p-4 rounded-[10px] bg-white grid grid-cols-6 gap-x-3 gap-y-2 xs:gap-y-3 xl:items-center border border-secondary-700/40">
+                      <div className="col-span-6 xl:col-span-2">
+                        <p className="text-xs xs:text-sm font-medium mb-1 xs:mb-2 text-secondary-900">
+                          No. Pesanan
+                        </p>
+                        <p className="font-semibold truncate">
+                          {item.order_code}
+                        </p>
+                      </div>
+                      <div className="col-span-6 xl:col-span-2">
+                        <p className="text-xs xs:text-sm font-medium mb-1 xs:mb-2 text-secondary-900">
+                          Jenis Produk
+                        </p>
+                        <p className="font-semibold">
+                          {
+                            item.order_details[0]?.products.jenis_products
+                              .jenis_product_name
+                          }{" "}
+                        </p>
+                      </div>
+                      <div className="xl:col-span-2 hidden xl:block">
+                        <div className="flex justify-center">
+                          <button
+                            onClick={(e) => showTracking(e, item.order_id)}
+                            className="text-sm border border-secondary-800 rounded-full px-3 py-1 hover:border-primary-900 transition-200"
+                          >
+                            Lacak Pesanan
+                          </button>
                         </div>
                         <div className="col-span-6 xl:col-span-2">
                           <p className="text-xs xs:text-sm font-medium mb-1 xs:mb-2 text-secondary-900">
@@ -170,26 +192,12 @@ const LacakPesanan = () => {
                 )}
               </div>
             </article>
-            <nav
-              className="flex justify-center items-center gap-x-[.375rem] py-2 mt-10"
-              aria-label="pagination"
-            >
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-                <HiChevronLeft className="!text-base xs:!text-xl" />
-              </button>
-              <button className="button-gradient-sm !text-xs xs:!text-base">
-                1
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-                2
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base">
-                3
-              </button>
-              <button className="button-white-sm !shadow-none hover:!shadow-red !text-xs xs:!text-base !px-3">
-                <HiChevronRight className="!text-base xs:!text-xl" />
-              </button>
-            </nav>
+            <Pagination
+              currentPage={currentPage}
+              postsPerPage={postPerPage}
+              totalPosts={data?.length}
+              paginate={paginate}
+            />
           </div>
           <div className="col-span-4 xl:border-l px-5">
             {toggleTracking && <EmptyState />}

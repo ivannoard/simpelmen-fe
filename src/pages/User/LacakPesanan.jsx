@@ -9,14 +9,18 @@ const EmptyState = () => {
   return (
     <>
       <div className="empty-state w-full pt-10 flex flex-col justify-center items-center text-center mb-12">
-        <img src={svg.windTurbine} alt="wind-turbine" className="mb-4" />
+        <img
+          src={svg.windTurbine}
+          alt="wind-turbine"
+          className="mb-4"
+        />
         <p className="text-secondary-900">Pilih produk yang ingin Anda lacak</p>
       </div>
     </>
   );
 };
 const LacakPesanan = () => {
-  const user = localStorage.getItem("user");
+  const user = localStorage.getItem('user');
   const parseUser = JSON.parse(user);
   const [toggleTracking, setToggleTracking] = useState(true);
   const [trackingOrder, setTrackingOrder] = useState();
@@ -36,9 +40,9 @@ const LacakPesanan = () => {
   useEffect(() => {
     const getTracking = async () => {
       await postOrder
-        .get("/tracking", {
+        .get('/tracking', {
           headers: {
-            "x-access-token": `${parseUser.data.token}`,
+            'x-access-token': `${parseUser.data.token}`,
           },
         })
         .then((response) => setData(response.data));
@@ -100,7 +104,10 @@ const LacakPesanan = () => {
               alt="shipping-vehicle"
               className="w-full mb-8"
             />
-            <article className="mb-8" id="lacakPesanan">
+            <article
+              className="mb-8"
+              id="lacakPesanan"
+            >
               <div className="w-full grid grid-cols-4 gap-y-5 gap-x-6">
                 {currentData?.map((item, index) => (
                   <div className="col-span-4" key={index}>
@@ -133,20 +140,56 @@ const LacakPesanan = () => {
                             Lacak Pesanan
                           </button>
                         </div>
-                      </div>
-                      <div className="col-span-6 xl:col-span-2 block xl:hidden">
-                        <div className="flex xl:justify-center">
-                          <button
-                            onClick={(e) => showTracking(e, item.order_id)}
-                            className="text-sm border border-secondary-800 rounded-full px-3 py-1 hover:border-primary-900 transition-200"
-                          >
-                            Lacak Pesanan
-                          </button>
+                        <div className="col-span-6 xl:col-span-2">
+                          <p className="text-xs xs:text-sm font-medium mb-1 xs:mb-2 text-secondary-900">
+                            Jenis Produk
+                          </p>
+                          <p className="font-semibold">
+                            {
+                              item.order_details[0]?.products.jenis_products
+                                .jenis_product_name
+                            }{' '}
+                          </p>
+                        </div>
+                        <div className="xl:col-span-2 hidden xl:block">
+                          <div className="flex justify-center">
+                            <button
+                              onClick={(e) => showTracking(e, item.order_id)}
+                              className="text-sm border border-secondary-800 rounded-full px-3 py-1 hover:border-primary-900 transition-200"
+                            >
+                              Lacak Pesanan
+                            </button>
+                          </div>
+                        </div>
+                        <div className="col-span-6 xl:col-span-2 block xl:hidden">
+                          <div className="flex xl:justify-center">
+                            <button
+                              onClick={(e) => showTracking(e, item.order_id)}
+                              className="text-sm border border-secondary-800 rounded-full px-3 py-1 hover:border-primary-900 transition-200"
+                            >
+                              Lacak Pesanan
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
+                  ))
+                ) : (
+                  <div className="col-span-4">
+                    <div className="h-96 w-full flex items-center justify-center">
+                      <div>
+                        <Player
+                          src={animationData}
+                          className="player"
+                          loop
+                          autoplay
+                          speed={1}
+                          style={{ height: '300px', width: '300px' }}
+                        />
+                      </div>
+                    </div>
                   </div>
-                ))}
+                )}
               </div>
             </article>
             <Pagination
@@ -173,7 +216,7 @@ const LacakPesanan = () => {
                         {item.order_status_description}
                       </h6>
                       {item.order_status_description ===
-                        "Pesanan telah dikirim" && (
+                        'Pesanan telah dikirim' && (
                         <div>
                           <p>
                             {
@@ -195,7 +238,7 @@ const LacakPesanan = () => {
                           </p>
                         </div>
                       )}
-                      {item.order_status_description === "Pesanan Diterima" && (
+                      {item.order_status_description === 'Pesanan Diterima' && (
                         <button
                           className="bg-primary-900 text-white font-semibold rounded-md py-2 px-7"
                           onClick={(e) => handleApprove(e, item.order_id)}

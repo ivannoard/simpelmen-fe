@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { HiOutlineArrowSmLeft } from "react-icons/hi";
-import { useNavigate, useParams } from "react-router-dom";
-import Modal from "../../components/Card/Modal";
-import { postOrder } from "../../services/api";
+import React, { useEffect, useState } from 'react';
+import { HiOutlineArrowSmLeft } from 'react-icons/hi';
+import { useNavigate, useParams } from 'react-router-dom';
+import Modal from '../../components/Card/Modal';
+import { postOrder } from '../../services/api';
 
 const DetailPesanan = () => {
-  const user = localStorage.getItem("user");
+  const user = localStorage.getItem('user');
   const parseUser = JSON.parse(user);
   const { pesananId } = useParams();
   const [toggleConfirm, setToggleConfirm] = useState(false);
@@ -38,7 +38,7 @@ const DetailPesanan = () => {
       await postOrder
         .get(`/list/${pesananId}`, {
           headers: {
-            "x-access-token": `${parseUser.data.token}`,
+            'x-access-token': `${parseUser.data.token}`,
           },
         })
         .then((response) => setData(response.data));
@@ -49,7 +49,10 @@ const DetailPesanan = () => {
   return (
     <>
       <section className="w-full mb-6">
-        <div className="flex items-center mb-4" onClick={() => navigate(-1)}>
+        <div
+          className="flex items-center mb-4"
+          onClick={() => navigate(-1)}
+        >
           <HiOutlineArrowSmLeft className="text-2xl mr-3" />
           <span className="leading-10 cursor-pointer">Kembali</span>
         </div>
@@ -118,8 +121,8 @@ const DetailPesanan = () => {
                     <td className="w-[3%]">:</td>
                     <td className="pl-2 w-[50%]">
                       {
-                        data?.order_details[0]?.products.product_materials
-                          .product_material_name
+                        data?.order_details[0]?.product_materials
+                          ?.product_material_name
                       }
                     </td>
                   </tr>

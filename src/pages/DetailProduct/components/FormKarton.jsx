@@ -52,11 +52,12 @@ const FormKarton = ({ productId, setAlertSuccess, setAlertFail }) => {
       if (file) {
         const reader = new FileReader();
         reader.onload = (e) => {
+          const encode = Buffer.from(e.target.result).toString('base64');
           setFields({
             ...fields,
             order_design_image: {
               name: file.name,
-              data: Buffer.from(e.target.result).toString('base64'),
+              data: encode,
             },
           });
         };

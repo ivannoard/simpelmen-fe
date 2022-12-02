@@ -27,7 +27,7 @@ const Kemasan = () => {
       setProductData(data);
     } else {
       const filteredData = data.filter(
-        (item) => item.jenis_products.jenis_product_id === type
+        (item) => item.jenis_products.jenis_product_name === type
       );
       setProductData(filteredData);
     }
@@ -35,6 +35,7 @@ const Kemasan = () => {
   useEffect(() => {
     if (!isLoading) setProductData(data);
   }, [data, isLoading]);
+
   return (
     <>
       <main className="containers">

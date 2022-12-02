@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { Buffer } from 'buffer';
 import { BsCartPlus, BsFillCloudPlusFill } from 'react-icons/bs';
-import { postOrder } from '../../../services/api';
+import { getSpecification, postOrder } from '../../../services/api';
 import { IoIosArrowDown } from 'react-icons/io';
 import dummyData from './dummyDataForm';
 import regex from '../../../services/regex';
 import ErrorMessage from '../../../components/Alerts/ErrorMessage';
 import { MdDelete, MdPermMedia } from 'react-icons/md';
 import { CgSpinner } from 'react-icons/cg';
+import { useEffect } from 'react';
 
 const { number: NUMBER_REGEX } = regex;
 
 const FormStandingPouch = ({ productId, setAlertSuccess, setAlertFail }) => {
   const [fields, setFields] = useState({});
+  const [specification, setSpecification] = useState(null);
   const user = localStorage.getItem('user');
   const [isUploadDesign, setIsUploadDesign] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -104,6 +106,21 @@ const FormStandingPouch = ({ productId, setAlertSuccess, setAlertFail }) => {
         validFields.order_design &&
         validFields.order_quantity;
 
+  useEffect(() => {
+    const getSpec = () => {
+      getSpecification
+        .get(`${productId}`)
+        .then((res) => {
+          setSpecification(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    getSpec();
+  }, [productId]);
+
   async function handleSubmit(e, isLetterBtn, isIconBtn) {
     e.preventDefault();
 
@@ -115,12 +132,14 @@ const FormStandingPouch = ({ productId, setAlertSuccess, setAlertFail }) => {
             order_design: fields?.order_design,
             order_quantity: parseInt(fields?.order_quantity),
             order_design_image: fields?.order_design_image.data,
+            order_finishing_id: fields?.order_specification.split(' ')[5],
           }
         : {
             panjang_1: parseInt(fields?.order_specification.split(' ')[0]),
             lebar_1: parseInt(fields?.order_specification.split(' ')[3]),
             order_design: fields?.order_design,
             order_quantity: parseInt(fields?.order_quantity),
+            order_finishing_id: fields?.order_specification.split(' ')[5],
           };
     setIsLoading(true);
     if (isLetterBtn) {
@@ -128,6 +147,8 @@ const FormStandingPouch = ({ productId, setAlertSuccess, setAlertFail }) => {
     } else if (isIconBtn) {
       setIsIconBtnLoading(true);
     }
+
+    console.log(finalSpesification);
 
     if (user) {
       if (valids) {
@@ -193,12 +214,14 @@ const FormStandingPouch = ({ productId, setAlertSuccess, setAlertFail }) => {
           aria-describedby="orderSpecificationField"
         >
           <option value="0">Pilih Spesifikasi</option>
-          {dummyData.dummySpecification.map((item, index) => (
+          {specification?.map((item, index) => (
             <option
-              value={`${item.size.p} cm X ${item.size.l} cm ${item.lamination}`}
+              value={`${item.product_sizes.product_size_length} cm X ${item.product_sizes.product_size_width} cm ${item.product_finishings.product_finishing_id}`}
               key={index}
             >
-              {item.size.p} cm X {item.size.l} cm {item.lamination}
+              {item.product_sizes.product_size_length} cm X{' '}
+              {item.product_sizes.product_size_width} cm{' '}
+              {item.product_finishings.product_finishing_name}
             </option>
           ))}
         </select>
@@ -319,26 +342,6 @@ const FormStandingPouch = ({ productId, setAlertSuccess, setAlertFail }) => {
           )}
         </div>
       )}
-      {/* order laminasi */}
-      {/* <div className="mt-4 relative">
-        <label
-          htmlFor="laminasi"
-          className="block mb-2 text-sm font-medium text-gray-700"
-        >
-          Laminasi
-        </label>
-        <select
-          id="laminasi"
-          name="laminasi"
-          onChange={(e) => handleChange(e)}
-          className="input-field-select-xs"
-        >
-          <option>Pilih Laminasi</option>
-          <option value="1">Jasa Laminasi</option>
-          <option value="2">Tanpa Laminasi</option>
-        </select>
-        <IoIosArrowDown className="absolute right-4 top-[43px] text-lg fill-gray-400" />
-      </div> */}
       {/* order quantity */}
       <div className="mt-4">
         <label

@@ -23,6 +23,7 @@ const Kemasan = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const postPerPage = 8;
 
+  // pagination setting
   const indexLastPost = currentPage * postPerPage;
   const indexFirstPost = indexLastPost - postPerPage;
   const currentData = productData?.slice(indexFirstPost, indexLastPost);

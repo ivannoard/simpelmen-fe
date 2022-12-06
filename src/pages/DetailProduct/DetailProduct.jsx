@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { HiOutlineArrowSmLeft } from "react-icons/hi";
-import FormKarton from "./components/FormKarton";
-import Alerts from "../../components/Alerts";
-import FormSablon from "./components/FormSablon";
-import useProductDetail from "../../hooks/useProductDetail";
-import SkeletonImage from "../../components/Skeletons/SkeletonImage";
-import FormSkeleton from "../../components/Skeletons/FormSkeleton";
-import FormSpecial from "./components/FormSpecial";
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { HiOutlineArrowSmLeft } from 'react-icons/hi';
+import FormKarton from './components/FormKarton';
+import Alerts from '../../components/Alerts';
+import FormSablon from './components/FormSablon';
+import useProductDetail from '../../hooks/useProductDetail';
+import SkeletonImage from '../../components/Skeletons/SkeletonImage';
+import FormSkeleton from '../../components/Skeletons/FormSkeleton';
+import FormSpecial from './components/FormSpecial';
 
 const DetailProduct = () => {
   const { productId } = useParams();
@@ -16,7 +16,7 @@ const DetailProduct = () => {
   const [alertSuccess, setAlertSuccess] = useState(false);
   const [alertFail, setAlertFail] = useState(false);
   const { data, isLoading } = useProductDetail(
-    `https://simpelmen.herokuapp.com/api/product/${productId}`
+    `${process.env.REACT_APP_API_URL}product/${productId}`
   );
   // Use Custom Hook
   // useEffect(()=>{
@@ -28,7 +28,7 @@ const DetailProduct = () => {
   // Set Dynamic Form
   useEffect(() => {
     switch (data?.product_category) {
-      case "K":
+      case 'K':
         return setForm(
           <FormKarton
             data={data}
@@ -37,7 +37,7 @@ const DetailProduct = () => {
             setAlertFail={setAlertFail}
           />
         );
-      case "S":
+      case 'S':
         return setForm(
           <FormSablon
             data={data}
@@ -46,7 +46,7 @@ const DetailProduct = () => {
             setAlertFail={setAlertFail}
           />
         );
-      case "O":
+      case 'O':
         // standing pouch, dus offset, stiker
         return setForm(
           <FormSpecial
@@ -101,12 +101,12 @@ const DetailProduct = () => {
             <div className="col-span-4 2xsm:col-span-8 2md:col-span-6">
               <div
                 className={`border rounded-xl mb-5 border-secondary-800/50 ${
-                  !isLoading ? "p-6" : ""
+                  !isLoading ? 'p-6' : ''
                 }`}
               >
                 <div
                   className={`w-full overflow-auto rounded-xl ${
-                    !isLoading ? "flex justify-center items-center" : ""
+                    !isLoading ? 'flex justify-center items-center' : ''
                   }`}
                 >
                   <div>

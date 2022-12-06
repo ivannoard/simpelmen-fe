@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { IoIosArrowDown } from "react-icons/io";
-import useGeoLocation from "../../../hooks/useGeoLocation";
-import { getUser, postOrder } from "../../../services/api";
-import Modal from "../../../components/Card/Modal";
-import svg from "../../../assets/svg";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { IoIosArrowDown } from 'react-icons/io';
+import useGeoLocation from '../../../hooks/useGeoLocation';
+import { getUser, postOrder } from '../../../services/api';
+import Modal from '../../../components/Card/Modal';
+import svg from '../../../assets/svg';
 
 const dummy = true;
 
 const FormPesan = ({ productId, formFields }) => {
-  const currentUser = localStorage.getItem("user");
+  const currentUser = localStorage.getItem('user');
   const parseUser = JSON.parse(currentUser);
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
@@ -17,13 +17,13 @@ const FormPesan = ({ productId, formFields }) => {
   const [userData, setUserData] = useState();
   const [fields, setFields] = useState({});
   const { data: provinceData } = useGeoLocation(
-    `https://simpelmen.herokuapp.com/api/province`
+    `${process.env.REACT_APP_API_URL}province`
   );
   const { data: cityData } = useGeoLocation(
-    `https://simpelmen.herokuapp.com/api/city?province_id=${fields.user_province}`
+    `${process.env.REACT_APP_API_URL}city?province_id=${fields.user_province}`
   );
   const { data: districtData } = useGeoLocation(
-    `https://simpelmen.herokuapp.com/api/district?city_id=${fields.user_city}`
+    `${process.env.REACT_APP_API_URL}district?city_id=${fields.user_city}`
   );
 
   const closeModal = () => {
@@ -38,9 +38,9 @@ const FormPesan = ({ productId, formFields }) => {
     e.preventDefault();
     setFields({
       ...fields,
-      [e.target.getAttribute("name")]: e.target.value,
+      [e.target.getAttribute('name')]: e.target.value,
     });
-    if (e.target.value === "dikirim") {
+    if (e.target.value === 'dikirim') {
       setIsJasaKirim(true);
     } else {
       setIsJasaKirim(false);
@@ -74,11 +74,11 @@ const FormPesan = ({ productId, formFields }) => {
         },
         {
           headers: {
-            "x-access-token": `${parseUser.data.token}`,
+            'x-access-token': `${parseUser.data.token}`,
           },
         }
       )
-      .then((response) => navigate("/"))
+      .then((response) => navigate('/'))
       .catch((e) => console.log(e));
     setIsOpen(false);
   };
@@ -86,9 +86,9 @@ const FormPesan = ({ productId, formFields }) => {
   useEffect(() => {
     const getUserData = async () => {
       await getUser
-        .get("/profile", {
+        .get('/profile', {
           headers: {
-            "x-access-token": `${parseUser.data.token}`,
+            'x-access-token': `${parseUser.data.token}`,
           },
         })
         .then((response) => {
@@ -104,8 +104,8 @@ const FormPesan = ({ productId, formFields }) => {
             user_city: response.data.data.subdistricts.cities.city_name,
             user_district: response.data.data.user_district,
             user_postal_code: response.data.data.user_postal_code,
-            user_shipping: "sendiri",
-            user_courier: "jk1",
+            user_shipping: 'sendiri',
+            user_courier: 'jk1',
           });
         })
         .catch((e) => console.log(e));
@@ -124,7 +124,7 @@ const FormPesan = ({ productId, formFields }) => {
                 Silahkan Lengkapi Data Diri Anda di Dashboard
               </h6>
             ) : (
-              ""
+              ''
             )}
             <form
               className="w-full grid grid-cols-4 2xsm:grid-cols-8 2md:grid-cols-12 gap-x-8"
@@ -278,10 +278,13 @@ const FormPesan = ({ productId, formFields }) => {
                       {userData?.data?.data?.subdistricts
                         ? userData?.data.data.subdistricts?.cities.provinces
                             .province
-                        : "Pilih Provinsi"}
+                        : 'Pilih Provinsi'}
                     </option>
                     {provinceData?.map((item) => (
-                      <option value={item.province_id} key={item.province_id}>
+                      <option
+                        value={item.province_id}
+                        key={item.province_id}
+                      >
                         {item.province}
                       </option>
                     ))}
@@ -307,10 +310,13 @@ const FormPesan = ({ productId, formFields }) => {
                     >
                       {userData?.data?.data?.subdistricts
                         ? userData?.data?.data?.subdistricts?.cities.city_name
-                        : "Pilih Kota/Kabupaten"}
+                        : 'Pilih Kota/Kabupaten'}
                     </option>
                     {cityData?.map((item) => (
-                      <option value={item.city_id} key={item.city_id}>
+                      <option
+                        value={item.city_id}
+                        key={item.city_id}
+                      >
                         {item.city_name}
                       </option>
                     ))}
@@ -336,7 +342,7 @@ const FormPesan = ({ productId, formFields }) => {
                     >
                       {userData?.data?.data?.subdistricts
                         ? userData?.data?.data?.subdistricts?.subdistrict_name
-                        : "Pilih Kecamatan"}
+                        : 'Pilih Kecamatan'}
                     </option>
                     {districtData?.map((item) => (
                       <option
@@ -401,8 +407,8 @@ const FormPesan = ({ productId, formFields }) => {
                       <div
                         className={`${
                           isJasaKirim
-                            ? "radio-button-fill"
-                            : "radio-button-white"
+                            ? 'radio-button-fill'
+                            : 'radio-button-white'
                         }`}
                       >
                         Dikirim
@@ -420,8 +426,8 @@ const FormPesan = ({ productId, formFields }) => {
                       <div
                         className={`${
                           isJasaKirim
-                            ? "radio-button-white"
-                            : "radio-button-fill"
+                            ? 'radio-button-white'
+                            : 'radio-button-fill'
                         }`}
                       >
                         Ambil Sendiri
@@ -457,7 +463,7 @@ const FormPesan = ({ productId, formFields }) => {
                 <div className="col-span-4 2xsm:col-span-8 2md:col-span-12 flex justify-center mt-8">
                   <button
                     className="button-fill"
-                    onClick={() => navigate("/dashboard/profil")}
+                    onClick={() => navigate('/dashboard/profil')}
                   >
                     Update Profil
                   </button>
@@ -487,7 +493,7 @@ const FormPesan = ({ productId, formFields }) => {
               <button
                 className="button-fill"
                 type="button"
-                onClick={() => navigate("/dashboard/pesanan")}
+                onClick={() => navigate('/dashboard/pesanan')}
               >
                 Lihat Detail Pesanan
               </button>

@@ -8,6 +8,7 @@ import useProductDetail from '../../hooks/useProductDetail';
 import SkeletonImage from '../../components/Skeletons/SkeletonImage';
 import FormSkeleton from '../../components/Skeletons/FormSkeleton';
 import FormSpecial from './components/FormSpecial';
+import Zoom from 'react-img-zoom';
 
 const DetailProduct = () => {
   const { productId } = useParams();
@@ -18,12 +19,7 @@ const DetailProduct = () => {
   const { data, isLoading } = useProductDetail(
     `${process.env.REACT_APP_API_URL}product/${productId}`
   );
-  // Use Custom Hook
-  // useEffect(()=>{
-  //   const getItem = async()=>{
-  //     const response = await axios.get('blablabla').then(resp => setproduct(resp))
-  //   }
-  // },[])
+  const user = localStorage.getItem('user');
 
   // Set Dynamic Form
   useEffect(() => {
@@ -83,7 +79,11 @@ const DetailProduct = () => {
           <Alerts
             background="bg-red-100"
             textColor="text-red-600"
-            textContent="Login Terlebih Dahulu"
+            textContent={`${
+              user
+                ? 'Mohon masukkan data produk dengan benar'
+                : 'Login Terlebih Dahulu'
+            }`}
             state="true"
           />
         )}
@@ -113,18 +113,13 @@ const DetailProduct = () => {
                     {isLoading ? (
                       <SkeletonImage />
                     ) : (
-                      <img
-                        src={`data:image/jpg;base64,${data?.product_image}`}
-                        alt="gambar-produk"
-                        className="w-full"
+                      <Zoom
+                        img={`data:image/jpg;base64,${data?.product_image}`}
+                        zoomScale={2}
+                        height={window.innerWidth < 576 ? 227 : 360}
+                        width={window.innerWidth < 576 ? 340 : 540}
                       />
                     )}
-                    {/* <Zoom
-                      img={`data:image/jpg;base64,${data?.product_image}`}
-                      zoomScale={2}
-                      height={window.innerWidth < 576 ? 227 : 360}
-                      width={window.innerWidth < 576 ? 340 : 540}
-                    /> */}
                   </div>
                 </div>
               </div>

@@ -525,7 +525,6 @@ const FormKarton = ({ data, productId, setAlertSuccess, setAlertFail }) => {
         </button>
         <button
           className={`button-white !p-4 ${isLoading ? '!bg-gray-100' : ''}`}
-          onClick={(e) => handleSubmit(e, false, true)}
           type="submit"
           disabled={isLoading}
         >

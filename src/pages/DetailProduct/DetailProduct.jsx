@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { HiOutlineArrowSmLeft } from 'react-icons/hi';
-import FormKarton from './components/FormKarton';
-import Alerts from '../../components/Alerts';
-import FormSablon from './components/FormSablon';
-import useProductDetail from '../../hooks/useProductDetail';
-import SkeletonImage from '../../components/Skeletons/SkeletonImage';
 import FormSkeleton from '../../components/Skeletons/FormSkeleton';
+import SkeletonImage from '../../components/Skeletons/SkeletonImage';
+import FormKarton from './components/FormKarton';
+import FormSablon from './components/FormSablon';
 import FormSpecial from './components/FormSpecial';
+import Alerts from '../../components/Alerts';
+import useProductDetail from '../../hooks/useProductDetail';
 import Zoom from 'react-img-zoom';
 
 const DetailProduct = () => {

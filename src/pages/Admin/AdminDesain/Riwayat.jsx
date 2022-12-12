@@ -1,57 +1,14 @@
-import React, { useState } from "react";
-import { BsSearch } from "react-icons/bs";
-import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
-import { IoIosArrowDown } from "react-icons/io";
-import Modals from "./components/Modals";
+import React, { useState, useEffect } from 'react';
+import { BsSearch } from 'react-icons/bs';
+import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
+import { IoIosArrowDown } from 'react-icons/io';
+import { adminDesain } from '../../../services/api';
+import Modals from './components/Modals';
 
 const Riwayat = () => {
-  const [data, setData] = useState([
-    {
-      id: 1,
-      nomorPesanan: "001/BIKDK/O/VII/2022",
-      tanggalPesanan: "12 September 2022",
-      namaIKM: "Ikha cathering",
-      status: 1,
-      ongkir: 120000,
-      bentukProduk: "Bulat",
-    },
-    {
-      id: 2,
-      nomorPesanan: "002/BIKDK/O/VII/2022",
-      tanggalPesanan: "12 September 2022",
-      namaIKM: "Ikha cathering",
-      status: 2,
-      ongkir: 120000,
-      bentukProduk: "Oval",
-    },
-    {
-      id: 3,
-      nomorPesanan: "003/BIKDK/O/VII/2022",
-      tanggalPesanan: "12 September 2022",
-      namaIKM: "Ikha cathering",
-      status: 3,
-      ongkir: 120000,
-      bentukProduk: "Kotak",
-    },
-    {
-      id: 4,
-      nomorPesanan: "004/BIKDK/O/VII/2022",
-      tanggalPesanan: "12 September 2022",
-      namaIKM: "Ikha cathering",
-      status: 1,
-      ongkir: 120000,
-      bentukProduk: "Bulat",
-    },
-    {
-      id: 5,
-      nomorPesanan: "005/BIKDK/O/VII/2022",
-      tanggalPesanan: "12 September 2022",
-      namaIKM: "Ikha cathering",
-      status: 2,
-      ongkir: 120000,
-      bentukProduk: "Kostum",
-    },
-  ]);
+  const user = localStorage.getItem('admin');
+  const parseUser = JSON.parse(user);
+  const [data, setData] = useState(null);
   const [toggleId, setToggleId] = useState();
   const [toggleModalChat, setToggleModalChat] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -91,6 +48,24 @@ const Riwayat = () => {
   const submitChatHandler = (e) => {
     e.preventDefault();
   };
+
+  useEffect(() => {
+    const getOrderDesign = async () => {
+      await adminDesain
+        .get('/orders', {
+          headers: {
+            'x-access-token': `${parseUser.data.token}`,
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+          setData(res.data);
+        })
+        .catch((err) => console.log(err));
+    };
+
+    getOrderDesign();
+  }, [parseUser.data.token]);
 
   return (
     <>
@@ -151,30 +126,39 @@ const Riwayat = () => {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => (
-                  <tr className="border-b" key={index}>
+                {data?.map((item, index) => (
+                  <tr
+                    className="border-b"
+                    key={item?.order_id}
+                  >
                     <td className="text-center p-3">{index + 1}</td>
-                    <td className="text-center p-3">{item.nomorPesanan}</td>
-                    <td className="text-left p-3">{item.namaIKM}</td>
-                    <td className="text-center p-3">{item.bentukProduk}</td>
-                    <td className="text-center p-3">{item.tanggalPesanan}</td>
+                    <td className="text-center p-3">{item?.order_code}</td>
+                    <td className="text-left p-3">{item?.users?.user_ikm}</td>
+                    <td className="text-center p-3">
+                      {item?.order_details?.order_detail_shape}
+                    </td>
+                    <td className="text-center p-3">{`${new Date(
+                      item.createdAt
+                    ).getDate()} - ${
+                      new Date(item.createdAt).getMonth() + 1
+                    } - ${new Date(item.createdAt).getFullYear()}`}</td>
                     <td className="text-center p-3">
                       <div className="flex items-center justify-center gap-3">
                         <div className="relative">
                           <select
                             id="status"
                             name="status"
-                            defaultValue={item.status}
+                            defaultValue={item?.status}
                             // value={item.status}
                             onChange={(e) => handleChangeStatus(e, item)}
                             className={`${
-                              parseInt(item.status) === 1
-                                ? "!bg-gradient-to-bl !from-orange-900 !to-primary-900 hover:!from-primary-900 hover:!to-orange-900 !shadow-red"
-                                : parseInt(item.status) === 2
-                                ? "!bg-green-500 hover:!bg-green-500/80"
-                                : parseInt(item.status) === 3
-                                ? "!bg-secondary-800 hover:!bg-secondary-800/80"
-                                : ""
+                              parseInt(item?.status) === 1
+                                ? '!bg-gradient-to-bl !from-orange-900 !to-primary-900 hover:!from-primary-900 hover:!to-orange-900 !shadow-red'
+                                : parseInt(item?.status) === 2
+                                ? '!bg-green-500 hover:!bg-green-500/80'
+                                : parseInt(item?.status) === 3
+                                ? '!bg-secondary-800 hover:!bg-secondary-800/80'
+                                : ''
                             } input-field-select-xs !border-none !font-semibold !text-white !w-auto !pr-12`}
                           >
                             <option value="1">Status Desain</option>
@@ -184,7 +168,7 @@ const Riwayat = () => {
                           <IoIosArrowDown className="absolute right-4 top-[15px] text-base fill-white" />
                         </div>
                         <button
-                          onClick={() => detailModalHandling(item.nomorPesanan)}
+                          onClick={() => detailModalHandling(item?.order_id)}
                           className="bg-white border py-3 px-4 rounded-lg text-sm transition-200 hover:border-orange-900"
                         >
                           Detail
@@ -224,6 +208,7 @@ const Riwayat = () => {
         isOpen={isOpenModal}
         closeModal={closeModal}
         idPesanan={toggleId}
+        tokenUser={parseUser.data.token}
         toggleModalChat={toggleModalChat}
         openModalChat={openModalChat}
         closeModalChat={closeModalChat}

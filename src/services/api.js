@@ -1,43 +1,35 @@
 import axios from 'axios';
 
-// Products
-// export const getProducts = axios.create({
-//   baseURL: "httpss://simpelmen.herokuapp.com/api/products",
-//   headers: {
-//     "Content-Type": "application/json",
-//   },
-// });
-
 export const userAuth = axios.create({
-  baseURL: 'https://simpelmen.herokuapp.com/api/auth',
+  baseURL: `${process.env.REACT_APP_API_URL}auth`,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 export const getUser = axios.create({
-  baseURL: 'https://simpelmen.herokuapp.com/api/users',
+  baseURL: `${process.env.REACT_APP_API_URL}users`,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 export const adminAuth = axios.create({
-  baseURL: 'https://simpelmen.herokuapp.com/api/auth',
+  baseURL: `${process.env.REACT_APP_API_URL}auth`,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 export const postOrder = axios.create({
-  baseURL: 'https://simpelmen.herokuapp.com/api/order',
+  baseURL: `${process.env.REACT_APP_API_URL}order`,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 export const getSpecification = axios.create({
-  baseURL: 'https://simpelmen.herokuapp.com/api/product/detail',
+  baseURL: `${process.env.REACT_APP_API_URL}product/detail`,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -51,50 +43,50 @@ export const postProduct = axios.create({
 });
 
 export const adminCS = axios.create({
-  baseURL: 'https://simpelmen.herokuapp.com/api/admin/cs',
+  baseURL: `${process.env.REACT_APP_API_URL}admin/cs`,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 export const adminKasir = axios.create({
-  baseURL: 'https://simpelmen.herokuapp.com/api/admin/kasir',
+  baseURL: `${process.env.REACT_APP_API_URL}admin/kasir`,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 export const adminTU = axios.create({
-  baseURL: 'https://simpelmen.herokuapp.com/api/admin/tu',
+  baseURL: `${process.env.REACT_APP_API_URL}admin/tu`,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 export const adminGudang = axios.create({
-  baseURL: 'https://simpelmen.herokuapp.com/api/admin/gudang',
+  baseURL: `${process.env.REACT_APP_API_URL}admin/gudang`,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 export const adminProduksi = axios.create({
-  baseURL: 'https://simpelmen.herokuapp.com/api/admin/produksi',
+  baseURL: `${process.env.REACT_APP_API_URL}admin/produksi`,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 export const adminDesain = axios.create({
-  baseURL: 'https://simpelmen.herokuapp.com/api/admin/desain',
+  baseURL: `${process.env.REACT_APP_API_URL}admin/desain`,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 export const adminSuper = axios.create({
-  baseURL: 'https://simpelmen.herokuapp.com/api/super/admin',
+  baseURL: `${process.env.REACT_APP_API_URL}api/super/admin`,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 export const commonAPI = axios.create({
-  baseURL: 'https://simpelmen.herokuapp.com/api',
+  baseURL: process.env.REACT_APP_API_URL,
   headers: {
     'Content-Type': 'application/json',
   },

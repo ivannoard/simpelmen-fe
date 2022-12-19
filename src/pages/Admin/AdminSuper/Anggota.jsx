@@ -209,9 +209,9 @@ const Anggota = () => {
         <div className="flex flex-col gap-y-4 xs:gap-y-0 xs:flex-row xs:items-center justify-between mb-4">
           <h6 className="">
             Tabel Admin{" "}
-            <span className="text-primary-900 font-semibold">
+            {/* <span className="text-primary-900 font-semibold">
               NO ENDPOINT DELETE
-            </span>
+            </span> */}
           </h6>
           <div>
             <button

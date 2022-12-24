@@ -4,7 +4,6 @@ import { MdClose } from "react-icons/md";
 
 const ModalDetail = ({ isOpen, closeModal, detailData }) => {
   const isDisabled = true;
-  console.log(detailData);
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>

@@ -174,7 +174,7 @@ const ModalDetail = ({ isOpen, closeModal, detailData }) => {
                         disabled={isDisabled}
                         value={
                           detailData?.order_details[0]?.products
-                            .product_materials.product_material_name
+                            .product_materials?.product_material_name
                         }
                       />
                     </div>
@@ -196,7 +196,7 @@ const ModalDetail = ({ isOpen, closeModal, detailData }) => {
                         disabled={isDisabled}
                         value={
                           detailData?.order_details[0]?.products
-                            .product_finishings.product_finishing_name
+                            .product_finishings?.product_finishing_name
                         }
                       />
                     </div>

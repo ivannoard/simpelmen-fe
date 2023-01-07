@@ -92,6 +92,9 @@ p {
 .button-dark-sm {
   @apply text-base text-white font-semibold px-5 py-2 rounded-lg bg-dark hover:bg-dark/80 shadow-gray;
 }
+.button-disabled button {
+  @apply !cursor-not-allowed !opacity-60;
+}
 
 /* form */
 .input-field {

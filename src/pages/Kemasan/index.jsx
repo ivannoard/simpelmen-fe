@@ -32,14 +32,18 @@ const Kemasan = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   function handleActive(type) {
-    setActive(type);
-    if (type === 'Semua Kemasan') {
-      setProductData(data);
+    if (isLoading) {
+      return;
     } else {
-      const filteredData = data.filter(
-        (item) => item.jenis_products.jenis_product_name === type
-      );
-      setProductData(filteredData);
+      setActive(type);
+      if (type === 'Semua Kemasan') {
+        setProductData(data);
+      } else {
+        const filteredData = data.filter(
+          (item) => item.jenis_products.jenis_product_name === type
+        );
+        setProductData(filteredData);
+      }
     }
   }
   useEffect(() => {
@@ -63,17 +67,21 @@ const Kemasan = () => {
           </div>
           <div className="flex items-center gap-2 xs:gap-3 md:gap-4 flex-wrap">
             {type.map((item, index) => (
-              <button
+              <div
+                className={isLoading ? 'button-disabled' : 'button-activated'}
                 key={index}
-                onClick={() => handleActive(item)}
-                className={
-                  active === item
-                    ? 'button-gradient-sm !text-xs xs:!text-base !rounded-full'
-                    : 'button-white-sm !text-xs xs:!text-base !rounded-full'
-                }
               >
-                {item}
-              </button>
+                <button
+                  onClick={() => handleActive(item)}
+                  className={
+                    active === item
+                      ? 'button-gradient-sm !text-xs xs:!text-base !rounded-full'
+                      : 'button-white-sm !text-xs xs:!text-base !rounded-full'
+                  }
+                >
+                  {item}
+                </button>
+              </div>
             ))}
           </div>
         </section>
